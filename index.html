@@ -1954,6 +1954,10 @@ function setColor(c){
   if(!n)return;
   currentColor=n;
   strokeColor=n;
+  /* A paleta de cores define a cor ativa do estúdio. Para que o
+     preenchimento não fique preso ao branco, sincronizamos também o Fill.
+     O seletor específico de Fill continua podendo sobrescrever esta cor. */
+  fillColor=n;
   updateColorUI();
   updateDrawingToolbar();
 }
@@ -2268,6 +2272,10 @@ function openExportMenu(){
         <svg viewBox="0 0 24 24"><path d="M12 3v12"/><path d="m7 10 5 5 5-5"/><path d="M5 20h14"/></svg>
         <span><strong>Baixar PNG</strong><small>Imagem raster pronta para uso.</small></span>
       </button>
+      <button class="export-option" onclick="showPNGManual()">
+        <svg viewBox="0 0 24 24"><rect x="4" y="4" width="16" height="16" rx="2"/><path d="M8 15l3-3 2 2 3-4 2 3"/></svg>
+        <span><strong>Mostrar PNG para salvar manualmente</strong><small>Abra a imagem e use o toque prolongado do Android.</small></span>
+      </button>
       <button class="export-option" onclick="downloadCharacterJSON();closeModal()">
         <svg viewBox="0 0 24 24"><path d="M7 4h10v16H7z"/><path d="M9 8h6M9 12h6M9 16h4"/></svg>
         <span><strong>Baixar estrutura JSON</strong><small>Exporta os dados e as camadas do personagem.</small></span>
@@ -2301,6 +2309,27 @@ async function waitForRenderedImages(){
     if(img&&!img.complete)pending.push(new Promise(resolve=>{const done=()=>{img.removeEventListener('load',done);img.removeEventListener('error',done);resolve();};img.addEventListener('load',done,{once:true});img.addEventListener('error',done,{once:true});}));
   }
   if(pending.length)await Promise.all(pending);
+}
+
+function showPNGManual(){
+  if(!canvas||!character){showToast('Crie ou abra um personagem antes de exportar.');return false;}
+  try{
+    renderCharacter();
+    const dataUrl=canvas.toDataURL('image/png');
+    const card=$('genericModal')?.querySelector('.setup-card');
+    if(!card)return false;
+    $('modalTitle').textContent='Salvar PNG manualmente';
+    $('modalText').textContent='Como o APK pode bloquear downloads automáticos, você pode visualizar a imagem e salvá-la manualmente pelo próprio Android.';
+    card.innerHTML=`
+      <h2>Salvar PNG manualmente</h2>
+      <p>Toque e segure a imagem abaixo e escolha <strong>Salvar imagem</strong>, <strong>Baixar imagem</strong> ou a opção equivalente oferecida pelo Android.</p>
+      <div style="display:flex;justify-content:center;align-items:center;max-height:55vh;overflow:auto;padding:12px;background:#fff;border-radius:14px">
+        <img src="${dataUrl}" alt="Personagem exportado" style="display:block;max-width:100%;height:auto;image-rendering:auto">
+      </div>
+      <div class="setup-actions"><button onclick="closeModal();openExportMenu()">Voltar</button><button onclick="closeModal()">Fechar</button></div>`;
+    $('genericModal').classList.add('open');
+    return true;
+  }catch(e){console.error(e);showToast('Não foi possível preparar a imagem para salvamento manual.');return false;}
 }
 
 async function downloadCharacterPNG(){
@@ -2382,7 +2411,7 @@ async function saveCharacterToGallery(){
     const blob=await (await fetch(dataUrl)).blob();
     const file=typeof File==='function'?new File([blob],name,{type:'image/png'}):null;
     if(file&&navigator.share&&(!navigator.canShare||navigator.canShare({files:[file]}))){try{await navigator.share({title:'Dream Studio',text:'Imagem criada no Dream Studio',files:[file]});showToast('Imagem enviada para o compartilhamento do Android.');return true;}catch(e){if(e?.name==='AbortError')return false;console.warn('Compartilhamento indisponível:',e);}}
-    downloadBlob(blob,name);showToast('PNG baixado. Use a opção do Android para salvar nas fotos.');return true;
+    showPNGManual();showToast('O APK não liberou o download automático. A imagem foi aberta para salvamento manual.');return true;
   }catch(error){
     console.error(error);const msg=String(error?.message||error||'').toLowerCase();
     if(msg.includes('permission')||msg.includes('denied'))showToast('Permissão para salvar na galeria foi negada.');
