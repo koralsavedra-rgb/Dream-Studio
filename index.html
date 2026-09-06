@@ -99,7 +99,7 @@ header{height:68px;padding:0 12px}
 .canvas-zone{position:relative}
 .render-status{position:absolute;top:10px;left:50%;transform:translateX(-50%);padding:6px 10px;border:1px solid var(--border);border-radius:999px;background:rgba(8,12,29,.82);backdrop-filter:blur(12px);font-size:8px;color:var(--muted);letter-spacing:1px;z-index:8;pointer-events:none}
 .layers-panel{position:absolute;z-index:25;right:12px;top:12px;width:min(285px,calc(100% - 24px));max-height:calc(100% - 24px);display:flex;flex-direction:column;border:1px solid var(--border);border-radius:18px;background:rgba(8,12,29,.94);backdrop-filter:blur(20px);box-shadow:0 20px 55px rgba(0,0,0,.48);overflow:hidden}
-.layers-head{display:flex;align-items:center;justify-content:space-between;padding:12px 13px;border-bottom:1px solid rgba(157,143,255,.12)}
+.layers-head{display:flex;align-items:center;justify-content:space-between;padding:12px 13px;border-bottom:1px solid rgba(157,143,255,.12)}.layers-assembly-button{padding:7px 9px;border-radius:9px;background:rgba(155,114,255,.16);border:1px solid var(--border);font-size:9px;color:var(--text)}.assembly-slot{margin:8px 0;padding:9px;border:1px solid rgba(157,143,255,.12);border-radius:12px;background:rgba(18,23,48,.55)}.assembly-slot-head{display:flex;align-items:center;justify-content:space-between;margin-bottom:7px}.assembly-slot-head strong{font-size:10px}.assembly-slot-head small{font-size:8px;color:var(--muted)}.assembly-current{display:flex;align-items:center;justify-content:space-between;gap:7px;margin-bottom:7px;padding:6px 7px;border-radius:9px;background:rgba(93,140,255,.08);border:1px solid rgba(93,140,255,.14)}.assembly-current span{font-size:9px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}.assembly-remove{padding:5px 7px;border-radius:7px;background:rgba(215,140,255,.12);border:1px solid rgba(215,140,255,.18);font-size:8px}.assembly-resources{display:grid;grid-template-columns:1fr 1fr;gap:6px}.assembly-resource{display:flex;align-items:center;justify-content:space-between;gap:5px;padding:7px;border-radius:9px;background:rgba(5,8,20,.55);border:1px solid rgba(157,143,255,.1)}.assembly-resource span{font-size:8px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}.assembly-resource button{padding:5px 7px;border-radius:7px;background:rgba(101,223,255,.1);border:1px solid rgba(101,223,255,.16);font-size:8px}.assembly-empty{font-size:8px;color:var(--muted);padding:5px 0}
 .layers-head strong{font-size:11px;letter-spacing:1.5px;font-weight:500}
 .layers-head small{font-size:8px;color:var(--muted)}
 .layers-list{padding:8px;overflow:auto;display:flex;flex-direction:column;gap:6px}
@@ -253,6 +253,18 @@ header{height:68px;padding:0 12px}
 .export-native-note{margin-top:10px;font-size:8px;color:var(--muted);line-height:1.45}
 @media(max-width:650px){.editor-export{width:36px;padding:0;justify-content:center}.editor-export span{display:none}.dream-toast{bottom:calc(68px + env(safe-area-inset-bottom))}}
 .layer-actions{display:grid;grid-template-columns:repeat(3,1fr);gap:6px;padding:8px 0;border-bottom:1px solid rgba(157,143,255,.12)}.layer-actions button{min-height:32px;padding:6px;border-radius:9px;background:rgba(18,23,48,.85);border:1px solid var(--border);font-size:9px}.editor-action:disabled{opacity:.35;cursor:not-allowed}.saved-character-list{display:grid;gap:7px;max-height:45vh;overflow:auto}.saved-character-item{display:flex;flex-direction:column;align-items:flex-start;gap:4px;padding:11px;border-radius:11px;background:rgba(18,23,48,.82);border:1px solid var(--border);text-align:left}.saved-character-item small{color:var(--muted);font-size:8px}.saved-layer-library{margin-top:10px;padding-top:10px;border-top:1px solid rgba(157,143,255,.12)}.saved-layer-title{font-size:9px;color:var(--muted);letter-spacing:.5px;margin-bottom:6px}.saved-layer-row{display:flex;align-items:center;justify-content:space-between;gap:8px;padding:7px 8px;margin-bottom:5px;border:1px solid var(--border);border-radius:9px;background:rgba(10,14,31,.7);font-size:9px}.saved-layer-row span{overflow:hidden;text-overflow:ellipsis;white-space:nowrap}.saved-layer-row button{padding:5px 8px;border-radius:7px;border:1px solid var(--border);background:rgba(18,23,48,.9);font-size:8px}</style>
+<style>
+.vector-selection-note.show{display:block;pointer-events:auto}
+.selection-controls{display:flex;flex-wrap:wrap;gap:4px;margin-top:5px}
+.selection-controls button{min-width:28px;height:26px;border:1px solid rgba(125,160,255,.35);border-radius:7px;background:rgba(18,23,48,.92);color:#fff;font-size:11px}
+
+/* Controles de transformação: painel separado do canvas para não ser cortado pelo overflow */
+.selection-transform-panel{position:absolute;z-index:70;left:50%;bottom:calc(72px + env(safe-area-inset-bottom));transform:translate(-50%,12px);display:none;align-items:center;gap:5px;flex-wrap:wrap;justify-content:center;max-width:calc(100% - 18px);padding:8px 9px;border:1px solid rgba(101,223,255,.45);border-radius:15px;background:rgba(8,12,29,.96);backdrop-filter:blur(20px);box-shadow:0 18px 55px rgba(0,0,0,.5)}
+.selection-transform-panel.show{display:flex;transform:translate(-50%,0)}
+.selection-transform-panel .selection-title{width:100%;text-align:center;font-size:8px;letter-spacing:1px;color:#bff5ff;margin-bottom:1px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.selection-transform-panel button{min-width:36px;height:34px;padding:0 8px;border:1px solid rgba(125,160,255,.35);border-radius:9px;background:rgba(18,23,48,.92);color:#fff;font-size:12px;touch-action:manipulation}
+.selection-transform-panel button:active{background:rgba(101,223,255,.16);border-color:rgba(101,223,255,.6)}
+</style>
 </head>
 <body>
 <div class="space"><i class="star"></i><i class="star"></i><i class="star"></i><i class="star"></i><i class="star"></i><i class="star"></i><i class="star"></i><i class="star"></i><i class="star"></i><i class="star"></i><i class="star"></i><i class="star"></i><i class="star"></i><i class="star"></i><i class="star"></i></div>
@@ -301,6 +313,20 @@ header{height:68px;padding:0 12px}
           <canvas id="drawCanvas" class="drawing-canvas-white"></canvas>
         </div>
 
+        <div id="selectionTransformPanel" class="selection-transform-panel" aria-label="Controles de transformação">
+          <div id="selectionTransformTitle" class="selection-title">SELECIONE UM COMPONENTE</div>
+          <button type="button" onclick="adjustSelectedLayerTransform(-10,0,0,0)" aria-label="Mover para esquerda">←</button>
+          <button type="button" onclick="adjustSelectedLayerTransform(10,0,0,0)" aria-label="Mover para direita">→</button>
+          <button type="button" onclick="adjustSelectedLayerTransform(0,-10,0,0)" aria-label="Mover para cima">↑</button>
+          <button type="button" onclick="adjustSelectedLayerTransform(0,10,0,0)" aria-label="Mover para baixo">↓</button>
+          <button type="button" onclick="adjustSelectedLayerTransform(0,0,.1,0)" aria-label="Aumentar">＋</button>
+          <button type="button" onclick="adjustSelectedLayerTransform(0,0,-.1,0)" aria-label="Diminuir">−</button>
+          <button type="button" onclick="adjustSelectedLayerTransform(0,0,0,-15)" aria-label="Girar para esquerda">↶</button>
+          <button type="button" onclick="adjustSelectedLayerTransform(0,0,0,15)" aria-label="Girar para direita">↷</button>
+          <button type="button" onclick="resetSelectedLayerTransform()" aria-label="Restaurar tamanho e rotação">1:1</button>
+          <button type="button" onclick="clearCharacterSelection()" aria-label="Finalizar seleção">✓</button>
+        </div>
+
         <div class="zoom-controls" aria-label="Controles de zoom">
           <button type="button" onclick="changeZoom(-0.1)" aria-label="Diminuir zoom">−</button>
           <span id="zoomValue">100%</span>
@@ -316,7 +342,7 @@ header{height:68px;padding:0 12px}
             <strong>CAMADAS</strong>
             <small id="layerCount">0 recursos</small>
           </div>
-          <small>arraste para reordenar</small>
+          <button class="layers-assembly-button" onclick="openStudioPanel('character')" aria-label="Montar personagem">Montar</button>
         </div>
         <div class="layer-actions">
           <button onclick="createLayer()">+ Nova</button>
@@ -1134,6 +1160,7 @@ function updateGesture(){
 
 function pointerDown(e){
   if(!canvas)return;
+  if(e.pointerType==='touch'||e.pointerType==='pen')e.preventDefault();
   if(currentPanel)closeToolPanel();
   if($('layersPanel')?.classList.contains('open'))closeLayers();
   if(e.pointerType==='touch'||e.pointerType==='pen'){
@@ -1150,8 +1177,10 @@ function pointerDown(e){
 
   if(currentTool==='select'){
     selectedVectorId=hitTestVector(p);
+    selectedLayerId=hitTestCharacterLayer(p);
+    renderLayers();
     renderCharacter();
-    updateVectorSelectionNote(p);
+    renderSelectionControls();
     return;
   }
 
@@ -1196,6 +1225,7 @@ function pointerDown(e){
 }
 
 function pointerMove(e){
+  if(e.pointerType==='touch'||e.pointerType==='pen')e.preventDefault();
   if((e.pointerType==='touch'||e.pointerType==='pen')&&activePointers.has(e.pointerId)){
     activePointers.set(e.pointerId,{clientX:e.clientX,clientY:e.clientY,pointerType:e.pointerType});
     if(activePointers.size>=2){
@@ -1365,6 +1395,75 @@ function hitTestVector(point){
   return null;
 }
 
+function hitTestCharacterLayer(point){
+  const layers=[...(character?.camadas||[])].reverse();
+  for(const layer of layers){
+    if(!layer.visible||layer.locked)continue;
+    for(let i=(layer.elementos||[]).length-1;i>=0;i--){
+      if(pointNearPath(layer.elementos[i],point,Math.max(12,strokeSize+8)))return layer.id;
+    }
+    /* Recursos vetoriais normalmente ocupam a área da composição.
+       Para componentes sem pontos próprios, selecionamos a camada visível
+       no ponto, respeitando a ordem Z. */
+    const resource=findLibraryResource(layer.id);
+    if(resource?.vector){
+      const t=layer.transformacao||{};
+      const scale=Math.max(.1,Number(t.escala)||1);
+      const x=Number(t.x)||0,y=Number(t.y)||0;
+      const cx=character.canvas.largura/2,cy=character.canvas.altura/2;
+      const px=(point.x-x-cx)/scale+cx;
+      const py=(point.y-y-cy)/scale+cy;
+      if(px>=0&&py>=0&&px<=character.canvas.largura&&py<=character.canvas.altura)return layer.id;
+    }
+  }
+  return null;
+}
+
+function selectedCharacterLayer(){
+  return findLayer(selectedLayerId);
+}
+
+function adjustSelectedLayerTransform(dx,dy,scaleDelta,rotationDelta){
+  const layer=selectedCharacterLayer();
+  if(!layer||layer.locked)return;
+  layer.transformacao=layer.transformacao||{x:0,y:0,escala:1,rotacao:0};
+  layer.transformacao.x=(Number(layer.transformacao.x)||0)+dx;
+  layer.transformacao.y=(Number(layer.transformacao.y)||0)+dy;
+  layer.transformacao.escala=Math.max(.1,Math.min(5,(Number(layer.transformacao.escala)||1)+scaleDelta));
+  layer.transformacao.rotacao=((Number(layer.transformacao.rotacao)||0)+rotationDelta)%360;
+  persistCharacter();saveHistory();renderLayers();renderCharacter();
+}
+
+function resetSelectedLayerTransform(){
+  const layer=selectedCharacterLayer();
+  if(!layer||layer.locked)return;
+  layer.transformacao={x:0,y:0,escala:1,rotacao:0};
+  persistCharacter();saveHistory();renderLayers();renderCharacter();
+}
+
+function clearCharacterSelection(){
+  selectedVectorId=null;
+  /* Não altera a ferramenta de desenho; apenas encerra a seleção. */
+  const panel=$('selectionTransformPanel');
+  if(panel)panel.classList.remove('show');
+  renderCharacter();
+  renderLayers();
+}
+
+function renderSelectionControls(){
+  const panel=$('selectionTransformPanel');
+  const title=$('selectionTransformTitle');
+  if(!panel)return;
+  const layer=selectedCharacterLayer();
+  const active=currentTool==='select' && !!layer;
+  if(!active){
+    panel.classList.remove('show');
+    return;
+  }
+  if(title)title.textContent='SELECIONADO: '+(layer.label||layer.id);
+  panel.classList.add('show');
+}
+
 function pointNearPath(element,point,padding){
   const d=element?._pontos||parseSvgPathPoints(element?.dados);
   if(!d?.length)return false;
@@ -1402,6 +1501,7 @@ function setDrawingTool(tool){
   if(currentTool!=='select')selectedVectorId=null;
   updateDrawingToolbar();
   renderCharacter();
+  renderSelectionControls();
 }
 function setStrokeColor(value){
   const hex=normalizeHex(value);
@@ -1574,10 +1674,127 @@ function closeToolPanel(){
   currentPanel=null;
 }
 
+function renderCharacterAssemblyPanel(){
+  const p=$('toolPanel');
+  const slots=getCharacterSlotDefinitions();
+  const resources=getLibraryResources();
+  const componentRefs=character?.componentes||{};
+
+  const resourceName=id=>findLibraryResource(id)?.name||id;
+  const currentForSlot=slot=>{
+    if(slot.id==='base')return character?.baseId||null;
+    return componentRefs[slot.id]||null;
+  };
+  const currentIds=value=>Array.isArray(value)?value.filter(Boolean):(value?[value]:[]);
+
+  p.innerHTML=`
+    <div class="panel-title">MONTAR PERSONAGEM <button class="close-panel" onclick="closeToolPanel()">×</button></div>
+    <p style="font-size:9px;color:var(--muted);line-height:1.5;margin-bottom:9px">Use recursos da Biblioteca como partes independentes do personagem. Cada recurso continua separado da composição.</p>
+    ${slots.map(slot=>{
+      const ids=currentIds(currentForSlot(slot));
+      const available=resources.filter(r=>{
+        if(slot.id==='base')return r.type==='base'||r.category==='base';
+        return r.type==='component'&&normalizeCharacterCategory(r.category)===slot.id;
+      });
+      return `<div class="assembly-slot">
+        <div class="assembly-slot-head"><strong>${escapeHtml(slot.label)}</strong><small>${slot.multiple?'vários':'um'}</small></div>
+        ${ids.length?ids.map(id=>`<div class="assembly-current"><span>${escapeHtml(resourceName(id))}</span><button class="assembly-remove" onclick="removeCharacterResource('${escapeJs(slot.id)}','${escapeJs(id)}')">Remover</button></div>`).join(''): '<div class="assembly-empty">Nenhum recurso usado.</div>'}
+        <div class="assembly-resources">${available.length?available.map(r=>`<div class="assembly-resource"><span title="${escapeAttr(r.name||r.id)}">${escapeHtml(r.name||r.id)}</span><button onclick="useCharacterResource('${escapeJs(r.id)}','${escapeJs(slot.id)}')">Usar</button></div>`).join(''):'<div class="assembly-empty">Nenhum recurso disponível nessa categoria.</div>'}</div>
+      </div>`;
+    }).join('')}
+    <div class="tool-grid" style="margin-top:9px"><button onclick="closeToolPanel();openStudioPanel('component')">Criar recurso</button><button onclick="closeToolPanel();renderLayers();renderCharacter()">Atualizar</button></div>`;
+}
+
+function resourceLayerElement(resource){
+  if(resource?.dataUrl){
+    return [{
+      id:'img_'+Date.now().toString(36)+'_'+Math.random().toString(36).slice(2,6),
+      tipo:'image',
+      dados:resource.dataUrl,
+      x:0,y:0,width:Number(character?.canvas?.largura)||500,height:Number(character?.canvas?.altura)||500,
+      estilo:{opacidade:1},
+      transformacao:{x:0,y:0,escala:1,rotacao:0}
+    }];
+  }
+  return [];
+}
+
+function upsertCharacterLayer(resource,category,kind){
+  character.camadas=Array.isArray(character.camadas)?character.camadas:[];
+  const layer={
+    id:resource.id,
+    kind,
+    category,
+    label:resource.name||category,
+    visible:true,
+    locked:false,
+    transformacao:{x:0,y:0,escala:1,rotacao:0},
+    elementos:resourceLayerElement(resource)
+  };
+  const index=character.camadas.findIndex(l=>l.id===resource.id);
+  if(index>=0)character.camadas[index]=layer;else character.camadas.push(layer);
+  selectedLayerId=resource.id;
+  selectedVectorId=null;
+}
+
+function useCharacterResource(resourceId,category){
+  if(!character)return;
+  const resource=findLibraryResource(resourceId);
+  const slot=getCharacterSlot(category);
+  if(!resource||!slot)return;
+
+  character.componentes=character.componentes||{};
+  if(category==='base'){
+    character.baseId=resource.id;
+    character.estrutura=character.estrutura||{};
+    character.estrutura.baseId=resource.id;
+    character.camadas=character.camadas.filter(l=>l.kind!=='base'&&l.category!=='base');
+    upsertCharacterLayer(resource,'base','base');
+  }else if(slot.multiple){
+    const current=Array.isArray(character.componentes[category])?character.componentes[category]:[];
+    if(!current.includes(resource.id))character.componentes[category]=[...current,resource.id];
+    upsertCharacterLayer(resource,category,'component');
+  }else{
+    const oldId=character.componentes[category];
+    character.componentes[category]=resource.id;
+    character.camadas=character.camadas.filter(l=>l.category!==category||l.id===resource.id);
+    upsertCharacterLayer(resource,category,'component');
+    if(oldId&&oldId!==resource.id)character.camadas=character.camadas.filter(l=>l.id!==oldId);
+  }
+
+  persistCharacter();saveHistory();renderLayers();renderCharacter();renderCode();renderCharacterAssemblyPanel();
+  showToast((slot.label||'Recurso')+' adicionado ao personagem.');
+}
+
+function removeCharacterResource(category,resourceId){
+  if(!character)return;
+  const slot=getCharacterSlot(category);
+  if(!slot)return;
+  character.componentes=character.componentes||{};
+  if(category==='base'){
+    if(character.baseId===resourceId)character.baseId=null;
+    if(character.estrutura)character.estrutura.baseId=null;
+    character.camadas=character.camadas.filter(l=>l.id!==resourceId&&l.kind!=='base');
+  }else if(slot.multiple){
+    const current=Array.isArray(character.componentes[category])?character.componentes[category]:[];
+    character.componentes[category]=current.filter(id=>id!==resourceId);
+    if(!character.componentes[category].length)delete character.componentes[category];
+    character.camadas=character.camadas.filter(l=>l.id!==resourceId);
+  }else{
+    if(character.componentes[category]===resourceId)delete character.componentes[category];
+    character.camadas=character.camadas.filter(l=>l.id!==resourceId&&l.category!==category);
+  }
+  if(selectedLayerId===resourceId)selectedLayerId=character.camadas[character.camadas.length-1]?.id||null;
+  persistCharacter();saveHistory();renderLayers();renderCharacter();renderCode();renderCharacterAssemblyPanel();
+  showToast((slot.label||'Recurso')+' removido.');
+}
+
 function renderToolPanel(name){
   const p=$('toolPanel');
 
-  if(name==='draw'){
+  if(name==='character'){
+    renderCharacterAssemblyPanel();
+  }else if(name==='draw'){
     p.innerHTML=`
       <div class="panel-title">DESENHO <button class="close-panel" onclick="closeToolPanel()">×</button></div>
       <div class="tool-grid">
@@ -2417,6 +2634,7 @@ function renderCharacter(){
   setRenderStatus(layers.length+' CAMADAS · RENDERIZAÇÃO PRONTA');
   renderCode();
   updateHistoryButtons();
+  renderSelectionControls();
 }
 
 function renderLayerPaths(layer){
