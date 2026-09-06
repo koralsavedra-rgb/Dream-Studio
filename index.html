@@ -531,13 +531,25 @@ window.DreamStudioState=DreamStudioStore.state;
   configurações específicas quando forem implementados.
 */
 const DreamStudioCreationEngine={
-  version:1,
+  version:2,
   modes:{
     personagem:{
       label:'Personagem',
       canvas:{background:'#FFFFFF'},
       tools:['pencil','brush','marker','eraser','select','line','rectangle','ellipse','fill','eyedropper'],
-      export:{visual:['png','svg'],data:['json']}
+      export:{visual:['png','svg'],data:['json']},
+      character:{
+        slots:[
+          {id:'base',label:'Base',type:'base',required:false,multiple:false},
+          {id:'cabelo',label:'Cabelo',type:'component',required:false,multiple:false},
+          {id:'olhos',label:'Olhos',type:'component',required:false,multiple:false},
+          {id:'roupa',label:'Roupa',type:'component',required:false,multiple:false},
+          {id:'acessorio',label:'Acessório',type:'component',required:false,multiple:true},
+          {id:'outro',label:'Outro',type:'component',required:false,multiple:true}
+        ],
+        composition:'referencias',
+        resourcesIndependent:true
+      }
     },
     ilustracao:{
       label:'Ilustração',
@@ -558,6 +570,18 @@ const DreamStudioCreationEngine={
       export:{visual:['png','webp'],data:['json']}
     }
   },
+  getCharacterSlots(){
+    return JSON.parse(JSON.stringify(this.getMode('personagem').character?.slots||[]));
+  },
+  getCharacterSlot(id){
+    return this.getCharacterSlots().find(slot=>slot.id===id)||null;
+  },
+  normalizeCharacterCategory(category){
+    const raw=String(category||'').trim().toLowerCase();
+    const aliases={acessórios:'acessorio',acessorios:'acessorio',accessory:'acessorio',accessories:'acessorio'};
+    const normalized=aliases[raw]||raw;
+    return this.getCharacterSlot(normalized)?normalized:normalized||'outro';
+  },
   getMode(type='personagem'){
     return this.modes[type]||this.modes.personagem;
   },
@@ -568,6 +592,8 @@ const DreamStudioCreationEngine={
       versao:this.version,
       modo:type,
       configuracao:JSON.parse(JSON.stringify(mode)),
+      recursosIndependentes:mode.character?.resourcesIndependent!==false,
+      estrutura:mode.character?JSON.parse(JSON.stringify(mode.character)):null,
       ...overrides
     };
   },
@@ -759,6 +785,33 @@ function openCharacterSetup(){
 }
 function closeCharacterSetup(){$('setupOverlay').classList.remove('open')}
 
+/* ---------- Modelo específico do Personagem ---------- */
+function normalizeCharacterModel(personagem){
+  if(!personagem)return personagem;
+  personagem.tipo=personagem.tipo||'personagem';
+  personagem.criacao=personagem.criacao||DreamStudioCreationEngine.createContext('personagem');
+  personagem.componentes=(personagem.componentes&&typeof personagem.componentes==='object')?personagem.componentes:{};
+  personagem.estrutura=personagem.estrutura||{
+    slots:DreamStudioCreationEngine.getCharacterSlots(),
+    composicao:'referencias',
+    recursosIndependentes:true
+  };
+  personagem.estrutura.slots=DreamStudioCreationEngine.getCharacterSlots();
+  personagem.estrutura.composicao='referencias';
+  personagem.estrutura.recursosIndependentes=true;
+  if(!Array.isArray(personagem.camadas))personagem.camadas=[];
+  return personagem;
+}
+function getCharacterSlotDefinitions(){
+  return DreamStudioCreationEngine.getCharacterSlots();
+}
+function getCharacterSlot(id){
+  return DreamStudioCreationEngine.getCharacterSlot(id);
+}
+function normalizeCharacterCategory(category){
+  return DreamStudioCreationEngine.normalizeCharacterCategory(category);
+}
+
 /* ---------- Inicialização do Personagem ---------- */
 function createCharacter(){
   closeCreateMenu();
@@ -813,7 +866,12 @@ function createCharacter(){
     baseId:baseId,
     componentes:{},
     tipo:'personagem',
-    criacao:DreamStudioCreationEngine.createContext('personagem')
+    criacao:DreamStudioCreationEngine.createContext('personagem'),
+    estrutura:{
+      slots:DreamStudioCreationEngine.getCharacterSlots(),
+      composicao:'referencias',
+      recursosIndependentes:true
+    }
   };
 
   /* Camadas não carregam vetores. Guardam somente estado visual e ordem dos IDs. */
@@ -841,11 +899,13 @@ function createCharacter(){
 
 function buildInitialLayers(personagem){
   const layers=[];
+  const refs=personagem.componentes||{};
 
   if(personagem.baseId){
     layers.push({
       id:personagem.baseId,
       kind:'base',
+      category:'base',
       label:findLibraryResource(personagem.baseId)?.name||'Base',
       visible:true,
       locked:false,
@@ -854,428 +914,32 @@ function buildInitialLayers(personagem){
     });
   }
 
-  Object.entries(personagem.componentes||{}).forEach(([category,id])=>{
-    const resource=findLibraryResource(id);
-    if(!resource)return;
-    layers.push({
-      id,
-      kind:'component',
-      category,
-      label:resource.name||category,
-      visible:true,
-      locked:false,
-      transformacao:{x:0,y:0,escala:1,rotacao:0},
-      elementos:[]
+  const slots=getCharacterSlotDefinitions();
+  const orderedCategories=[
+    ...slots.filter(s=>s.id!=='base').map(s=>s.id),
+    ...Object.keys(refs).filter(category=>!slots.some(s=>s.id===category))
+  ];
+
+  orderedCategories.forEach(category=>{
+    const value=refs[category];
+    const ids=Array.isArray(value)?value:[value];
+    ids.filter(Boolean).forEach(id=>{
+      const resource=findLibraryResource(id);
+      if(!resource)return;
+      layers.push({
+        id,
+        kind:'component',
+        category,
+        label:resource.name||category,
+        visible:true,
+        locked:false,
+        transformacao:{x:0,y:0,escala:1,rotacao:0},
+        elementos:[]
+      });
     });
   });
 
-  layers.forEach(layer=>{if(!Array.isArray(layer.elementos))layer.elementos=[]});
   return layers;
-}
-
-function ensureDrawingLayer(){
-  if(!character)return null;
-  character.camadas=Array.isArray(character.camadas)?character.camadas:[];
-  character.camadas.forEach(layer=>{
-    if(!Array.isArray(layer.elementos))layer.elementos=[];
-    if(!layer.transformacao)layer.transformacao={x:0,y:0,escala:1,rotacao:0};
-    if(layer.visible===undefined)layer.visible=true;
-    if(layer.locked===undefined)layer.locked=false;
-  });
-  if(!character.camadas.length){
-    character.camadas.push({id:'layer_desenho',kind:'drawing',category:'desenho',label:'Desenho',visible:true,locked:false,transformacao:{x:0,y:0,escala:1,rotacao:0},elementos:[]});
-  }
-  if(!selectedLayerId||!findLayer(selectedLayerId))selectedLayerId=character.camadas[character.camadas.length-1].id;
-  return findLayer(selectedLayerId);
-}
-
-function createLayer(){
-  if(!character)return;
-  character.camadas=character.camadas||[];
-  const id='layer_'+Date.now().toString(36)+'_'+Math.random().toString(36).slice(2,6);
-  const layer={id,...DreamStudioCreationEngine.createLayerDefaults('drawing')};
-  const selectedIndex=character.camadas.findIndex(l=>l.id===selectedLayerId);
-  if(selectedIndex>=0)character.camadas.splice(selectedIndex+1,0,layer);else character.camadas.push(layer);
-  selectedLayerId=id; selectedVectorId=null;
-  persistCharacter();saveHistory();renderLayers();renderCharacter();
-}
-
-function renameSelectedLayer(){
-  const layer=findLayer(selectedLayerId);if(!layer)return;
-  const name=prompt('Nome da camada:',layer.label||'Camada');
-  if(name===null)return;
-  const clean=name.trim();if(!clean)return;
-  layer.label=clean;persistCharacter();saveHistory();renderLayers();renderCharacter();
-}
-
-function deleteSelectedLayer(){
-  const layer=findLayer(selectedLayerId);if(!layer)return;
-  if(layer.locked){showToast('Desbloqueie a camada antes de excluí-la.');return;}
-  if(character.camadas.length<=1){showToast('O personagem precisa manter pelo menos uma camada.');return;}
-  if(!confirm('Excluir a camada “'+(layer.label||layer.id)+'”?'))return;
-  const index=character.camadas.findIndex(l=>l.id===layer.id);
-  character.camadas.splice(index,1);
-  selectedLayerId=character.camadas[Math.max(0,index-1)]?.id||character.camadas[0]?.id||null;
-  selectedVectorId=null;persistCharacter();saveHistory();renderLayers();renderCharacter();
-}
-
-function saveSelectedLayer(){
-  const layer=findLayer(selectedLayerId);if(!layer){showToast('Selecione uma camada primeiro.');return;}
-  const stored=readJSON(LAYER_KEY,[]);
-  const layers=Array.isArray(stored)?stored:[];
-  const id='saved_layer_'+Date.now().toString(36);
-  const copy=JSON.parse(JSON.stringify(layer));
-  copy.id=id;copy.originalId=layer.id;copy.salvoEm=new Date().toISOString();
-  layers.push(copy);
-  if(!writeJSON(LAYER_KEY,layers))return;
-  renderLayers();
-  showToast('Camada salva na biblioteca de camadas.');
-}
-function loadSavedLayer(savedId){
-  if(!character)return;
-  const saved=readJSON(LAYER_KEY,[]).find(l=>l.id===savedId);if(!saved)return;
-  const copy=JSON.parse(JSON.stringify(saved));
-  copy.id='layer_'+Date.now().toString(36)+'_'+Math.random().toString(36).slice(2,6);
-  delete copy.salvoEm;delete copy.originalId;
-  character.camadas=character.camadas||[];
-  character.camadas.push(copy);selectedLayerId=copy.id;selectedVectorId=null;
-  persistCharacter();saveHistory();renderLayers();renderCharacter();
-  showToast('Camada carregada no personagem.');
-}
-
-function duplicateSelectedLayer(){
-  const layer=findLayer(selectedLayerId);if(!layer)return;
-  if(layer.locked){showToast('Desbloqueie a camada antes de duplicar.');return;}
-  const copy=JSON.parse(JSON.stringify(layer));
-  copy.id='layer_'+Date.now().toString(36)+'_'+Math.random().toString(36).slice(2,6);
-  copy.label=(layer.label||'Camada')+' cópia';
-  copy.locked=false;
-  const index=character.camadas.findIndex(l=>l.id===layer.id);
-  character.camadas.splice(index+1,0,copy);selectedLayerId=copy.id;selectedVectorId=null;
-  persistCharacter();saveHistory();renderLayers();renderCharacter();
-}
-
-function getCharacter(){
-  return DreamStudioStore.getPersonagem();
-}
-
-/* ---------- Canvas ---------- */
-function initCanvas(){
-  canvas=$('drawCanvas');
-  if(!canvas)return;
-
-  ctx=canvas.getContext('2d',{willReadFrequently:true});
-
-  const width=character.canvas.largura;
-  const height=character.canvas.altura;
-  const dpr=Math.max(1,Math.min(3,window.devicePixelRatio||1));
-
-  canvas.width=width*dpr;
-  canvas.height=height*dpr;
-  canvas.style.width=width+'px';
-  canvas.style.height=height+'px';
-
-  ctx.setTransform(dpr,0,0,dpr,0,0);
-  ctx.fillStyle=DreamStudioCreationEngine.getCanvasBackground(character?.tipo||'personagem');
-  ctx.fillRect(0,0,width,height);
-
-  ensureDrawingLayer();
-  undoStack=[];
-  redoStack=[];
-  saveHistory();
-  updateDrawingToolbar();
-  resetZoom();
-  activePointers.clear();
-  gestureState=null;
-
-  canvas.onpointerdown=pointerDown;
-  canvas.onpointermove=pointerMove;
-  canvas.onpointerup=pointerUp;
-  canvas.onpointercancel=pointerUp;
-
-  updateHistoryButtons();
-}
-
-function clearRenderCanvas(){
-  if(!ctx||!character)return;
-  ctx.save();
-  ctx.setTransform(1,0,0,1,0,0);
-  ctx.clearRect(0,0,canvas.width,canvas.height);
-  ctx.restore();
-
-  const dpr=Math.max(1,Math.min(3,window.devicePixelRatio||1));
-  ctx.setTransform(dpr,0,0,dpr,0,0);
-  ctx.fillStyle=DreamStudioCreationEngine.getCanvasBackground(character?.tipo||'personagem');
-  ctx.fillRect(0,0,character.canvas.largura,character.canvas.altura);
-}
-
-/* ---------- Pipeline de Renderização por Referência ---------- */
-/*
-  Ordem do pipeline:
-  1. limpa o canvas;
-  2. lê as camadas ativas;
-  3. ordena por profundidade;
-  4. resolve cada ID na Biblioteca Global;
-  5. desenha o vetor correspondente.
-*/
-function renderCharacter(){
-  if(!character||!ctx)return;
-
-  setRenderStatus('RENDERIZANDO…');
-  clearRenderCanvas();
-
-  const layers=getRenderableLayers();
-  layers.forEach(layer=>{
-    if(!layer.visible)return;
-    const resource=findLibraryResource(layer.id);
-    if(resource?.visible!==false && resource?.vector){
-      ctx.save();
-      applyLayerTransform(layer);
-      renderVectorResource(resource,character.canvas.largura,character.canvas.altura);
-      ctx.restore();
-    }
-    if(resource?.visible!==false)renderLayerPaths(layer);
-  });
-
-  if(activeStroke){
-    const tempLayer={elementos:[activeStroke]};
-    renderLayerPaths(tempLayer);
-  }
-  if(activeShape)renderActiveShape();
-
-  setRenderStatus(layers.length+' CAMADAS · RENDERIZAÇÃO PRONTA');
-  renderCode();
-  updateHistoryButtons();
-}
-
-function renderLayerPaths(layer){
-  (layer?.elementos||[]).forEach(element=>renderVectorPathElement(element));
-}
-
-function renderVectorPathElement(element){
-  if(!element||!element.dados)return;
-  if(element.tipo==='image'){
-    const key=element.dados;
-    let img=imageRenderCache.get(key);
-    if(!img){
-      img=new Image(); img.decoding='async';
-      img.onload=()=>{imageRenderCache.set(key,img);if(character&&ctx)renderCharacter();};
-      img.onerror=()=>console.warn('Falha ao carregar elemento de imagem da camada.');
-      imageRenderCache.set(key,img); img.src=key; return;
-    }
-    if(!img.complete||!img.naturalWidth)return;
-    const t=element.transformacao||{};ctx.save();
-    ctx.translate(Number(t.x)||0,Number(t.y)||0);ctx.translate(character.canvas.largura/2,character.canvas.altura/2);
-    ctx.rotate(((Number(t.rotacao)||0)*Math.PI)/180);ctx.scale(Number(t.escala)||1,Number(t.escala)||1);ctx.translate(-character.canvas.largura/2,-character.canvas.altura/2);
-    ctx.globalAlpha=Number(element.estilo?.opacidade??1);
-    ctx.drawImage(img,Number(element.x)||0,Number(element.y)||0,Number(element.width)||0,Number(element.height)||0);ctx.restore();return;
-  }
-  if(element.tipo!=='path'&&element.tipo!=='eraser')return;
-  const path=new Path2D(element.dados);
-  const t=element.transformacao||{};
-  const estilo=element.estilo||{};
-  ctx.save();
-  ctx.translate(Number(t.x)||0,Number(t.y)||0);
-  ctx.translate(character.canvas.largura/2,character.canvas.altura/2);
-  ctx.rotate(((Number(t.rotacao)||0)*Math.PI)/180);
-  ctx.scale(Number(t.escala)||1,Number(t.escala)||1);
-  ctx.translate(-character.canvas.largura/2,-character.canvas.altura/2);
-  ctx.globalAlpha=Number(estilo.opacidade ?? 1);
-  ctx.lineWidth=Number(estilo.espessura)||4;
-  ctx.lineCap=estilo.tipo==='rigid'?'butt':'round';
-  ctx.lineJoin='round';
-  ctx.setLineDash(estilo.tipo==='dashed'?[10,8]:estilo.tipo==='dotted'?[2,8]:estilo.tipo==='textured'?[2,5]:[]);
-  if(element.tipo==='eraser'){
-    ctx.globalCompositeOperation='destination-out';
-    ctx.strokeStyle='rgba(0,0,0,1)';
-    ctx.stroke(path);
-  }else{
-    ctx.globalCompositeOperation='source-over';
-    ctx.strokeStyle=estilo.cor||'#1E1E1E';
-    if(estilo.preenchimento&&estilo.preenchimento!=='transparent'){ctx.fillStyle=estilo.preenchimento;ctx.fill(path);}
-    ctx.stroke(path);
-  }
-  if(selectedVectorId===element.id&&element.tipo!=='eraser'){
-    ctx.save();ctx.globalCompositeOperation='source-over';ctx.setLineDash([6,5]);ctx.lineWidth=1.5;ctx.strokeStyle='#65DFFF';ctx.globalAlpha=.9;ctx.stroke(path);ctx.restore();
-  }
-  ctx.restore();
-}
-
-
-/* Camadas da base e componentes, ordenadas da menor profundidade para a maior. */
-function getRenderableLayers(){
-  if(!character)return [];
-  if(!Array.isArray(character.camadas)){character.camadas=buildInitialLayers(character);}
-  return character.camadas.filter(layer=>findLibraryResource(layer.id)||((layer.elementos||[]).length>0)||layer.kind==='drawing');
-}
-
-function applyLayerTransform(layer){
-  const t=layer?.transformacao||layer?.transform||{};
-  const x=Number(t.x)||0, y=Number(t.y)||0, scale=Number(t.escala??t.scale)||1, rotation=Number(t.rotacao??t.rotation)||0;
-  if(x||y)ctx.translate(x,y);
-  if(scale!==1||rotation){
-    const cx=character.canvas.largura/2,cy=character.canvas.altura/2;
-    ctx.translate(cx,cy);ctx.rotate(rotation*Math.PI/180);ctx.scale(scale,scale);ctx.translate(-cx,-cy);
-  }
-}
-
-/* Renderizador vetorial simples e extensível. */
-function renderVectorResource(resource,width,height){
-  const v=resource.vector;
-  const cx=width/2;
-  const cy=height/2;
-  const scale=Math.min(width,height)/500;
-
-  ctx.lineWidth=(v.lineWidth||4)*scale;
-  ctx.lineCap='round';
-  ctx.lineJoin='round';
-  ctx.strokeStyle=v.stroke||'#333';
-  ctx.fillStyle=v.fill||'transparent';
-
-  if(v.kind==='face'){
-    const faceW=210*scale;
-    const faceH=250*scale;
-    ctx.beginPath();
-    ctx.ellipse(cx,cy+25*scale,faceW/2,faceH/2,0,0,Math.PI*2);
-    ctx.fillStyle=v.skin||'#F3C7A6';
-    ctx.fill();
-    ctx.stroke();
-    return;
-  }
-
-  if(v.kind==='hair'){
-    ctx.beginPath();
-    ctx.moveTo(cx-112*scale,cy-70*scale);
-    ctx.bezierCurveTo(cx-125*scale,cy-175*scale,cx+105*scale,cy-175*scale,cx+112*scale,cy-65*scale);
-    ctx.bezierCurveTo(cx+100*scale,cy-105*scale,cx+75*scale,cy-120*scale,cx+50*scale,cy-122*scale);
-    ctx.bezierCurveTo(cx+15*scale,cy-145*scale,cx-15*scale,cy-145*scale,cx-50*scale,cy-122*scale);
-    ctx.bezierCurveTo(cx-75*scale,cy-120*scale,cx-100*scale,cy-105*scale,cx-112*scale,cy-70*scale);
-    ctx.closePath();
-    ctx.fillStyle=v.fill||'#3A2348';
-    ctx.fill();
-    ctx.stroke();
-    return;
-  }
-
-  if(v.kind==='eyes'){
-    ctx.fillStyle=v.fill||'#25263B';
-    ctx.beginPath();ctx.ellipse(cx-48*scale,cy+5*scale,8*scale,11*scale,0,0,Math.PI*2);ctx.fill();
-    ctx.beginPath();ctx.ellipse(cx+48*scale,cy+5*scale,8*scale,11*scale,0,0,Math.PI*2);ctx.fill();
-    return;
-  }
-
-  if(v.kind==='clothes'){
-    ctx.beginPath();
-    ctx.moveTo(cx-72*scale,cy+135*scale);
-    ctx.lineTo(cx-128*scale,cy+190*scale);
-    ctx.lineTo(cx-95*scale,cy+225*scale);
-    ctx.lineTo(cx-52*scale,cy+185*scale);
-    ctx.lineTo(cx-52*scale,cy+255*scale);
-    ctx.lineTo(cx+52*scale,cy+255*scale);
-    ctx.lineTo(cx+52*scale,cy+185*scale);
-    ctx.lineTo(cx+95*scale,cy+225*scale);
-    ctx.lineTo(cx+128*scale,cy+190*scale);
-    ctx.lineTo(cx+72*scale,cy+135*scale);
-    ctx.closePath();ctx.fillStyle=v.fill||'#5D8CFF';ctx.fill();ctx.stroke();return;
-  }
-
-  if(v.kind==='glasses'){
-    const y=cy+5*scale;
-    const gap=16*scale;
-    const r=38*scale;
-
-    ctx.beginPath();
-    ctx.arc(cx-54*scale,y,r,0,Math.PI*2);
-    ctx.stroke();
-    ctx.beginPath();
-    ctx.arc(cx+54*scale,y,r,0,Math.PI*2);
-    ctx.stroke();
-    ctx.beginPath();
-    ctx.moveTo(cx-16*scale,y);
-    ctx.lineTo(cx+16*scale,y);
-    ctx.stroke();
-    ctx.beginPath();
-    ctx.moveTo(cx-92*scale,y-3*scale);
-    ctx.lineTo(cx-115*scale,y-12*scale);
-    ctx.moveTo(cx+92*scale,y-3*scale);
-    ctx.lineTo(cx+115*scale,y-12*scale);
-    ctx.stroke();
-  }
-}
-
-/* ---------- Camadas ---------- */
-function renderLayers(){
-  if(!character)return;
-
-  const list=$('layersList');
-  if(!list)return;
-
-  const layers=getRenderableLayers();
-  $('layerCount').textContent=layers.length+' recurso'+(layers.length===1?'':'s');
-
-  if(!layers.length){
-    list.innerHTML='<div class="layer-empty">Nenhuma camada ativa.<br>Adicione uma base ou componentes para visualizar a composição.</div>';
-    return;
-  }
-
-  /* A lista é mostrada do topo para a base: último elemento = maior Z. */
-  const visualLayers=[...layers].reverse();
-
-  list.innerHTML=visualLayers.map(layer=>{
-    const resource=findLibraryResource(layer.id);
-    const safeName=escapeHtml(resource?.name||layer.label||layer.id);
-    const category=escapeHtml(layer.category||layer.kind||'recurso');
-
-    return `
-      <div class="layer-item ${layer.id===selectedLayerId?'selected-layer':''}" draggable="true" data-layer-id="${escapeAttr(layer.id)}"
-           ondragstart="startLayerDrag(event,'${escapeJs(layer.id)}')"
-           ondragover="allowLayerDrop(event)"
-           ondrop="dropLayer(event,'${escapeJs(layer.id)}')"
-           ondragend="endLayerDrag(event)">
-        <button class="layer-drag" aria-label="Reordenar camada" title="Arrastar">
-          <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M8 6h8M8 12h8M8 18h8"/><path d="m5 6 1-1 1 1M5 12l1-1 1 1M5 18l1-1 1 1"/></svg>
-        </button>
-        <button class="layer-main" onclick="selectLayer('${escapeJs(layer.id)}')">
-          <strong>${safeName}</strong>
-          <small>${category} · ${escapeHtml(layer.id)} · ${(layer.elementos||[]).length} vetor${(layer.elementos||[]).length===1?'':'es'}</small>
-        </button>
-        <button class="layer-control ${layer.visible?'active':''}" onclick="toggleLayerVisibility('${escapeJs(layer.id)}')" aria-label="${layer.visible?'Ocultar':'Mostrar'} camada">
-          ${eyeIcon(layer.visible)}
-        </button>
-        <button class="layer-control ${layer.locked?'active':''}" onclick="toggleLayerLock('${escapeJs(layer.id)}')" aria-label="${layer.locked?'Desbloquear':'Bloquear'} camada">
-          ${lockIcon(layer.locked)}
-        </button>
-      </div>`;
-  }).join('');
-  const savedLayers=readJSON(LAYER_KEY,[]);
-  const savedHtml=savedLayers.length?`<div class="saved-layer-library"><div class="saved-layer-title">CAMADAS SALVAS</div>${savedLayers.map(l=>`<div class="saved-layer-row"><span>${escapeHtml(l.label||'Camada')}</span><button onclick="loadSavedLayer('${l.id}')">Usar</button></div>`).join('')}</div>`:'';
-  list.insertAdjacentHTML('beforeend',savedHtml);
-}
-
-function selectLayer(id){
-  const layer=findLayer(id);
-  if(!layer)return;
-  selectedLayerId=id;
-  selectedVectorId=null;
-  renderLayers();
-  renderCharacter();
-}
-
-function toggleLayerVisibility(id){
-  const layer=findLayer(id);
-  if(!layer)return;
-  layer.visible=!layer.visible;
-  persistCharacter();saveHistory();
-  renderLayers();
-  renderCharacter();
-}
-
-function toggleLayerLock(id){
-  const layer=findLayer(id);
-  if(!layer)return;
-  layer.locked=!layer.locked;
-  persistCharacter();saveHistory();
-  renderLayers();
 }
 
 function findLayer(id){
@@ -1986,7 +1650,7 @@ function renderToolPanel(name){
     p.innerHTML=`
       <div class="panel-title">SALVAR RECURSO <button class="close-panel" onclick="closeToolPanel()">×</button></div>
       <div class="form-group"><label>Nome</label><input id="componentName" class="name-input" placeholder="Ex.: cabelo longo"></div>
-      <div class="form-group"><label>Categoria</label><input id="componentCategory" class="name-input" placeholder="Ex.: cabelo"></div>
+      <div class="form-group"><label>Categoria</label><input id="componentCategory" class="name-input" list="characterComponentCategories" placeholder="Ex.: cabelo"><datalist id="characterComponentCategories">${getCharacterSlotDefinitions().filter(slot=>slot.id!=='base').map(slot=>`<option value="${slot.id}">${slot.label}</option>`).join('')}</datalist></div>
       <div class="tool-grid">
         <button onclick="saveBase()">Salvar como base</button>
         <button onclick="saveComponent()">Salvar componente</button>
@@ -2102,11 +1766,15 @@ function saveResource(type){
     id,
     type,
     name:$('componentName')?.value.trim()||type,
-    category:$('componentCategory')?.value.trim()||type,
+    category:character?.tipo==='personagem' && type==='component' ? normalizeCharacterCategory($('componentCategory')?.value.trim()) : ($('componentCategory')?.value.trim()||type),
     project:character.projeto,
     library:character.biblioteca,
     dataUrl:canvas.toDataURL('image/png'),
-    visible:true
+    visible:true,
+    origem:'usuario',
+    proprietario:'usuario',
+    permissao:{editar:true,usar:true,duplicar:true,exportar:true,excluir:true,ocultar:true},
+    criadoEm:new Date().toISOString()
   });
 
   writeJSON(RESOURCE_KEY,resources);
@@ -2133,6 +1801,7 @@ function writeJSON(key,value){
 
 function persistCharacter(){
   if(!character)return false;
+  normalizeCharacterModel(character);
   character.paleta=getPaletteSnapshot();
   character.updatedAt=new Date().toISOString();
   const stored=readJSON(CHARACTER_KEY,[]);
@@ -2148,9 +1817,7 @@ function persistCharacter(){
 function loadSavedCharacter(id){
   const all=readJSON(CHARACTER_KEY,[]);
   const saved=all.find(c=>c.id===id);if(!saved)return false;
-  character=JSON.parse(JSON.stringify(saved));
-  character.tipo=character.tipo||'personagem';
-  character.criacao=character.criacao||DreamStudioCreationEngine.createContext(character.tipo);
+  character=normalizeCharacterModel(JSON.parse(JSON.stringify(saved)));
   character.camadas=Array.isArray(character.camadas)?character.camadas:[];
   selectedLayerId=character.camadas[character.camadas.length-1]?.id||null;
   selectedVectorId=null;
@@ -2169,6 +1836,8 @@ function saveBase(){
 
   const id=saveResource('base');
   character.baseId=id;
+  character.estrutura=character.estrutura||{};
+  character.estrutura.baseId=id;
 
   const oldBase=character.camadas?.find(layer=>layer.kind==='base');
   if(oldBase){
@@ -2200,18 +1869,32 @@ function saveComponent(){
   if(!character)return;
 
   const name=$('componentName')?.value.trim();
-  const category=$('componentCategory')?.value.trim();
+  const rawCategory=$('componentCategory')?.value.trim();
+  const category=normalizeCharacterCategory(rawCategory);
 
-  if(!name||!category)return;
+  if(!name||!rawCategory){
+    showToast('Informe o nome e a categoria do componente.');
+    return;
+  }
+
+  const slot=getCharacterSlot(category);
+  if(!slot){
+    showToast('Categoria de personagem inválida.');
+    return;
+  }
 
   const id=saveResource('component');
 
-  /* A categoria aponta para um único ID, conforme o modelo de referência. */
   character.componentes=character.componentes||{};
-  character.componentes[category]=id;
+  if(slot.multiple){
+    const current=Array.isArray(character.componentes[category])?character.componentes[category]:[];
+    character.componentes[category]=[...current,id];
+  }else{
+    character.componentes[category]=id;
+  }
 
   character.camadas=character.camadas||[];
-  character.camadas=character.camadas.filter(layer=>layer.category!==category);
+  if(!slot.multiple)character.camadas=character.camadas.filter(layer=>layer.category!==category);
   character.camadas.push({
     id,
     kind:'component',
@@ -2219,6 +1902,7 @@ function saveComponent(){
     label:name,
     visible:true,
     locked:false,
+    transformacao:{x:0,y:0,escala:1,rotacao:0},
     elementos:[]
   });
   selectedLayerId=id;
@@ -2257,6 +1941,12 @@ function getSerializableCharacter(){
     },
     baseId:character.baseId||null,
     componentes:character.componentes||{},
+    criacao:character.criacao||DreamStudioCreationEngine.createContext('personagem'),
+    estrutura:character.estrutura||{
+      slots:DreamStudioCreationEngine.getCharacterSlots(),
+      composicao:'referencias',
+      recursosIndependentes:true
+    },
     paleta,
     camadas:(character.camadas||[]).map((layer,index)=>({
       id:layer.id,
