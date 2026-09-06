@@ -509,6 +509,7 @@ let viewportPanX=0;
 let viewportPanY=0;
 const activePointers=new Map();
 let gestureState=null;
+const imageRenderCache=new Map();
 
 /* ---------- Estado Global ---------- */
 const DreamStudioStore={
@@ -978,6 +979,22 @@ function renderLayerPaths(layer){
 
 function renderVectorPathElement(element){
   if(!element||!element.dados)return;
+  if(element.tipo==='image'){
+    const key=element.dados;
+    let img=imageRenderCache.get(key);
+    if(!img){
+      img=new Image(); img.decoding='async';
+      img.onload=()=>{imageRenderCache.set(key,img);if(character&&ctx)renderCharacter();};
+      img.onerror=()=>console.warn('Falha ao carregar elemento de imagem da camada.');
+      imageRenderCache.set(key,img); img.src=key; return;
+    }
+    if(!img.complete||!img.naturalWidth)return;
+    const t=element.transformacao||{};ctx.save();
+    ctx.translate(Number(t.x)||0,Number(t.y)||0);ctx.translate(character.canvas.largura/2,character.canvas.altura/2);
+    ctx.rotate(((Number(t.rotacao)||0)*Math.PI)/180);ctx.scale(Number(t.escala)||1,Number(t.escala)||1);ctx.translate(-character.canvas.largura/2,-character.canvas.altura/2);
+    ctx.globalAlpha=Number(element.estilo?.opacidade??1);
+    ctx.drawImage(img,Number(element.x)||0,Number(element.y)||0,Number(element.width)||0,Number(element.height)||0);ctx.restore();return;
+  }
   if(element.tipo!=='path'&&element.tipo!=='eraser')return;
   const path=new Path2D(element.dados);
   const t=element.transformacao||{};
@@ -1411,7 +1428,22 @@ function pointerDown(e){
     return;
   }
 
-  if(currentTool==='fill'){fillAt(p);persistCharacter();saveHistory();renderCharacter();return;}
+  if(currentTool==='fill'){
+    const layer=getActiveDrawingLayer();
+    if(!layer||layer.locked){setRenderStatus('SELECIONE UMA CAMADA DESBLOQUEADA');return;}
+    selectedLayerId=layer.id;
+    const fillElement=fillAt(p);
+    if(fillElement){
+      layer.elementos=Array.isArray(layer.elementos)?layer.elementos:[];
+      layer.elementos.push(fillElement);
+      persistCharacter();
+      saveHistory();
+      renderLayers();
+      renderCharacter();
+      showToast('Preenchimento aplicado.');
+    }
+    return;
+  }
 
   /* O desenho entra na camada atualmente selecionada. */
   const layer=getActiveDrawingLayer();
@@ -1736,46 +1768,37 @@ function drawShape(a,b){
 }
 
 function fillAt(p){
+  if(!canvas||!ctx||!character)return null;
   const dpr=canvas.width/character.canvas.largura;
-  const x=Math.floor(p.x*dpr);
-  const y=Math.floor(p.y*dpr);
+  const x=Math.floor(p.x*dpr),y=Math.floor(p.y*dpr);
+  if(x<0||y<0||x>=canvas.width||y>=canvas.height)return null;
   const image=ctx.getImageData(0,0,canvas.width,canvas.height);
-  const data=image.data;
-  const start=(y*canvas.width+x)*4;
+  const data=image.data, start=(y*canvas.width+x)*4;
   const target=[data[start],data[start+1],data[start+2],data[start+3]];
-  const c=hexToRgba(currentColor);
-  const replacement=[c.r,c.g,c.b,255];
-
-  if(target.every((v,i)=>Math.abs(v-replacement[i])<3))return;
-
-  const stack=[[x,y]];
-  const seen=new Uint8Array(canvas.width*canvas.height);
-
+  const c=hexToRgba(fillColor||strokeColor||currentColor),replacement=[c.r,c.g,c.b,255];
+  if(target.every((v,i)=>Math.abs(v-replacement[i])<3))return null;
+  const stack=[[x,y]],seen=new Uint8Array(canvas.width*canvas.height),changed=[];
+  let minX=canvas.width,minY=canvas.height,maxX=-1,maxY=-1;
   while(stack.length){
     const [px,py]=stack.pop();
     if(px<0||py<0||px>=canvas.width||py>=canvas.height)continue;
-
     const idx=py*canvas.width+px;
     if(seen[idx])continue;
     seen[idx]=1;
-
     const di=idx*4;
-    if(
-      Math.abs(data[di]-target[0])>8||
-      Math.abs(data[di+1]-target[1])>8||
-      Math.abs(data[di+2]-target[2])>8||
-      Math.abs(data[di+3]-target[3])>8
-    )continue;
-
-    data[di]=replacement[0];
-    data[di+1]=replacement[1];
-    data[di+2]=replacement[2];
-    data[di+3]=replacement[3];
-
+    if(Math.abs(data[di]-target[0])>8||Math.abs(data[di+1]-target[1])>8||Math.abs(data[di+2]-target[2])>8||Math.abs(data[di+3]-target[3])>8)continue;
+    data[di]=replacement[0];data[di+1]=replacement[1];data[di+2]=replacement[2];data[di+3]=replacement[3];
+    changed.push([px,py]);
+    if(px<minX)minX=px;if(py<minY)minY=py;if(px>maxX)maxX=px;if(py>maxY)maxY=py;
     stack.push([px+1,py],[px-1,py],[px,py+1],[px,py-1]);
   }
-
-  ctx.putImageData(image,0,0);
+  if(!changed.length)return null;
+  const width=maxX-minX+1,height=maxY-minY+1;
+  const fillCanvas=document.createElement('canvas');fillCanvas.width=width;fillCanvas.height=height;
+  const fillCtx=fillCanvas.getContext('2d'),fillImage=fillCtx.createImageData(width,height),fd=fillImage.data;
+  for(const [px,py] of changed){const sx=px-minX,sy=py-minY,si=(sy*width+sx)*4;fd[si]=replacement[0];fd[si+1]=replacement[1];fd[si+2]=replacement[2];fd[si+3]=replacement[3];}
+  fillCtx.putImageData(fillImage,0,0);
+  return {id:'fill_'+Date.now().toString(36)+'_'+Math.random().toString(36).slice(2,7),tipo:'image',dados:fillCanvas.toDataURL('image/png'),x:minX/dpr,y:minY/dpr,width:width/dpr,height:height/dpr,estilo:{opacidade:strokeOpacity},transformacao:{x:0,y:0,escala:1,rotacao:0}};
 }
 
 /* ---------- Ferramentas / Painéis ---------- */
@@ -2232,7 +2255,7 @@ function showToast(message){
 function openExportMenu(){
   if(!character){showToast('Crie ou abra um personagem antes de exportar.');return;}
   closeToolPanel();closeLayers();
-  const nativeAvailable=!!(window.Capacitor?.Plugins?.Media||window.Capacitor?.Plugins?.CameraRoll||window.Capacitor?.Plugins?.Filesystem);
+  const nativeAvailable=!!(window.Capacitor?.Plugins?.Media);
   $('modalTitle').textContent='Exportar personagem';
   $('modalText').textContent='Escolha como deseja levar esta composição para fora do Dream Studio.';
   const card=$('genericModal')?.querySelector('.setup-card');
@@ -2258,7 +2281,7 @@ function openExportMenu(){
         <span><strong>Salvar na Galeria do Celular</strong><small>${nativeAvailable?'Usar integração nativa do dispositivo.':'Em navegador, o arquivo será baixado para você salvar na galeria.'}</small></span>
       </button>
     </div>
-    <div class="export-native-note">No aplicativo nativo, o Dream Studio tenta solicitar a permissão necessária antes de gravar a imagem no álbum. Se a permissão for recusada, você receberá uma mensagem clara e poderá continuar usando o download.</div>
+    <div class="export-native-note">Quando houver integração nativa de mídia, a imagem pode ser gravada diretamente na galeria. No APK atual, o Dream Studio tenta usar o compartilhamento do Android e, se não estiver disponível, baixa o PNG.</div>
     <div class="setup-actions"><button onclick="closeModal()">Fechar</button></div>`;
   $('genericModal').classList.add('open');
 }
@@ -2272,16 +2295,26 @@ function downloadBlob(blob,name){
   const url=URL.createObjectURL(blob);const a=document.createElement('a');a.href=url;a.download=name;document.body.appendChild(a);a.click();a.remove();setTimeout(()=>URL.revokeObjectURL(url),1200);
 }
 
-function downloadCharacterPNG(){
-  if(!canvas||!character){showToast('Crie ou abra um personagem antes de exportar.');return;}
-  renderCharacter();
+async function waitForRenderedImages(){
+  const pending=[];
+  for(const img of imageRenderCache.values()){
+    if(img&&!img.complete)pending.push(new Promise(resolve=>{const done=()=>{img.removeEventListener('load',done);img.removeEventListener('error',done);resolve();};img.addEventListener('load',done,{once:true});img.addEventListener('error',done,{once:true});}));
+  }
+  if(pending.length)await Promise.all(pending);
+}
+
+async function downloadCharacterPNG(){
+  if(!canvas||!character){showToast('Crie ou abra um personagem antes de exportar.');return false;}
   try{
-    canvas.toBlob(blob=>{
-      if(blob){downloadBlob(blob,exportFileName('png'));showToast('PNG exportado com sucesso.');return;}
-      const data=canvas.toDataURL('image/png');
-      const a=document.createElement('a');a.href=data;a.download=exportFileName('png');document.body.appendChild(a);a.click();a.remove();showToast('PNG exportado com sucesso.');
-    },'image/png');
-  }catch(e){console.error(e);showToast('Não foi possível gerar o PNG.');}
+    renderCharacter(); await waitForRenderedImages(); renderCharacter();
+    const dataUrl=canvas.toDataURL('image/png'),name=exportFileName('png');
+    const fs=window.Capacitor?.Plugins?.Filesystem;
+    if(fs?.writeFile){try{await fs.writeFile({path:name,data:base64FromDataUrl(dataUrl),directory:'DOCUMENTS',recursive:true});showToast('PNG salvo nos documentos do aplicativo.');return true;}catch(e){console.warn('Filesystem indisponível:',e);}}
+    const blob=await (await fetch(dataUrl)).blob(); downloadBlob(blob,name); showToast('PNG exportado com sucesso.'); return true;
+  }catch(e){
+    console.error(e);
+    try{const a=document.createElement('a');a.href=canvas.toDataURL('image/png');a.download=exportFileName('png');a.rel='noopener';document.body.appendChild(a);a.click();a.remove();showToast('PNG preparado para salvamento.');return true;}catch(f){console.error(f);showToast('Não foi possível gerar o PNG.');return false;}
+  }
 }
 
 function svgEscape(v){return String(v??'').replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;');}
@@ -2303,7 +2336,13 @@ function resourceToSVG(resource){
   return '';
 }
 function elementToSVG(element){
-  if(!element||element.tipo!=='path'||!element.dados)return '';
+  if(!element||!element.dados)return '';
+  if(element.tipo==='image'){
+    const t=element.transformacao||{};
+    const tr=`translate(${Number(t.x)||0} ${Number(t.y)||0}) translate(${character.canvas.largura/2} ${character.canvas.altura/2}) rotate(${Number(t.rotacao)||0}) scale(${Number(t.escala)||1}) translate(${-character.canvas.largura/2} ${-character.canvas.altura/2})`;
+    return `<image href="${svgEscape(element.dados)}" x="${Number(element.x)||0}" y="${Number(element.y)||0}" width="${Number(element.width)||0}" height="${Number(element.height)||0}" opacity="${Number(element.estilo?.opacidade??1)}" transform="${tr}"/>`;
+  }
+  if(element.tipo!=='path')return '';
   const t=element.transformacao||{},e=element.estilo||{};const tr=`translate(${Number(t.x)||0} ${Number(t.y)||0}) translate(${character.canvas.largura/2} ${character.canvas.altura/2}) rotate(${Number(t.rotacao)||0}) scale(${Number(t.escala)||1}) translate(${-character.canvas.largura/2} ${-character.canvas.altura/2})`;
   const fill=e.preenchimento&&e.preenchimento!=='transparent'?svgEscape(e.preenchimento):'none';
   return `<path d="${svgEscape(element.dados)}" transform="${tr}" fill="${fill}" stroke="${svgEscape(e.cor||'#1E1E1E')}" stroke-width="${Number(e.espessura)||4}" stroke-linecap="round" stroke-linejoin="round" opacity="${Number(e.opacidade??1)}"/>`;
@@ -2329,39 +2368,26 @@ function downloadCharacterSVG(){
 
 function base64FromDataUrl(dataUrl){return String(dataUrl||'').split(',')[1]||'';}
 async function saveCharacterToGallery(){
-  if(!character||!canvas)return;
-  renderCharacter();
-  const dataUrl=canvas.toDataURL('image/png');
-  const plugins=window.Capacitor?.Plugins||{};
-  const media=plugins.Media||plugins.CameraRoll;
+  if(!character||!canvas){showToast('Crie ou abra um personagem antes de salvar.');return false;}
   try{
-    if(media){
-      if(typeof media.requestPermissions==='function'){
-        const permission=await media.requestPermissions();
-        const denied=permission?.photos==='denied'||permission?.photos==='limited'&&false||permission?.camera==='denied';
-        if(denied){showToast('Permissão para acessar a galeria foi negada. Você ainda pode baixar o PNG.');return;}
-      }
-      if(typeof media.savePhoto==='function'){
-        await media.savePhoto({data:base64FromDataUrl(dataUrl),album:'Dream Studio'});
-        showToast('Imagem salva na galeria com sucesso!');return;
-      }
-      if(typeof media.saveImage==='function'){
-        await media.saveImage({data:base64FromDataUrl(dataUrl),album:'Dream Studio'});
-        showToast('Imagem salva na galeria com sucesso!');return;
-      }
+    renderCharacter(); await waitForRenderedImages(); renderCharacter();
+    const dataUrl=canvas.toDataURL('image/png'),name=exportFileName('png');
+    const media=window.Capacitor?.Plugins?.Media;
+    if(media?.savePhoto){
+      let albumIdentifier;
+      if(typeof media.getAlbums==='function'){try{let r=await media.getAlbums();let albums=Array.isArray(r?.albums)?r.albums:[];let album=albums.find(a=>String(a.name||'').toLowerCase()==='dream studio');if(!album&&media.createAlbum){await media.createAlbum({name:'Dream Studio'});r=await media.getAlbums();albums=Array.isArray(r?.albums)?r.albums:[];album=albums.find(a=>String(a.name||'').toLowerCase()==='dream studio');}albumIdentifier=album?.identifier;}catch(e){console.warn('Álbum não pôde ser preparado:',e);}}
+      await media.savePhoto({path:dataUrl,fileName:name.replace(/\.png$/i,''),...(albumIdentifier?{albumIdentifier}:{})});
+      showToast('Imagem salva na galeria com sucesso!');return true;
     }
-    const fs=plugins.Filesystem;
-    if(fs?.writeFile){
-      const path=`Dream Studio/${exportFileName('png')}`;
-      await fs.writeFile({path,data:base64FromDataUrl(dataUrl),directory:'DOCUMENTS',recursive:true});
-      showToast('Imagem salva no armazenamento do aplicativo. Abra a galeria ou gerenciador de arquivos para movê-la para fotos.');return;
-    }
-    downloadCharacterPNG();
-    showToast('Seu navegador não oferece acesso direto à galeria. O PNG foi baixado para você salvar nas fotos.');
+    const blob=await (await fetch(dataUrl)).blob();
+    const file=typeof File==='function'?new File([blob],name,{type:'image/png'}):null;
+    if(file&&navigator.share&&(!navigator.canShare||navigator.canShare({files:[file]}))){try{await navigator.share({title:'Dream Studio',text:'Imagem criada no Dream Studio',files:[file]});showToast('Imagem enviada para o compartilhamento do Android.');return true;}catch(e){if(e?.name==='AbortError')return false;console.warn('Compartilhamento indisponível:',e);}}
+    downloadBlob(blob,name);showToast('PNG baixado. Use a opção do Android para salvar nas fotos.');return true;
   }catch(error){
-    console.error(error);
-    const denied=String(error?.message||error||'').toLowerCase().includes('permission')||String(error?.code||'').toLowerCase().includes('permission');
-    showToast(denied?'Permissão para salvar na galeria foi negada. O PNG continua disponível para download.':'Não foi possível salvar diretamente na galeria. O PNG foi preparado para download.');
+    console.error(error);const msg=String(error?.message||error||'').toLowerCase();
+    if(msg.includes('permission')||msg.includes('denied'))showToast('Permissão para salvar na galeria foi negada.');
+    else{showToast('Não foi possível salvar diretamente. O PNG será baixado.');await downloadCharacterPNG();}
+    return false;
   }
 }
 
