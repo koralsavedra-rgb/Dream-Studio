@@ -42,8 +42,8 @@ body.editor-route #splash{display:none!important;visibility:hidden!important;poi
 .character-main{height:calc(100vh - 60px - env(safe-area-inset-top));height:calc(100dvh - 60px - env(safe-area-inset-top));min-height:0;position:relative;display:flex;flex-direction:column}
 .view{display:none;height:100%}.view.active{display:flex}.visual-view{position:relative;overflow:hidden}
 .canvas-zone{flex:1;display:flex;align-items:center;justify-content:center;padding:16px 16px calc(78px + env(safe-area-inset-bottom));min-height:0}
-.canvas-shell{width:min(88vw,680px);height:min(70vh,680px);max-height:calc(100vh - 190px - env(safe-area-inset-top) - env(safe-area-inset-bottom));max-height:calc(100dvh - 190px - env(safe-area-inset-top) - env(safe-area-inset-bottom));display:flex;align-items:center;justify-content:center;overflow:hidden;border:1px solid var(--border);border-radius:20px;background:linear-gradient(45deg,rgba(255,255,255,.035) 25%,transparent 25% 75%,rgba(255,255,255,.035) 75%),linear-gradient(45deg,rgba(255,255,255,.035) 25%,transparent 25% 75%,rgba(255,255,255,.035) 75%);background-size:20px 20px;background-position:0 0,10px 10px;box-shadow:0 0 35px rgba(93,140,255,.07);touch-action:none}
-#drawCanvas{max-width:100%;max-height:100%;display:block;touch-action:none}
+.canvas-shell{width:min(96vw,900px);height:min(78dvh,900px);max-height:calc(100vh - 190px - env(safe-area-inset-top) - env(safe-area-inset-bottom));max-height:calc(100dvh - 190px - env(safe-area-inset-top) - env(safe-area-inset-bottom));display:flex;align-items:center;justify-content:center;overflow:hidden;border:1px solid var(--border);border-radius:20px;background:linear-gradient(45deg,rgba(255,255,255,.035) 25%,transparent 25% 75%,rgba(255,255,255,.035) 75%),linear-gradient(45deg,rgba(255,255,255,.035) 25%,transparent 25% 75%,rgba(255,255,255,.035) 75%);background-size:20px 20px;background-position:0 0,10px 10px;box-shadow:0 0 35px rgba(93,140,255,.07);touch-action:none}
+#drawCanvas{display:block;touch-action:none;flex:0 0 auto}
 .tool-dock{position:absolute;left:50%;bottom:12px;transform:translateX(-50%);width:min(96%,620px);display:flex;gap:7px;justify-content:center;flex-wrap:wrap;padding:7px;border:1px solid var(--border);border-radius:18px;background:rgba(8,12,29,.9);backdrop-filter:blur(16px)}.tool-dock button{min-width:42px;height:38px;border-radius:11px;background:rgba(18,23,48,.9);border:1px solid rgba(157,143,255,.14);font-size:11px;color:#d9d4ed}.tool-dock button.active{background:rgba(155,114,255,.25);border-color:rgba(155,114,255,.55)}
 .tool-panel{position:absolute;z-index:20;bottom:65px;left:50%;transform:translateX(-50%);width:min(94%,520px);max-height:min(62vh,540px);overflow:auto;padding:15px;border:1px solid var(--border);border-radius:18px;background:rgba(8,12,29,.96);backdrop-filter:blur(20px);box-shadow:0 20px 50px rgba(0,0,0,.45);display:none}.tool-panel.open{display:block}.panel-title{display:flex;justify-content:space-between;align-items:center;margin-bottom:12px;font-size:13px}.close-panel{background:transparent;color:var(--muted)}.tool-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:7px}.tool-grid button{padding:10px 5px;border-radius:11px;background:rgba(18,23,48,.85);border:1px solid var(--border);font-size:10px}.control-row{display:flex;align-items:center;gap:9px;margin:9px 0}.control-row label{font-size:10px;color:var(--muted);min-width:75px}.control-row input[type=range]{flex:1}.control-row output{font-size:10px;min-width:35px;text-align:right}.color-current{display:flex;align-items:center;gap:10px}.color-preview{width:36px;height:36px;border-radius:11px;border:1px solid rgba(255,255,255,.25)}.hex-row{display:flex;gap:7px}.hex-row input,.name-input{flex:1;min-width:0;padding:10px;border-radius:10px;border:1px solid var(--border);background:rgba(5,8,20,.8);color:var(--text);outline:none}.hex-row button,.save-color-btn{padding:10px 12px;border-radius:10px;background:rgba(155,114,255,.2);border:1px solid var(--border)}.color-search{margin:12px 0 8px}.saved-colors{display:grid;grid-template-columns:repeat(4,1fr);gap:7px}.saved-color{padding:7px;border-radius:11px;background:rgba(18,23,48,.75);border:1px solid var(--border);text-align:center}.saved-color-swatch{height:32px;border-radius:8px;margin-bottom:5px}.saved-color small{display:block;font-size:8px;color:var(--muted);overflow:hidden;text-overflow:ellipsis;white-space:nowrap}.saved-color .delete-color{margin-top:4px;background:transparent;color:#9d9ab0;font-size:9px}
 .code-view{padding:18px;overflow:auto}.code-card{width:min(900px,100%);margin:auto;background:rgba(10,14,31,.78);border:1px solid var(--border);border-radius:20px;padding:18px}.code-card h2{font-size:19px;font-weight:500;margin-bottom:6px}.code-card p{font-size:11px;color:var(--muted);margin-bottom:15px}.code-card pre{white-space:pre-wrap;word-break:break-word;background:#040711;border:1px solid rgba(157,143,255,.14);padding:14px;border-radius:14px;color:#ddd8f5;font-size:11px;line-height:1.55;overflow:auto}.code-actions{display:flex;gap:8px;margin-top:10px}.code-actions button{padding:10px 13px;border-radius:11px;background:rgba(155,114,255,.18);border:1px solid var(--border);font-size:10px}
@@ -2273,6 +2273,415 @@ function leaveCharacter(){
 telaAtiva='home';
 syncEditorRoute();
 setTimeout(()=>{$('splash')?.classList.add('hide')},3800);
+
+
+function fitCanvasDisplaySize(){
+  if(!canvas||!character)return;
+  const shell=$('canvasViewport');
+  if(!shell)return;
+  const availableWidth=Math.max(1,shell.clientWidth-2);
+  const availableHeight=Math.max(1,shell.clientHeight-2);
+  const cw=Number(character.canvas.largura)||500;
+  const ch=Number(character.canvas.altura)||500;
+  const scale=Math.min(availableWidth/cw,availableHeight/ch);
+  canvas.style.width=Math.max(1,Math.floor(cw*scale))+'px';
+  canvas.style.height=Math.max(1,Math.floor(ch*scale))+'px';
+}
+/* ---------- Funções do editor restauradas ---------- */
+function getCharacter(){
+  return DreamStudioStore.getPersonagem();
+}
+
+function createLayer(){
+  if(!character)return;
+  character.camadas=character.camadas||[];
+  const id='layer_'+Date.now().toString(36)+'_'+Math.random().toString(36).slice(2,6);
+  const layer={id,kind:'drawing',category:'desenho',label:'Nova camada',visible:true,locked:false,transformacao:{x:0,y:0,escala:1,rotacao:0},elementos:[]};
+  const selectedIndex=character.camadas.findIndex(l=>l.id===selectedLayerId);
+  if(selectedIndex>=0)character.camadas.splice(selectedIndex+1,0,layer);else character.camadas.push(layer);
+  selectedLayerId=id; selectedVectorId=null;
+  persistCharacter();saveHistory();renderLayers();renderCharacter();
+}
+
+function deleteSelectedLayer(){
+  const layer=findLayer(selectedLayerId);if(!layer)return;
+  if(layer.locked){showToast('Desbloqueie a camada antes de excluí-la.');return;}
+  if(character.camadas.length<=1){showToast('O personagem precisa manter pelo menos uma camada.');return;}
+  if(!confirm('Excluir a camada “'+(layer.label||layer.id)+'”?'))return;
+  const index=character.camadas.findIndex(l=>l.id===layer.id);
+  character.camadas.splice(index,1);
+  selectedLayerId=character.camadas[Math.max(0,index-1)]?.id||character.camadas[0]?.id||null;
+  selectedVectorId=null;persistCharacter();saveHistory();renderLayers();renderCharacter();
+}
+
+function ensureDrawingLayer(){
+  if(!character)return null;
+  character.camadas=Array.isArray(character.camadas)?character.camadas:[];
+  character.camadas.forEach(layer=>{
+    if(!Array.isArray(layer.elementos))layer.elementos=[];
+    if(!layer.transformacao)layer.transformacao={x:0,y:0,escala:1,rotacao:0};
+    if(layer.visible===undefined)layer.visible=true;
+    if(layer.locked===undefined)layer.locked=false;
+  });
+  if(!character.camadas.length){
+    character.camadas.push({id:'layer_desenho',kind:'drawing',category:'desenho',label:'Desenho',visible:true,locked:false,transformacao:{x:0,y:0,escala:1,rotacao:0},elementos:[]});
+  }
+  if(!selectedLayerId||!findLayer(selectedLayerId))selectedLayerId=character.camadas[character.camadas.length-1].id;
+  return findLayer(selectedLayerId);
+}
+
+function initCanvas(){
+  canvas=$('drawCanvas');
+  if(!canvas)return;
+
+  ctx=canvas.getContext('2d',{willReadFrequently:true});
+
+  const width=character.canvas.largura;
+  const height=character.canvas.altura;
+  const dpr=Math.max(1,Math.min(3,window.devicePixelRatio||1));
+
+  canvas.width=width*dpr;
+  canvas.height=height*dpr;
+  canvas.style.width=width+'px';
+  canvas.style.height=height+'px';
+  fitCanvasDisplaySize();
+
+  ctx.setTransform(dpr,0,0,dpr,0,0);
+  ctx.fillStyle='#FFFFFF';
+  ctx.fillRect(0,0,width,height);
+
+  ensureDrawingLayer();
+  undoStack=[];
+  redoStack=[];
+  saveHistory();
+  updateDrawingToolbar();
+  resetZoom();
+  activePointers.clear();
+  gestureState=null;
+
+  canvas.onpointerdown=pointerDown;
+  canvas.onpointermove=pointerMove;
+  canvas.onpointerup=pointerUp;
+  canvas.onpointercancel=pointerUp;
+  window.removeEventListener('resize',fitCanvasDisplaySize);
+  window.addEventListener('resize',fitCanvasDisplaySize,{passive:true});
+
+  updateHistoryButtons();
+}
+
+function loadSavedLayer(savedId){
+  if(!character)return;
+  const saved=readJSON(LAYER_KEY,[]).find(l=>l.id===savedId);if(!saved)return;
+  const copy=JSON.parse(JSON.stringify(saved));
+  copy.id='layer_'+Date.now().toString(36)+'_'+Math.random().toString(36).slice(2,6);
+  delete copy.salvoEm;delete copy.originalId;
+  character.camadas=character.camadas||[];
+  character.camadas.push(copy);selectedLayerId=copy.id;selectedVectorId=null;
+  persistCharacter();saveHistory();renderLayers();renderCharacter();
+  showToast('Camada carregada no personagem.');
+}
+
+function renameSelectedLayer(){
+  const layer=findLayer(selectedLayerId);if(!layer)return;
+  const name=prompt('Nome da camada:',layer.label||'Camada');
+  if(name===null)return;
+  const clean=name.trim();if(!clean)return;
+  layer.label=clean;persistCharacter();saveHistory();renderLayers();renderCharacter();
+}
+
+function renderCharacter(){
+  if(!character||!ctx)return;
+
+  setRenderStatus('RENDERIZANDO…');
+  clearRenderCanvas();
+
+  const layers=getRenderableLayers();
+  layers.forEach(layer=>{
+    if(!layer.visible)return;
+    const resource=findLibraryResource(layer.id);
+    if(resource?.visible!==false && resource?.vector){
+      ctx.save();
+      applyLayerTransform(layer);
+      renderVectorResource(resource,character.canvas.largura,character.canvas.altura);
+      ctx.restore();
+    }
+    if(resource?.visible!==false)renderLayerPaths(layer);
+  });
+
+  if(activeStroke){
+    const tempLayer={elementos:[activeStroke]};
+    renderLayerPaths(tempLayer);
+  }
+  if(activeShape)renderActiveShape();
+
+  setRenderStatus(layers.length+' CAMADAS · RENDERIZAÇÃO PRONTA');
+  renderCode();
+  updateHistoryButtons();
+}
+
+function renderLayerPaths(layer){
+  (layer?.elementos||[]).forEach(element=>renderVectorPathElement(element));
+}
+
+function renderLayers(){
+  if(!character)return;
+
+  const list=$('layersList');
+  if(!list)return;
+
+  const layers=getRenderableLayers();
+  $('layerCount').textContent=layers.length+' recurso'+(layers.length===1?'':'s');
+
+  if(!layers.length){
+    list.innerHTML='<div class="layer-empty">Nenhuma camada ativa.<br>Adicione uma base ou componentes para visualizar a composição.</div>';
+    return;
+  }
+
+  /* A lista é mostrada do topo para a base: último elemento = maior Z. */
+  const visualLayers=[...layers].reverse();
+
+  list.innerHTML=visualLayers.map(layer=>{
+    const resource=findLibraryResource(layer.id);
+    const safeName=escapeHtml(resource?.name||layer.label||layer.id);
+    const category=escapeHtml(layer.category||layer.kind||'recurso');
+
+    return `
+      <div class="layer-item ${layer.id===selectedLayerId?'selected-layer':''}" draggable="true" data-layer-id="${escapeAttr(layer.id)}"
+           ondragstart="startLayerDrag(event,'${escapeJs(layer.id)}')"
+           ondragover="allowLayerDrop(event)"
+           ondrop="dropLayer(event,'${escapeJs(layer.id)}')"
+           ondragend="endLayerDrag(event)">
+        <button class="layer-drag" aria-label="Reordenar camada" title="Arrastar">
+          <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M8 6h8M8 12h8M8 18h8"/><path d="m5 6 1-1 1 1M5 12l1-1 1 1M5 18l1-1 1 1"/></svg>
+        </button>
+        <button class="layer-main" onclick="selectLayer('${escapeJs(layer.id)}')">
+          <strong>${safeName}</strong>
+          <small>${category} · ${escapeHtml(layer.id)} · ${(layer.elementos||[]).length} vetor${(layer.elementos||[]).length===1?'':'es'}</small>
+        </button>
+        <button class="layer-control ${layer.visible?'active':''}" onclick="toggleLayerVisibility('${escapeJs(layer.id)}')" aria-label="${layer.visible?'Ocultar':'Mostrar'} camada">
+          ${eyeIcon(layer.visible)}
+        </button>
+        <button class="layer-control ${layer.locked?'active':''}" onclick="toggleLayerLock('${escapeJs(layer.id)}')" aria-label="${layer.locked?'Desbloquear':'Bloquear'} camada">
+          ${lockIcon(layer.locked)}
+        </button>
+      </div>`;
+  }).join('');
+  const savedLayers=readJSON(LAYER_KEY,[]);
+  const savedHtml=savedLayers.length?`<div class="saved-layer-library"><div class="saved-layer-title">CAMADAS SALVAS</div>${savedLayers.map(l=>`<div class="saved-layer-row"><span>${escapeHtml(l.label||'Camada')}</span><button onclick="loadSavedLayer('${l.id}')">Usar</button></div>`).join('')}</div>`:'';
+  list.insertAdjacentHTML('beforeend',savedHtml);
+}
+
+function renderVectorPathElement(element){
+  if(!element||!element.dados)return;
+  if(element.tipo==='image'){
+    const key=element.dados;
+    let img=imageRenderCache.get(key);
+    if(!img){
+      img=new Image(); img.decoding='async';
+      img.onload=()=>{imageRenderCache.set(key,img);if(character&&ctx)renderCharacter();};
+      img.onerror=()=>console.warn('Falha ao carregar elemento de imagem da camada.');
+      imageRenderCache.set(key,img); img.src=key; return;
+    }
+    if(!img.complete||!img.naturalWidth)return;
+    const t=element.transformacao||{};ctx.save();
+    ctx.translate(Number(t.x)||0,Number(t.y)||0);ctx.translate(character.canvas.largura/2,character.canvas.altura/2);
+    ctx.rotate(((Number(t.rotacao)||0)*Math.PI)/180);ctx.scale(Number(t.escala)||1,Number(t.escala)||1);ctx.translate(-character.canvas.largura/2,-character.canvas.altura/2);
+    ctx.globalAlpha=Number(element.estilo?.opacidade??1);
+    ctx.drawImage(img,Number(element.x)||0,Number(element.y)||0,Number(element.width)||0,Number(element.height)||0);ctx.restore();return;
+  }
+  if(element.tipo!=='path'&&element.tipo!=='eraser')return;
+  const path=new Path2D(element.dados);
+  const t=element.transformacao||{};
+  const estilo=element.estilo||{};
+  ctx.save();
+  ctx.translate(Number(t.x)||0,Number(t.y)||0);
+  ctx.translate(character.canvas.largura/2,character.canvas.altura/2);
+  ctx.rotate(((Number(t.rotacao)||0)*Math.PI)/180);
+  ctx.scale(Number(t.escala)||1,Number(t.escala)||1);
+  ctx.translate(-character.canvas.largura/2,-character.canvas.altura/2);
+  ctx.globalAlpha=Number(estilo.opacidade ?? 1);
+  ctx.lineWidth=Number(estilo.espessura)||4;
+  ctx.lineCap=estilo.tipo==='rigid'?'butt':'round';
+  ctx.lineJoin='round';
+  ctx.setLineDash(estilo.tipo==='dashed'?[10,8]:estilo.tipo==='dotted'?[2,8]:estilo.tipo==='textured'?[2,5]:[]);
+  if(element.tipo==='eraser'){
+    ctx.globalCompositeOperation='destination-out';
+    ctx.strokeStyle='rgba(0,0,0,1)';
+    ctx.stroke(path);
+  }else{
+    ctx.globalCompositeOperation='source-over';
+    ctx.strokeStyle=estilo.cor||'#1E1E1E';
+    if(estilo.preenchimento&&estilo.preenchimento!=='transparent'){ctx.fillStyle=estilo.preenchimento;ctx.fill(path);}
+    ctx.stroke(path);
+  }
+  if(selectedVectorId===element.id&&element.tipo!=='eraser'){
+    ctx.save();ctx.globalCompositeOperation='source-over';ctx.setLineDash([6,5]);ctx.lineWidth=1.5;ctx.strokeStyle='#65DFFF';ctx.globalAlpha=.9;ctx.stroke(path);ctx.restore();
+  }
+  ctx.restore();
+}
+
+function renderVectorResource(resource,width,height){
+  const v=resource.vector;
+  const cx=width/2;
+  const cy=height/2;
+  const scale=Math.min(width,height)/500;
+
+  ctx.lineWidth=(v.lineWidth||4)*scale;
+  ctx.lineCap='round';
+  ctx.lineJoin='round';
+  ctx.strokeStyle=v.stroke||'#333';
+  ctx.fillStyle=v.fill||'transparent';
+
+  if(v.kind==='face'){
+    const faceW=210*scale;
+    const faceH=250*scale;
+    ctx.beginPath();
+    ctx.ellipse(cx,cy+25*scale,faceW/2,faceH/2,0,0,Math.PI*2);
+    ctx.fillStyle=v.skin||'#F3C7A6';
+    ctx.fill();
+    ctx.stroke();
+    return;
+  }
+
+  if(v.kind==='hair'){
+    ctx.beginPath();
+    ctx.moveTo(cx-112*scale,cy-70*scale);
+    ctx.bezierCurveTo(cx-125*scale,cy-175*scale,cx+105*scale,cy-175*scale,cx+112*scale,cy-65*scale);
+    ctx.bezierCurveTo(cx+100*scale,cy-105*scale,cx+75*scale,cy-120*scale,cx+50*scale,cy-122*scale);
+    ctx.bezierCurveTo(cx+15*scale,cy-145*scale,cx-15*scale,cy-145*scale,cx-50*scale,cy-122*scale);
+    ctx.bezierCurveTo(cx-75*scale,cy-120*scale,cx-100*scale,cy-105*scale,cx-112*scale,cy-70*scale);
+    ctx.closePath();
+    ctx.fillStyle=v.fill||'#3A2348';
+    ctx.fill();
+    ctx.stroke();
+    return;
+  }
+
+  if(v.kind==='eyes'){
+    ctx.fillStyle=v.fill||'#25263B';
+    ctx.beginPath();ctx.ellipse(cx-48*scale,cy+5*scale,8*scale,11*scale,0,0,Math.PI*2);ctx.fill();
+    ctx.beginPath();ctx.ellipse(cx+48*scale,cy+5*scale,8*scale,11*scale,0,0,Math.PI*2);ctx.fill();
+    return;
+  }
+
+  if(v.kind==='clothes'){
+    ctx.beginPath();
+    ctx.moveTo(cx-72*scale,cy+135*scale);
+    ctx.lineTo(cx-128*scale,cy+190*scale);
+    ctx.lineTo(cx-95*scale,cy+225*scale);
+    ctx.lineTo(cx-52*scale,cy+185*scale);
+    ctx.lineTo(cx-52*scale,cy+255*scale);
+    ctx.lineTo(cx+52*scale,cy+255*scale);
+    ctx.lineTo(cx+52*scale,cy+185*scale);
+    ctx.lineTo(cx+95*scale,cy+225*scale);
+    ctx.lineTo(cx+128*scale,cy+190*scale);
+    ctx.lineTo(cx+72*scale,cy+135*scale);
+    ctx.closePath();ctx.fillStyle=v.fill||'#5D8CFF';ctx.fill();ctx.stroke();return;
+  }
+
+  if(v.kind==='glasses'){
+    const y=cy+5*scale;
+    const gap=16*scale;
+    const r=38*scale;
+
+    ctx.beginPath();
+    ctx.arc(cx-54*scale,y,r,0,Math.PI*2);
+    ctx.stroke();
+    ctx.beginPath();
+    ctx.arc(cx+54*scale,y,r,0,Math.PI*2);
+    ctx.stroke();
+    ctx.beginPath();
+    ctx.moveTo(cx-16*scale,y);
+    ctx.lineTo(cx+16*scale,y);
+    ctx.stroke();
+    ctx.beginPath();
+    ctx.moveTo(cx-92*scale,y-3*scale);
+    ctx.lineTo(cx-115*scale,y-12*scale);
+    ctx.moveTo(cx+92*scale,y-3*scale);
+    ctx.lineTo(cx+115*scale,y-12*scale);
+    ctx.stroke();
+  }
+}
+
+function saveSelectedLayer(){
+  const layer=findLayer(selectedLayerId);if(!layer){showToast('Selecione uma camada primeiro.');return;}
+  const stored=readJSON(LAYER_KEY,[]);
+  const layers=Array.isArray(stored)?stored:[];
+  const id='saved_layer_'+Date.now().toString(36);
+  const copy=JSON.parse(JSON.stringify(layer));
+  copy.id=id;copy.originalId=layer.id;copy.salvoEm=new Date().toISOString();
+  layers.push(copy);
+  if(!writeJSON(LAYER_KEY,layers))return;
+  renderLayers();
+  showToast('Camada salva na biblioteca de camadas.');
+}
+
+function selectLayer(id){
+  const layer=findLayer(id);
+  if(!layer)return;
+  selectedLayerId=id;
+  selectedVectorId=null;
+  renderLayers();
+  renderCharacter();
+}
+
+function toggleLayerLock(id){
+  const layer=findLayer(id);
+  if(!layer)return;
+  layer.locked=!layer.locked;
+  persistCharacter();saveHistory();
+  renderLayers();
+}
+
+function toggleLayerVisibility(id){
+  const layer=findLayer(id);
+  if(!layer)return;
+  layer.visible=!layer.visible;
+  persistCharacter();saveHistory();
+  renderLayers();
+  renderCharacter();
+}
+
+function duplicateSelectedLayer(){
+  const layer=findLayer(selectedLayerId);if(!layer)return;
+  if(layer.locked){showToast('Desbloqueie a camada antes de duplicar.');return;}
+  const copy=JSON.parse(JSON.stringify(layer));
+  copy.id='layer_'+Date.now().toString(36)+'_'+Math.random().toString(36).slice(2,6);
+  copy.label=(layer.label||'Camada')+' cópia';
+  copy.locked=false;
+  const index=character.camadas.findIndex(l=>l.id===layer.id);
+  character.camadas.splice(index+1,0,copy);selectedLayerId=copy.id;selectedVectorId=null;
+  persistCharacter();saveHistory();renderLayers();renderCharacter();
+}
+
+function applyLayerTransform(layer){
+  const t=layer?.transformacao||layer?.transform||{};
+  const x=Number(t.x)||0, y=Number(t.y)||0, scale=Number(t.escala??t.scale)||1, rotation=Number(t.rotacao??t.rotation)||0;
+  if(x||y)ctx.translate(x,y);
+  if(scale!==1||rotation){
+    const cx=character.canvas.largura/2,cy=character.canvas.altura/2;
+    ctx.translate(cx,cy);ctx.rotate(rotation*Math.PI/180);ctx.scale(scale,scale);ctx.translate(-cx,-cy);
+  }
+}
+
+function clearRenderCanvas(){
+  if(!ctx||!character)return;
+  ctx.save();
+  ctx.setTransform(1,0,0,1,0,0);
+  ctx.clearRect(0,0,canvas.width,canvas.height);
+  ctx.restore();
+
+  const dpr=Math.max(1,Math.min(3,window.devicePixelRatio||1));
+  ctx.setTransform(dpr,0,0,dpr,0,0);
+  ctx.fillStyle='#FFFFFF';
+  ctx.fillRect(0,0,character.canvas.largura,character.canvas.altura);
+}
+
+function getRenderableLayers(){
+  if(!character)return [];
+  if(!Array.isArray(character.camadas)){character.camadas=buildInitialLayers(character);}
+  return character.camadas.filter(layer=>findLibraryResource(layer.id)||((layer.elementos||[]).length>0)||layer.kind==='drawing');
+}
 </script>
 </body>
 </html>
