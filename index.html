@@ -878,6 +878,16 @@ function normalizeCharacterModel(personagem){
   personagem.estrutura.composicao='referencias';
   personagem.estrutura.recursosIndependentes=true;
   if(!Array.isArray(personagem.camadas))personagem.camadas=[];
+  /* Migração compatível: versões anteriores usavam o mesmo ID para a
+     instância e para o recurso. A instância passa a manter resourceId. */
+  personagem.camadas.forEach(layer=>{
+    if(!layer||typeof layer!=='object')return;
+    if(!layer.resourceId)layer.resourceId=layer.recursoId||layer.id;
+    if(!layer.transformacao)layer.transformacao={x:0,y:0,escala:1,rotacao:0};
+    if(!Array.isArray(layer.elementos))layer.elementos=[];
+    if(layer.visible===undefined)layer.visible=true;
+    if(layer.locked===undefined)layer.locked=false;
+  });
   return personagem;
 }
 function getCharacterSlotDefinitions(){
@@ -1923,12 +1933,21 @@ function renderCharacterAssemblyPanel(){
 }
 
 function resourceLayerElement(resource){
+  /* Recursos desenhados são armazenados como elementos independentes.
+     Isso evita transformar o canvas inteiro em uma imagem do componente. */
+  if(Array.isArray(resource?.elementos) && resource.elementos.length){
+    return JSON.parse(JSON.stringify(resource.elementos));
+  }
   if(resource?.dataUrl){
+    const w=Number(resource.width)||Number(character?.canvas?.largura)||500;
+    const h=Number(resource.height)||Number(character?.canvas?.altura)||500;
+    const x=Number(resource.offsetX??0);
+    const y=Number(resource.offsetY??0);
     return [{
       id:'img_'+Date.now().toString(36)+'_'+Math.random().toString(36).slice(2,6),
       tipo:'image',
       dados:resource.dataUrl,
-      x:0,y:0,width:Number(character?.canvas?.largura)||500,height:Number(character?.canvas?.altura)||500,
+      x,y,width:w,height:h,
       estilo:{opacidade:1},
       transformacao:{x:0,y:0,escala:1,rotacao:0}
     }];
@@ -2189,26 +2208,46 @@ function hexToRgba(hex){
 function saveResource(type){
   const resources=readJSON(RESOURCE_KEY,[]);
   const id='res_'+Date.now()+'_'+Math.random().toString(36).slice(2,6);
+  const selected=findLayer(selectedLayerId);
 
-  resources.push({
+  /* O recurso guarda seu próprio conteúdo, separado da instância da camada.
+     Assim, várias instâncias podem apontar para o mesmo resourceId sem
+     compartilhar posição, escala ou rotação. */
+  let elementos=[];
+  if(selected && Array.isArray(selected.elementos)){
+    elementos=JSON.parse(JSON.stringify(selected.elementos));
+  }
+  if(activeStroke && selected?.id===selectedLayerId){
+    elementos.push(JSON.parse(JSON.stringify(activeStroke)));
+  }
+
+  const resource={
     id,
     type,
     name:$('componentName')?.value.trim()||type,
-    category:character?.tipo==='personagem' && type==='component' ? normalizeCharacterCategory($('componentCategory')?.value.trim()) : ($('componentCategory')?.value.trim()||type),
-    project:character.projeto,
-    library:character.biblioteca,
-    dataUrl:canvas.toDataURL('image/png'),
+    category:character?.tipo==='personagem' && type==='component'
+      ? normalizeCharacterCategory($('componentCategory')?.value.trim())
+      : ($('componentCategory')?.value.trim()||type),
+    project:character?.projeto||'',
+    library:character?.biblioteca||'',
+    elementos,
+    /* dataUrl permanece como fallback/preview para recursos antigos e
+       bibliotecas que ainda dependam de imagem. */
+    dataUrl:canvas?.toDataURL ? canvas.toDataURL('image/png') : null,
     visible:true,
     origem:'usuario',
     proprietario:'usuario',
     permissao:{editar:true,usar:true,duplicar:true,exportar:true,excluir:true,ocultar:true},
-    criadoEm:new Date().toISOString()
-  });
+    criadoEm:new Date().toISOString(),
+    formato:'composicao',
+    independente:true,
+    origemCamada:selected?.id||null
+  };
 
+  resources.push(resource);
   writeJSON(RESOURCE_KEY,resources);
   return id;
 }
-
 function getPaletteSnapshot(){
   let favorites=[];
   try{favorites=JSON.parse(localStorage.getItem(COLOR_KEY)||'[]')}catch(e){favorites=[]}
@@ -2277,6 +2316,7 @@ function saveBase(){
     character.camadas=character.camadas||[];
     character.camadas.unshift({
       id,
+      resourceId:id,
       kind:'base',
       label:n,
       visible:true,
@@ -2325,6 +2365,7 @@ function saveComponent(){
   if(!slot.multiple)character.camadas=character.camadas.filter(layer=>layer.category!==category);
   character.camadas.push({
     id,
+    resourceId:id,
     kind:'component',
     category,
     label:name,
@@ -2378,6 +2419,7 @@ function getSerializableCharacter(){
     paleta,
     camadas:(character.camadas||[]).map((layer,index)=>({
       id:layer.id,
+      resourceId:layer.resourceId||layer.recursoId||layer.id,
       tipo:layer.kind,
       categoria:layer.category||null,
       zIndex:index,
