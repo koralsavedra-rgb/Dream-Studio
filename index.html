@@ -159,7 +159,7 @@ header{height:68px;padding:0 12px}
 
 
 /* ---------- EVOLUÇÃO 3: Toolbar de desenho ---------- */
-.drawing-toolbar{position:absolute;z-index:30;left:50%;bottom:14px;transform:translateX(-50%);width:min(760px,calc(100% - 24px));display:flex;align-items:center;gap:7px;padding:8px;border:1px solid var(--border);border-radius:18px;background:rgba(8,12,29,.94);backdrop-filter:blur(22px);box-shadow:0 18px 55px rgba(0,0,0,.48);touch-action:pan-x;overflow-x:auto;scrollbar-width:none}
+.drawing-toolbar{position:relative;position:absolute;z-index:30;left:50%;bottom:14px;transform:translateX(-50%);width:min(760px,calc(100% - 24px));display:flex;align-items:center;gap:7px;padding:8px;border:1px solid var(--border);border-radius:18px;background:rgba(8,12,29,.94);backdrop-filter:blur(22px);box-shadow:0 18px 55px rgba(0,0,0,.48);touch-action:pan-x;overflow-x:auto;scrollbar-width:none}
 .drawing-toolbar::-webkit-scrollbar{display:none}
 .toolbar-group{display:flex;align-items:center;gap:5px;flex:0 0 auto;padding-right:6px;border-right:1px solid rgba(157,143,255,.14)}
 .toolbar-group:last-child{border-right:0;padding-right:0}
@@ -252,18 +252,59 @@ header{height:68px;padding:0 12px}
 .export-option small{display:block;color:var(--muted);font-size:8px;margin-top:3px}
 .export-native-note{margin-top:10px;font-size:8px;color:var(--muted);line-height:1.45}
 @media(max-width:650px){.editor-export{width:36px;padding:0;justify-content:center}.editor-export span{display:none}.dream-toast{bottom:calc(68px + env(safe-area-inset-bottom))}}
-.layer-actions{display:grid;grid-template-columns:repeat(3,1fr);gap:6px;padding:8px 0;border-bottom:1px solid rgba(157,143,255,.12)}.layer-actions button{min-height:32px;padding:6px;border-radius:9px;background:rgba(18,23,48,.85);border:1px solid var(--border);font-size:9px}.editor-action:disabled{opacity:.35;cursor:not-allowed}.saved-character-list{display:grid;gap:7px;max-height:45vh;overflow:auto}.saved-character-item{display:flex;flex-direction:column;align-items:flex-start;gap:4px;padding:11px;border-radius:11px;background:rgba(18,23,48,.82);border:1px solid var(--border);text-align:left}.saved-character-item small{color:var(--muted);font-size:8px}.saved-layer-library{margin-top:10px;padding-top:10px;border-top:1px solid rgba(157,143,255,.12)}.saved-layer-title{font-size:9px;color:var(--muted);letter-spacing:.5px;margin-bottom:6px}.saved-layer-row{display:flex;align-items:center;justify-content:space-between;gap:8px;padding:7px 8px;margin-bottom:5px;border:1px solid var(--border);border-radius:9px;background:rgba(10,14,31,.7);font-size:9px}.saved-layer-row span{overflow:hidden;text-overflow:ellipsis;white-space:nowrap}.saved-layer-row button{padding:5px 8px;border-radius:7px;border:1px solid var(--border);background:rgba(18,23,48,.9);font-size:8px}</style>
+.layer-actions{display:grid;grid-template-columns:repeat(3,1fr);gap:6px;padding:8px 0;border-bottom:1px solid rgba(157,143,255,.12)}.layer-actions button{min-height:32px;padding:6px;border-radius:9px;background:rgba(18,23,48,.85);border:1px solid var(--border);font-size:9px}.editor-action:disabled{opacity:.35;cursor:not-allowed}.saved-character-list{display:grid;gap:7px;max-height:45vh;overflow:auto}.saved-character-item{display:flex;flex-direction:column;align-items:flex-start;gap:4px;padding:11px;border-radius:11px;background:rgba(18,23,48,.82);border:1px solid var(--border);text-align:left}.saved-character-item small{color:var(--muted);font-size:8px}.saved-layer-library{margin-top:10px;padding-top:10px;border-top:1px solid rgba(157,143,255,.12)}.saved-layer-title{font-size:9px;color:var(--muted);letter-spacing:.5px;margin-bottom:6px}.saved-layer-row{display:flex;align-items:center;justify-content:space-between;gap:8px;padding:7px 8px;margin-bottom:5px;border:1px solid var(--border);border-radius:9px;background:rgba(10,14,31,.7);font-size:9px}.saved-layer-row span{overflow:hidden;text-overflow:ellipsis;white-space:nowrap}.saved-layer-row button{padding:5px 8px;border-radius:7px;border:1px solid var(--border);background:rgba(18,23,48,.9);font-size:8px}
+/* V17: painel de transformação conectado à seleção */
+#selectionTransformPanel.selection-transform-panel {
+  position: fixed !important;
+  left: 50% !important;
+  bottom: calc(84px + env(safe-area-inset-bottom)) !important;
+  transform: translateX(-50%) !important;
+  z-index: 2147483647 !important;
+  display: none;
+  align-items: center;
+  justify-content: center;
+  gap: 6px;
+  flex-wrap: wrap;
+  width: max-content;
+  max-width: calc(100vw - 20px);
+  padding: 8px 12px;
+  border: 1px solid rgba(101, 223, 255, 0.55);
+  border-radius: 16px;
+  background: rgba(8, 12, 29, 0.96);
+  backdrop-filter: blur(20px);
+  box-shadow: 0 18px 55px rgba(0, 0, 0, 0.6);
+  pointer-events: auto !important;
+  box-sizing: border-box;
+}
+#selectionTransformPanel.selection-transform-panel.show {
+  display: flex !important;
+  visibility: visible !important;
+  opacity: 1 !important;
+}
+</style>
 <style>
 .vector-selection-note.show{display:block;pointer-events:auto}
 .selection-controls{display:flex;flex-wrap:wrap;gap:4px;margin-top:5px}
 .selection-controls button{min-width:28px;height:26px;border:1px solid rgba(125,160,255,.35);border-radius:7px;background:rgba(18,23,48,.92);color:#fff;font-size:11px}
 
 /* Controles de transformação: painel separado do canvas para não ser cortado pelo overflow */
-.selection-transform-panel{position:absolute;z-index:70;left:50%;bottom:calc(72px + env(safe-area-inset-bottom));transform:translate(-50%,12px);display:none;align-items:center;gap:5px;flex-wrap:wrap;justify-content:center;max-width:calc(100% - 18px);padding:8px 9px;border:1px solid rgba(101,223,255,.45);border-radius:15px;background:rgba(8,12,29,.96);backdrop-filter:blur(20px);box-shadow:0 18px 55px rgba(0,0,0,.5)}
-.selection-transform-panel.show{display:flex;transform:translate(-50%,0)}
+.selection-transform-panel{position:fixed!important;z-index:10050!important;left:50%!important;bottom:calc(78px + env(safe-area-inset-bottom))!important;transform:translate(-50%,10px)!important;display:none;align-items:center;gap:5px;flex-wrap:wrap;justify-content:center;width:max-content;max-width:calc(100vw - 18px);padding:8px 9px;border:1px solid rgba(101,223,255,.55);border-radius:15px;background:rgba(8,12,29,.98);backdrop-filter:blur(20px);box-shadow:0 18px 55px rgba(0,0,0,.55);pointer-events:auto}
+.selection-transform-panel.show{display:flex!important;transform:translate(-50%,0)!important}
+.selection-transform-panel button:disabled{opacity:.38;filter:saturate(.4)}
 .selection-transform-panel .selection-title{width:100%;text-align:center;font-size:8px;letter-spacing:1px;color:#bff5ff;margin-bottom:1px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
 .selection-transform-panel button{min-width:36px;height:34px;padding:0 8px;border:1px solid rgba(125,160,255,.35);border-radius:9px;background:rgba(18,23,48,.92);color:#fff;font-size:12px;touch-action:manipulation}
 .selection-transform-panel button:active{background:rgba(101,223,255,.16);border-color:rgba(101,223,255,.6)}
+</style>
+<style>
+/* V18: caixa de seleção e alças de transformação no canvas */
+#selectionOverlay.selection-overlay{position:fixed;inset:0;z-index:2147483646;pointer-events:none;display:none}
+#selectionOverlay.selection-overlay.show{display:block}
+#selectionOverlay .selection-box{position:fixed;box-sizing:border-box;border:2px solid rgba(101,223,255,.95);border-radius:6px;box-shadow:0 0 0 1px rgba(8,12,29,.75),0 0 18px rgba(101,223,255,.28);pointer-events:none}
+#selectionOverlay .selection-handle{position:fixed;width:18px;height:18px;margin:-9px 0 0 -9px;border:2px solid #fff;border-radius:50%;background:rgba(8,12,29,.98);box-shadow:0 0 0 1px rgba(101,223,255,.8),0 0 12px rgba(101,223,255,.45);pointer-events:auto;touch-action:none}
+#selectionOverlay .selection-handle.scale{cursor:nwse-resize}
+#selectionOverlay .selection-handle.rotate{width:20px;height:20px;margin:-10px 0 0 -10px;background:rgba(127,101,255,.98);cursor:grab}
+#selectionOverlay .selection-handle.move{pointer-events:auto;width:28px;height:28px;margin:-14px 0 0 -14px;border:0;background:transparent;box-shadow:none;cursor:move}
+#selectionOverlay .selection-rotate-line{position:fixed;height:28px;width:2px;background:rgba(101,223,255,.75);transform-origin:top center;pointer-events:none}
 </style>
 </head>
 <body>
@@ -312,22 +353,18 @@ header{height:68px;padding:0 12px}
         <div class="canvas-shell" id="canvasViewport" aria-label="Área de desenho com zoom e pan">
           <canvas id="drawCanvas" class="drawing-canvas-white"></canvas>
         </div>
-
-        <div id="selectionTransformPanel" class="selection-transform-panel" aria-label="Controles de transformação">
-          <div id="selectionTransformTitle" class="selection-title">SELECIONE UM COMPONENTE</div>
-          <button type="button" onclick="adjustSelectedLayerTransform(-10,0,0,0)" aria-label="Mover para esquerda">←</button>
-          <button type="button" onclick="adjustSelectedLayerTransform(10,0,0,0)" aria-label="Mover para direita">→</button>
-          <button type="button" onclick="adjustSelectedLayerTransform(0,-10,0,0)" aria-label="Mover para cima">↑</button>
-          <button type="button" onclick="adjustSelectedLayerTransform(0,10,0,0)" aria-label="Mover para baixo">↓</button>
-          <button type="button" onclick="adjustSelectedLayerTransform(0,0,.1,0)" aria-label="Aumentar">＋</button>
-          <button type="button" onclick="adjustSelectedLayerTransform(0,0,-.1,0)" aria-label="Diminuir">−</button>
-          <button type="button" onclick="adjustSelectedLayerTransform(0,0,0,-15)" aria-label="Girar para esquerda">↶</button>
-          <button type="button" onclick="adjustSelectedLayerTransform(0,0,0,15)" aria-label="Girar para direita">↷</button>
-          <button type="button" onclick="resetSelectedLayerTransform()" aria-label="Restaurar tamanho e rotação">1:1</button>
-          <button type="button" onclick="clearCharacterSelection()" aria-label="Finalizar seleção">✓</button>
+        <div id="selectionOverlay" class="selection-overlay" aria-hidden="true">
+          <div id="selectionBox" class="selection-box"></div>
+          <div id="selectionMoveHandle" class="selection-handle move" title="Mover"></div>
+          <div id="selectionNW" class="selection-handle scale" title="Redimensionar"></div>
+          <div id="selectionNE" class="selection-handle scale" title="Redimensionar"></div>
+          <div id="selectionSW" class="selection-handle scale" title="Redimensionar"></div>
+          <div id="selectionSE" class="selection-handle scale" title="Redimensionar"></div>
+          <div id="selectionRotateLine" class="selection-rotate-line"></div>
+          <div id="selectionRotate" class="selection-handle rotate" title="Girar">↻</div>
         </div>
 
-        <div class="zoom-controls" aria-label="Controles de zoom">
+                <div class="zoom-controls" aria-label="Controles de zoom">
           <button type="button" onclick="changeZoom(-0.1)" aria-label="Diminuir zoom">−</button>
           <span id="zoomValue">100%</span>
           <button type="button" onclick="changeZoom(0.1)" aria-label="Aumentar zoom">+</button>
@@ -348,6 +385,8 @@ header{height:68px;padding:0 12px}
           <button onclick="createLayer()">+ Nova</button>
           <button onclick="renameSelectedLayer()">Renomear</button>
           <button onclick="duplicateSelectedLayer()">Duplicar</button>
+          <button onclick="moveSelectedLayer(1)">↑ Frente</button>
+          <button onclick="moveSelectedLayer(-1)">↓ Trás</button>
           <button onclick="saveSelectedLayer()">Salvar camada</button>
           <button onclick="deleteSelectedLayer()">Excluir</button>
         </div>
@@ -376,7 +415,22 @@ header{height:68px;padding:0 12px}
           <div class="toolbar-control"><span class="toolbar-label">Px</span><input id="strokeWidthInput" class="toolbar-slider" type="range" min="1" max="50" value="4" oninput="setStrokeWidth(this.value)" aria-label="Espessura do pincel"><span id="strokeWidthValue" class="toolbar-value">4px</span></div>
           <div class="toolbar-control"><span class="toolbar-label">Opacidade</span><input id="strokeOpacityInput" class="toolbar-slider" type="range" min="0" max="100" value="100" oninput="setStrokeOpacity(this.value)" aria-label="Opacidade"><span id="strokeOpacityValue" class="toolbar-value">100%</span></div>
         </div>
+      <div id="selectionTransformPanel" class="selection-transform-panel" aria-label="Controles de transformação">
+        <div id="selectionTransformTitle" class="selection-title">TOQUE EM UM COMPONENTE</div>
+        <button type="button" data-transform="1" onclick="adjustSelectedLayerTransform(-10,0,0,0)">←</button>
+        <button type="button" data-transform="1" onclick="adjustSelectedLayerTransform(10,0,0,0)">→</button>
+        <button type="button" data-transform="1" onclick="adjustSelectedLayerTransform(0,-10,0,0)">↑</button>
+        <button type="button" data-transform="1" onclick="adjustSelectedLayerTransform(0,10,0,0)">↓</button>
+        <button type="button" data-transform="1" onclick="adjustSelectedLayerTransform(0,0,.1,0)">＋</button>
+        <button type="button" data-transform="1" onclick="adjustSelectedLayerTransform(0,0,-.1,0)">−</button>
+        <button type="button" data-transform="1" onclick="adjustSelectedLayerTransform(0,0,0,-15)">↶</button>
+        <button type="button" data-transform="1" onclick="adjustSelectedLayerTransform(0,0,0,15)">↷</button>
+        <button type="button" data-transform="1" onclick="resetSelectedLayerTransform()">1:1</button>
+        <button type="button" data-transform="1" onclick="clearCharacterSelection()">✓</button>
       </div>
+      </div>
+
+
 
       <div class="component-panel" id="componentPanel" style="display:none">
         <h3>COMPONENTES SALVOS</h3>
@@ -532,6 +586,7 @@ let viewportPanX=0;
 let viewportPanY=0;
 const activePointers=new Map();
 let gestureState=null;
+let selectionInteraction=null;
 const imageRenderCache=new Map();
 
 /* ---------- Estado Global ---------- */
@@ -965,6 +1020,11 @@ function buildInitialLayers(personagem){
   return layers;
 }
 
+function getLayerResource(layer){
+  if(!layer)return null;
+  return findLibraryResource(layer.resourceId||layer.recursoId||layer.id);
+}
+
 function findLayer(id){
   return (character?.camadas||[]).find(layer=>layer.id===id);
 }
@@ -1034,7 +1094,7 @@ function saveHistory(){
   const snapshot=captureEditorState();
   if(undoStack[undoStack.length-1]===snapshot){updateHistoryButtons();return;}
   undoStack.push(snapshot);
-  const historyLimit=50;
+  const historyLimit=30;
   if(undoStack.length>historyLimit)undoStack.shift();
   redoStack=[];
   updateHistoryButtons();
@@ -1123,6 +1183,7 @@ function updateCanvasTransform(){
     viewport.style.transformOrigin='center center';
   }
   if(label)label.textContent=Math.round(viewportZoom*100)+'%';
+  updateSelectionOverlay();
 }
 
 function setZoom(value){
@@ -1158,6 +1219,102 @@ function updateGesture(){
   updateCanvasTransform();
 }
 
+
+function getResourceLocalBounds(resource){
+  const W=Number(character?.canvas?.largura)||500,H=Number(character?.canvas?.altura)||500;
+  const cx=W/2,cy=H/2;
+  const kind=resource?.vector?.kind;
+  const boxes={
+    face:{minX:cx-105,maxX:cx+105,minY:cy-100,maxY:cy+150},
+    hair:{minX:cx-125,maxX:cx+125,minY:cy-175,maxY:cy-65},
+    eyes:{minX:cx-56,maxX:cx+56,minY:cy-8,maxY:cy+18},
+    clothes:{minX:cx-128,maxX:cx+128,minY:cy+135,maxY:cy+255},
+    glasses:{minX:cx-92,maxX:cx+92,minY:cy-33,maxY:cy+43}
+  };
+  return boxes[kind]||{minX:cx-80,maxX:cx+80,minY:cy-80,maxY:cy+80};
+}
+function inverseLayerPoint(point,layer){
+  const W=Number(character?.canvas?.largura)||500,H=Number(character?.canvas?.altura)||500;
+  const t=layer?.transformacao||{};
+  const scale=Math.max(.05,Number(t.escala)||1);
+  const x=Number(t.x)||0,y=Number(t.y)||0;
+  const rot=(Number(t.rotacao)||0)*Math.PI/180;
+  const cx=W/2,cy=H/2;
+  let dx=point.x-x-cx,dy=point.y-y-cy;
+  const c=Math.cos(-rot),st=Math.sin(-rot);
+  const rx=dx*c-dy*st,ry=dx*st+dy*c;
+  return {x:cx+rx/scale,y:cy+ry/scale};
+}
+function pointInBounds(point,b,padding=0){
+  return point.x>=b.minX-padding&&point.x<=b.maxX+padding&&point.y>=b.minY-padding&&point.y<=b.maxY+padding;
+}
+function getSelectedVisualBounds(){
+  const layer=selectedCharacterLayer();
+  if(!layer||!character)return null;
+  const resource=getLayerResource(layer);
+  const W=Number(character.canvas.largura)||500,H=Number(character.canvas.altura)||500;
+  let local=getResourceLocalBounds(resource);
+  const els=Array.isArray(layer.elementos)?layer.elementos:[];
+  const pts=[];
+  els.forEach(el=>{const p=el?._pontos||parseSvgPathPoints(el?.dados);if(Array.isArray(p))pts.push(...p)});
+  if(pts.length){
+    local={minX:Math.min(...pts.map(p=>p.x)),maxX:Math.max(...pts.map(p=>p.x)),minY:Math.min(...pts.map(p=>p.y)),maxY:Math.max(...pts.map(p=>p.y))};
+  }
+  const t=layer.transformacao||{};const scale=Math.max(.05,Number(t.escala)||1);const x=Number(t.x)||0,y=Number(t.y)||0;const rot=(Number(t.rotacao)||0)*Math.PI/180;
+  const cx=W/2,cy=H/2;
+  const corners=[[local.minX,local.minY],[local.maxX,local.minY],[local.maxX,local.maxY],[local.minX,local.maxY]].map(([px,py])=>{
+    const qx=cx+(px-cx)*scale,qy=cy+(py-cy)*scale;
+    const dx=qx-cx,dy=qy-cy;
+    return {x:cx+dx*Math.cos(rot)-dy*Math.sin(rot)+x,y:cy+dx*Math.sin(rot)+dy*Math.cos(rot)+y};
+  });
+  return {corners,minX:Math.min(...corners.map(p=>p.x)),maxX:Math.max(...corners.map(p=>p.x)),minY:Math.min(...corners.map(p=>p.y)),maxY:Math.max(...corners.map(p=>p.y))};
+}
+function updateSelectionOverlay(){
+  const overlay=$('selectionOverlay'); if(!overlay)return;
+  const layer=selectedCharacterLayer();
+  if(currentTool!=='select'||!layer){overlay.classList.remove('show');overlay.setAttribute('aria-hidden','true');return;}
+  const r=canvas?.getBoundingClientRect(); const b=getSelectedVisualBounds();
+  if(!r||!b){overlay.classList.remove('show');return;}
+  const sx=r.width/(Number(character.canvas.largura)||1), sy=r.height/(Number(character.canvas.altura)||1);
+  const toScreen=p=>({x:r.left+p.x*sx,y:r.top+p.y*sy});
+  const c=b.corners.map(toScreen);
+  const box=$('selectionBox'); if(box){const minX=Math.min(...c.map(p=>p.x)),maxX=Math.max(...c.map(p=>p.x)),minY=Math.min(...c.map(p=>p.y)),maxY=Math.max(...c.map(p=>p.y));box.style.left=minX+'px';box.style.top=minY+'px';box.style.width=Math.max(2,maxX-minX)+'px';box.style.height=Math.max(2,maxY-minY)+'px';}
+  [['selectionNW',c[0]],['selectionNE',c[1]],['selectionSE',c[2]],['selectionSW',c[3]]].forEach(([id,p])=>{const el=$(id);if(el){el.style.left=p.x+'px';el.style.top=p.y+'px';}});
+  const top={x:(c[0].x+c[1].x)/2,y:(c[0].y+c[1].y)/2};
+  const center={x:(c[0].x+c[1].x+c[2].x+c[3].x)/4,y:(c[0].y+c[1].y+c[2].y+c[3].y)/4};
+  const dx=top.x-center.x,dy=top.y-center.y,len=Math.max(32,Math.hypot(dx,dy));
+  const rot={x:top.x+(dx/Math.max(1,Math.hypot(dx,dy)))*len,y:top.y+(dy/Math.max(1,Math.hypot(dx,dy)))*len};
+  const rh=$('selectionRotate');if(rh){rh.style.left=rot.x+'px';rh.style.top=rot.y+'px';}
+  const line=$('selectionRotateLine');if(line){line.style.left=top.x+'px';line.style.top=top.y+'px';line.style.height=Math.max(20,len)+'px';line.style.transform='rotate('+Math.atan2(dy,dx)*180/Math.PI+'deg)';}
+  const mh=$('selectionMoveHandle');if(mh){mh.style.left=center.x+'px';mh.style.top=center.y+'px';}
+  overlay.classList.add('show');overlay.setAttribute('aria-hidden','false');
+}
+function beginSelectionHandle(kind,e){
+  e.preventDefault();e.stopPropagation();
+  const layer=selectedCharacterLayer();if(!layer||layer.locked)return;
+  const r=canvas.getBoundingClientRect();const p=getPoint(e);const t=layer.transformacao||{};
+  const startScale=Math.max(.05,Number(t.escala)||1),startX=Number(t.x)||0,startY=Number(t.y)||0,startRot=Number(t.rotacao)||0;
+  const b=getSelectedVisualBounds();const center=b?{x:(b.corners[0].x+b.corners[1].x+b.corners[2].x+b.corners[3].x)/4,y:(b.corners[0].y+b.corners[1].y+b.corners[2].y+b.corners[3].y)/4}:{x:character.canvas.largura/2,y:character.canvas.altura/2};
+  selectionInteraction={kind,pointerId:e.pointerId,startPoint:p,startScale,startX,startY,startRot,center};
+  e.currentTarget.setPointerCapture?.(e.pointerId);
+}
+function moveSelectionHandle(e){
+  const q=selectionInteraction;if(!q||q.pointerId!==e.pointerId)return;
+  e.preventDefault();e.stopPropagation();const layer=selectedCharacterLayer();if(!layer)return;const p=getPoint(e);layer.transformacao=layer.transformacao||{x:0,y:0,escala:1,rotacao:0};
+  if(q.kind==='move'){layer.transformacao.x=q.startX+(p.x-q.startPoint.x);layer.transformacao.y=q.startY+(p.y-q.startPoint.y);}
+  else if(q.kind==='scale'){const a=Math.hypot(q.startPoint.x-q.center.x,q.startPoint.y-q.center.y);const b=Math.hypot(p.x-q.center.x,p.y-q.center.y);if(a>2)layer.transformacao.escala=Math.max(.1,Math.min(5,q.startScale*(b/a)));}
+  else if(q.kind==='rotate'){const a=Math.atan2(q.startPoint.y-q.center.y,q.startPoint.x-q.center.x);const b=Math.atan2(p.y-q.center.y,p.x-q.center.x);layer.transformacao.rotacao=q.startRot+(b-a)*180/Math.PI;}
+  renderCharacter();updateSelectionOverlay();
+}
+function endSelectionHandle(e){
+  if(!selectionInteraction||selectionInteraction.pointerId!==e.pointerId)return;
+  const layer=selectedCharacterLayer();selectionInteraction=null;if(layer){persistCharacter();saveHistory();renderLayers();renderCharacter();updateTransformPanel();updateSelectionOverlay();}
+  try{e.currentTarget.releasePointerCapture?.(e.pointerId)}catch(_){}
+}
+function bindSelectionOverlay(){
+  [['selectionMoveHandle','move'],['selectionNW','scale'],['selectionNE','scale'],['selectionSW','scale'],['selectionSE','scale'],['selectionRotate','rotate']].forEach(([id,kind])=>{const el=$(id);if(!el||el.dataset.bound)return;el.dataset.bound='1';el.addEventListener('pointerdown',e=>beginSelectionHandle(kind,e));el.addEventListener('pointermove',moveSelectionHandle);el.addEventListener('pointerup',endSelectionHandle);el.addEventListener('pointercancel',endSelectionHandle);});
+}
+
 function pointerDown(e){
   if(!canvas)return;
   if(e.pointerType==='touch'||e.pointerType==='pen')e.preventDefault();
@@ -1176,11 +1333,22 @@ function pointerDown(e){
   const p=getPoint(e);
 
   if(currentTool==='select'){
-    selectedVectorId=hitTestVector(p);
-    selectedLayerId=hitTestCharacterLayer(p);
+    const hitLayer=hitTestCharacterLayer(p);
+    if(hitLayer && hitLayer===selectedLayerId){
+      const layer=findLayer(hitLayer);
+      if(layer&&!layer.locked){
+        selectionInteraction={kind:'move',pointerId:e.pointerId,startPoint:p,startScale:Number(layer.transformacao?.escala)||1,startX:Number(layer.transformacao?.x)||0,startY:Number(layer.transformacao?.y)||0,startRot:Number(layer.transformacao?.rotacao)||0,center:{x:character.canvas.largura/2,y:character.canvas.altura/2}};
+        e.currentTarget?.setPointerCapture?.(e.pointerId);
+      }
+    }else{
+      selectedVectorId=hitTestVector(p);
+      selectedLayerId=hitLayer;
+    }
     renderLayers();
     renderCharacter();
+    updateTransformPanel();
     renderSelectionControls();
+    updateSelectionOverlay();
     return;
   }
 
@@ -1235,6 +1403,7 @@ function pointerMove(e){
     }
   }
 
+  if(selectionInteraction && currentTool==='select'){ moveSelectionHandle(e); return; }
   if(!drawing)return;
   const p=getPoint(e);
 
@@ -1257,6 +1426,7 @@ function pointerUp(e){
     if(activePointers.size<2)gestureState=null;
   }
 
+  if(selectionInteraction && currentTool==='select'){ endSelectionHandle(e); return; }
   if(!drawing){
     try{canvas.releasePointerCapture?.(e?.pointerId)}catch(_){}
     return;
@@ -1387,9 +1557,10 @@ function hitTestVector(point){
   const layers=[...(character?.camadas||[])].reverse();
   for(const layer of layers){
     if(!layer.visible)continue;
+    const localPoint=inverseLayerPoint(point,layer);
     for(let i=(layer.elementos||[]).length-1;i>=0;i--){
       const el=layer.elementos[i];
-      if(pointNearPath(el,point,Math.max(8,strokeSize+6)))return el.id;
+      if(pointNearPath(el,localPoint,Math.max(8,strokeSize+6)))return el.id;
     }
   }
   return null;
@@ -1399,22 +1570,12 @@ function hitTestCharacterLayer(point){
   const layers=[...(character?.camadas||[])].reverse();
   for(const layer of layers){
     if(!layer.visible||layer.locked)continue;
+    const localPoint=inverseLayerPoint(point,layer);
     for(let i=(layer.elementos||[]).length-1;i>=0;i--){
-      if(pointNearPath(layer.elementos[i],point,Math.max(12,strokeSize+8)))return layer.id;
+      if(pointNearPath(layer.elementos[i],localPoint,Math.max(12,strokeSize+8)))return layer.id;
     }
-    /* Recursos vetoriais normalmente ocupam a área da composição.
-       Para componentes sem pontos próprios, selecionamos a camada visível
-       no ponto, respeitando a ordem Z. */
-    const resource=findLibraryResource(layer.id);
-    if(resource?.vector){
-      const t=layer.transformacao||{};
-      const scale=Math.max(.1,Number(t.escala)||1);
-      const x=Number(t.x)||0,y=Number(t.y)||0;
-      const cx=character.canvas.largura/2,cy=character.canvas.altura/2;
-      const px=(point.x-x-cx)/scale+cx;
-      const py=(point.y-y-cy)/scale+cy;
-      if(px>=0&&py>=0&&px<=character.canvas.largura&&py<=character.canvas.altura)return layer.id;
-    }
+    const resource=getLayerResource(layer);
+    if(resource?.vector&&pointInBounds(localPoint,getResourceLocalBounds(resource),8))return layer.id;
   }
   return null;
 }
@@ -1446,23 +1607,50 @@ function clearCharacterSelection(){
   /* Não altera a ferramenta de desenho; apenas encerra a seleção. */
   const panel=$('selectionTransformPanel');
   if(panel)panel.classList.remove('show');
+  if(panel)panel.style.setProperty('display','none','important');
+  updateSelectionOverlay();
   renderCharacter();
   renderLayers();
 }
 
+function updateTransformPanel() {
+  const panel = document.getElementById('selectionTransformPanel');
+  const title = document.getElementById('selectionTransformTitle');
+  if (!panel) return;
+
+  const currentLayer = (character?.camadas || []).find(l => l.id === selectedLayerId);
+
+  if (currentLayer && currentTool === 'select') {
+    if (title) {
+      title.textContent = (currentLayer.label || 'CAMADA SELECIONADA').toUpperCase();
+    }
+    panel.classList.add('show');
+    panel.style.setProperty('display', 'flex', 'important');
+    panel.style.setProperty('visibility', 'visible', 'important');
+    panel.style.setProperty('opacity', '1', 'important');
+  } else {
+    panel.classList.remove('show');
+    panel.style.setProperty('display', 'none', 'important');
+  }
+
+  panel.querySelectorAll('button[data-transform]').forEach(btn => {
+    btn.disabled = !currentLayer || currentLayer.locked;
+  });
+}
+
 function renderSelectionControls(){
   const panel=$('selectionTransformPanel');
-  const title=$('selectionTransformTitle');
   if(!panel)return;
+  const title=$('selectionTransformTitle');
   const layer=selectedCharacterLayer();
-  const active=currentTool==='select' && !!layer;
-  if(!active){
-    panel.classList.remove('show');
-    return;
-  }
-  if(title)title.textContent='SELECIONADO: '+(layer.label||layer.id);
-  panel.classList.add('show');
+  const active=currentTool==='select';
+  panel.classList.toggle('show',active);
+  panel.style.display=active?'flex':'none';
+  if(title)title.textContent=layer ? 'SELECIONADO: '+(layer.label||layer.id) : 'TOQUE EM UM COMPONENTE';
+  panel.querySelectorAll('button[data-transform]').forEach(btn=>btn.disabled=!layer||layer.locked);
+  updateSelectionOverlay();
 }
+
 
 function pointNearPath(element,point,padding){
   const d=element?._pontos||parseSvgPathPoints(element?.dados);
@@ -1495,6 +1683,23 @@ function updateVectorSelectionNote(point){
 }
 
 
+function activateSelectionMode(){
+  /* Entrada única da ferramenta Seleção: ativa a ferramenta e conecta
+     explicitamente o estado de seleção ao painel de transformação. */
+  currentTool='select';
+  updateDrawingToolbar();
+  const panel=$('selectionTransformPanel');
+  if(panel){
+    panel.classList.add('show');
+    panel.style.setProperty('display','flex','important');
+    panel.style.setProperty('visibility','visible','important');
+    panel.style.setProperty('opacity','1','important');
+    panel.style.setProperty('z-index','99999','important');
+  }
+  renderSelectionControls();
+  renderCharacter();
+}
+
 function setDrawingTool(tool){
   const allowed=DreamStudioCreationEngine.getTools(character?.tipo||'personagem');
   currentTool=allowed.includes(tool)?tool:'pencil';
@@ -1502,6 +1707,18 @@ function setDrawingTool(tool){
   updateDrawingToolbar();
   renderCharacter();
   renderSelectionControls();
+  updateTransformPanel();
+  if(currentTool==='select'){
+    const panel=$('selectionTransformPanel');
+    if(panel){
+      panel.classList.add('show');
+      panel.style.setProperty('display','flex','important');
+      panel.style.setProperty('visibility','visible','important');
+      panel.style.setProperty('opacity','1','important');
+      panel.style.setProperty('z-index','99999','important');
+    }
+  }
+  updateSelectionOverlay();
 }
 function setStrokeColor(value){
   const hex=normalizeHex(value);
@@ -1723,6 +1940,7 @@ function upsertCharacterLayer(resource,category,kind){
   character.camadas=Array.isArray(character.camadas)?character.camadas:[];
   const layer={
     id:resource.id,
+    resourceId:resource.id,
     kind,
     category,
     label:resource.name||category,
@@ -1807,7 +2025,7 @@ function renderToolPanel(name){
         <button onclick="setDrawingTool('line')">Linha</button>
         <button onclick="setDrawingTool('rectangle')">Retângulo</button>
         <button onclick="setDrawingTool('ellipse')">Elipse</button>
-        <button onclick="setDrawingTool('select')">Seleção</button>
+        <button onclick="activateSelectionMode()">Seleção</button>
       </div>
       <div class="control-row">
         <label>Tamanho</label>
@@ -1843,7 +2061,7 @@ function renderToolPanel(name){
       <div class="tool-grid">
         <button>Selecionar</button>
         <button>Componente</button>
-        <button>Duplicar</button>
+        <button onclick="duplicateSelectedLayer()">Duplicar</button>
         <button>Copiar</button>
         <button>Espelhar</button>
         <button>Mover</button>
@@ -2357,7 +2575,7 @@ function elementToSVG(element){
 function buildCharacterSVG(){
   if(!character)return '';
   const layers=getRenderableLayers();let body='';
-  for(const layer of layers){if(layer.visible===false)continue;const resource=findLibraryResource(layer.id);if(resource?.visible===false)continue;body+=`<g data-layer-id="${svgEscape(layer.id)}" transform="${svgTransform(layer)}">${resourceToSVG(resource)}${(layer.elementos||[]).map(elementToSVG).join('')}</g>`;}
+  for(const layer of layers){if(layer.visible===false)continue;const resource=getLayerResource(layer);if(resource?.visible===false)continue;body+=`<g data-layer-id="${svgEscape(layer.id)}" transform="${svgTransform(layer)}">${resourceToSVG(resource)}${(layer.elementos||[]).map(elementToSVG).join('')}</g>`;}
   if(activeStroke)body+=elementToSVG(activeStroke);
   return `<svg xmlns="http://www.w3.org/2000/svg" width="${character.canvas.largura}" height="${character.canvas.altura}" viewBox="0 0 ${character.canvas.largura} ${character.canvas.altura}"><rect width="100%" height="100%" fill="#FFFFFF"/>${body}</svg>`;
 }
@@ -2503,7 +2721,9 @@ function fitCanvasDisplaySize(){
   const scale=Math.min(availableWidth/cw,availableHeight/ch);
   canvas.style.width=Math.max(1,Math.floor(cw*scale))+'px';
   canvas.style.height=Math.max(1,Math.floor(ch*scale))+'px';
+  updateSelectionOverlay();
 }
+
 /* ---------- Funções do editor restauradas ---------- */
 function getCharacter(){
   return DreamStudioStore.getPersonagem();
@@ -2580,6 +2800,7 @@ function initCanvas(){
   canvas.onpointermove=pointerMove;
   canvas.onpointerup=pointerUp;
   canvas.onpointercancel=pointerUp;
+  bindSelectionOverlay();
   window.removeEventListener('resize',fitCanvasDisplaySize);
   window.addEventListener('resize',fitCanvasDisplaySize,{passive:true});
 
@@ -2615,14 +2836,14 @@ function renderCharacter(){
   const layers=getRenderableLayers();
   layers.forEach(layer=>{
     if(!layer.visible)return;
-    const resource=findLibraryResource(layer.id);
+    const resource=getLayerResource(layer);
+    ctx.save();
+    applyLayerTransform(layer);
     if(resource?.visible!==false && resource?.vector){
-      ctx.save();
-      applyLayerTransform(layer);
       renderVectorResource(resource,character.canvas.largura,character.canvas.altura);
-      ctx.restore();
     }
     if(resource?.visible!==false)renderLayerPaths(layer);
+    ctx.restore();
   });
 
   if(activeStroke){
@@ -2659,7 +2880,7 @@ function renderLayers(){
   const visualLayers=[...layers].reverse();
 
   list.innerHTML=visualLayers.map(layer=>{
-    const resource=findLibraryResource(layer.id);
+    const resource=getLayerResource(layer);
     const safeName=escapeHtml(resource?.name||layer.label||layer.id);
     const category=escapeHtml(layer.category||layer.kind||'recurso');
 
@@ -2841,6 +3062,8 @@ function selectLayer(id){
   selectedVectorId=null;
   renderLayers();
   renderCharacter();
+  updateTransformPanel();
+  updateSelectionOverlay();
 }
 
 function toggleLayerLock(id){
@@ -2860,16 +3083,58 @@ function toggleLayerVisibility(id){
   renderCharacter();
 }
 
+function moveSelectedLayer(direction){
+  if(!character||!Array.isArray(character.camadas))return;
+  const index=character.camadas.findIndex(l=>l.id===selectedLayerId);
+  if(index<0)return;
+  const target=index+(direction>0?1:-1);
+  if(target<0||target>=character.camadas.length){
+    showToast(direction>0?'A camada já está na frente.':'A camada já está atrás.');
+    return;
+  }
+  const layer=character.camadas[index];
+  if(layer.locked){showToast('Desbloqueie a camada antes de reordenar.');return;}
+  const other=character.camadas[target];
+  if(other?.locked){showToast('A camada de destino está bloqueada.');return;}
+  character.camadas.splice(index,1);
+  character.camadas.splice(target,0,layer);
+  selectedLayerId=layer.id;
+  selectedVectorId=null;
+  persistCharacter();
+  saveHistory();
+  renderLayers();
+  renderCharacter();
+  showToast(direction>0?'Camada trazida para frente.':'Camada enviada para trás.');
+}
+
 function duplicateSelectedLayer(){
-  const layer=findLayer(selectedLayerId);if(!layer)return;
+  if(!character||!Array.isArray(character.camadas))return;
+  const layer=findLayer(selectedLayerId);
+  if(!layer){showToast('Selecione uma camada primeiro.');return;}
   if(layer.locked){showToast('Desbloqueie a camada antes de duplicar.');return;}
+
   const copy=JSON.parse(JSON.stringify(layer));
   copy.id='layer_'+Date.now().toString(36)+'_'+Math.random().toString(36).slice(2,6);
+  copy.resourceId=layer.resourceId||layer.recursoId||layer.id;
+  delete copy.recursoId;
   copy.label=(layer.label||'Camada')+' cópia';
   copy.locked=false;
+  copy.visible=true;
+  copy.elementos=Array.isArray(copy.elementos)?copy.elementos:[];
+  copy.transformacao=copy.transformacao||{x:0,y:0,escala:1,rotacao:0};
+
   const index=character.camadas.findIndex(l=>l.id===layer.id);
-  character.camadas.splice(index+1,0,copy);selectedLayerId=copy.id;selectedVectorId=null;
-  persistCharacter();saveHistory();renderLayers();renderCharacter();
+  if(index<0)return;
+  character.camadas.splice(index+1,0,copy);
+  selectedLayerId=copy.id;
+  selectedVectorId=null;
+  selectionInteraction=null;
+
+  saveHistory();
+  persistCharacter();
+  renderLayers();
+  renderCharacter();
+  showToast('Camada duplicada.');
 }
 
 function applyLayerTransform(layer){
@@ -2898,7 +3163,7 @@ function clearRenderCanvas(){
 function getRenderableLayers(){
   if(!character)return [];
   if(!Array.isArray(character.camadas)){character.camadas=buildInitialLayers(character);}
-  return character.camadas.filter(layer=>findLibraryResource(layer.id)||((layer.elementos||[]).length>0)||layer.kind==='drawing');
+  return character.camadas.filter(layer=>getLayerResource(layer)||((layer.elementos||[]).length>0)||layer.kind==='drawing');
 }
 </script>
 </body>
