@@ -281,6 +281,50 @@ header{height:68px;padding:0 12px}
   visibility: visible !important;
   opacity: 1 !important;
 }
+
+/* ---------- Base de Animação — v24.1 ---------- */
+/* A linha do tempo fica compacta para preservar a área de desenho no celular. */
+.animation-timeline{display:none;position:relative;margin:0 14px 10px;padding:8px 10px;border:1px solid rgba(255,255,255,.10);border-radius:14px;background:rgba(8,12,24,.90);box-shadow:0 10px 26px rgba(0,0,0,.18)}
+.animation-timeline.open{display:block}
+.animation-head{display:flex;align-items:center;justify-content:space-between;gap:7px;margin-bottom:5px}
+.animation-head strong{font-size:9px;letter-spacing:.12em}
+.animation-head small{color:var(--muted);font-size:8px;margin-left:4px}
+.animation-actions{display:flex;gap:4px;flex-wrap:nowrap;overflow-x:auto;scrollbar-width:none}
+.animation-actions::-webkit-scrollbar{display:none}
+.animation-actions button{padding:6px 8px;border-radius:8px;background:rgba(255,255,255,.07);font-size:8px;white-space:nowrap;min-height:28px}
+.animation-actions button.primary{background:rgba(126,93,255,.22)}
+.animation-actions button.onion-active{background:rgba(255,184,92,.20);border-color:rgba(255,184,92,.42)}
+.animation-frames{display:flex;gap:5px;overflow-x:auto;padding:2px 1px 5px;scrollbar-width:thin}
+.animation-frame{min-width:54px;height:40px;border:1px solid rgba(255,255,255,.10);border-radius:9px;background:rgba(255,255,255,.035);display:flex;flex-direction:column;align-items:center;justify-content:center;gap:2px;font-size:9px;flex:0 0 auto}
+.animation-frame.active{border-color:rgba(155,114,255,.75);box-shadow:0 0 0 1px rgba(155,114,255,.18) inset}.animation-frame[aria-current="false"]{border-color:rgba(255,255,255,.10);box-shadow:none}
+.animation-frame span{font-size:7px;color:var(--muted)}
+.animation-settings{display:grid;grid-template-columns:1fr 1fr;gap:7px;margin-top:3px}
+.animation-settings label{font-size:7px;color:var(--muted);display:flex;flex-direction:column;gap:2px}
+.animation-settings input{width:100%;height:16px}
+.animation-play-state{font-size:8px;color:var(--muted);min-height:11px;margin-top:3px}
+
+.library-detail-wrap{width:min(920px,100%);margin:0 auto;padding:22px 18px 100px;box-sizing:border-box}
+.library-detail-top{display:flex;align-items:center;gap:12px;margin-bottom:16px}
+.library-detail-back{border:1px solid var(--border);background:rgba(18,23,48,.78);color:var(--text);border-radius:11px;min-width:42px;height:42px;font-size:20px}
+.library-detail-top h1{margin:0;font-size:22px}.library-detail-top p{margin:4px 0 0;color:var(--muted);font-size:10px}
+.library-detail-card{display:grid;grid-template-columns:minmax(180px,300px) 1fr;gap:18px;border:1px solid var(--border);border-radius:18px;background:linear-gradient(145deg,rgba(18,23,48,.86),rgba(10,14,31,.78));padding:16px}
+.library-detail-preview{min-height:220px;border:1px solid var(--border);border-radius:14px;background:rgba(8,11,25,.72);display:flex;align-items:center;justify-content:center;text-align:center;overflow:hidden}
+.library-detail-preview .detail-icon{font-size:64px}.library-detail-preview img{max-width:100%;max-height:300px;object-fit:contain}
+.library-detail-info h2{margin:0 0 8px;font-size:20px}.library-detail-badge{display:inline-flex;padding:5px 8px;border:1px solid var(--border);border-radius:999px;font-size:9px;color:var(--muted);margin-bottom:12px}
+.library-detail-meta{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:8px;margin:0}
+.library-detail-meta div{padding:10px;border-radius:11px;background:rgba(255,255,255,.025);border:1px solid rgba(255,255,255,.06)}
+.library-detail-meta dt{font-size:8px;color:var(--muted);text-transform:uppercase;letter-spacing:.5px}.library-detail-meta dd{margin:4px 0 0;font-size:10px;overflow-wrap:anywhere}
+.library-dependency-box{margin-top:14px;padding:14px;border:1px solid rgba(130,120,255,.28);border-radius:14px;background:rgba(90,80,170,.08)}.library-dependency-box>div{display:flex;justify-content:space-between;gap:10px;align-items:center}.library-dependency-box strong{font-size:14px}.library-dependency-box small{color:var(--muted);font-size:11px}.library-dependency-box ul{margin:10px 0 0 18px;padding:0;color:var(--muted);font-size:12px;line-height:1.6}.library-dependency-box li strong{font-size:12px}
+.library-detail-actions{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:8px;margin-top:14px}
+.library-detail-actions button{min-height:42px;border-radius:11px;border:1px solid var(--border);background:rgba(18,23,48,.8);color:var(--text);font-size:10px}
+.library-detail-actions button.primary{border-color:rgba(101,223,255,.48);background:rgba(101,223,255,.09)}
+.library-detail-section{margin-top:12px;padding:14px;border:1px dashed var(--border);border-radius:14px;color:var(--muted);font-size:9px;line-height:1.5}
+@media(max-width:680px){.library-detail-card{grid-template-columns:1fr}.library-detail-preview{min-height:180px}.library-detail-actions{grid-template-columns:1fr 1fr}}
+
+
+.library-resource-list{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:8px;margin-top:12px}.library-resource-item{appearance:none;border:1px solid var(--border);background:rgba(10,14,31,.72);color:var(--text);border-radius:12px;padding:12px;text-align:left;cursor:pointer}.library-resource-item strong{display:block;font-size:12px}.library-resource-item small{display:block;color:var(--muted);font-size:9px;margin-top:4px;line-height:1.4}.library-detail-placeholder{display:grid;place-items:center;height:100%;min-height:140px;font-size:42px;color:var(--muted)}
+
+.library-subpage-head{display:flex;align-items:center;gap:12px;margin:12px 0 16px}.library-subpage-head button{border:1px solid var(--border,#ddd);background:var(--surface,#fff);border-radius:12px;padding:10px 14px;font-weight:700}.library-subpage-head div{display:flex;flex-direction:column;gap:3px}.library-subpage-head small{opacity:.7}.library-structure-card:disabled{opacity:.55;cursor:default}
 </style>
 <style>
 .vector-selection-note.show{display:block;pointer-events:auto}
@@ -302,9 +346,40 @@ header{height:68px;padding:0 12px}
 #selectionOverlay .selection-box{position:fixed;box-sizing:border-box;border:2px solid rgba(101,223,255,.95);border-radius:6px;box-shadow:0 0 0 1px rgba(8,12,29,.75),0 0 18px rgba(101,223,255,.28);pointer-events:none}
 #selectionOverlay .selection-handle{position:fixed;width:18px;height:18px;margin:-9px 0 0 -9px;border:2px solid #fff;border-radius:50%;background:rgba(8,12,29,.98);box-shadow:0 0 0 1px rgba(101,223,255,.8),0 0 12px rgba(101,223,255,.45);pointer-events:auto;touch-action:none}
 #selectionOverlay .selection-handle.scale{cursor:nwse-resize}
-#selectionOverlay .selection-handle.rotate{width:20px;height:20px;margin:-10px 0 0 -10px;background:rgba(127,101,255,.98);cursor:grab}
+#selectionOverlay .selection-handle.rotate{width:30px!important;height:30px!important;margin:-15px 0 0 -15px!important;background:rgba(127,101,255,.98)!important;color:#fff;border:2px solid #fff;display:grid;place-items:center;font-size:16px;font-weight:600;line-height:1;z-index:20!important;cursor:grab!important;pointer-events:auto!important;padding:0}
+#selectionOverlay .selection-exit{position:fixed;right:12px;top:88px;z-index:30;width:auto;min-width:58px;height:34px;padding:0 12px;border:1px solid rgba(101,223,255,.7);border-radius:10px;background:rgba(8,12,29,.98);color:#fff;font-size:10px;font-weight:600;box-shadow:0 8px 24px rgba(0,0,0,.45);pointer-events:auto;touch-action:manipulation}
 #selectionOverlay .selection-handle.move{pointer-events:auto;width:28px;height:28px;margin:-14px 0 0 -14px;border:0;background:transparent;box-shadow:none;cursor:move}
 #selectionOverlay .selection-rotate-line{position:fixed;height:28px;width:2px;background:rgba(101,223,255,.75);transform-origin:top center;pointer-events:none}
+
+/* V25.1: Biblioteca como tela própria */
+.library-screen-wrap{max-width:1050px;margin:0 auto}
+.library-screen-header{display:flex;align-items:flex-end;justify-content:space-between;gap:12px;margin-bottom:18px}
+.library-screen-header h1{font-size:clamp(26px,5vw,40px);font-weight:500}
+.library-screen-header p{color:var(--muted);font-size:11px;margin-top:6px}
+.library-screen-search{width:100%;padding:12px 14px;border-radius:13px;border:1px solid var(--border);background:rgba(10,14,31,.82);color:var(--text);outline:none;margin-bottom:10px}
+.library-screen-filters{display:grid;grid-template-columns:repeat(5,1fr);gap:7px;margin-bottom:10px}
+.library-advanced-row{display:grid;grid-template-columns:1fr 1fr 1fr auto;gap:7px;margin-bottom:14px}
+.library-advanced-row select,.library-view-toggle{min-height:38px;padding:8px 9px;border-radius:10px;border:1px solid var(--border);background:rgba(18,23,48,.78);color:var(--muted);font-size:9px;outline:none}
+.library-view-toggle{min-width:58px;color:var(--text)}
+.library-project-list.list-view{display:flex;flex-direction:column}
+.library-project-list.grid-view{grid-template-columns:repeat(2,1fr)}
+.library-screen-filters button{min-height:42px;border-radius:11px;border:1px solid var(--border);background:rgba(18,23,48,.72);color:var(--muted);font-size:10px}
+.library-screen-filters button.active{color:#eee8ff;border-color:rgba(101,223,255,.48);background:rgba(101,223,255,.08)}
+.library-project-list{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:9px}
+.library-project-card{width:100%;text-align:left;padding:13px;border-radius:15px;border:1px solid var(--border);background:linear-gradient(145deg,rgba(18,23,48,.78),rgba(10,14,31,.72));display:flex;flex-direction:column;gap:5px}
+.library-project-card strong{font-size:12px;font-weight:500}.library-project-card small{font-size:9px;color:var(--muted)}
+.library-empty{grid-column:1/-1;padding:22px;text-align:center;color:var(--muted);font-size:10px;border:1px dashed var(--border);border-radius:15px}
+@media(max-width:560px){.library-project-list{grid-template-columns:1fr}.library-screen-filters button{font-size:9px}.library-advanced-row{grid-template-columns:1fr 1fr}.library-view-toggle{grid-column:span 2}}
+.library-screen-sections{display:grid;grid-template-columns:repeat(3,1fr);gap:7px;margin-bottom:14px}
+.library-screen-sections button{min-height:43px;border-radius:12px;border:1px solid var(--border);background:rgba(18,23,48,.72);color:var(--muted);font-size:10px}
+.library-screen-sections button.active{color:#eee8ff;border-color:rgba(101,223,255,.48);background:rgba(101,223,255,.08)}
+.library-structure-area{display:block}.library-structure-area[hidden]{display:none!important}
+.library-structure-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:9px}
+.library-structure-card{width:100%;text-align:left;padding:15px;border-radius:15px;border:1px solid var(--border);background:linear-gradient(145deg,rgba(18,23,48,.78),rgba(10,14,31,.72));display:flex;flex-direction:column;gap:6px}
+.library-structure-card strong{font-size:12px;font-weight:500}.library-structure-card small{font-size:9px;line-height:1.45;color:var(--muted)}
+.library-structure-note{margin-top:10px;padding:13px;border:1px dashed var(--border);border-radius:13px;color:var(--muted);font-size:9px;line-height:1.5}
+@media(max-width:560px){.library-structure-grid{grid-template-columns:1fr}}
+
 </style>
 </head>
 <body>
@@ -313,7 +388,65 @@ header{height:68px;padding:0 12px}
 <div class="app">
 <header><div class="brand"><div class="mini-symbol"></div><div><div class="brand-text">DREAM STUDIO</div><div class="brand-sub">imagine · create · become</div></div></div><button class="menu-btn" aria-label="Menu">⋯</button></header>
 <section id="home" class="screen active"><div class="home-wrap"><h1>O que você quer criar hoje?</h1><p>Transforme uma ideia em algo seu.</p><div class="section-label">FAMÍLIAS</div><div class="family-grid"><button class="family-card" onclick="openModal('Aprender')"><div class="family-symbol">∞</div><strong>Aprender</strong><span>Evolua seu talento</span></button><button class="family-card" onclick="openModal('Projetos')"><div class="family-symbol">◇</div><strong>Projetos</strong><span>Construa seus mundos</span></button><button class="family-card" onclick="openModal('Pacotes')"><div class="family-symbol">◌</div><strong>Pacotes</strong><span>Leve suas criações</span></button></div></div></section>
-<section id="create" class="screen"><div class="create-wrap"><h1>Criar</h1><p>Dê forma a uma nova ideia.</p><div class="create-stage" id="createStage"><button class="create-core" onclick="toggleCreateMenu()"><svg width="18" height="18" viewBox="0 0 24 24" aria-hidden="true"><path d="M12 2l1.9 7.1L21 11l-7.1 1.9L12 20l-1.9-7.1L3 11l7.1-1.9L12 2z" fill="none" stroke="currentColor" stroke-width="1.4"/></svg> CRIAR</button><button class="create-option opt1" onclick="openCharacterSetup()"><span class="node">◇</span><strong>Personagem</strong></button><button class="create-option opt2" onclick="openIllustrationSetup()"><span class="node">◈</span><strong>Ilustração</strong></button><button class="create-option opt3" onclick="openCoverSetup()"><span class="node">△</span><strong>Capa</strong></button><button class="create-option opt4" onclick="openModal('Animação')"><span class="node">◌</span><strong>Animação</strong></button><button class="create-close" onclick="closeCreateMenu()">Fechar</button></div></div></section>
+<section id="create" class="screen"><div class="create-wrap"><h1>Criar</h1><p>Dê forma a uma nova ideia.</p><div class="create-stage" id="createStage"><button class="create-core" onclick="toggleCreateMenu()"><svg width="18" height="18" viewBox="0 0 24 24" aria-hidden="true"><path d="M12 2l1.9 7.1L21 11l-7.1 1.9L12 20l-1.9-7.1L3 11l7.1-1.9L12 2z" fill="none" stroke="currentColor" stroke-width="1.4"/></svg> CRIAR</button><button class="create-option opt1" onclick="openCharacterSetup()"><span class="node">◇</span><strong>Personagem</strong></button><button class="create-option opt2" onclick="openIllustrationSetup()"><span class="node">◈</span><strong>Ilustração</strong></button><button class="create-option opt3" onclick="openCoverSetup()"><span class="node">△</span><strong>Capa</strong></button><button class="create-option opt4" onclick="openAnimationSetup()"><span class="node">◌</span><strong>Animação</strong></button><button class="create-close" onclick="closeCreateMenu()">Fechar</button></div></div></section>
+<section id="libraryScreen" class="screen">
+  <div class="library-screen-wrap">
+    <div class="library-screen-header"><div><h1>Biblioteca</h1><p>Organize, encontre e reutilize suas criações e recursos.</p></div></div>
+    <div class="library-screen-sections" role="tablist" aria-label="Seções da biblioteca">
+      <button id="librarySectionProjects" class="active" data-library-section="projetos" onclick="librarySetSection('projetos')">Projetos</button>
+      <button id="librarySectionResources" data-library-section="recursos" onclick="librarySetSection('recursos')">Recursos</button>
+      <button id="librarySectionLibraries" data-library-section="bibliotecas" onclick="librarySetSection('bibliotecas')">Bibliotecas</button>
+    </div>
+    <div id="libraryProjectsArea">
+      <input id="libraryScreenSearch" class="library-screen-search" type="search" placeholder="Pesquisar por nome, projeto, biblioteca, ID, tags ou versão..." oninput="librarySetQuery(this.value)">
+      <div class="library-screen-filters" role="group" aria-label="Filtrar projetos">
+        <button data-library-filter="todos" class="active" onclick="librarySetFilter('todos')">Todos</button>
+        <button data-library-filter="personagem" onclick="librarySetFilter('personagem')">Personagens</button>
+        <button data-library-filter="ilustracao" onclick="librarySetFilter('ilustracao')">Ilustrações</button>
+        <button data-library-filter="capa" onclick="librarySetFilter('capa')">Capas</button>
+        <button data-library-filter="animacao" onclick="librarySetFilter('animacao')">Animações</button>
+      </div>
+      <div class="library-advanced-row">
+        <select id="libraryProjectFilter" onchange="librarySetProjectFilter(this.value)" aria-label="Filtrar por projeto"><option value="">Todos os projetos</option></select>
+        <select id="libraryLibraryFilter" onchange="librarySetLibraryFilter(this.value)" aria-label="Filtrar por biblioteca"><option value="">Todas as bibliotecas</option></select>
+        <select id="librarySort" onchange="librarySetSort(this.value)" aria-label="Ordenar recursos">
+          <option value="recentes">Mais recentes</option><option value="alterados">Mais alterados</option><option value="nome">Nome</option><option value="tipo">Tipo</option>
+        </select>
+        <button id="libraryViewToggle" class="library-view-toggle" onclick="libraryToggleView()" type="button" aria-label="Alternar visualização">Lista</button>
+      </div>
+      <div id="libraryScreenProjectList" class="library-project-list"></div>
+    </div>
+    <div id="libraryResourcesArea" class="library-structure-area" hidden>
+      <div class="library-structure-grid">
+        <button class="library-structure-card" onclick="libraryRenderResources('all')"><strong>✦ Todos os recursos</strong><small>Ver os recursos disponíveis na Biblioteca.</small></button>
+        <button class="library-structure-card" onclick="libraryRenderResources('color')"><strong>🎨 Cores</strong><small>Cores salvas para reutilização.</small></button>
+        <button class="library-structure-card" onclick="libraryRenderResources('base')"><strong>◇ Bases</strong><small>Bases e estruturas reutilizáveis.</small></button>
+        <button class="library-structure-card" onclick="libraryRenderResources('component')"><strong>✦ Componentes</strong><small>Elementos preparados para montagens.</small></button>
+        <button class="library-structure-card" onclick="libraryRenderResources('image')"><strong>🖼️ Imagens</strong><small>Imagens e referências guardadas.</small></button>
+        <button class="library-structure-card" onclick="libraryRenderResources('drawing')"><strong>✎ Desenhos</strong><small>Desenhos independentes salvos.</small></button>
+        <button class="library-structure-card" onclick="libraryRenderResources('animation')"><strong>◌ Animações</strong><small>Recursos de animação reutilizáveis.</small></button>
+      </div>
+      <div id="libraryResourceList" class="library-resource-list"></div>
+    </div>
+    <div id="libraryLibrariesArea" class="library-structure-area" hidden>
+      <div class="library-structure-grid">
+        <button class="library-structure-card" onclick="libraryRenderLibraries('geral')"><strong>◫ Biblioteca Geral</strong><small>Recursos disponíveis para qualquer projeto.</small></button>
+        <button class="library-structure-card" onclick="libraryRenderLibraries('projeto')"><strong>◇ Bibliotecas de Projeto</strong><small>Recursos ligados a projetos específicos.</small></button>
+        <button class="library-structure-card" onclick="libraryRenderLibraries('tipo')"><strong>✦ Bibliotecas por Tipo</strong><small>Organização por categoria de recurso.</small></button>
+      </div>
+      <div class="library-structure-note">A criação e organização real das bibliotecas virá depois da estrutura de recursos.</div>
+    </div>
+  </div>
+</section>
+<section id="libraryDetailScreen" class="screen">
+  <div class="library-detail-wrap">
+    <div class="library-detail-top">
+      <button class="library-detail-back" onclick="showScreen('libraryScreen')" aria-label="Voltar">‹</button>
+      <div><h1>Detalhes</h1><p>Informações e ações do recurso selecionado.</p></div>
+    </div>
+    <div id="libraryDetailContent"></div>
+  </div>
+</section>
 <section id="characterScreen" class="screen">
   <div class="editor-toolbar">
     <button class="back-btn" onclick="leaveCharacter()" aria-label="Voltar">
@@ -361,7 +494,8 @@ header{height:68px;padding:0 12px}
           <div id="selectionSW" class="selection-handle scale" title="Redimensionar"></div>
           <div id="selectionSE" class="selection-handle scale" title="Redimensionar"></div>
           <div id="selectionRotateLine" class="selection-rotate-line"></div>
-          <div id="selectionRotate" class="selection-handle rotate" title="Girar">↻</div>
+          <button id="selectionRotate" class="selection-handle rotate" type="button" title="Girar" aria-label="Girar">↻</button>
+          <button id="selectionExit" class="selection-exit" type="button" onclick="clearCharacterSelection()" title="Sair da seleção">Sair</button>
         </div>
 
                 <div class="zoom-controls" aria-label="Controles de zoom">
@@ -426,7 +560,7 @@ header{height:68px;padding:0 12px}
         <button type="button" data-transform="1" onclick="adjustSelectedLayerTransform(0,0,0,-15)">↶</button>
         <button type="button" data-transform="1" onclick="adjustSelectedLayerTransform(0,0,0,15)">↷</button>
         <button type="button" data-transform="1" onclick="resetSelectedLayerTransform()">1:1</button>
-        <button type="button" data-transform="1" onclick="clearCharacterSelection()">✓</button>
+        <button type="button" data-transform="1" onclick="clearCharacterSelection()" aria-label="Sair da seleção" title="Sair da seleção">Sair</button>
       </div>
       </div>
 
@@ -453,6 +587,34 @@ header{height:68px;padding:0 12px}
       </div>
     </div>
 
+
+<div id="animationTimeline" class="animation-timeline" aria-label="Linha do tempo da animação">
+  <div class="animation-head">
+    <div><strong>LINHA DO TEMPO</strong><small id="animationFrameInfo"> 1 quadro</small></div>
+    <div class="animation-actions">
+      <button onclick="animationAddFrame()">+ Quadro</button>
+      <button onclick="animationDuplicateFrame()">Duplicar</button>
+      <button onclick="animationCopyFrame()">Copiar</button>
+      <button onclick="animationPasteFrame()">Colar</button>
+      <button onclick="animationMoveFrame(-1)">← Mover</button>
+      <button onclick="animationMoveFrame(1)">Mover →</button>
+      <button onclick="animationDeleteFrame()">Excluir</button>
+      <button class="primary" onclick="animationTogglePlay()" id="animationPlayButton">▶ Reproduzir</button>
+      <button onclick="animationToggleOnionSkin()" id="animationOnionButton" title="Mostrar o quadro anterior por transparência">◉ Onion Skin</button>
+    </div>
+  </div>
+  <div class="animation-frames" id="animationFrames"></div>
+  <div class="animation-settings">
+    <label>Duração do quadro
+      <input id="animationFrameDuration" type="range" min="40" max="2000" step="10" value="100" oninput="animationSetFrameDuration(this.value)">
+    </label>
+    <label>FPS
+      <input id="animationFpsEditor" type="range" min="1" max="60" step="1" value="24" oninput="animationSetFps(this.value)">
+    </label>
+  </div>
+  <div class="animation-play-state" id="animationPlayState">Pronto.</div>
+</div>
+
     <div id="codeView" class="view code-view">
       <div class="code-card">
         <h2>Estrutura do personagem</h2>
@@ -463,7 +625,7 @@ header{height:68px;padding:0 12px}
     </div>
   </div>
 </section>
-<nav class="bottom-nav"><button id="navHome" class="active" onclick="showScreen('home')"><span class="nav-symbol">⌂</span>Início</button><button id="navCreate" onclick="showScreen('create')"><span class="nav-symbol">✦</span>Criar</button><button id="navLibrary" onclick="openModal('Biblioteca')"><span class="nav-symbol">◫</span>Biblioteca</button></nav>
+<nav class="bottom-nav"><button id="navHome" class="active" onclick="showScreen('home')"><span class="nav-symbol">⌂</span>Início</button><button id="navCreate" onclick="showScreen('create')"><span class="nav-symbol">✦</span>Criar</button><button id="navLibrary" onclick="showScreen('libraryScreen')"><span class="nav-symbol">◫</span>Biblioteca</button></nav>
 </div>
 <div id="setupOverlay" class="setup-overlay">
   <div class="setup-card">
@@ -565,6 +727,35 @@ header{height:68px;padding:0 12px}
   </div>
 </div>
 
+
+<div id="animationSetupOverlay" class="setup-overlay">
+  <div class="setup-card">
+    <h2>Nova animação</h2>
+    <p>Prepare uma linha do tempo para dar movimento à sua criação.</p>
+    <div class="form-group">
+      <label for="animationName">Nome da animação *</label>
+      <input id="animationName" class="name-input" placeholder="Ex.: Cena de abertura" autocomplete="off">
+      <small id="animationNameError" style="display:block;color:#d78cff;font-size:9px;margin-top:5px"></small>
+    </div>
+    <div class="form-grid">
+      <div class="form-group"><label for="animationProject">Projeto</label><select id="animationProject"><option value="projeto_demo">Projeto Demo</option></select></div>
+      <div class="form-group"><label for="animationLibrary">Biblioteca</label><select id="animationLibrary"><option value="biblioteca_animacoes">Biblioteca de Animações</option></select></div>
+    </div>
+    <div class="form-grid">
+      <div class="form-group"><label for="animationPreset">Tamanho do Canvas</label><select id="animationPreset"><option value="800x600">800 × 600 px</option><option value="1000x1000">1000 × 1000 px</option><option value="1200x800">1200 × 800 px</option><option value="custom">Personalizado</option></select></div>
+      <div class="form-group"><label for="animationFps">Quadros por segundo</label><select id="animationFps"><option value="12">12 FPS</option><option value="24" selected>24 FPS</option><option value="30">30 FPS</option></select></div>
+    </div>
+    <div id="animationCustomSizeFields" class="form-grid" style="display:none">
+      <div class="form-group"><label for="animationWidth">Largura</label><input id="animationWidth" type="number" min="1" value="800"></div>
+      <div class="form-group"><label for="animationHeight">Altura</label><input id="animationHeight" type="number" min="1" value="600"></div>
+    </div>
+    <div class="form-group">
+      <label>Estrutura inicial</label>
+      <div style="font-size:10px;color:var(--muted);padding:10px 0;line-height:1.6">A animação começa com um quadro vazio. Os quadros podem ser duplicados, editados e reproduzidos pela linha do tempo.</div>
+    </div>
+    <div class="setup-actions"><button onclick="closeAnimationSetup()">Cancelar</button><button class="primary" onclick="createAnimation()">✦ COMEÇAR A CRIAR</button></div>
+  </div>
+</div>
 <div id="coverSetupOverlay" class="setup-overlay">
   <div class="setup-card">
     <h2>Nova capa</h2>
@@ -622,7 +813,7 @@ header{height:68px;padding:0 12px}
 <div id="toast" class="dream-toast" role="status" aria-live="polite"></div>
 <script>
 /* =========================================================
-   DREAM STUDIO — EVOLUÇÃO 3 · MOTOR DE CRIAÇÃO · v23.11 · v23.10
+   DREAM STUDIO — EVOLUÇÃO 3 · MOTOR DE CRIAÇÃO · v24.1 · Base de Animação
    Motor de renderização por referência + gerenciamento de camadas
    ========================================================= */
 
@@ -632,8 +823,9 @@ const CHARACTER_KEY='dreamStudioCharacters';
 const LAYER_KEY='dreamStudioLayerLibrary';
 const ILLUSTRATION_KEY='dreamStudioIllustrations';
 const COVER_KEY='dreamStudioCovers';
+const ANIMATION_KEY='dreamStudioAnimations';
 
-let currentColor='#FFFFFF';
+let currentColor='#1E1E1E';
 let currentTool='pencil';
 let currentPanel=null;
 let character=null;
@@ -875,8 +1067,29 @@ function showScreen(id){
   document.querySelectorAll('.screen').forEach(s=>s.classList.remove('active'));
   const target=$(id);
   if(target)target.classList.add('active');
+  if(id==='libraryScreen'){
+    closeCreateMenu();
+    closeModal();
+    closeCharacterSetup();
+    closeIllustrationSetup();
+    document.body.classList.remove('create-menu-open');
+    libraryFilter='todos';
+    libraryQuery='';
+    librarySection='projetos';
+    librarySetSection('projetos');
+    if($('libraryScreenSearch'))$('libraryScreenSearch').value='';
+    libraryProjectFilter='';libraryLibraryFilter='';librarySort='recentes';libraryView='grid';
+    if($('libraryProjectFilter'))$('libraryProjectFilter').value='';
+    if($('libraryLibraryFilter'))$('libraryLibraryFilter').value='';
+    if($('librarySort'))$('librarySort').value='recentes';
+    document.querySelectorAll('[data-library-filter]').forEach(b=>b.classList.toggle('active',b.dataset.libraryFilter==='todos'));
+    libraryRender();
+  }
 
   document.body.classList.toggle('character-mode',id==='characterScreen');
+  $('navHome')?.classList.toggle('active',id==='home');
+  $('navCreate')?.classList.toggle('active',id==='create');
+  $('navLibrary')?.classList.toggle('active',id==='libraryScreen');
   if(id==='characterScreen'){
     closeCreateMenu();
     closeModal();
@@ -925,16 +1138,500 @@ function restoreGenericModal(){
   if(!card)return;
   card.innerHTML='<h2 id="modalTitle">Dream Studio</h2><p id="modalText">Esta área será desenvolvida em uma etapa posterior.</p><div class="setup-actions"><button onclick="closeModal()">Fechar</button></div>';
 }
+let libraryFilter='todos';
+let libraryQuery='';
+let librarySection='projetos';
+let libraryProjectFilter='';
+let libraryLibraryFilter='';
+let librarySort='recentes';
+let libraryView='grid';
+let libraryResourceFilter='all';
+function libraryResourceTypeLabel(type){return ({color:'Cor',base:'Base',component:'Componente',image:'Imagem',drawing:'Desenho',animation:'Animação'})[type]||type||'Recurso';}
+function libraryRenderResources(filter='all'){
+  libraryResourceFilter=filter||'all';
+  const box=$('libraryResourceList');
+  if(!box)return;
+  const resources=getLibraryResources();
+  const items=libraryResourceFilter==='all'?resources:resources.filter(r=>String(r.type||'').toLowerCase()===libraryResourceFilter);
+  box.innerHTML=items.length?items.map(r=>`<button class="library-resource-item" onclick="libraryShowResourceDetail('${escapeJs(r.id)}')"><strong>${escapeHtml(r.name||r.id||'Recurso')}</strong><small>${escapeHtml(libraryResourceTypeLabel(r.type))}${r.category?' · '+escapeHtml(r.category):''}${r.library?' · '+escapeHtml(r.library):''}</small></button>`).join(''):'<div class="library-empty">Nenhum recurso encontrado nessa categoria.</div>';
+}
+function libraryShowResourceDetail(id){
+  const resource=findLibraryResource(id);
+  if(!resource)return;
+  libraryDetailItem={...resource,_isResource:true};
+  const box=$('libraryDetailContent');
+  if(!box)return;
+  const preview=resource.preview||resource.thumbnail||resource.imagem||resource.image||resource.dataUrl||'';
+  const referenceLabel=resource.isReference||resource.referenciaDe?'Referência':'Recurso';
+  box.innerHTML=`<div class="library-detail-card"><div class="library-detail-preview">${preview?`<img src="${escapeHtml(preview)}" alt="Prévia de ${escapeHtml(resource.name||'Recurso')}">`:'<div class="library-detail-placeholder">✦</div>'}</div><div class="library-detail-info"><span class="library-detail-badge">${referenceLabel}</span><h2>${escapeHtml(resource.name||'Recurso')}</h2><dl class="library-detail-meta"><div><dt>Tipo</dt><dd>${escapeHtml(libraryResourceTypeLabel(resource.type))}</dd></div><div><dt>Categoria</dt><dd>${escapeHtml(resource.category||'—')}</dd></div><div><dt>Biblioteca</dt><dd>${escapeHtml(resource.library||'—')}</dd></div><div><dt>Projeto</dt><dd>${escapeHtml(resource.project||'—')}</dd></div><div><dt>Origem</dt><dd>${escapeHtml(resource.origin||resource.origem||'Criado no Dream Studio')}</dd></div><div><dt>Criação</dt><dd>${escapeHtml(libraryFormatDate(resource.criadoEm||resource.createdAt))}</dd></div><div><dt>Atualização</dt><dd>${escapeHtml(libraryFormatDate(resource.updatedAt||resource.editadoEm))}</dd></div><div><dt>ID</dt><dd>${escapeHtml(resource.id||'—')}</dd></div>${resource.referenciaDe?`<div><dt>Referência de</dt><dd>${escapeHtml(resource.referenciaDe)}</dd></div>`:''}${(()=>{const deps=libraryFindResourceDependencies(resource.id);return `<div><dt>Dependências</dt><dd>${deps.length?deps.length+' uso(s) ou vínculo(s)':'Nenhuma dependência encontrada'}</dd></div>`})()}</dl>${(()=>{const deps=libraryFindResourceDependencies(resource.id);const summary=deps.length?`${deps.length} dependência(s) encontrada(s)`:'Nenhuma dependência encontrada';const detail=deps.length?deps.slice(0,6).map(d=>`<li><strong>${escapeHtml(d.type)}</strong> · ${escapeHtml(d.name)}</li>`).join(''):'<li>Este recurso pode ser excluído sem vínculos detectados.</li>';return `<div class="library-dependency-box"><div><strong>🔗 Dependências</strong><small>${summary}</small></div><ul>${detail}</ul></div>`})()}<div class="library-detail-actions"><button class="primary" onclick="libraryDetailUse()">＋ Usar no projeto</button><button onclick="libraryDetailDuplicate()">⧉ Duplicar</button><button onclick="libraryDetailReference()">◇ Criar referência</button><button onclick="libraryDetailCode()">⌘ Código</button><button onclick="libraryDetailExport()">⇩ Exportar</button><button onclick="libraryDetailDelete()">Excluir</button></div></div></div>`;
+  showScreen('libraryDetailScreen');
+  const useBtn=$('libraryDetailUseButton');
+  if(useBtn){useBtn.style.display='';useBtn.onclick=()=>libraryUseResource(resource.id);}
+}
+
+function libraryRenderLibraries(kind='geral'){
+  const area=$('libraryLibrariesArea');
+  if(!area)return;
+  const labels={geral:'Biblioteca Geral',projeto:'Bibliotecas de Projeto',tipo:'Bibliotecas por Tipo'};
+  const descriptions={geral:'Recursos disponíveis para qualquer projeto.',projeto:'Recursos organizados de acordo com cada projeto.',tipo:'Recursos separados por tipo e categoria.'};
+  let items=[];
+  if(kind==='geral'){
+    const resources=getLibraryResources();
+    items=[{name:'Biblioteca Geral',detail:`${resources.length} recurso(s) disponível(is)`,action:`libraryOpenLibraryGroup('geral','')`}];
+  }else if(kind==='projeto'){
+    const resources=getLibraryResources();
+    const projects=getSavedLibraryProjects();
+    const names=[...new Set([...projects.map(x=>String(x.projeto||'')),...resources.map(x=>String(x.project||x.projeto||''))].filter(Boolean))];
+    items=names.map(name=>({name,detail:`${resources.filter(x=>String(x.project||x.projeto||'')===name).length} recurso(s)`,action:`libraryOpenLibraryGroup('projeto',${JSON.stringify(name)})`}));
+    if(!items.length)items=[{name:'Nenhuma biblioteca de projeto criada',detail:'Crie ou salve um projeto para aparecer aqui.',disabled:true}];
+  }else{
+    const resources=getLibraryResources();
+    const types=[...new Set(resources.map(x=>String(x.type||'')).filter(Boolean))];
+    items=types.map(type=>({name:libraryResourceTypeLabel(type),detail:`${resources.filter(x=>String(x.type||'')===type).length} recurso(s)`,action:`libraryOpenLibraryGroup('tipo',${JSON.stringify(type)})`}));
+    if(!items.length)items=[{name:'Nenhuma biblioteca por tipo disponível',detail:'Os recursos salvos aparecerão aqui.',disabled:true}];
+  }
+  area.innerHTML=`<div class="library-subpage-head"><button type="button" onclick="libraryBackToLibraries()">‹ Voltar</button><div><strong>${escapeHtml(labels[kind])}</strong><small>${escapeHtml(descriptions[kind])}</small></div></div><div class="library-structure-grid">${items.map(x=>`<button class="library-structure-card" type="button" ${x.disabled?'disabled':''} ${x.action?`onclick='${x.action}'`:''}><strong>${escapeHtml(x.name)}</strong><small>${escapeHtml(x.detail)}</small></button>`).join('')}</div>`;
+}
+function libraryBackToLibraries(){
+  const area=$('libraryLibrariesArea');
+  if(!area)return;
+  area.hidden=false;
+  area.innerHTML=`<div class="library-structure-grid"><button class="library-structure-card" type="button" onclick="libraryRenderLibraries('geral')"><strong>◫ Biblioteca Geral</strong><small>Recursos disponíveis para qualquer projeto.</small></button><button class="library-structure-card" type="button" onclick="libraryRenderLibraries('projeto')"><strong>◇ Bibliotecas de Projeto</strong><small>Recursos ligados a projetos específicos.</small></button><button class="library-structure-card" type="button" onclick="libraryRenderLibraries('tipo')"><strong>✦ Bibliotecas por Tipo</strong><small>Organização por categoria de recurso.</small></button></div>`;
+}
+function libraryOpenLibraryGroup(kind,value){
+  const resources=getLibraryResources();
+  let items=resources;
+  let title='Biblioteca Geral';
+  if(kind==='projeto'){items=resources.filter(r=>String(r.project||r.projeto||'')===String(value));title=`Biblioteca: ${value}`;}
+  if(kind==='tipo'){items=resources.filter(r=>String(r.type||'')===String(value));title=`Biblioteca: ${libraryResourceTypeLabel(value)}`;}
+  const area=$('libraryLibrariesArea');if(!area)return;
+  area.innerHTML=`<div class="library-subpage-head"><button type="button" onclick="libraryBackToLibraries()">‹ Voltar</button><div><strong>${escapeHtml(title)}</strong><small>${items.length} recurso(s)</small></div></div><div class="library-resource-list">${items.length?items.map(r=>`<button class="library-project-card" type="button" onclick="libraryShowResourceDetail('${escapeJs(r.id)}')"><strong>${libraryTypeIcon(r.type||r._libraryType)} ${escapeHtml(r.name||r.nome||'Sem nome')}</strong><small>${escapeHtml(libraryResourceTypeLabel(r.type||r._libraryType))}${r.category||r.categoria?' · '+escapeHtml(r.category||r.categoria):''}</small></button>`).join(''):'<div class="library-empty">Nenhum recurso nesta biblioteca.</div>'}</div>`;
+}
+function librarySetSection(section){
+  librarySection=section;
+  document.querySelectorAll('[data-library-section]').forEach(b=>b.classList.toggle('active',b.dataset.librarySection===section));
+  const projects=$('libraryProjectsArea'),resources=$('libraryResourcesArea'),libraries=$('libraryLibrariesArea');
+  if(projects)projects.hidden=section!=='projetos';
+  if(resources)resources.hidden=section!=='recursos';
+  if(libraries)libraries.hidden=section!=='bibliotecas';
+  if(section==='projetos')libraryRender();
+  if(section==='recursos')libraryRenderResources(libraryResourceFilter||'all');
+  if(section==='bibliotecas'){
+    libraryBackToLibraries();
+  }
+}
+
+function getSavedLibraryProjects(){
+  const chars=readJSON(CHARACTER_KEY,[]).map(x=>({...x,_libraryType:'personagem'}));
+  const ilustracoes=readJSON(ILLUSTRATION_KEY,[]).map(x=>({...x,_libraryType:'ilustracao'}));
+  const capas=readJSON(COVER_KEY,[]).map(x=>({...x,_libraryType:'capa'}));
+  const anims=readJSON(ANIMATION_KEY,[]).map(x=>({...x,_libraryType:'animacao'}));
+  return [...chars,...ilustracoes,...capas,...anims].sort((a,b)=>String(b.updatedAt||b.criadoEm||'').localeCompare(String(a.updatedAt||a.criadoEm||'')));
+}
+function libraryTypeLabel(type){return ({personagem:'Personagem',ilustracao:'Ilustração',capa:'Capa',animacao:'Animação'})[type]||type;}
+function libraryTypeIcon(type){return ({personagem:'👤',ilustracao:'🖼️',capa:'📖',animacao:'🎬'})[type]||'◫';}
+
+let libraryDetailItem=null;
+function libraryFindProject(id,type){
+  return getSavedLibraryProjects().find(x=>x.id===id && x._libraryType===type)||null;
+}
+function libraryFormatDate(value){
+  if(!value)return '—';
+  const d=new Date(value); if(Number.isNaN(d.getTime()))return String(value);
+  return d.toLocaleDateString('pt-BR')+' '+d.toLocaleTimeString('pt-BR',{hour:'2-digit',minute:'2-digit'});
+}
+function libraryShowDetail(id,type){
+  const item=libraryFindProject(id,type);
+  if(!item)return;
+  libraryDetailItem={...item};
+  const box=$('libraryDetailContent'); if(!box)return;
+  const preview=item.preview||item.thumbnail||item.imagem||item.image||'';
+  box.innerHTML=`<div class="library-detail-card">
+    <div class="library-detail-preview">${preview?`<img src="${escapeHtml(preview)}" alt="Prévia de ${escapeHtml(item.nome||'recurso')}">`:`<span class="detail-icon">${libraryTypeIcon(type)}</span>`}</div>
+    <div class="library-detail-info">
+      <span class="library-detail-badge">${libraryTypeLabel(type)}</span>
+      <h2>${escapeHtml(item.nome||'Sem nome')}</h2>
+      <dl class="library-detail-meta">
+        <div><dt>Tipo</dt><dd>${escapeHtml(libraryTypeLabel(type))}</dd></div>
+        <div><dt>Categoria</dt><dd>${escapeHtml(item.categoria||libraryTypeLabel(type))}</dd></div>
+        <div><dt>Biblioteca</dt><dd>${escapeHtml(item.biblioteca||'Biblioteca Geral')}</dd></div>
+        <div><dt>Projeto</dt><dd>${escapeHtml(item.projeto||'—')}</dd></div>
+        <div><dt>Origem</dt><dd>${escapeHtml(item.origem||'Criado no Dream Studio')}</dd></div>
+        <div><dt>Criação</dt><dd>${escapeHtml(libraryFormatDate(item.criadoEm||item.createdAt))}</dd></div>
+        <div><dt>Atualização</dt><dd>${escapeHtml(libraryFormatDate(item.updatedAt||item.editadoEm))}</dd></div>
+        <div><dt>Versão</dt><dd>${escapeHtml(item.version||item.versao||'1')}</dd></div>
+      </dl>
+      <div class="library-detail-actions">
+        <button class="primary" onclick="libraryDetailEdit()">✎ Editar</button>
+        <button onclick="libraryDetailUse()">＋ Usar no projeto</button>
+        <button onclick="libraryDetailDuplicate()">⧉ Duplicar</button>
+        <button onclick="libraryDetailCode()">⌘ Código</button>
+        <button onclick="libraryDetailExport()">⇩ Exportar</button>
+        <button onclick="libraryDetailDelete()">Excluir</button>
+      </div>
+    </div>
+  </div>
+  <div class="library-detail-section">Este painel concentra a identidade, origem e ações do recurso. Funções que dependem das próximas etapas permanecerão preparadas sem alterar o editor atual.</div>`;
+  showScreen('libraryDetailScreen');
+}
+function libraryDetailEdit(){
+  if(!libraryDetailItem)return;
+  libraryOpenProject(libraryDetailItem.id,libraryDetailItem._libraryType);
+}
+function libraryDetailUse(){
+  if(!libraryDetailItem)return;
+  if(libraryDetailItem._isResource)return libraryUseResource(libraryDetailItem.id);
+  alert('O uso direto em outro projeto será conectado na próxima etapa da Biblioteca.');
+}
+function libraryDetailDuplicate(){
+  if(!libraryDetailItem)return;
+  if(libraryDetailItem._isResource)return libraryDuplicateResource(libraryDetailItem.id);
+  alert('A duplicação de projetos será conectada em uma etapa posterior.');
+}
+function libraryUseResource(id){
+  const resource=findLibraryResource(id);
+  if(!resource){showToast('Recurso não encontrado.');return;}
+  const projects=getSavedLibraryProjects();
+  if(!projects.length){showToast('Crie ou salve um projeto antes de usar este recurso.');return;}
+  const options=projects.map((p,i)=>`${i+1}. ${p.nome||'Sem nome'} · ${libraryTypeLabel(p._libraryType)}`).join('\n');
+  const answer=prompt('Em qual projeto deseja usar este recurso?\n\n'+options+'\n\nDigite o número:');
+  if(answer===null)return;
+  const index=Number(answer)-1;
+  const target=projects[index];
+  if(!target){showToast('Projeto inválido.');return;}
+  const opened=libraryOpenProject(target.id,target._libraryType);
+  if(!opened && opened!==undefined){showToast('Não foi possível abrir o projeto.');return;}
+  const layer={
+    id:'layer_res_'+Date.now().toString(36)+'_'+Math.random().toString(36).slice(2,6),
+    resourceId:resource.id,
+    kind:resource.type==='base'?'base':'component',
+    category:resource.category||'recurso',
+    label:resource.name||'Recurso',
+    visible:true,
+    locked:false,
+    transformacao:{x:0,y:0,escala:1,rotacao:0},
+    elementos:resourceLayerElement(resource)
+  };
+  if(character?.tipo==='animacao'){
+    character.camadas=character.camadas||[];
+    character.camadas.push(layer);
+    animationSnapshotCurrentFrame();
+  }else{
+    character.camadas=character.camadas||[];
+    character.camadas.push(layer);
+  }
+  selectedLayerId=layer.id;
+  persistCharacter();
+  renderLayers();
+  renderCharacter();
+  renderCode();
+  showToast((resource.name||'Recurso')+' adicionado a '+(character.nome||'projeto')+'.');
+}
+function libraryDetailReference(){
+  if(!libraryDetailItem||!libraryDetailItem._isResource)return;
+  return libraryCreateResourceReference(libraryDetailItem.id);
+}
+function libraryDuplicateResource(id){
+  const source=findLibraryResource(id);
+  if(!source){showToast('Recurso não encontrado.');return;}
+  const resources=readJSON(RESOURCE_KEY,[]);
+  const copy=JSON.parse(JSON.stringify(source));
+  copy.id='res_dup_'+Date.now().toString(36)+'_'+Math.random().toString(36).slice(2,6);
+  copy.name=(source.name||'Recurso')+' · Cópia';
+  copy.criadoEm=new Date().toISOString();
+  copy.updatedAt=copy.criadoEm;
+  copy.origem='Duplicado no Dream Studio';
+  copy.origemRecurso=source.id;
+  copy.referenciaDe=null;
+  copy.isReference=false;
+  copy.independente=true;
+  copy.proprietario='usuario';
+  resources.push(copy);
+  if(!writeJSON(RESOURCE_KEY,resources))return;
+  libraryDetailItem={...copy,_isResource:true};
+  libraryShowResourceDetail(copy.id);
+  showToast('Recurso duplicado. A cópia é independente do original.');
+}
+function libraryCreateResourceReference(id){
+  const source=findLibraryResource(id);
+  if(!source){showToast('Recurso não encontrado.');return;}
+  const resources=readJSON(RESOURCE_KEY,[]);
+  const reference=JSON.parse(JSON.stringify(source));
+  reference.id='ref_'+Date.now().toString(36)+'_'+Math.random().toString(36).slice(2,6);
+  reference.name=(source.name||'Recurso')+' · Referência';
+  reference.criadoEm=new Date().toISOString();
+  reference.updatedAt=reference.criadoEm;
+  reference.origem='Referência de recurso no Dream Studio';
+  reference.referenciaDe=source.id;
+  reference.isReference=true;
+  reference.independente=false;
+  reference.proprietario=source.proprietario||'usuario';
+  reference.permissao={...(source.permissao||{}),editar:false,excluir:true,usar:true,duplicar:true};
+  resources.push(reference);
+  if(!writeJSON(RESOURCE_KEY,resources))return;
+  libraryDetailItem={...reference,_isResource:true};
+  libraryShowResourceDetail(reference.id);
+  showToast('Referência criada. O recurso original permanece intacto.');
+}
+function libraryDetailCode(){
+  if(!libraryDetailItem)return;
+  const item=libraryDetailItem;
+  const isResource=!!item._isResource;
+  let code;
+  let title;
+  let description;
+  if(isResource){
+    const clean={...item};
+    delete clean._isResource;
+    code='const recurso = '+JSON.stringify(clean,null,2)+';';
+    title='Código do recurso';
+    description='Código independente deste recurso da Biblioteca. Você pode selecionar e copiar sem alterar o original.';
+  }else{
+    const source=libraryFindProject(item.id,item._libraryType)||item;
+    let serializable=null;
+    if(character && character.id===source.id && character.tipo===source._libraryType){
+      serializable=getSerializableCharacter();
+    }else{
+      serializable={
+        tipo:source._libraryType||source.tipo||'personagem',
+        id:source.id,
+        nome:source.nome,
+        projeto:source.projeto,
+        biblioteca:source.biblioteca,
+        canvas:source.canvas||null,
+        baseId:source.baseId||null,
+        componentes:source.componentes||{},
+        criacao:source.criacao||null,
+        estrutura:source.estrutura||null,
+        paleta:source.paleta||null,
+        camadas:source.camadas||[],
+        animacao:source.animacao||null,
+        atualizadoEm:source.updatedAt||source.editadoEm||source.criadoEm||null
+      };
+    }
+    const variable=source._libraryType==='ilustracao'?'ilustracao':source._libraryType==='capa'?'capa':source._libraryType==='animacao'?'animacao':'personagem';
+    code='const '+variable+' = '+JSON.stringify(serializable,null,2)+';';
+    title='Código do '+libraryTypeLabel(source._libraryType);
+    description='Código estrutural do projeto salvo na Biblioteca. Copie o código sem entrar em uma nova fase do editor.';
+  }
+  const card=$('genericModal')?.querySelector('.setup-card');
+  if(!card)return;
+  card.innerHTML=`<h2>${escapeHtml(title)}</h2><p>${escapeHtml(description)}</p><textarea id="libraryCodeOutput" readonly style="width:100%;min-height:300px;resize:vertical;background:#040711;color:#ddd8f5;border:1px solid rgba(157,143,255,.14);border-radius:14px;padding:14px;font:11px/1.55 monospace;box-sizing:border-box;"></textarea><div class="setup-actions"><button class="primary" onclick="copyLibraryCode()">Copiar código</button><button onclick="closeModal()">Fechar</button></div>`;
+  $('libraryCodeOutput').value=code;
+  $('genericModal').classList.add('open');
+}
+async function copyLibraryCode(){
+  const area=$('libraryCodeOutput');
+  if(!area)return;
+  const text=area.value||'';
+  try{
+    if(navigator.clipboard?.writeText){
+      await navigator.clipboard.writeText(text);
+      showToast('Código copiado para a área de transferência.');
+      return;
+    }
+  }catch(e){console.warn('Clipboard API indisponível',e)}
+  try{
+    area.focus();area.select();area.setSelectionRange(0,text.length);
+    if(document.execCommand('copy')){showToast('Código copiado para a área de transferência.');return;}
+  }catch(e){console.warn('Fallback de cópia falhou',e)}
+  showToast('Selecione o código manualmente para copiar.');
+}
+function libraryDetailExport(){
+  if(!libraryDetailItem)return;
+  const item=libraryDetailItem;
+  const isResource=!!item._isResource;
+  const label=isResource?(item.name||'Recurso'):(item.nome||'Projeto');
+  const type=isResource?libraryResourceTypeLabel(item.type):libraryTypeLabel(item._libraryType);
+  const visual=item.preview||item.thumbnail||item.imagem||item.image||item.dataUrl||'';
+  const clean=JSON.parse(JSON.stringify(item));
+  delete clean._isResource;
+  const json=JSON.stringify(clean,null,2);
+  const safeName=String(label).replace(/[^a-zA-Z0-9À-ÿ _-]/g,'').trim().replace(/\s+/g,'_')||'dream_studio';
+  const card=$('genericModal')?.querySelector('.setup-card');
+  if(!card)return;
+  card.innerHTML=`<h2>Exportar ${escapeHtml(label)}</h2><p>Escolha o formato. O original continuará salvo na Biblioteca.</p><div class="export-grid"><button class="export-option" onclick="libraryDownloadJSON()"><span><strong>Baixar estrutura JSON</strong><small>Exporta os dados do ${escapeHtml(type)}.</small></span></button>${visual?`<button class="export-option" onclick="libraryDownloadVisual()"><span><strong>Baixar imagem</strong><small>Exporta a prévia disponível do item.</small></span></button>`:''}</div><div class="export-native-note">A exportação cria uma cópia fora da Biblioteca; o item original permanece intacto.</div><div class="setup-actions"><button onclick="closeModal()">Fechar</button></div>`;
+  $('genericModal').classList.add('open');
+  window._libraryExportPayload={item, json, visual, safeName};
+}
+function libraryDownloadJSON(){
+  const payload=window._libraryExportPayload;
+  if(!payload)return;
+  const blob=new Blob([payload.json],{type:'application/json;charset=utf-8'});
+  const url=URL.createObjectURL(blob);
+  const a=document.createElement('a'); a.href=url; a.download=payload.safeName+'.json'; document.body.appendChild(a); a.click(); a.remove();
+  setTimeout(()=>URL.revokeObjectURL(url),1000);
+  showToast('Estrutura exportada.');
+}
+function libraryDownloadVisual(){
+  const payload=window._libraryExportPayload;
+  if(!payload||!payload.visual)return;
+  const a=document.createElement('a'); a.href=payload.visual; a.download=payload.safeName+'.png'; document.body.appendChild(a); a.click(); a.remove();
+  showToast('Imagem exportada.');
+}
+function libraryFindResourceDependencies(resourceId){
+  const deps=[];
+  if(!resourceId)return deps;
+  const projectSources=[
+    ['personagem',CHARACTER_KEY],
+    ['ilustração',ILLUSTRATION_KEY],
+    ['capa',COVER_KEY],
+    ['animação',ANIMATION_KEY]
+  ];
+  for(const [label,key] of projectSources){
+    const projects=readJSON(key,[]);
+    for(const project of projects){
+      let found=false;
+      const layers=Array.isArray(project.camadas)?project.camadas:[];
+      if(layers.some(layer=>String(layer.resourceId||layer.recursoId||layer.id||'')===String(resourceId)))found=true;
+      const directFields=['baseId','recursoId','resourceId'];
+      if(directFields.some(field=>String(project[field]||'')===String(resourceId)))found=true;
+      const componentes=project.componentes;
+      if(Array.isArray(componentes)){
+        if(componentes.some(value=>String(value)===String(resourceId)))found=true;
+      }else if(componentes&&typeof componentes==='object'){
+        if(Object.values(componentes).some(value=>Array.isArray(value)?value.some(v=>String(v)===String(resourceId)):String(value||'')===String(resourceId)))found=true;
+      }
+      if(found)deps.push({kind:'projeto',type:label,name:project.nome||project.name||'Sem nome',id:project.id});
+    }
+  }
+  const resources=readJSON(RESOURCE_KEY,[]);
+  for(const resource of resources){
+    if(String(resource.referenciaDe||'')===String(resourceId)){
+      deps.push({kind:'referencia',type:'referência',name:resource.name||resource.nome||'Sem nome',id:resource.id});
+    }
+    if(String(resource.origemRecurso||'')===String(resourceId)){
+      deps.push({kind:'copia',type:'cópia',name:resource.name||resource.nome||'Sem nome',id:resource.id});
+    }
+  }
+  return deps;
+}
+
+function libraryDependencyMessage(resource,deps){
+  const unique=[];
+  const seen=new Set();
+  for(const dep of deps){
+    const key=dep.kind+'|'+dep.type+'|'+dep.id;
+    if(!seen.has(key)){seen.add(key);unique.push(dep);}
+  }
+  const lines=unique.slice(0,8).map(dep=>`• ${dep.type}: ${dep.name}`);
+  const extra=unique.length>8?`\n• +${unique.length-8} outra(s)` : '';
+  return `O recurso "${resource.name||resource.id||'Recurso'}" possui dependências:\n\n${lines.join('\n')}${extra}\n\nExcluir agora pode quebrar referências ou usos em projetos.\n\nDeseja continuar mesmo assim?`;
+}
+
+function libraryDeleteResource(resource){
+  const deps=libraryFindResourceDependencies(resource.id);
+  if(deps.length){
+    const proceed=confirm(libraryDependencyMessage(resource,deps));
+    if(!proceed)return;
+  }else{
+    if(!confirm(`Excluir o recurso "${resource.name||resource.id||'Recurso'}" da Biblioteca?\n\nEsta ação não poderá ser desfeita.`))return;
+  }
+  const resources=readJSON(RESOURCE_KEY,[]);
+  const next=resources.filter(r=>r.id!==resource.id);
+  if(next.length===resources.length){showToast('Este recurso não está salvo na Biblioteca.');return;}
+  if(!writeJSON(RESOURCE_KEY,next))return;
+  libraryDetailItem=null;
+  showToast(deps.length?'Recurso excluído, apesar das dependências.':'Recurso excluído da Biblioteca.');
+  showScreen('libraryScreen');
+}
+
+function libraryDetailDelete(){
+  if(!libraryDetailItem)return;
+  if(libraryDetailItem._isResource)return libraryDeleteResource(libraryDetailItem);
+  const type=libraryDetailItem._libraryType;
+  const key=type==='personagem'?CHARACTER_KEY:type==='ilustracao'?ILLUSTRATION_KEY:type==='capa'?COVER_KEY:ANIMATION_KEY;
+  const project=libraryDetailItem;
+  const projectDeps=[];
+  const layers=Array.isArray(project.camadas)?project.camadas:[];
+  if(layers.some(layer=>layer.resourceId||layer.recursoId))projectDeps.push('recursos usados por este projeto');
+  const message=projectDeps.length
+    ? `Este projeto contém ${projectDeps.join(' e ')}.
+
+Excluir o projeto não exclui os recursos da Biblioteca, mas pode remover usos registrados no projeto.
+
+Deseja continuar?`
+    : `Excluir o projeto "${project.nome||project.id||'Sem nome'}" da Biblioteca?
+
+Os recursos da Biblioteca não serão excluídos.`;
+  if(!confirm(message))return;
+  const all=readJSON(key,[]).filter(x=>x.id!==project.id);
+  localStorage.setItem(key,JSON.stringify(all));
+  libraryDetailItem=null;
+  showScreen('libraryScreen');
+}
+function libraryOpenProject(id,type){
+  closeModal();
+  if(type==='personagem')return loadSavedCharacter(id);
+  if(type==='animacao')return loadSavedAnimation(id);
+  return loadSavedComposition(id,type);
+}
+function libraryNormalize(value){return String(value||'').normalize('NFD').replace(/[\u0300-\u036f]/g,'').toLowerCase().trim();}
+function libraryFieldText(item){
+  const tags=Array.isArray(item.tags)?item.tags.join(' '):String(item.tags||'');
+  return [item.nome,item.id,item.projeto,item.biblioteca,item.categoria,item.tipo,item.version,item.versao,item.hex,item.cor,tags,libraryTypeLabel(item._libraryType)].map(libraryNormalize).join(' ');
+}
+function libraryUniqueValues(items,field){return [...new Set(items.map(x=>String(x[field]||'').trim()).filter(Boolean))].sort((a,b)=>a.localeCompare(b,'pt-BR'));}
+function libraryUpdateSelects(items){
+  const pf=$('libraryProjectFilter'),lf=$('libraryLibraryFilter');
+  if(pf){const current=libraryProjectFilter;pf.innerHTML='<option value="">Todos os projetos</option>'+libraryUniqueValues(items,'projeto').map(v=>`<option value="${escapeHtml(v)}">${escapeHtml(v)}</option>`).join('');pf.value=current;}
+  if(lf){const current=libraryLibraryFilter;lf.innerHTML='<option value="">Todas as bibliotecas</option>'+libraryUniqueValues(items,'biblioteca').map(v=>`<option value="${escapeHtml(v)}">${escapeHtml(v)}</option>`).join('');lf.value=current;}
+}
+function libraryRender(){
+  const box=$('libraryScreenProjectList') || $('libraryProjectList');if(!box)return;
+  const all=getSavedLibraryProjects();
+  if(box.id==='libraryScreenProjectList')libraryUpdateSelects(all);
+  const q=libraryNormalize(libraryQuery);
+  let items=all.filter(item=>{
+    const matchesType=libraryFilter==='todos'||item._libraryType===libraryFilter;
+    const matchesProject=!libraryProjectFilter||String(item.projeto||'')===libraryProjectFilter;
+    const matchesLibrary=!libraryLibraryFilter||String(item.biblioteca||'')===libraryLibraryFilter;
+    return matchesType&&matchesProject&&matchesLibrary&&(!q||libraryFieldText(item).includes(q));
+  });
+  items.sort((a,b)=>{
+    if(librarySort==='nome')return String(a.nome||'').localeCompare(String(b.nome||''),'pt-BR');
+    if(librarySort==='tipo')return libraryTypeLabel(a._libraryType).localeCompare(libraryTypeLabel(b._libraryType),'pt-BR')||String(a.nome||'').localeCompare(String(b.nome||''),'pt-BR');
+    if(librarySort==='alterados')return String(b.updatedAt||b.editadoEm||b.criadoEm||'').localeCompare(String(a.updatedAt||a.editadoEm||a.criadoEm||''));
+    return String(b.updatedAt||b.criadoEm||'').localeCompare(String(a.updatedAt||a.criadoEm||''));
+  });
+  if(box.id==='libraryScreenProjectList'){
+    box.classList.toggle('grid-view',libraryView==='grid');box.classList.toggle('list-view',libraryView==='list');
+    const vt=$('libraryViewToggle');if(vt)vt.textContent=libraryView==='grid'?'Lista':'Grade';
+  }
+  box.innerHTML=items.length?items.map(item=>`<button class="${box.id==='libraryScreenProjectList'?'library-project-card':'saved-character-item'}" onclick="libraryShowDetail('${escapeJs(item.id)}','${escapeJs(item._libraryType)}')"><strong>${libraryTypeIcon(item._libraryType)} ${escapeHtml(item.nome||'Sem nome')}</strong><small>${libraryTypeLabel(item._libraryType)}${item.projeto?' · '+escapeHtml(item.projeto):''}${item.biblioteca?' · '+escapeHtml(item.biblioteca):''}${item.version||item.versao?' · v'+escapeHtml(item.version||item.versao):''}</small></button>`).join(''):'<div class="library-empty">Nenhum recurso encontrado com esses critérios.</div>';
+}
+function librarySetProjectFilter(value){libraryProjectFilter=value||'';libraryRender();}
+function librarySetLibraryFilter(value){libraryLibraryFilter=value||'';libraryRender();}
+function librarySetSort(value){librarySort=value||'recentes';libraryRender();}
+function libraryToggleView(){libraryView=libraryView==='grid'?'list':'grid';libraryRender();}
+
+function librarySetFilter(filter){libraryFilter=filter;document.querySelectorAll('[data-library-filter]').forEach(b=>b.classList.toggle('active',b.dataset.libraryFilter===filter));libraryRender();}
+function librarySetQuery(value){libraryQuery=value||'';libraryRender();}
 function openModal(title){
   restoreGenericModal();
   if(title==='Biblioteca'){
     const card=$('genericModal')?.querySelector('.setup-card');
-    const chars=readJSON(CHARACTER_KEY,[]);
-    card.innerHTML=`<h2>Biblioteca</h2><p>Personagens salvos neste dispositivo.</p><div class=\"saved-character-list\">${chars.length?chars.map(c=>`<button class=\"saved-character-item\" onclick=\"loadSavedCharacter('${escapeJs(c.id)}\')\"><strong>${escapeHtml(c.nome||'Sem nome')}</strong><small>${escapeHtml(c.id)}</small></button>`).join(''):'<div style=\"padding:12px;color:var(--muted);font-size:10px\">Nenhum personagem salvo ainda.</div>'}</div><div class=\"setup-actions\"><button onclick=\"closeModal()\">Fechar</button></div>`;
+    libraryFilter='todos';libraryQuery='';
+    card.innerHTML=`<h2>Biblioteca</h2><p>Projetos salvos neste dispositivo.</p><input id="librarySearch" type="search" placeholder="Pesquisar projeto..." oninput="librarySetQuery(this.value)" style="width:100%;box-sizing:border-box;margin:8px 0;padding:10px;border-radius:9px;border:1px solid var(--border);background:rgba(10,14,31,.8);color:var(--text)"><div style="display:grid;grid-template-columns:repeat(5,1fr);gap:5px;margin-bottom:9px"><button data-library-filter="todos" class="active" onclick="librarySetFilter('todos')">Todos</button><button data-library-filter="personagem" onclick="librarySetFilter('personagem')">👤</button><button data-library-filter="ilustracao" onclick="librarySetFilter('ilustracao')">🖼️</button><button data-library-filter="capa" onclick="librarySetFilter('capa')">📖</button><button data-library-filter="animacao" onclick="librarySetFilter('animacao')">🎬</button></div><div id="libraryProjectList" class="saved-character-list"></div><div class="setup-actions"><button onclick="closeModal()">Fechar</button></div>`;
+    libraryRender();
   }else{
     $('modalTitle').textContent=title;
   }
   $('genericModal').classList.add('open');
+}
+function loadSavedComposition(id,type){
+  const key=type==='ilustracao'?ILLUSTRATION_KEY:COVER_KEY;
+  const all=readJSON(key,[]);const saved=all.find(x=>x&&x.id===id);if(!saved)return false;
+  animationPlaying=false;clearTimeout(animationPlayTimer);animationPlayTimer=null;
+  character=type==='ilustracao'?normalizeIllustrationModel(JSON.parse(JSON.stringify(saved))):normalizeCoverModel(JSON.parse(JSON.stringify(saved)));
+  character.camadas=Array.isArray(character.camadas)?character.camadas:[];
+  selectedLayerId=character.camadas[character.camadas.length-1]?.id||null;selectedVectorId=null;undoStack=[];redoStack=[];
+  DreamStudioStore.setPersonagem(character);
+  $('characterNameTitle').textContent=character.nome||libraryTypeLabel(type);
+  $('characterLibraryTitle').textContent='BIBLIOTECA: '+(character.biblioteca||'—');
+  telaAtiva='editor';showScreen('characterScreen');initCanvas();if(type==='capa'&&typeof ensureDrawingLayer==='function')ensureDrawingLayer();renderLayers();renderCharacter();renderCode();
+  showToast((type==='ilustracao'?'Ilustração':'Capa')+' carregada.');
+  return true;
 }
 function closeModal(){
   $('genericModal').classList.remove('open');
@@ -966,6 +1663,459 @@ function selectIllustrationCanvasPreset(value){
   const fields=$('illustrationCustomSizeFields');
   if(fields)fields.style.display=custom?'grid':'none';
 }
+
+function openAnimationSetup(){
+  closeCreateMenu();
+  closeModal();
+  /* Nova animação sempre começa com os campos limpos. */
+  if($('animationName'))$('animationName').value='';
+  if($('animationProject'))$('animationProject').value='projeto_demo';
+  if($('animationLibrary'))$('animationLibrary').value='biblioteca_animacoes';
+  if($('animationPreset'))$('animationPreset').value='800x600';
+  if($('animationWidth'))$('animationWidth').value='800';
+  if($('animationHeight'))$('animationHeight').value='600';
+  if($('animationFps'))$('animationFps').value='24';
+  if($('animationNameError'))$('animationNameError').textContent='';
+  $('animationSetupOverlay')?.classList.add('open');
+}
+function closeAnimationSetup(){$('animationSetupOverlay')?.classList.remove('open')}
+function createAnimation(){
+  const name=$('animationName')?.value.trim();
+  if(!name){$('animationName')?.focus();if($('animationNameError'))$('animationNameError').textContent='Informe o nome da animação.';return;}
+  const preset=$('animationPreset')?.value||'800x600';
+  let width=800,height=600;
+  if(preset==='custom'){
+    width=parseInt($('animationWidth')?.value,10)||0;height=parseInt($('animationHeight')?.value,10)||0;
+    if(width<1||height<1){alert('Informe uma largura e uma altura válidas.');return;}
+  }else{const parts=preset.split('x');width=parseInt(parts[0],10)||800;height=parseInt(parts[1],10)||600;}
+  const fps=Math.max(1,Math.min(60,parseInt($('animationFps')?.value,10)||24));
+  const firstFrame={id:'frame_'+Date.now().toString(36)+'_1',duracao:Math.max(40,Math.round(1000/fps)),camadas:[]};
+  character={
+    id:'anim_'+Date.now().toString(36),
+    nome:name,
+    projeto:$('animationProject')?.value||'projeto_demo',
+    biblioteca:$('animationLibrary')?.value||'biblioteca_animacoes',
+    canvas:{largura:width,altura:height,fundo:'#FFFFFF'},
+    tipo:'animacao',
+    criacao:DreamStudioCreationEngine.createContext('animacao'),
+    estrutura:{composicao:'temporal',recursosIndependentes:true,elementos:['personagem','ilustracao','desenho','objeto','texto']},
+    animacao:{fps,quadroAtual:0,frames:[firstFrame]},
+    componentes:{},
+    camadas:[]
+  };
+  selectedLayerId=null;selectedVectorId=null;undoStack=[];redoStack=[];
+  animationEditingFrameIndex=0;
+  ensureDrawingLayer();
+  animationApplyFrame(0,false);
+  DreamStudioStore.setPersonagem(character);persistCharacter();
+  $('characterNameTitle').textContent=character.nome;
+  $('characterLibraryTitle').textContent='ANIMAÇÃO · '+character.biblioteca;
+  closeAnimationSetup();
+  telaAtiva='editor';showScreen('characterScreen');initCanvas();renderLayers();renderCharacter();renderCode();
+  $('animationTimeline')?.classList.add('open');
+  renderAnimationTimeline();
+  showToast('Animação criada.');
+}
+function animationClone(value){
+  return JSON.parse(JSON.stringify(value));
+}
+function animationApplyFrame(index,saveCurrent=true){
+  if(character?.tipo!=='animacao'||!Array.isArray(character.animacao?.frames))return;
+  const frames=character.animacao.frames;
+  if(!frames.length)return;
+  const current=Math.max(0,Math.min(Number(animationEditingFrameIndex)||0,frames.length-1));
+  const parsedTarget=Number(index);
+  const target=Math.max(0,Math.min(Number.isFinite(parsedTarget)?parsedTarget:0,frames.length-1));
+  if(saveCurrent && target!==current) animationSnapshotCurrentFrame();
+  const frame=animationEnsureFrame(frames[target],target);
+  animationEditingFrameIndex=target;
+  character.animacao.quadroAtual=target;
+  character.camadas=animationClone(frame.camadas||[]);
+  selectedLayerId=null;
+  selectedVectorId=null;
+  ensureDrawingLayer();
+  undoStack=[];
+  redoStack=[];
+  if(canvas&&ctx){
+    renderLayers();
+    renderCharacter();
+  }
+  renderAnimationTimeline();
+  if(saveCurrent) animationSaveOnly();
+}
+function animationEnsureFrame(frame,index=0){
+  if(!frame)return {id:'frame_'+Date.now().toString(36)+'_'+Math.random().toString(36).slice(2,5),duracao:100,camadas:[]};
+  if(!frame.id)frame.id='frame_'+Date.now().toString(36)+'_'+index;
+  frame.duracao=Math.max(40,Number(frame.duracao)||100);
+  if(!Array.isArray(frame.camadas))frame.camadas=[];
+  return frame;
+}
+function animationSnapshotCurrentFrame(){
+  if(character?.tipo!=='animacao'||!Array.isArray(character.animacao?.frames))return;
+  const frames=character.animacao.frames;
+  if(!frames.length)return;
+  const index=Math.max(0,Math.min(Number(animationEditingFrameIndex)||0,frames.length-1));
+  animationEditingFrameIndex=index;
+  character.animacao.quadroAtual=index;
+  const frame=animationEnsureFrame(frames[index],index);
+  /* Cada quadro recebe uma cópia profunda das camadas atuais.
+     Nunca guardamos a mesma referência entre quadros. */
+  frame.camadas=animationClone(Array.isArray(character.camadas)?character.camadas:[]);
+}
+function animationRenderOnly(){
+  renderLayers();
+  renderCharacter();
+  renderAnimationTimeline();
+}
+function animationSaveOnly(){
+  if(!character)return false;
+  animationSnapshotCurrentFrame();
+  character.paleta=getPaletteSnapshot();
+  character.updatedAt=new Date().toISOString();
+  const storageKey=getCurrentStorageKey();
+  const stored=readJSON(storageKey,[]);
+  const all=Array.isArray(stored)?stored:[];
+  const copy=animationClone(character);
+  const i=all.findIndex(c=>c&&c.id===character.id);
+  if(i>=0)all[i]=copy;else all.push(copy);
+  const ok=writeJSON(storageKey,all);
+  if(ok)DreamStudioStore.setPersonagem(character);
+  return ok;
+}
+function renderAnimationTimeline(){
+  const box=$('animationFrames'), info=$('animationFrameInfo');
+  if(!box||character?.tipo!=='animacao')return;
+  if(!Array.isArray(character.animacao.frames))character.animacao.frames=[];
+  if(!character.animacao.frames.length){
+    character.animacao.frames.push(animationEnsureFrame(null,0));
+    character.animacao.quadroAtual=0;
+  }
+  character.animacao.frames=character.animacao.frames.map((f,i)=>animationEnsureFrame(f,i));
+  const current=Math.max(0,Math.min(Number(animationEditingFrameIndex)||0,character.animacao.frames.length-1));
+  animationEditingFrameIndex=current;
+  character.animacao.quadroAtual=current;
+  box.innerHTML='';
+  character.animacao.frames.forEach((frame,i)=>{
+    const b=document.createElement('button');
+    b.className='animation-frame';
+    b.dataset.frameIndex=String(i);
+    if(i===current)b.classList.add('active');
+    b.type='button';
+    b.dataset.frameId=frame.id;
+    b.title='Quadro '+(i+1)+(i===current?' · atual':'');
+    b.innerHTML='<b>'+ (i+1) +'</b><span>'+Math.round(frame.duracao)+' ms</span>';
+    b.onclick=()=>{
+      /* O quadro escolhido pelo usuário passa a ser o ativo imediatamente.
+         O destaque visual não depende do último quadro reproduzido. */
+      animationEditingFrameIndex=i;
+      character.animacao.quadroAtual=i;
+      animationHighlightCurrentFrame();
+      animationApplyFrame(i,true);
+      /* Reaplica o destaque depois de qualquer renderização feita ao carregar o quadro. */
+      animationEditingFrameIndex=i;
+      character.animacao.quadroAtual=i;
+      animationHighlightCurrentFrame();
+    };
+    box.appendChild(b);
+  });
+  if(info)info.textContent=' '+character.animacao.frames.length+(character.animacao.frames.length===1?' quadro':' quadros')+' · '+(character.animacao.fps||24)+' FPS';
+  const dur=character.animacao.frames[current]?.duracao||100;
+  const slider=$('animationFrameDuration');if(slider)slider.value=dur;
+  const fps=$('animationFpsEditor');if(fps)fps.value=character.animacao.fps||24;
+  animationHighlightCurrentFrame();
+}
+function animationHighlightCurrentFrame(){
+  const box=$('animationFrames');
+  if(!box||character?.tipo!=='animacao')return;
+  const frames=Array.isArray(character.animacao?.frames)?character.animacao.frames:[];
+  if(!frames.length)return;
+  const current=Math.max(0,Math.min(Number(animationEditingFrameIndex)||0,frames.length-1));
+  box.querySelectorAll('.animation-frame').forEach((button,i)=>{
+    const active=i===current;
+    button.classList.toggle('active',active);
+    button.setAttribute('aria-current',active?'true':'false');
+  });
+}
+
+function animationAddFrame(){
+  if(character?.tipo!=='animacao')return;
+  const frames=Array.isArray(character.animacao.frames)?character.animacao.frames:[];
+  if(!frames.length){
+    frames.push(animationEnsureFrame(null,0));
+    character.animacao.frames=frames;
+    character.animacao.quadroAtual=0;
+  }
+  animationSnapshotCurrentFrame();
+  const currentIndex=Math.max(0,Math.min(Number(animationEditingFrameIndex)||0,frames.length-1));
+  const frame={
+    id:'frame_'+Date.now().toString(36)+'_'+Math.random().toString(36).slice(2,8),
+    duracao:Math.max(40,Number(frames[currentIndex]?.duracao)||100),
+    camadas:[]
+  };
+  frames.splice(currentIndex+1,0,frame);
+  character.animacao.frames=frames;
+  animationEditingFrameIndex=currentIndex+1;
+  character.animacao.quadroAtual=animationEditingFrameIndex;
+  character.camadas=[];
+  selectedLayerId=null;selectedVectorId=null;
+  ensureDrawingLayer();
+  /* Confirma o quadro novo antes de qualquer renderização. */
+  animationSnapshotCurrentFrame();
+  animationSaveOnly();
+  renderAnimationTimeline();
+  renderLayers();
+  renderCharacter();
+  showToast('Novo quadro criado.');
+}
+function animationDuplicateFrame(){
+  if(character?.tipo!=='animacao')return;
+  const frames=Array.isArray(character.animacao.frames)?character.animacao.frames:[];
+  if(!frames.length)return;
+
+  /*
+     Movimento entre quadros:
+     ao duplicar um quadro, preservamos o ID da camada que estava selecionada.
+     Assim, o mesmo elemento continua selecionado no novo quadro e pode ser
+     movido/transformado sem alterar o quadro anterior.
+  */
+  const selectedBeforeDuplicate=selectedLayerId;
+  animationSnapshotCurrentFrame();
+  const currentIndex=Math.max(0,Math.min(Number(animationEditingFrameIndex)||0,frames.length-1));
+  const source=animationEnsureFrame(frames[currentIndex],currentIndex);
+  const copy=animationClone(source);
+  copy.id='frame_'+Date.now().toString(36)+'_'+Math.random().toString(36).slice(2,8);
+  copy.camadas=animationClone(source.camadas||[]);
+  const newIndex=currentIndex+1;
+  frames.splice(newIndex,0,copy);
+  character.animacao.frames=frames;
+  animationEditingFrameIndex=newIndex;
+  character.animacao.quadroAtual=newIndex;
+  character.camadas=animationClone(copy.camadas||[]);
+
+  /* Mantém o mesmo elemento selecionado nos dois quadros quando ele existir. */
+  const sameLayer=selectedBeforeDuplicate && character.camadas.some(layer=>layer?.id===selectedBeforeDuplicate);
+  selectedLayerId=sameLayer?selectedBeforeDuplicate:(character.camadas[character.camadas.length-1]?.id||null);
+  selectedVectorId=null;
+  if(!character.camadas.length)ensureDrawingLayer();
+  animationSnapshotCurrentFrame();
+  animationSaveOnly();
+  renderAnimationTimeline();
+  renderLayers();
+  renderCharacter();
+  showToast(sameLayer?'Quadro duplicado. Agora você pode mover o elemento selecionado.':'Quadro duplicado.');
+}
+function animationDeleteFrame(){
+  if(character?.tipo!=='animacao')return;
+  const frames=Array.isArray(character.animacao.frames)?character.animacao.frames:[];
+  if(frames.length<=1){showToast('A animação precisa ter pelo menos um quadro.');return;}
+  animationSnapshotCurrentFrame();
+  const removedIndex=Math.max(0,Math.min(Number(animationEditingFrameIndex)||0,frames.length-1));
+  frames.splice(removedIndex,1);
+  const next=Math.min(removedIndex,frames.length-1);
+  character.animacao.frames=frames;
+  animationEditingFrameIndex=next;
+  character.animacao.quadroAtual=next;
+  const frame=frames[next];
+  character.camadas=animationClone(frame?.camadas||[]);
+  selectedLayerId=character.camadas[character.camadas.length-1]?.id||null;
+  selectedVectorId=null;
+  if(!character.camadas.length)ensureDrawingLayer();
+  animationSnapshotCurrentFrame();
+  animationSaveOnly();
+  renderAnimationTimeline();
+  renderLayers();
+  renderCharacter();
+  showToast('Quadro excluído.');
+}
+function animationSetFrameDuration(value){
+  if(character?.tipo!=='animacao')return;
+  const frame=character.animacao.frames[character.animacao.quadroAtual];if(!frame)return;
+  frame.duracao=Math.max(40,Number(value)||100);
+  animationSnapshotCurrentFrame();animationSaveOnly();renderAnimationTimeline();
+}
+function animationSetFps(value){
+  if(character?.tipo!=='animacao')return;
+  character.animacao.fps=Math.max(1,Math.min(60,Number(value)||24));
+  animationSaveOnly();renderAnimationTimeline();
+}
+let animationPlayTimer=null,animationPlaying=false;
+let animationEditingFrameIndex=0;
+let animationOnionSkin=false;
+let animationOnionCanvas=null,animationOnionCtx=null;
+let animationClipboardFrame=null;
+
+function animationMoveFrame(direction){
+  if(character?.tipo!=='animacao'||animationPlaying)return;
+  const frames=Array.isArray(character.animacao.frames)?character.animacao.frames:[];
+  if(frames.length<2)return;
+  animationSnapshotCurrentFrame();
+  const current=Math.max(0,Math.min(Number(animationEditingFrameIndex)||0,frames.length-1));
+  const target=current+Number(direction);
+  if(target<0||target>=frames.length){
+    showToast(direction<0?'Este já é o primeiro quadro.':'Este já é o último quadro.');
+    return;
+  }
+  const temp=frames[current];
+  frames[current]=frames[target];
+  frames[target]=temp;
+  animationEditingFrameIndex=target;
+  character.animacao.quadroAtual=target;
+  character.camadas=animationClone(frames[target].camadas||[]);
+  selectedLayerId=character.camadas[character.camadas.length-1]?.id||null;
+  selectedVectorId=null;
+  if(!character.camadas.length)ensureDrawingLayer();
+  animationSnapshotCurrentFrame();
+  animationSaveOnly();
+  renderAnimationTimeline();
+  renderLayers();
+  renderCharacter();
+  showToast('Quadro movido.');
+}
+
+function animationCopyFrame(){
+  if(character?.tipo!=='animacao')return;
+  animationSnapshotCurrentFrame();
+  const frames=character.animacao.frames||[];
+  const current=Math.max(0,Math.min(Number(animationEditingFrameIndex)||0,frames.length-1));
+  if(!frames[current])return;
+  animationClipboardFrame=animationClone(frames[current]);
+  showToast('Quadro copiado.');
+}
+
+function animationPasteFrame(){
+  if(character?.tipo!=='animacao'||!animationClipboardFrame)return;
+  if(animationPlaying)return;
+  animationSnapshotCurrentFrame();
+  const frames=character.animacao.frames||[];
+  const current=Math.max(0,Math.min(Number(animationEditingFrameIndex)||0,frames.length-1));
+  const copy=animationClone(animationClipboardFrame);
+  copy.id='frame_'+Date.now().toString(36)+'_'+Math.random().toString(36).slice(2,8);
+  frames.splice(current+1,0,copy);
+  character.animacao.frames=frames;
+  animationEditingFrameIndex=current+1;
+  character.animacao.quadroAtual=current+1;
+  character.camadas=animationClone(copy.camadas||[]);
+  selectedLayerId=character.camadas[character.camadas.length-1]?.id||null;
+  selectedVectorId=null;
+  if(!character.camadas.length)ensureDrawingLayer();
+  animationSnapshotCurrentFrame();
+  animationSaveOnly();
+  renderAnimationTimeline();
+  renderLayers();
+  renderCharacter();
+  showToast('Quadro colado.');
+}
+
+
+function ensureAnimationOnionCanvas(){
+  if(!canvas||!character)return null;
+  const parent=canvas.parentElement;if(!parent)return null;
+  if(!animationOnionCanvas){
+    animationOnionCanvas=document.createElement('canvas');
+    animationOnionCanvas.id='animationOnionCanvas';
+    animationOnionCanvas.setAttribute('aria-hidden','true');
+    animationOnionCanvas.style.cssText='position:absolute;pointer-events:none;z-index:1;opacity:.42;';
+    const cs=getComputedStyle(parent);if(cs.position==='static')parent.style.position='relative';
+    parent.insertBefore(animationOnionCanvas,canvas);
+    animationOnionCtx=animationOnionCanvas.getContext('2d',{willReadFrequently:false});
+  }
+  const cw=canvas.clientWidth||parseFloat(canvas.style.width)||character.canvas.largura;
+  const ch=canvas.clientHeight||parseFloat(canvas.style.height)||character.canvas.altura;
+  animationOnionCanvas.width=canvas.width;animationOnionCanvas.height=canvas.height;
+  animationOnionCanvas.style.width=cw+'px';animationOnionCanvas.style.height=ch+'px';
+  animationOnionCanvas.style.left=((parent.clientWidth-cw)/2)+'px';
+  animationOnionCanvas.style.top=((parent.clientHeight-ch)/2)+'px';
+  return animationOnionCanvas;
+}
+
+function clearAnimationOnionSkin(){
+  if(!animationOnionCtx||!character)return;
+  animationOnionCtx.setTransform(1,0,0,1,0,0);
+  animationOnionCtx.clearRect(0,0,animationOnionCanvas.width,animationOnionCanvas.height);
+}
+
+function renderAnimationOnionSkin(){
+  if(character?.tipo!=='animacao'||!animationOnionSkin||!Array.isArray(character.animacao?.frames)){clearAnimationOnionSkin();return;}
+  const index=Math.max(0,Math.min(Number(animationEditingFrameIndex)||0,character.animacao.frames.length-1));
+  if(index<=0){clearAnimationOnionSkin();return;}
+  const frame=character.animacao.frames[index-1];if(!frame){clearAnimationOnionSkin();return;}
+  ensureAnimationOnionCanvas();clearAnimationOnionSkin();
+  const mainCtx=ctx;
+  try{
+    ctx=animationOnionCtx;
+    const dpr=Math.max(1,canvas.width/(Number(character.canvas.largura)||500));
+    ctx.setTransform(dpr,0,0,dpr,0,0);
+    ctx.globalAlpha=1;
+    (frame.camadas||[]).forEach(layer=>{
+      if(!layer||layer.visible===false)return;
+      const resource=getLayerResource(layer);
+      ctx.save();
+      try{
+        applyLayerTransform(layer);
+        if(resource?.visible!==false&&resource?.vector)renderVectorResource(resource,character.canvas.largura,character.canvas.altura);
+        if(resource?.visible!==false)renderLayerPaths(layer);
+      }catch(err){console.warn('Falha no Onion Skin.',err)}finally{ctx.restore();}
+    });
+    /* Tinge a cópia anterior para que ela se destaque mesmo quando o desenho original é preto. */
+    ctx.save();
+    ctx.globalCompositeOperation='source-atop';
+    ctx.globalAlpha=.72;
+    ctx.fillStyle='#65DFFF';
+    ctx.fillRect(0,0,character.canvas.largura,character.canvas.altura);
+    ctx.restore();
+    ctx.globalAlpha=1;
+  }catch(err){console.warn('Falha ao renderizar Onion Skin.',err);clearAnimationOnionSkin();}
+  finally{ctx=mainCtx;}
+}
+
+function animationToggleOnionSkin(){
+  if(character?.tipo!=='animacao')return;
+  animationOnionSkin=!animationOnionSkin;
+  const btn=$('animationOnionButton');
+  if(btn){btn.classList.toggle('onion-active',animationOnionSkin);btn.textContent=animationOnionSkin?'◉ Onion Skin: ON':'◉ Onion Skin';}
+  renderAnimationOnionSkin();
+  showToast(animationOnionSkin?'Onion Skin ativado · mostrando o quadro anterior.':'Onion Skin desativado.');
+}
+
+function animationTogglePlay(){
+  if(character?.tipo!=='animacao'||!Array.isArray(character.animacao?.frames)||!character.animacao.frames.length)return;
+  if(animationPlaying){animationStop();return;}
+  animationSnapshotCurrentFrame();
+  animationPlaying=true;
+  const btn=$('animationPlayButton');if(btn)btn.textContent='■ Parar';
+  const state=$('animationPlayState');if(state)state.textContent='Reproduzindo…';
+  let playIndex=animationEditingFrameIndex;
+  const tick=()=>{
+    if(!animationPlaying)return;
+    const frames=character.animacao.frames;
+    if(!frames.length){animationStop();return;}
+    const frame=animationEnsureFrame(frames[playIndex],playIndex);
+    animationEditingFrameIndex=playIndex;
+    character.animacao.quadroAtual=playIndex;
+    character.camadas=animationClone(frame.camadas||[]);
+    if(!character.camadas.length)ensureDrawingLayer();
+    renderLayers();renderCharacter({interactive:true});renderAnimationTimeline();
+    if(state)state.textContent='Reproduzindo · quadro '+(playIndex+1)+'/'+frames.length;
+    const duration=Math.max(40,Number(frame.duracao)||Math.round(1000/(Number(character.animacao.fps)||24)));
+    playIndex=(playIndex+1)%frames.length;
+    animationPlayTimer=setTimeout(tick,duration);
+  };
+  tick();
+}
+function animationStop(){
+  animationPlaying=false;clearTimeout(animationPlayTimer);animationPlayTimer=null;
+  if($('animationPlayButton'))$('animationPlayButton').textContent='▶ Reproduzir';
+  if($('animationPlayState'))$('animationPlayState').textContent='Pronto.';
+  if(character?.tipo==='animacao'){
+    const index=animationEditingFrameIndex;
+    const frame=character.animacao.frames[index];
+    if(frame){
+      character.camadas=animationClone(frame.camadas||[]);
+      if(!character.camadas.length)ensureDrawingLayer();
+      animationRenderOnly();
+    }
+  }
+}
 function createIllustration(){
   const name=$('illustrationName')?.value.trim();
   if(!name){$('illustrationName')?.focus();if($('illustrationNameError'))$('illustrationNameError').textContent='Informe o nome da ilustração.';return;}
@@ -984,6 +2134,7 @@ function normalizeIllustrationModel(item){
 function getCurrentStorageKey(){
   if(character?.tipo==='ilustracao')return ILLUSTRATION_KEY;
   if(character?.tipo==='capa')return COVER_KEY;
+  if(character?.tipo==='animacao')return ANIMATION_KEY;
   return CHARACTER_KEY;
 }
 
@@ -1301,6 +2452,22 @@ function getPoint(e){
   };
 }
 
+/* Converte o toque para o espaço local da camada. Assim, se a camada
+   estiver deslocada, novos desenhos continuam nascendo sob o dedo. */
+function getLayerLocalPoint(e,layer){
+  const p=getPoint(e);
+  const t=layer?.transformacao||layer?.transform||{};
+  const tx=Number(t.x)||0, ty=Number(t.y)||0;
+  const scale=Number(t.escala??t.scale)||1;
+  const rotation=(Number(t.rotacao??t.rotation)||0)*Math.PI/180;
+  const safeScale=Math.abs(scale)<0.0001?1:scale;
+  const cx=character.canvas.largura/2, cy=character.canvas.altura/2;
+  let x=p.x-tx-cx, y=p.y-ty-cy;
+  const cos=Math.cos(rotation), sin=Math.sin(rotation);
+  const rx=x*cos+y*sin, ry=-x*sin+y*cos;
+  return {x:rx/safeScale+cx,y:ry/safeScale+cy};
+}
+
 function cancelActiveStroke(){
   drawing=false;
   activeStroke=null;
@@ -1424,7 +2591,7 @@ function getSelectedVisualBounds(){
 function updateSelectionOverlay(){
   const overlay=$('selectionOverlay'); if(!overlay)return;
   const layer=selectedCharacterLayer();
-  if(currentTool!=='select'||!layer){overlay.classList.remove('show');overlay.setAttribute('aria-hidden','true');return;}
+  if(currentTool!=='select'||!layer){overlay.classList.remove('show');overlay.setAttribute('aria-hidden','true');const ex=$('selectionExit');if(ex)ex.style.display='none';const rh=$('selectionRotate');if(rh)rh.style.display='none';return;}
   const r=canvas?.getBoundingClientRect(); const b=getSelectedVisualBounds();
   if(!r||!b){overlay.classList.remove('show');return;}
   const sx=r.width/(Number(character.canvas.largura)||1), sy=r.height/(Number(character.canvas.altura)||1);
@@ -1436,7 +2603,8 @@ function updateSelectionOverlay(){
   const center={x:(c[0].x+c[1].x+c[2].x+c[3].x)/4,y:(c[0].y+c[1].y+c[2].y+c[3].y)/4};
   const dx=top.x-center.x,dy=top.y-center.y,len=Math.max(32,Math.hypot(dx,dy));
   const rot={x:top.x+(dx/Math.max(1,Math.hypot(dx,dy)))*len,y:top.y+(dy/Math.max(1,Math.hypot(dx,dy)))*len};
-  const rh=$('selectionRotate');if(rh){rh.style.left=rot.x+'px';rh.style.top=rot.y+'px';}
+  const rh=$('selectionRotate');if(rh){rh.style.left=rot.x+'px';rh.style.top=rot.y+'px';rh.style.display='grid';rh.style.visibility='visible';rh.style.zIndex='20';}
+  const ex=$('selectionExit');if(ex){ex.style.display='block';ex.style.visibility='visible';}
   const line=$('selectionRotateLine');if(line){line.style.left=top.x+'px';line.style.top=top.y+'px';line.style.height=Math.max(20,len)+'px';line.style.transform='rotate('+Math.atan2(dy,dx)*180/Math.PI+'deg)';}
   const mh=$('selectionMoveHandle');if(mh){mh.style.left=center.x+'px';mh.style.top=center.y+'px';}
   overlay.classList.add('show');overlay.setAttribute('aria-hidden','false');
@@ -1506,8 +2674,19 @@ function pointerDown(e){
   }
 
   if(currentTool==='eyedropper'){
-    const px=ctx.getImageData(Math.max(0,Math.min(canvas.width-1,Math.floor(p.x*(canvas.width/character.canvas.largura)))),Math.max(0,Math.min(canvas.height-1,Math.floor(p.y*(canvas.height/character.canvas.altura)))),1,1).data;
-    setStrokeColor('#'+[px[0],px[1],px[2]].map(v=>v.toString(16).padStart(2,'0')).join('').toUpperCase());
+    const sx=Math.max(0,Math.min(canvas.width-1,Math.floor(p.x*(canvas.width/character.canvas.largura))));
+    const sy=Math.max(0,Math.min(canvas.height-1,Math.floor(p.y*(canvas.height/character.canvas.altura))));
+    const px=ctx.getImageData(sx,sy,1,1).data;
+    const picked='#'+[px[0],px[1],px[2]].map(v=>v.toString(16).padStart(2,'0')).join('').toUpperCase();
+
+    /* Atualiza o estado e, principalmente, recria o painel Cores a partir
+       do novo estado. Assim o conta-gotas não depende de elementos antigos
+       que possam ter ficado no DOM antes do clique. */
+    if(setColor(picked)){
+      openStudioPanel('colors');
+      updateColorUI();
+      updateDrawingToolbar();
+    }
     return;
   }
 
@@ -1515,6 +2694,14 @@ function pointerDown(e){
     const layer=getActiveDrawingLayer();
     if(!layer||layer.locked){setRenderStatus('SELECIONE UMA CAMADA DESBLOQUEADA');return;}
     selectedLayerId=layer.id;
+    if(tryVectorFill(p,layer)){
+      persistCharacter();
+      saveHistory();
+      renderLayers();
+      renderCharacter();
+      showToast('Preenchimento aplicado.');
+      return;
+    }
     const fillElement=fillAt(p);
     if(fillElement){
       layer.elementos=Array.isArray(layer.elementos)?layer.elementos:[];
@@ -1532,15 +2719,23 @@ function pointerDown(e){
   const layer=getActiveDrawingLayer();
   if(!layer||layer.locked){setRenderStatus('SELECIONE UMA CAMADA DESBLOQUEADA');return;}
   selectedLayerId=layer.id;
+  const drawPoint=getLayerLocalPoint(e,layer);
   drawing=true;
-  lastPoint=p;
-  shapeStart=p;
+  lastPoint=drawPoint;
+  shapeStart=drawPoint;
   if(['pencil','brush','marker','eraser'].includes(currentTool)){
-    activeStroke=createStrokeFromPoint(p);
+    activeStroke=createStrokeFromPoint(drawPoint);
     activeStroke.tipo=currentTool==='eraser'?'eraser':'path';
-    drawFreehandSegment(p,p);
+    if(currentTool==='eraser'){
+      /* A borracha não cria um vetor visível. Ela altera os caminhos existentes. */
+      activeStroke.estilo={...activeStroke.estilo, ferramenta:'eraser', cor:'#000000', opacidade:1, preenchimento:'transparent'};
+      applyVectorEraser(layer,[drawPoint]);
+      renderCharacter({interactive:true});
+    }else{
+      drawFreehandSegment(drawPoint,drawPoint);
+    }
   }else if(['line','rectangle','ellipse'].includes(currentTool)){
-    activeShape={tool:currentTool,start:{...p},end:{...p}};
+    activeShape={tool:currentTool,start:{...drawPoint},end:{...drawPoint}};
     ensurePreviewCanvas();
     renderDrawingPreview();
   }
@@ -1559,12 +2754,24 @@ function pointerMove(e){
 
   if(selectionInteraction && currentTool==='select'){ moveSelectionHandle(e); return; }
   if(!drawing)return;
-  const p=getPoint(e);
+  const drawingLayer=getActiveDrawingLayer();
+  const p=drawingLayer?getLayerLocalPoint(e,drawingLayer):getPoint(e);
 
   if(['pencil','brush','marker','eraser'].includes(currentTool)&&activeStroke){
     activeStroke._pontos.push(p);
     activeStroke.dados=pointsToSvgPath(simplifyPoints(activeStroke._pontos,Math.max(.7,strokeSize*.22)));
-    drawFreehandSegment(lastPoint,p);
+
+    if(currentTool==='eraser'){
+      /* A borracha modifica os vetores imediatamente. Ela não é um desenho
+         temporário que desaparece quando o canvas é renderizado novamente. */
+      const layer=getActiveDrawingLayer();
+      if(layer&&!layer.locked){
+        applyVectorEraser(layer,[lastPoint,p]);
+        renderCharacter({interactive:true});
+      }
+    }else{
+      drawFreehandSegment(lastPoint,p);
+    }
     lastPoint=p;
     return;
   }
@@ -1573,6 +2780,68 @@ function pointerMove(e){
     activeShape.end={...p};
     scheduleInteractiveRender();
   }
+}
+
+function applyVectorEraser(layer,eraserPoints){
+  if(!layer||!Array.isArray(layer.elementos)||!eraserPoints?.length)return;
+
+  /* Borracha contínua: em vez de testar apenas os pontos já existentes do
+     desenho, percorremos também o espaço ENTRE eles. Isso evita o efeito de
+     "pular" trechos quando um traço tem poucos pontos. */
+  const radius=Math.max(2,Number(strokeSize)||8)/2;
+  const distanceToSegment=(p,a,b)=>{
+    const vx=b.x-a.x,vy=b.y-a.y,wx=p.x-a.x,wy=p.y-a.y;
+    const c2=vx*vx+vy*vy;
+    const t=c2?Math.max(0,Math.min(1,(vx*wx+vy*wy)/c2)):0;
+    return Math.hypot(p.x-(a.x+t*vx),p.y-(a.y+t*vy));
+  };
+  const erased=p=>{
+    for(let i=0;i<eraserPoints.length;i++){
+      if(i===0){
+        if(Math.hypot(p.x-eraserPoints[i].x,p.y-eraserPoints[i].y)<=radius)return true;
+      }else if(distanceToSegment(p,eraserPoints[i-1],eraserPoints[i])<=radius)return true;
+    }
+    return false;
+  };
+
+  const out=[];
+  for(const el of layer.elementos){
+    if(!el||el.tipo!=='path'||!Array.isArray(el.pontos)||el.pontos.length<2){
+      out.push(el); continue;
+    }
+
+    const pts=el.pontos.map(q=>({x:Number(q.x)||0,y:Number(q.y)||0}));
+    let run=[];
+    const flush=()=>{
+      if(run.length>=2){
+        const id=run.length===pts.length ? el.id : el.id+'_'+Math.random().toString(36).slice(2,7);
+        out.push({...el,id,pontos:run,dados:pointsToSvgPath(run)});
+      }
+      run=[];
+    };
+
+    /* Amostragem adaptativa: cada segmento é dividido em pequenos passos,
+       então a borracha enxerga uma linha realmente contínua. */
+    for(let i=0;i<pts.length-1;i++){
+      const a=pts[i],b=pts[i+1];
+      const len=Math.hypot(b.x-a.x,b.y-a.y);
+      const steps=Math.max(1,Math.ceil(len/Math.max(1,radius*0.55)));
+      for(let j=0;j<=steps;j++){
+        if(i>0&&j===0)continue;
+        const t=j/steps;
+        const sample={x:a.x+(b.x-a.x)*t,y:a.y+(b.y-a.y)*t};
+        if(erased(sample)){
+          flush();
+        }else{
+          /* Evita acumular centenas de pontos idênticos durante a passagem. */
+          const last=run[run.length-1];
+          if(!last||Math.hypot(last.x-sample.x,last.y-sample.y)>0.15)run.push(sample);
+        }
+      }
+    }
+    flush();
+  }
+  layer.elementos=out;
 }
 
 function pointerUp(e){
@@ -1594,7 +2863,7 @@ function pointerUp(e){
     const layer=getActiveDrawingLayer();
     if(layer&&!layer.locked){
       const clean=finalizeStroke(activeStroke);
-      layer.elementos.push(clean);
+      if(currentTool!=='eraser') layer.elementos.push(clean);
       persistCharacter();
       saveHistory();
     }
@@ -1616,6 +2885,23 @@ function pointerUp(e){
   renderCharacter();
 }
 
+/* Cancela qualquer gesto incompleto sem deixar preview preso na tela. */
+function cancelDrawingGesture(e){
+  if(activeStroke||activeShape||drawing){
+    drawing=false;
+    activeStroke=null;
+    activeShape=null;
+    lastPoint=null;
+    shapeStart=null;
+    if(canvasRenderFrame!==null){cancelAnimationFrame(canvasRenderFrame);canvasRenderFrame=null;}
+    clearDrawingPreview();
+    try{canvas?.releasePointerCapture?.(e?.pointerId)}catch(_){}
+    renderCharacter();
+  }
+  if(e?.pointerId!==undefined)activePointers.delete(e.pointerId);
+  gestureState=null;
+}
+
 function getActiveDrawingLayer(){
   if(!character)return null;
   character.camadas=Array.isArray(character.camadas)?character.camadas:[];
@@ -1635,20 +2921,26 @@ function shapeToElement(shape){
   if(!shape)return null;
   const a=shape.start,b=shape.end;
   const id='shape_'+Date.now().toString(36)+'_'+Math.random().toString(36).slice(2,6);
-  const style={cor:strokeColor,espessura:getToolStrokeStyle(currentTool).espessura,opacidade:getToolStrokeStyle(currentTool).opacidade,preenchimento:'transparent',ferramenta:currentTool,tipo:strokeType,lineCap:getToolStrokeStyle(currentTool).lineCap,lineJoin:'round'};
-  if(shape.tool==='line')return {id,tipo:'path',dados:`M ${fmt(a.x)} ${fmt(a.y)} L ${fmt(b.x)} ${fmt(b.y)}`,estilo:style,transformacao:{x:0,y:0,escala:1,rotacao:0}};
+  const style={cor:strokeColor,espessura:getToolStrokeStyle(currentTool).espessura,opacidade:getToolStrokeStyle(currentTool).opacidade,preenchimento:'transparent',ferramenta:currentTool,tipo:strokeType,lineCap:getToolStrokeStyle(currentTool).lineCap,lineJoin:'miter'};
+  if(shape.tool==='line')return {id,tipo:'path',dados:`M ${fmt(a.x)} ${fmt(a.y)} L ${fmt(b.x)} ${fmt(b.y)}`,pontos:[{x:fmt(a.x),y:fmt(a.y)},{x:fmt(b.x),y:fmt(b.y)}],estilo:style,transformacao:{x:0,y:0,escala:1,rotacao:0}};
   if(shape.tool==='rectangle'){
     const x=Math.min(a.x,b.x),y=Math.min(a.y,b.y),w=Math.abs(b.x-a.x),h=Math.abs(b.y-a.y);
     const fill=fillColor!==strokeColor?fillColor:'transparent';
     style.preenchimento=fill;
-    return {id,tipo:'path',dados:`M ${fmt(x)} ${fmt(y)} L ${fmt(x+w)} ${fmt(y)} L ${fmt(x+w)} ${fmt(y+h)} L ${fmt(x)} ${fmt(y+h)} Z`,estilo:style,transformacao:{x:0,y:0,escala:1,rotacao:0}};
+    const pontos=[{x:fmt(x),y:fmt(y)},{x:fmt(x+w),y:fmt(y)},{x:fmt(x+w),y:fmt(y+h)},{x:fmt(x),y:fmt(y+h)},{x:fmt(x),y:fmt(y)}];
+    return {id,tipo:'path',dados:`M ${fmt(x)} ${fmt(y)} L ${fmt(x+w)} ${fmt(y)} L ${fmt(x+w)} ${fmt(y+h)} L ${fmt(x)} ${fmt(y+h)} Z`,pontos,estilo:style,transformacao:{x:0,y:0,escala:1,rotacao:0}};
   }
   const cx=(a.x+b.x)/2,cy=(a.y+b.y)/2,rx=Math.abs(b.x-a.x)/2,ry=Math.abs(b.y-a.y)/2;
   const k=.5522848;
+  const pontos=[];
+  const steps=64;
+  for(let i=0;i<=steps;i++){
+    const ang=(i/steps)*Math.PI*2;
+    pontos.push({x:fmt(cx+rx*Math.cos(ang)),y:fmt(cy+ry*Math.sin(ang))});
+  }
   const fill=fillColor!==strokeColor?fillColor:'transparent';style.preenchimento=fill;
-  return {id,tipo:'path',dados:`M ${fmt(cx+rx)} ${fmt(cy)} C ${fmt(cx+rx)} ${fmt(cy+ry*k)} ${fmt(cx+rx*k)} ${fmt(cy+ry)} ${fmt(cx)} ${fmt(cy+ry)} C ${fmt(cx-rx*k)} ${fmt(cy+ry)} ${fmt(cx-rx)} ${fmt(cy+ry*k)} ${fmt(cx-rx)} ${fmt(cy)} C ${fmt(cx-rx)} ${fmt(cy-ry*k)} ${fmt(cx-rx*k)} ${fmt(cy-ry)} ${fmt(cx)} ${fmt(cy-ry)} C ${fmt(cx+rx*k)} ${fmt(cy-ry)} ${fmt(cx+rx)} ${fmt(cy-ry*k)} ${fmt(cx+rx)} ${fmt(cy)} Z`,estilo:style,transformacao:{x:0,y:0,escala:1,rotacao:0}};
+  return {id,tipo:'path',dados:`M ${fmt(cx+rx)} ${fmt(cy)} C ${fmt(cx+rx)} ${fmt(cy+ry*k)} ${fmt(cx+rx*k)} ${fmt(cy+ry)} ${fmt(cx)} ${fmt(cy+ry)} C ${fmt(cx-rx*k)} ${fmt(cy+ry)} ${fmt(cx-rx)} ${fmt(cy+ry*k)} ${fmt(cx-rx)} ${fmt(cy)} C ${fmt(cx-rx)} ${fmt(cy-ry*k)} ${fmt(cx-rx*k)} ${fmt(cy-ry)} ${fmt(cx)} ${fmt(cy-ry)} C ${fmt(cx+rx*k)} ${fmt(cy-ry)} ${fmt(cx+rx)} ${fmt(cy-ry*k)} ${fmt(cx+rx)} ${fmt(cy)} Z`,pontos,estilo:style,transformacao:{x:0,y:0,escala:1,rotacao:0}};
 }
-
 function renderActiveShape(){
   if(!activeShape)return;
   const temp=shapeToElement(activeShape);if(temp)renderVectorPathElement(temp);
@@ -1664,7 +2956,7 @@ function getToolStrokeStyle(tool=currentTool){
     ferramenta:tool
   };
   if(tool==='pencil'){
-    return {...common,espessura:Math.max(1,baseSize*.58),opacidade:Math.min(1,baseOpacity*.82),lineCap:'round',lineJoin:'round',suavidade:0.15};
+    return {...common,espessura:Math.max(1,baseSize*.58),opacidade:baseOpacity,lineCap:'round',lineJoin:'round',suavidade:0.15};
   }
   if(tool==='brush'){
     return {...common,espessura:Math.max(2,baseSize*1.45),opacidade:baseOpacity,lineCap:'round',lineJoin:'round',suavidade:0.8};
@@ -1692,7 +2984,9 @@ function createStrokeFromPoint(point){
 
 function finalizeStroke(stroke){
   const points=simplifyPoints(stroke._pontos,Math.max(.7,strokeSize*.22));
-  const clean={id:stroke.id,tipo:stroke.tipo||'path',dados:pointsToSvgPath(points),estilo:{...stroke.estilo},transformacao:{...stroke.transformacao}};
+  /* Mantemos os pontos além do SVG. O SVG continua sendo o formato exportável,
+     mas os pontos são a fonte mais confiável para reconstrução dentro de WebViews. */
+  const clean={id:stroke.id,tipo:stroke.tipo||'path',dados:pointsToSvgPath(points),pontos:points.map(p=>({x:fmt(p.x),y:fmt(p.y)})),estilo:{...stroke.estilo},transformacao:{...stroke.transformacao}};
   delete clean._pontos;
   return clean;
 }
@@ -1823,10 +3117,16 @@ function resetSelectedLayerTransform(){
 
 function clearCharacterSelection(){
   selectedVectorId=null;
-  /* Não altera a ferramenta de desenho; apenas encerra a seleção. */
+  selectedLayerId=null;
+  selectionInteraction=null;
+  currentTool='pencil';
   const panel=$('selectionTransformPanel');
-  if(panel)panel.classList.remove('show');
-  if(panel)panel.style.setProperty('display','none','important');
+  if(panel){
+    panel.classList.remove('show');
+    panel.style.setProperty('display','none','important');
+    panel.style.setProperty('visibility','hidden','important');
+  }
+  updateDrawingToolbar();
   updateSelectionOverlay();
   renderCharacter();
   renderLayers();
@@ -1958,6 +3258,14 @@ function setStrokeOpacity(value){
   let n=Number(value); if(!Number.isFinite(n))n=100; if(n>1)n/=100;
   strokeOpacity=Math.max(0,Math.min(1,n)); updateDrawingToolbar();
 }
+
+function setStrokeType(type){
+  const allowed=['continuous','dashed','dotted','soft','rigid','textured'];
+  strokeType=allowed.includes(type)?type:'continuous';
+  updateDrawingToolbar();
+  renderCharacter({interactive:true});
+  if(currentPanel==='style')renderToolPanel('style');
+}
 function updateDrawingToolbar(){
   const activeMap={pencil:'toolPencil',brush:'toolBrush',marker:'toolMarker',eraser:'toolEraser',select:'toolSelect',line:'toolLine',rectangle:'toolRectangle',ellipse:'toolEllipse',fill:'toolFill',eyedropper:'toolEyedropper'};
   Object.values(activeMap).forEach(id=>$(id)?.classList.remove('active'));
@@ -1983,9 +3291,9 @@ function applyStrokeStyle(){
   ctx.lineCap=strokeType==='rigid'?'butt':'round';
   ctx.lineJoin='round';
   ctx.setLineDash(
-    strokeType==='dashed'?[10,8]:
-    strokeType==='dotted'?[2,8]:
-    strokeType==='textured'?[2,5]:[]
+    strokeType==='dashed'?[14,10]:
+    strokeType==='dotted'?[1,9]:
+    strokeType==='textured'?[3,5]:[]
   );
   ctx.shadowBlur=strokeType==='soft'?strokeSize*.8:0;
   ctx.shadowColor=currentColor;
@@ -1998,15 +3306,15 @@ function drawFreehandSegment(a,b){
   ctx.save();
   try{
     applyLayerTransform(layer);
-    const style=getToolStrokeStyle(currentTool);
+    const style=activeStroke?.estilo||getToolStrokeStyle(currentTool);
     ctx.lineWidth=Math.max(1,Number(style.espessura)||strokeSize);
-    ctx.globalAlpha=Math.max(0,Math.min(1,Number(style.opacidade) ?? strokeOpacity));
-    ctx.lineCap=style.lineCap||'round';
+    ctx.globalAlpha=currentTool==='eraser'?1:Math.max(0,Math.min(1,Number(style.opacidade) ?? strokeOpacity));
+    ctx.lineCap=strokeType==='rigid'?'butt':(style.lineCap||'round');
     ctx.lineJoin=style.lineJoin||'round';
     ctx.setLineDash(
-      strokeType==='dashed'?[10,8]:
-      strokeType==='dotted'?[2,8]:
-      strokeType==='textured'?[2,5]:[]
+      strokeType==='dashed'?[14,10]:
+      strokeType==='dotted'?[1,9]:
+      strokeType==='textured'?[3,5]:[]
     );
     ctx.shadowBlur=strokeType==='soft'?ctx.lineWidth*.8:0;
     ctx.shadowColor=style.cor||strokeColor;
@@ -2074,6 +3382,33 @@ function drawShape(a,b){
   ctx.restore();
 }
 
+function pointInPolygon(point,points){
+  let inside=false;
+  for(let i=0,j=points.length-1;i<points.length;j=i++){
+    const xi=Number(points[i].x)||0, yi=Number(points[i].y)||0;
+    const xj=Number(points[j].x)||0, yj=Number(points[j].y)||0;
+    const hit=((yi>point.y)!==(yj>point.y)) && (point.x < (xj-xi)*(point.y-yi)/((yj-yi)||1e-9)+xi);
+    if(hit)inside=!inside;
+  }
+  return inside;
+}
+function tryVectorFill(p,layer){
+  const elements=[...(layer?.elementos||[])].reverse();
+  for(const el of elements){
+    if(!el||el.tipo!=='path'||!Array.isArray(el.pontos)||el.pontos.length<3)continue;
+    const pts=el.pontos.map(q=>({x:Number(q.x)||0,y:Number(q.y)||0}));
+    const first=pts[0],last=pts[pts.length-1];
+    const closed=Math.hypot(last.x-first.x,last.y-first.y)<=Math.max(4,strokeSize*1.5);
+    if(!closed)continue;
+    if(pointInPolygon(p,pts)){
+      el.estilo=el.estilo||{};
+      el.estilo.preenchimento=fillColor||currentColor;
+      el.estilo.opacidade=Math.max(.05,Math.min(1,strokeOpacity));
+      return true;
+    }
+  }
+  return false;
+}
 function fillAt(p){
   if(!canvas||!ctx||!character)return null;
   fillAt.lastError='';
@@ -2083,8 +3418,15 @@ function fillAt(p){
   const image=ctx.getImageData(0,0,canvas.width,canvas.height);
   const data=image.data,W=canvas.width,H=canvas.height,start=(y*W+x)*4;
   const target=[data[start],data[start+1],data[start+2],data[start+3]];
-  const c=hexToRgba(fillColor||strokeColor||currentColor),replacement=[c.r,c.g,c.b,255];
-  const same=(idx)=>Math.abs(data[idx]-target[0])<=8&&Math.abs(data[idx+1]-target[1])<=8&&Math.abs(data[idx+2]-target[2])<=8&&Math.abs(data[idx+3]-target[3])<=8;
+  const c=hexToRgba(fillColor||strokeColor||currentColor),replacement=[c.r,c.g,c.b,Math.round(Math.max(.05,Math.min(1,strokeOpacity))*255)];
+  const tolerance=28;
+  const same=(idx)=>{
+    const alphaDiff=Math.abs(data[idx+3]-target[3]);
+    return Math.abs(data[idx]-target[0])<=tolerance &&
+           Math.abs(data[idx+1]-target[1])<=tolerance &&
+           Math.abs(data[idx+2]-target[2])<=tolerance &&
+           alphaDiff<=tolerance;
+  };
   if(Math.abs(target[0]-replacement[0])<3&&Math.abs(target[1]-replacement[1])<3&&Math.abs(target[2]-replacement[2])<3&&Math.abs(target[3]-replacement[3])<3)return null;
   const stack=[[x,y]],runs=[],maxPixels=Math.max(2000000,Math.floor(W*H*.8));
   let changed=0,minX=W,minY=H,maxX=-1,maxY=-1,aborted=false;
@@ -2312,23 +3654,27 @@ function renderToolPanel(name){
         <button onclick="setDrawingTool('ellipse')">Elipse</button>
         <button onclick="activateSelectionMode()">Seleção</button>
       </div>
+      <div style="font-size:9px;color:var(--muted);line-height:1.45;margin-top:8px">Para escolher tipo, tamanho e opacidade do traço, use o painel <strong>Traços</strong>.</div>`;
+  }else if(name==='style'){
+    p.innerHTML=`
+      <div class="panel-title">TRAÇOS <button class="close-panel" onclick="closeToolPanel()">×</button></div>
+      <div class="tool-grid">
+        <button class="${strokeType==='continuous'?'active':''}" onclick="setStrokeType('continuous')">Contínuo</button>
+        <button class="${strokeType==='dashed'?'active':''}" onclick="setStrokeType('dashed')">Tracejado</button>
+        <button class="${strokeType==='dotted'?'active':''}" onclick="setStrokeType('dotted')">Pontilhado</button>
+        <button class="${strokeType==='soft'?'active':''}" onclick="setStrokeType('soft')">Suave</button>
+        <button class="${strokeType==='rigid'?'active':''}" onclick="setStrokeType('rigid')">Rígido</button>
+        <button class="${strokeType==='textured'?'active':''}" onclick="setStrokeType('textured')">Texturizado</button>
+      </div>
       <div class="control-row">
         <label>Tamanho</label>
         <input type="range" min="1" max="80" value="${strokeSize}" oninput="setStrokeWidth(this.value)">
-        <output>${strokeSize}</output>
+        <output>${strokeSize}px</output>
       </div>
       <div class="control-row">
         <label>Opacidade</label>
-        <input type="range" min=".05" max="1" step=".05" value="${strokeOpacity}" oninput="setStrokeOpacity(this.value*100)">
+        <input type="range" min="5" max="100" value="${Math.round(strokeOpacity*100)}" oninput="setStrokeOpacity(this.value)">
         <output>${Math.round(strokeOpacity*100)}%</output>
-      </div>
-      <div class="tool-grid">
-        <button onclick="strokeType='continuous';updateDrawingToolbar();renderCharacter();openStudioPanel('style')">Contínuo</button>
-        <button onclick="strokeType='dashed';updateDrawingToolbar();renderCharacter();openStudioPanel('style')">Tracejado</button>
-        <button onclick="strokeType='dotted';updateDrawingToolbar();renderCharacter();openStudioPanel('style')">Pontilhado</button>
-        <button onclick="strokeType='soft';updateDrawingToolbar();renderCharacter();openStudioPanel('style')">Suave</button>
-        <button onclick="strokeType='rigid';updateDrawingToolbar();renderCharacter();openStudioPanel('style')">Rígido</button>
-        <button onclick="strokeType='textured';updateDrawingToolbar();renderCharacter();openStudioPanel('style')">Texturizado</button>
       </div>`;
   }else if(name==='colors'){
     renderColorPanel();
@@ -2379,7 +3725,7 @@ function renderColorPanel(){
     <div class="panel-title">CORES <button class="close-panel" onclick="closeToolPanel()">×</button></div>
     <div class="color-current">
       <div id="colorPreview" class="color-preview" style="background:${currentColor}"></div>
-      <div><div style="font-size:11px">Cor atual</div><small style="color:var(--muted)">Escolha, pesquise ou salve</small></div>
+      <div><div style="font-size:11px">Cor atual</div><small id="currentColorReadout" style="color:var(--muted)">${currentColor} · Traço ${Math.round(strokeOpacity*100)}%</small></div>
     </div>
     <div class="hex-row" style="margin-top:10px">
       <input id="hexInput" value="${currentColor}" placeholder="#F33333">
@@ -2417,6 +3763,7 @@ function updateColorUI(){
   const fi=$('fillColorInput');if(fi)fi.value=fillColor;
   const ss=$('strokeSwatch');if(ss)ss.style.backgroundColor=strokeColor;
   const fs=$('fillSwatch');if(fs)fs.style.backgroundColor=fillColor;
+  const cr=$('currentColorReadout');if(cr)cr.textContent=currentColor+' · Traço '+Math.round(strokeOpacity*100)+'%';
 }
 function applyHex(){
   const v=$('hexInput')?.value?.trim()||'';
@@ -2529,11 +3876,35 @@ function writeJSON(key,value){
   try{localStorage.setItem(key,JSON.stringify(value));return true}catch(e){console.error('Falha ao salvar',key,e);showToast('Não foi possível gravar no armazenamento deste navegador.');return false;}
 }
 
+function normalizeAnimationModel(item){
+  if(!item)return item;
+  item.tipo='animacao';
+  item.criacao=item.criacao||DreamStudioCreationEngine.createContext('animacao');
+  item.criacao.modo='animacao';
+  item.estrutura=item.estrutura||{composicao:'temporal',recursosIndependentes:true,elementos:['personagem','ilustracao','desenho','objeto','texto']};
+  item.estrutura.composicao='temporal';
+  item.estrutura.recursosIndependentes=true;
+  item.animacao=item.animacao||{};
+  item.animacao.fps=Math.max(1,Math.min(60,Number(item.animacao.fps)||24));
+  item.animacao.quadroAtual=Math.max(0,Number(item.animacao.quadroAtual)||0);
+  item.animacao.frames=Array.isArray(item.animacao.frames)&&item.animacao.frames.length?item.animacao.frames:[{id:'frame_1',duracao:100,camadas:[]}];
+  item.animacao.frames.forEach((frame,i)=>{
+    if(!frame.id)frame.id='frame_'+(i+1);
+    frame.duracao=Math.max(40,Number(frame.duracao)||100);
+    if(!Array.isArray(frame.camadas))frame.camadas=[];
+  });
+  item.animacao.quadroAtual=Math.min(item.animacao.quadroAtual,item.animacao.frames.length-1);
+  if(!Array.isArray(item.camadas))item.camadas=[];
+  return item;
+}
+
 function persistCharacter(){
   if(!character)return false;
   if(character.tipo==='ilustracao')normalizeIllustrationModel(character);
   else if(character.tipo==='capa')normalizeCoverModel(character);
+  else if(character.tipo==='animacao')normalizeAnimationModel(character);
   else normalizeCharacterModel(character);
+  if(character.tipo==='animacao')animationSnapshotCurrentFrame();
   character.paleta=getPaletteSnapshot();
   character.updatedAt=new Date().toISOString();
   const storageKey=getCurrentStorageKey();
@@ -2558,6 +3929,53 @@ function loadSavedCharacter(id){
   $('characterNameTitle').textContent=character.nome||'Personagem';
   $('characterLibraryTitle').textContent='BIBLIOTECA: '+(character.biblioteca||'—');
   telaAtiva='editor';showScreen('characterScreen');initCanvas();renderLayers();renderCharacter();renderCode();
+  return true;
+}
+
+function loadSavedAnimation(id){
+  const all=readJSON(ANIMATION_KEY,[]);
+  const saved=all.find(a=>a&&a.id===id);
+  if(!saved)return false;
+
+  /* Limpa somente o estado de reprodução anterior. Não chamamos
+     animationStop() aqui porque ele tenta renderizar o projeto que está
+     sendo abandonado e isso pode bloquear a troca de projeto em alguns
+     WebViews móveis. */
+  animationPlaying=false;
+  clearTimeout(animationPlayTimer);
+  animationPlayTimer=null;
+  if($('animationPlayButton'))$('animationPlayButton').textContent='▶ Reproduzir';
+  if($('animationPlayState'))$('animationPlayState').textContent='Pronto.';
+
+  character=normalizeAnimationModel(JSON.parse(JSON.stringify(saved)));
+  animationEditingFrameIndex=Math.max(0,Math.min(
+    Number(character.animacao?.quadroAtual)||0,
+    Math.max(0,(character.animacao?.frames?.length||1)-1)
+  ));
+  character.animacao.quadroAtual=animationEditingFrameIndex;
+  const frame=character.animacao.frames[animationEditingFrameIndex]||character.animacao.frames[0];
+  character.camadas=animationClone(frame?.camadas||[]);
+  selectedLayerId=null;
+  selectedVectorId=null;
+  undoStack=[];
+  redoStack=[];
+  DreamStudioStore.setPersonagem(character);
+
+  $('characterNameTitle').textContent=character.nome||'Animação';
+  $('characterLibraryTitle').textContent='ANIMAÇÃO · '+(character.biblioteca||'—');
+  telaAtiva='editor';
+  showScreen('characterScreen');
+  initCanvas();
+  ensureDrawingLayer();
+  animationSnapshotCurrentFrame();
+  renderLayers();
+  renderCharacter();
+  renderCode();
+  $('animationTimeline')?.classList.add('open');
+  renderAnimationTimeline();
+  animationHighlightCurrentFrame();
+  closeModal();
+  showToast('Animação carregada.');
   return true;
 }
 
@@ -3117,10 +4535,33 @@ function chooseBase(id){
 }
 
 function leaveCharacter(){
+  /* Ao sair do editor, a animação atual é salva antes de limpar o estado
+     visual. Isso permite criar outra animação ou abrir uma já salva sem
+     carregar o editor anterior junto. */
+  if(character?.tipo==='animacao'){
+    animationSaveOnly();
+    animationPlaying=false;
+    clearTimeout(animationPlayTimer);
+    animationPlayTimer=null;
+    $('animationTimeline')?.classList.remove('open');
+    if($('animationPlayButton'))$('animationPlayButton').textContent='▶ Reproduzir';
+  }
   closeToolPanel();
   closeLayers();
+  closeAnimationSetup();
+  closeCharacterSetup();
+  closeIllustrationSetup();
+  closeCoverSetup();
+  closeModal();
+  selectedLayerId=null;
+  selectedVectorId=null;
+  undoStack=[];
+  redoStack=[];
+  character=null;
+  canvas=null;
+  ctx=null;
+  drawing=false;
   telaAtiva='create';
-  syncEditorRoute();
   showScreen('create');
 }
 
@@ -3193,6 +4634,7 @@ function ensureDrawingLayer(){
 }
 
 function initCanvas(){
+  $('animationTimeline')?.classList.toggle('open',character?.tipo==='animacao');
   canvas=$('drawCanvas');
   if(!canvas)return;
 
@@ -3242,7 +4684,7 @@ function initCanvas(){
   canvas.onpointerdown=pointerDown;
   canvas.onpointermove=pointerMove;
   canvas.onpointerup=pointerUp;
-  canvas.onpointercancel=pointerUp;
+  canvas.onpointercancel=cancelDrawingGesture;
   /* Fallback para WebViews Android que não encaminham Pointer Events de forma confiável. */
   if(!window.PointerEvent){
     if(!canvas._touchFallbackBound){
@@ -3331,7 +4773,7 @@ function renderCharacter(options={}){
     }catch(err){console.warn('Falha ao renderizar camada',layer?.id,err)}
     finally{ctx.restore();}
   });
-  if(activeStroke){
+  if(activeStroke && currentTool!=='eraser'){
     const activeLayer=getActiveDrawingLayer();
     ctx.save();
     if(activeLayer)applyLayerTransform(activeLayer);
@@ -3345,6 +4787,7 @@ function renderCharacter(options={}){
     renderActiveShape();
     ctx.restore();
   }
+  if(character?.tipo==='animacao')renderAnimationOnionSkin();
   if(!interactive){
     setRenderStatus(layers.length+((character?.tipo==='ilustracao'||character?.tipo==='capa')?' ELEMENTOS':' CAMADAS')+' · RENDERIZAÇÃO PRONTA');
     renderCode();
@@ -3396,8 +4839,15 @@ function renderDrawingPreview(){
     const layer=getActiveDrawingLayer();
     ctx.save();
     if(layer)applyLayerTransform(layer);
-    if(activeStroke)renderLayerPaths({id:layer?.id||'active',elementos:[activeStroke]});
-    if(activeShape)renderActiveShape();
+
+    /* A pré-visualização usa diretamente o mesmo modelo das ferramentas.
+       Isso evita depender de Path2D/SVG durante o gesto no Android. */
+    if(activeStroke && currentTool!=='eraser'){
+      renderToolElementPreview(activeStroke);
+    }
+    if(activeShape){
+      renderToolElementPreview(shapeToElement(activeShape));
+    }
     ctx.restore();
   }catch(err){
     console.warn('Falha na pré-visualização do desenho.',err);
@@ -3405,6 +4855,41 @@ function renderDrawingPreview(){
   }finally{
     ctx=mainCtx;
   }
+}
+
+function renderToolElementPreview(element){
+  if(!element||!ctx)return;
+  const estilo=element.estilo||{};
+  const ferramenta=estilo.ferramenta||currentTool;
+  ctx.save();
+  ctx.globalAlpha=Math.max(0,Math.min(1,Number(estilo.opacidade??strokeOpacity)));
+  ctx.lineWidth=Math.max(1,Number(estilo.espessura)||strokeSize);
+  ctx.lineCap=estilo.lineCap||'round';
+  ctx.lineJoin=estilo.lineJoin||'round';
+  ctx.setLineDash(
+    estilo.tipo==='dashed'?[14,10]:
+    estilo.tipo==='dotted'?[1,9]:
+    estilo.tipo==='textured'?[3,5]:[]
+  );
+  if(element.tipo==='eraser'||ferramenta==='eraser'){
+    ctx.globalCompositeOperation='destination-out';
+    ctx.strokeStyle='rgba(0,0,0,1)';
+  }else{
+    ctx.globalCompositeOperation=ferramenta==='marker'?'multiply':'source-over';
+    ctx.strokeStyle=estilo.cor||strokeColor;
+    if(ferramenta==='brush'){ctx.shadowColor=estilo.cor||strokeColor;ctx.shadowBlur=ctx.lineWidth*.22;}
+  }
+  if(element.pontos?.length){
+    drawElementPoints(element);
+  }else if(element.dados){
+    drawPathDataFallback(element.dados);
+    if(estilo.preenchimento&&estilo.preenchimento!=='transparent'){
+      ctx.fillStyle=estilo.preenchimento;
+      ctx.fill();
+    }
+    ctx.stroke();
+  }
+  ctx.restore();
 }
 
 function scheduleInteractiveRender(){
@@ -3507,40 +4992,62 @@ function drawPathDataFallback(data){
   return true;
 }
 
-function traceElementPath(element){
-  if(!ctx||!element?.dados)return false;
-  /* Primeiro tenta Path2D; se o WebView não aceitar strings SVG, usa o parser nativo. */
-  try{
-    if(typeof Path2D==='function'){
-      let path=pathRenderCache.get(element);
-      if(!path||element._cachedPathData!==element.dados){
-        path=new Path2D(element.dados);
-        pathRenderCache.set(element,path);
-        element._cachedPathData=element.dados;
-      }
-      ctx.stroke(path);
-      return path;
+function drawElementPoints(element, doStroke=true, doFill=false){
+  if(!ctx||!Array.isArray(element?.pontos)||!element.pontos.length)return false;
+  const pts=element.pontos;
+  const ferramenta=element.estilo?.ferramenta||'';
+  ctx.beginPath();
+  const first=pts[0];
+  const fx=Number(first.x)||0, fy=Number(first.y)||0;
+  ctx.moveTo(fx,fy);
+  if(pts.length===1){
+    const r=Math.max(.5,(Number(ctx.lineWidth)||1)/2);
+    ctx.arc(fx,fy,r,0,Math.PI*2);
+  }else if(ferramenta==='rectangle'||ferramenta==='line'){
+    /* Formas geométricas devem manter seus cantos exatos. */
+    for(let i=1;i<pts.length;i++)ctx.lineTo(Number(pts[i].x)||0,Number(pts[i].y)||0);
+    const last=pts[pts.length-1];
+    if(Math.abs((Number(last.x)||0)-fx)<0.01&&Math.abs((Number(last.y)||0)-fy)<0.01)ctx.closePath();
+  }else{
+    /* Desenho livre: curvas quadráticas pelos pontos médios.
+       Isso evita que cada amostra do toque vire um pequeno segmento visível. */
+    for(let i=1;i<pts.length-1;i++){
+      const p=pts[i],next=pts[i+1];
+      const px=Number(p.x)||0,py=Number(p.y)||0;
+      const mx=((Number(p.x)||0)+(Number(next.x)||0))/2;
+      const my=((Number(p.y)||0)+(Number(next.y)||0))/2;
+      ctx.quadraticCurveTo(px,py,mx,my);
     }
-  }catch(_){
-    /* fallback abaixo */
+    const last=pts[pts.length-1];
+    const lx=Number(last.x)||0,ly=Number(last.y)||0;
+    if(pts.length>2){
+      const prev=pts[pts.length-2];
+      ctx.quadraticCurveTo(Number(prev.x)||0,Number(prev.y)||0,lx,ly);
+    }else{
+      ctx.lineTo(lx,ly);
+    }
+    if(Math.abs(lx-fx)<0.01&&Math.abs(ly-fy)<0.01)ctx.closePath();
   }
+  if(doFill)ctx.fill();
+  if(doStroke)ctx.stroke();
+  return true;
+}
+function traceElementPath(element){
+  if(!ctx||!element)return false;
+  /* Para WebViews Android, reconstruímos primeiro pelos pontos persistidos.
+     Não dependemos de Path2D para strings SVG, pois algumas WebViews aceitam
+     o construtor mas não desenham corretamente o Path2D resultante. */
+  if(drawElementPoints(element,true,false))return true;
   return drawPathDataFallback(element.dados);
 }
 
 function fillElementPath(element){
-  try{
-    if(typeof Path2D==='function'){
-      let path=pathRenderCache.get(element);
-      if(!path||element._cachedPathData!==element.dados){
-        path=new Path2D(element.dados);
-        pathRenderCache.set(element,path);
-        element._cachedPathData=element.dados;
-      }
-      ctx.fill(path);
-      return true;
-    }
-  }catch(_){}
-  if(!drawPathDataFallback(element.dados))return false;
+  if(!ctx||!element)return false;
+  if(Array.isArray(element.pontos)&&element.pontos.length){
+    if(!drawPathDataFallback(element.dados))return false;
+  }else if(!drawPathDataFallback(element.dados)){
+    return false;
+  }
   ctx.fill();
   return true;
 }
@@ -3607,15 +5114,15 @@ function renderVectorPathElement(element){
   ctx.scale(Number(t.escala)||1,Number(t.escala)||1);
   ctx.translate(-character.canvas.largura/2,-character.canvas.altura/2);
 
-  const ferramenta=estilo.ferramenta||'pencil';
-  ctx.globalAlpha=Number(estilo.opacidade??1);
+  const ferramenta=element.tipo==='eraser'?'eraser':(estilo.ferramenta||'pencil');
+  ctx.globalAlpha=ferramenta==='eraser'?1:Number(estilo.opacidade??1);
   ctx.lineWidth=Number(estilo.espessura)||4;
-  ctx.lineCap=estilo.lineCap||(estilo.tipo==='rigid'?'butt':ferramenta==='marker'?'square':'round');
+  ctx.lineCap=estilo.tipo==='rigid'?'butt':(estilo.lineCap||(ferramenta==='marker'?'square':'round'));
   ctx.lineJoin=estilo.lineJoin||'round';
   ctx.setLineDash(
-    estilo.tipo==='dashed'?[10,8]:
-    estilo.tipo==='dotted'?[2,8]:
-    estilo.tipo==='textured'?[2,5]:[]
+    estilo.tipo==='dashed'?[14,10]:
+    estilo.tipo==='dotted'?[1,9]:
+    estilo.tipo==='textured'?[3,5]:[]
   );
 
   if(element.tipo==='eraser'){
@@ -3628,7 +5135,6 @@ function renderVectorPathElement(element){
     ctx.strokeStyle=estilo.cor||'#1E1E1E';
     if(ferramenta==='pencil'){
       ctx.shadowBlur=0;
-      ctx.globalAlpha*=.92;
     }else if(ferramenta==='brush'){
       ctx.shadowColor=estilo.cor||'#1E1E1E';
       ctx.shadowBlur=Math.max(1,ctx.lineWidth*.22);
