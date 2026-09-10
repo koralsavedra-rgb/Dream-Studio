@@ -450,6 +450,11 @@ header{height:68px;padding:0 12px}
   #multiSelectBar{transform:translateX(4px) !important;}
 }
 </style>
+
+<style id="v27-26-2-1-panel-priority">
+/* v27.26.2.1: painéis de ferramentas ficam acima dos controles de seleção quando abertos, sem esconder os controles de seleção. */
+#toolPanel.tool-panel.open{z-index:2147483648 !important;}
+</style>
 </head>
 <body>
 <div class="space"><i class="star"></i><i class="star"></i><i class="star"></i><i class="star"></i><i class="star"></i><i class="star"></i><i class="star"></i><i class="star"></i><i class="star"></i><i class="star"></i><i class="star"></i><i class="star"></i><i class="star"></i><i class="star"></i><i class="star"></i></div>
@@ -591,7 +596,7 @@ header{height:68px;padding:0 12px}
           <button onclick="moveSelectedLayer(1)">↑ Frente</button>
           <button onclick="moveSelectedLayer(-1)">↓ Trás</button>
           <button onclick="saveSelectedLayer()">Salvar camada</button>
-          <button onclick="deleteSelectedLayer()">Excluir</button>
+          <button onclick="deleteSelectedComponentInstance()">Excluir</button>
         </div>
         <div id="layersList" class="layers-list"></div>
       </aside>
@@ -4036,7 +4041,7 @@ function renderCharacterAssemblyPanel(){
       return `<div class="assembly-slot">
         <div class="assembly-slot-head"><strong>${escapeHtml(slot.label)}</strong><small>${slot.multiple?'vários':'um'}</small></div>
         ${ids.length?ids.map(id=>`<div class="assembly-current"><span>${escapeHtml(resourceName(id))}</span><button class="assembly-remove" onclick="removeCharacterResource('${escapeJs(slot.id)}','${escapeJs(id)}')">Remover</button></div>`).join(''): '<div class="assembly-empty">Nenhum recurso usado.</div>'}
-        <div class="assembly-resources">${available.length?available.map(r=>`<div class="assembly-resource"><span title="${escapeAttr(r.name||r.id)}">${escapeHtml(r.name||r.id)}</span><button onclick="useCharacterResource('${escapeJs(r.id)}','${escapeJs(slot.id)}')">Usar</button></div>`).join(''):'<div class="assembly-empty">Nenhum recurso disponível nessa categoria.</div>'}</div>
+        <div class="assembly-resources">${available.length?available.map(r=>`<div class="assembly-resource"><span title="${escapeAttr(r.name||r.id)}">${escapeHtml(r.name||r.id)}</span><button onclick="useCharacterResource('${escapeJs(r.id)}','${escapeJs(slot.id)}')">Usar</button>${slot.multiple&&selectedLayerId&&findLayer(selectedLayerId)?.category===slot.id&&findLayer(selectedLayerId)?.resourceId!==r.id?`<button onclick="replaceSelectedCharacterResource('${escapeJs(r.id)}','${escapeJs(slot.id)}')">Trocar selecionado</button>`:''}</div>`).join(''):'<div class="assembly-empty">Nenhum recurso disponível nessa categoria.</div>'}</div>
       </div>`;
     }).join('')}
     <p style="font-size:9px;color:var(--muted);line-height:1.45;margin-top:9px">Para salvar uma base ou componente, use <strong>Criar recurso</strong> e escolha o tipo de recurso.</p><div class="tool-grid" style="margin-top:9px"><button onclick="closeToolPanel();openStudioPanel('component')">Criar recurso</button><button onclick="closeToolPanel();renderLayers();renderCharacter()">Atualizar</button></div>`;
@@ -4065,10 +4070,11 @@ function resourceLayerElement(resource){
   return [];
 }
 
-function upsertCharacterLayer(resource,category,kind){
+function upsertCharacterLayer(resource,category,kind,instanceId){
   character.camadas=Array.isArray(character.camadas)?character.camadas:[];
+  const id=instanceId||resource.id;
   const layer={
-    id:resource.id,
+    id,
     resourceId:resource.id,
     kind,
     category,
@@ -4078,10 +4084,34 @@ function upsertCharacterLayer(resource,category,kind){
     transformacao:{x:0,y:0,escala:1,rotacao:0},
     elementos:resourceLayerElement(resource)
   };
-  const index=character.camadas.findIndex(l=>l.id===resource.id);
+  const index=character.camadas.findIndex(l=>l.id===id);
   if(index>=0)character.camadas[index]=layer;else character.camadas.push(layer);
-  selectedLayerId=resource.id;
+  selectedLayerId=id;
   selectedVectorId=null;
+}
+
+function replaceSelectedCharacterResource(resourceId,category){
+  if(!character)return;
+  const resource=findLibraryResource(resourceId);
+  const slot=getCharacterSlot(category);
+  const target=selectedLayerId?findLayer(selectedLayerId):null;
+  if(!resource||!slot||!slot.multiple||!target||target.category!==category)return;
+  if(target.resourceId===resource.id){showToast('Este componente já está selecionado.');return;}
+  const current=Array.isArray(character.componentes?.[category])?character.componentes[category]:[];
+  const oldId=target.id;
+  const oldResourceId=target.resourceId||oldId;
+  const oldState={transformacao:JSON.parse(JSON.stringify(target.transformacao||{x:0,y:0,escala:1,rotacao:0})),visible:target.visible!==false,locked:!!target.locked};
+  const index=current.indexOf(oldResourceId);
+  character.componentes[category]=index>=0?current.map((id,i)=>i===index?resource.id:id):[...current,resource.id];
+  character.camadas=character.camadas.filter(l=>l.id!==oldId);
+  const newInstanceId='layer_'+Date.now()+'_'+Math.random().toString(36).slice(2,7);
+  upsertCharacterLayer(resource,category,'component',newInstanceId);
+  const replacement=findLayer(newInstanceId);
+  if(replacement){replacement.transformacao=oldState.transformacao;replacement.visible=oldState.visible;replacement.locked=oldState.locked;}
+  selectedLayerId=newInstanceId;
+  selectedLayerIds=multiSelectMode?[newInstanceId]:[];
+  persistCharacter();saveHistory();renderLayers();renderCharacter();renderCode();renderCharacterAssemblyPanel();
+  showToast((slot.label||'Recurso')+' substituído.');
 }
 
 function useCharacterResource(resourceId,category){
@@ -4095,24 +4125,37 @@ function useCharacterResource(resourceId,category){
     character.baseId=resource.id;
     character.estrutura=character.estrutura||{};
     character.estrutura.baseId=resource.id;
+    const oldBase=character.camadas.find(l=>l.kind==='base'||l.category==='base');
+    const oldState=oldBase?{transformacao:JSON.parse(JSON.stringify(oldBase.transformacao||{x:0,y:0,escala:1,rotacao:0})),visible:oldBase.visible!==false,locked:!!oldBase.locked}:null;
     character.camadas=character.camadas.filter(l=>l.kind!=='base'&&l.category!=='base');
     upsertCharacterLayer(resource,'base','base');
+    const newBase=findLayer(resource.id);
+    if(newBase&&oldState){newBase.transformacao=oldState.transformacao;newBase.visible=oldState.visible;newBase.locked=oldState.locked;}
   }else if(slot.multiple){
     const current=Array.isArray(character.componentes[category])?character.componentes[category]:[];
-    if(!current.includes(resource.id))character.componentes[category]=[...current,resource.id];
-    upsertCharacterLayer(resource,category,'component');
+    if(!current.includes(resource.id)){
+      character.componentes[category]=[...current,resource.id];
+      const newInstanceId='layer_'+Date.now()+'_'+Math.random().toString(36).slice(2,7);
+      upsertCharacterLayer(resource,category,'component',newInstanceId);
+    }else{
+      showToast((slot.label||'Recurso')+' já está no personagem.');
+    }
+    showToast((slot.label||'Recurso')+' adicionado ao personagem.');
   }else{
     const oldId=character.componentes[category];
+    const oldLayer=oldId?character.camadas.find(l=>l.id===oldId||l.resourceId===oldId):null;
+    const oldState=oldLayer?{transformacao:JSON.parse(JSON.stringify(oldLayer.transformacao||{x:0,y:0,escala:1,rotacao:0})),visible:oldLayer.visible!==false,locked:!!oldLayer.locked}:null;
     character.componentes[category]=resource.id;
-    character.camadas=character.camadas.filter(l=>l.category!==category||l.id===resource.id);
+    character.camadas=character.camadas.filter(l=>l.category!==category);
     upsertCharacterLayer(resource,category,'component');
+    const replacement=findLayer(resource.id);
+    if(replacement&&oldState){replacement.transformacao=oldState.transformacao;replacement.visible=oldState.visible;replacement.locked=oldState.locked;}
     if(oldId&&oldId!==resource.id)character.camadas=character.camadas.filter(l=>l.id!==oldId);
+    showToast(oldId&&oldId!==resource.id?(slot.label||'Recurso')+' substituído.':(slot.label||'Recurso')+' adicionado ao personagem.');
   }
 
   persistCharacter();saveHistory();renderLayers();renderCharacter();renderCode();renderCharacterAssemblyPanel();
-  showToast((slot.label||'Recurso')+' adicionado ao personagem.');
 }
-
 function removeCharacterResource(category,resourceId){
   if(!character)return;
   const slot=getCharacterSlot(category);
@@ -4590,32 +4633,9 @@ function saveComponent(){
     return;
   }
 
-  character.componentes=character.componentes||{};
-  if(slot.multiple){
-    const current=Array.isArray(character.componentes[category])?character.componentes[category]:[];
-    character.componentes[category]=[...current,id];
-  }else{
-    character.componentes[category]=id;
-  }
-
-  character.camadas=character.camadas||[];
-  if(!slot.multiple)character.camadas=character.camadas.filter(layer=>layer.category!==category);
-  const savedResource=findLibraryResource(id);
-  character.camadas.push({
-    id,
-    resourceId:id,
-    kind:'component',
-    category,
-    label:name,
-    visible:true,
-    locked:false,
-    transformacao:{x:0,y:0,escala:1,rotacao:0},
-    /* A instância recebe uma cópia dos elementos do recurso.
-       O recurso continua independente na Biblioteca, mas a composição
-       passa a ter conteúdo visual real para o Canvas renderizar. */
-    elementos:resourceLayerElement(savedResource)
-  });
-  selectedLayerId=id;
+  /* Criar recurso salva somente na Biblioteca.
+     Não adiciona uma nova instância ao personagem atual: o componente que
+     estava selecionado continua sendo uma única instância na composição. */
 
   persistCharacter();
   renderLayers();
@@ -5168,21 +5188,30 @@ function createLayer(){
 }
 
 function deleteSelectedComponentInstance(){
-  const layer=findLayer(selectedLayerId);
-  if(!layer){showToast('Selecione um componente primeiro.');return;}
-  if(layer.locked){showToast('Desbloqueie o componente antes de excluí-lo.');return;}
-  if(!confirm('Excluir o componente “'+(layer.label||layer.id)+'” deste personagem?'))return;
-  const index=character.camadas.findIndex(l=>l.id===layer.id);
-  if(index<0)return;
-  /* Remove somente a instância da composição. O recurso original da Biblioteca permanece intacto. */
-  character.camadas.splice(index,1);
-  selectedLayerId=character.camadas[Math.max(0,index-1)]?.id||character.camadas[0]?.id||null;
+  const ids=(multiSelectMode&&Array.isArray(selectedLayerIds)&&selectedLayerIds.length>=2)
+    ? selectedLayerIds.filter(Boolean)
+    : [selectedLayerId];
+  const layers=ids.map(id=>findLayer(id)).filter(Boolean);
+  if(!layers.length){showToast('Selecione um componente primeiro.');return;}
+  if(layers.some(layer=>layer.locked)){
+    showToast('Desbloqueie os componentes selecionados antes de excluí-los.');return;
+  }
+  const isGroup=multiSelectMode&&layers.length>=2;
+  const question=isGroup
+    ? 'Excluir os '+layers.length+' componentes selecionados deste personagem?'
+    : 'Excluir o componente “'+(layers[0].label||layers[0].id)+'” deste personagem?';
+  if(!confirm(question))return;
+  const removeIds=new Set(layers.map(layer=>layer.id));
+  character.camadas=character.camadas.filter(layer=>!removeIds.has(layer.id));
+  selectedLayerId=character.camadas.find(layer=>layer.id===selectedLayerId)?.id
+    ||character.camadas[0]?.id||null;
+  selectedLayerIds=selectedLayerId?[selectedLayerId]:[];
+  multiSelectMode=false;
   selectedVectorId=null;
   selectionInteraction=null;
   persistCharacter();saveHistory();renderLayers();renderCharacter();renderSelectionControls();updateTransformPanel();updateSelectionOverlay();
-  showToast('Componente excluído do personagem.');
+  showToast(isGroup ? layers.length+' componentes excluídos do personagem.' : 'Componente excluído do personagem.');
 }
-
 function deleteSelectedLayer(){
   const layer=findLayer(selectedLayerId);if(!layer)return;
   if(layer.locked){showToast('Desbloqueie a camada antes de excluí-la.');return;}
@@ -5481,6 +5510,18 @@ function renderLayerPaths(layer){
   (layer?.elementos||[]).forEach(element=>{ if(element) element._layerId=layer.id; renderVectorPathElement(element); });
 }
 
+function layerCategoryIcon(category,kind){
+  const key=String(category||kind||'').toLowerCase();
+  if(key.includes('base')||key.includes('corpo'))return '◉';
+  if(key.includes('cabelo'))return '✦';
+  if(key.includes('olho'))return '◌';
+  if(key.includes('boca')||key.includes('rosto'))return '◡';
+  if(key.includes('roupa')||key.includes('vest'))return '◇';
+  if(key.includes('acess'))return '✧';
+  if(key.includes('extra'))return '＋';
+  return kind==='base'?'◉':'◆';
+}
+
 function renderLayers(){
   if(!character)return;
 
@@ -5503,10 +5544,13 @@ function renderLayers(){
   list.innerHTML=visualLayers.map(layer=>{
     const resource=getLayerResource(layer);
     const safeName=escapeHtml(resource?.name||layer.label||layer.id);
-    const category=escapeHtml(layer.category||layer.kind||'recurso');
+    const rawCategory=layer.category||layer.kind||'recurso';
+    const category=escapeHtml(rawCategory);
+    const categoryIcon=layerCategoryIcon(rawCategory,layer.kind);
+    const isSelected=Array.isArray(selectedLayerIds)&&selectedLayerIds.includes(layer.id);
 
     return `
-      <div class="layer-item ${layer.id===selectedLayerId?'selected-layer':''}" draggable="true" data-layer-id="${escapeAttr(layer.id)}"
+      <div class="layer-item ${isSelected?'selected-layer':''}" draggable="true" data-layer-id="${escapeAttr(layer.id)}"
            ondragstart="startLayerDrag(event,'${escapeJs(layer.id)}')"
            ondragover="allowLayerDrop(event)"
            ondrop="dropLayer(event,'${escapeJs(layer.id)}')"
@@ -5515,8 +5559,8 @@ function renderLayers(){
           <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M8 6h8M8 12h8M8 18h8"/><path d="m5 6 1-1 1 1M5 12l1-1 1 1M5 18l1-1 1 1"/></svg>
         </button>
         <button class="layer-main" onclick="selectLayer('${escapeJs(layer.id)}')">
-          <strong>${safeName}</strong>
-          <small>${category} · ${escapeHtml(layer.id)} · ${(layer.elementos||[]).length} vetor${(layer.elementos||[]).length===1?'':'es'}</small>
+          <strong>${categoryIcon} ${safeName}</strong>
+          <small>${category} · ${(layer.elementos||[]).length} vetor${(layer.elementos||[]).length===1?'':'es'}</small>
         </button>
         <button class="layer-control ${layer.visible?'active':''}" onclick="toggleLayerVisibility('${escapeJs(layer.id)}')" aria-label="${layer.visible?'Ocultar':'Mostrar'} camada">
           ${eyeIcon(layer.visible)}
@@ -5838,19 +5882,52 @@ function saveSelectedLayer(){
 function selectLayer(id){
   const layer=findLayer(id);
   if(!layer)return;
-  selectedLayerId=id;
-  selectedLayerIds=[id];
+  if(multiSelectMode){
+    if(layer.locked)return;
+    if(selectedLayerIds.includes(id)){
+      if(selectedLayerIds.length>1){
+        selectedLayerIds=selectedLayerIds.filter(x=>x!==id);
+        selectedLayerId=selectedLayerIds[selectedLayerIds.length-1]||null;
+      }else{
+        selectedLayerId=id;
+      }
+    }else{
+      selectedLayerIds=[...selectedLayerIds,id];
+      selectedLayerId=id;
+    }
+  }else{
+    selectedLayerId=id;
+    selectedLayerIds=[id];
+  }
   selectedVectorId=null;
   renderLayers();
   renderCharacter();
   updateTransformPanel();
+  renderSelectionControls();
   updateSelectionOverlay();
 }
 
 function toggleLayerLock(id){
+  const multiIds=(multiSelectMode&&Array.isArray(selectedLayerIds)&&selectedLayerIds.length>=2)
+    ? selectedLayerIds.filter(Boolean) : [];
+  if(multiIds.length>=2){
+    const layers=multiIds.map(findLayer).filter(Boolean);
+    if(layers.length<2)return;
+    // O grupo só desbloqueia quando TODOS os selecionados estão bloqueados.
+    // Caso contrário, o clique bloqueia todos. Isso evita ficar preso no estado bloqueado.
+    const shouldUnlock=layers.every(layer=>layer.locked===true);
+    layers.forEach(layer=>{layer.locked=shouldUnlock?false:true;});
+    persistCharacter();saveHistory();
+    renderLayers();
+    renderCharacter();
+    updateTransformPanel();
+    updateSelectionOverlay();
+    showToast(shouldUnlock?'Grupo desbloqueado.':'Grupo bloqueado.');
+    return;
+  }
   const layer=findLayer(id);
   if(!layer)return;
-  layer.locked=!layer.locked;
+  layer.locked=layer.locked===true?false:true;
   persistCharacter();saveHistory();
   renderLayers();
   renderCharacter();
@@ -5859,6 +5936,21 @@ function toggleLayerLock(id){
 }
 
 function toggleLayerVisibility(id){
+  const multiIds=(multiSelectMode&&Array.isArray(selectedLayerIds)&&selectedLayerIds.length>=2)
+    ? selectedLayerIds.filter(Boolean) : [];
+  if(multiIds.length>=2){
+    const layers=multiIds.map(findLayer).filter(Boolean);
+    if(layers.length<2)return;
+    // Se todos estiverem visíveis, oculta o grupo. Caso contrário, mostra todos.
+    const shouldShow=!layers.every(layer=>layer.visible===true);
+    layers.forEach(layer=>{layer.visible=shouldShow;});
+    persistCharacter();saveHistory();
+    renderLayers();
+    renderCharacter();
+    updateSelectionOverlay();
+    showToast(shouldShow?'Grupo mostrado.':'Grupo ocultado.');
+    return;
+  }
   const layer=findLayer(id);
   if(!layer)return;
   layer.visible=!layer.visible;
@@ -5916,6 +6008,14 @@ function moveSelectedLayer(direction){
 }
 
 function copySelectedLayer(){
+  if(multiSelectMode&&Array.isArray(selectedLayerIds)&&selectedLayerIds.length>=2){
+    const selectedSet=new Set(selectedLayerIds);
+    const layers=(character?.camadas||[]).filter(layer=>selectedSet.has(layer.id));
+    if(layers.length<2){showToast('Selecione pelo menos 2 componentes.');return;}
+    characterLayerClipboard={__group:true,layers:JSON.parse(JSON.stringify(layers))};
+    showToast(layers.length+' componentes copiados.');
+    return;
+  }
   const layer=findLayer(selectedLayerId);
   if(!layer){showToast('Selecione um componente primeiro.');return;}
   characterLayerClipboard=JSON.parse(JSON.stringify(layer));
@@ -5925,6 +6025,51 @@ function copySelectedLayer(){
 function pasteSelectedLayer(){
   if(!characterLayerClipboard){showToast('Nenhum componente copiado.');return;}
   if(!character||!Array.isArray(character.camadas))return;
+
+  /* v27.24.4: Colar reconhece cópia individual ou grupo */
+  if(characterLayerClipboard.__group && Array.isArray(characterLayerClipboard.layers)){
+    const sources=JSON.parse(JSON.stringify(characterLayerClipboard.layers));
+    if(sources.length<2){showToast('Nenhum grupo válido copiado.');return;}
+
+    const pasted=[];
+    const stamp=Date.now().toString(36);
+    sources.forEach((source,n)=>{
+      const copy=source;
+      copy.id='layer_'+stamp+'_'+n+'_'+Math.random().toString(36).slice(2,7);
+      copy.label=(source.label||'Camada')+' cópia';
+      copy.locked=false;
+      copy.visible=true;
+      copy.transformacao=copy.transformacao||{x:0,y:0,escala:1,rotacao:0};
+      copy.transformacao={
+        x:Number(copy.transformacao.x||0)+20,
+        y:Number(copy.transformacao.y||0)+20,
+        escala:Number(copy.transformacao.escala??1)||1,
+        rotacao:Number(copy.transformacao.rotacao??0)||0
+      };
+      copy.elementos=Array.isArray(source.elementos)?JSON.parse(JSON.stringify(source.elementos)):[];
+      pasted.push(copy);
+    });
+
+    const index=character.camadas.findIndex(l=>l.id===selectedLayerId);
+    const insertAt=index>=0?index+1:character.camadas.length;
+    character.camadas.splice(insertAt,0,...pasted);
+
+    selectedLayerIds=pasted.map(layer=>layer.id);
+    selectedLayerId=pasted[pasted.length-1].id;
+    multiSelectMode=true;
+    selectedVectorId=null;
+    selectionInteraction=null;
+    saveHistory();
+    persistCharacter();
+    renderLayers();
+    renderCharacter();
+    renderSelectionControls();
+    updateTransformPanel();
+    updateSelectionOverlay();
+    showToast(pasted.length+' componentes colados.');
+    return;
+  }
+
   const source=JSON.parse(JSON.stringify(characterLayerClipboard));
   const copy=source;
   copy.id='layer_'+Date.now().toString(36)+'_'+Math.random().toString(36).slice(2,7);
@@ -5957,6 +6102,49 @@ function pasteSelectedLayer(){
 
 function duplicateSelectedLayer(){
   if(!character||!Array.isArray(character.camadas))return;
+  const ids=Array.isArray(selectedLayerIds)?selectedLayerIds.filter(Boolean):[];
+  if(multiSelectMode && ids.length>=2){
+    const selectedSet=new Set(ids);
+    const layers=character.camadas.filter(l=>selectedSet.has(l.id));
+    if(layers.length<2){showToast('Selecione pelo menos 2 componentes.');return;}
+    if(layers.some(l=>l.locked)){showToast('Desbloqueie as camadas selecionadas antes de duplicar.');return;}
+    const copies=layers.map(layer=>{
+      const copy=JSON.parse(JSON.stringify(layer));
+      copy.id='layer_'+Date.now().toString(36)+'_'+Math.random().toString(36).slice(2,8);
+      copy.resourceId=layer.resourceId||layer.recursoId||layer.id;
+      delete copy.recursoId;
+      copy.label=(layer.label||'Camada')+' cópia';
+      copy.locked=false;
+      copy.visible=true;
+      copy.elementos=Array.isArray(copy.elementos)?copy.elementos:[];
+      copy.transformacao=copy.transformacao||{x:0,y:0,escala:1,rotacao:0};
+      const t=copy.transformacao;
+      t.x=(Number(t.x)||0)+20; t.y=(Number(t.y)||0)+20;
+      return copy;
+    });
+    const selectedOriginalIds=new Set(layers.map(l=>l.id));
+    const ordered=[];
+    character.camadas.forEach(layer=>{
+      ordered.push(layer);
+      if(selectedOriginalIds.has(layer.id)){
+        const idx=layers.findIndex(x=>x.id===layer.id);
+        if(idx>=0)ordered.push(copies[idx]);
+      }
+    });
+    character.camadas=ordered;
+    selectedLayerIds=copies.map(c=>c.id);
+    selectedLayerId=copies[copies.length-1].id;
+    selectedVectorId=null;
+    selectionInteraction=null;
+    saveHistory();
+    persistCharacter();
+    renderLayers();
+    renderCharacter();
+    renderSelectionControls();
+    showToast(copies.length+' componentes duplicados.');
+    return;
+  }
+
   const layer=findLayer(selectedLayerId);
   if(!layer){showToast('Selecione uma camada primeiro.');return;}
   if(layer.locked){showToast('Desbloqueie a camada antes de duplicar.');return;}
@@ -5984,7 +6172,6 @@ function duplicateSelectedLayer(){
   renderCharacter();
   showToast('Camada duplicada.');
 }
-
 function applyLayerTransform(layer){
   const t=layer?.transformacao||layer?.transform||{};
   const x=Number(t.x)||0, y=Number(t.y)||0, scale=Number(t.escala??t.scale)||1, rotation=Number(t.rotacao??t.rotation)||0;
