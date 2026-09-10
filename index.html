@@ -1,3 +1,4 @@
+<!-- Dream Studio v26 — Personagem P1: Base inicial -->
 <!DOCTYPE html>
 <html lang="pt-BR">
 <head>
@@ -332,24 +333,26 @@ header{height:68px;padding:0 12px}
 .selection-controls button{min-width:28px;height:26px;border:1px solid rgba(125,160,255,.35);border-radius:7px;background:rgba(18,23,48,.92);color:#fff;font-size:11px}
 
 /* Controles de transformação: painel separado do canvas para não ser cortado pelo overflow */
-.selection-transform-panel{position:fixed!important;z-index:10050!important;left:50%!important;bottom:calc(78px + env(safe-area-inset-bottom))!important;transform:translate(-50%,10px)!important;display:none;align-items:center;gap:5px;flex-wrap:wrap;justify-content:center;width:max-content;max-width:calc(100vw - 18px);padding:8px 9px;border:1px solid rgba(101,223,255,.55);border-radius:15px;background:rgba(8,12,29,.98);backdrop-filter:blur(20px);box-shadow:0 18px 55px rgba(0,0,0,.55);pointer-events:auto}
+.selection-transform-panel{position:fixed!important;z-index:10050!important;left:50%!important;bottom:calc(24px + env(safe-area-inset-bottom))!important;transform:translate(-50%,10px)!important;display:none;align-items:center;gap:5px;flex-wrap:wrap;justify-content:center;width:max-content;max-width:calc(100vw - 18px);padding:8px 9px;border:1px solid rgba(101,223,255,.55);border-radius:15px;background:rgba(8,12,29,.98);backdrop-filter:blur(20px);box-shadow:0 18px 55px rgba(0,0,0,.55);pointer-events:auto}
 .selection-transform-panel.show{display:flex!important;transform:translate(-50%,0)!important}
 .selection-transform-panel button:disabled{opacity:.38;filter:saturate(.4)}
 .selection-transform-panel .selection-title{width:100%;text-align:center;font-size:8px;letter-spacing:1px;color:#bff5ff;margin-bottom:1px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
 .selection-transform-panel button{min-width:36px;height:34px;padding:0 8px;border:1px solid rgba(125,160,255,.35);border-radius:9px;background:rgba(18,23,48,.92);color:#fff;font-size:12px;touch-action:manipulation}
+.selection-transform-panel .selection-scale-button{min-width:92px;font-size:11px}
+.selection-transform-panel .selection-scale-value{min-width:48px;height:34px;display:inline-flex;align-items:center;justify-content:center;padding:0 7px;border-radius:9px;background:rgba(10,14,32,.72);border:1px solid rgba(125,160,255,.22);color:#dcd6ff;font-size:11px;font-weight:600}
 .selection-transform-panel button:active{background:rgba(101,223,255,.16);border-color:rgba(101,223,255,.6)}
 </style>
 <style>
 /* V18: caixa de seleção e alças de transformação no canvas */
-#selectionOverlay.selection-overlay{position:fixed;inset:0;z-index:2147483646;pointer-events:none;display:none}
+#selectionOverlay.selection-overlay{position:absolute;inset:0;z-index:2147483646;pointer-events:none;display:none}
 #selectionOverlay.selection-overlay.show{display:block}
-#selectionOverlay .selection-box{position:fixed;box-sizing:border-box;border:2px solid rgba(101,223,255,.95);border-radius:6px;box-shadow:0 0 0 1px rgba(8,12,29,.75),0 0 18px rgba(101,223,255,.28);pointer-events:none}
-#selectionOverlay .selection-handle{position:fixed;width:18px;height:18px;margin:-9px 0 0 -9px;border:2px solid #fff;border-radius:50%;background:rgba(8,12,29,.98);box-shadow:0 0 0 1px rgba(101,223,255,.8),0 0 12px rgba(101,223,255,.45);pointer-events:auto;touch-action:none}
+#selectionOverlay .selection-box{position:absolute;box-sizing:border-box;border:2px solid rgba(101,223,255,.95);border-radius:6px;box-shadow:0 0 0 1px rgba(8,12,29,.75),0 0 18px rgba(101,223,255,.28);pointer-events:none}
+#selectionOverlay .selection-handle{position:absolute;width:18px;height:18px;margin:-9px 0 0 -9px;border:2px solid #fff;border-radius:50%;background:rgba(8,12,29,.98);box-shadow:0 0 0 1px rgba(101,223,255,.8),0 0 12px rgba(101,223,255,.45);pointer-events:auto;touch-action:none}
 #selectionOverlay .selection-handle.scale{cursor:nwse-resize}
-#selectionOverlay .selection-handle.rotate{width:30px!important;height:30px!important;margin:-15px 0 0 -15px!important;background:rgba(127,101,255,.98)!important;color:#fff;border:2px solid #fff;display:grid;place-items:center;font-size:16px;font-weight:600;line-height:1;z-index:20!important;cursor:grab!important;pointer-events:auto!important;padding:0}
-#selectionOverlay .selection-exit{position:fixed;right:12px;top:88px;z-index:30;width:auto;min-width:58px;height:34px;padding:0 12px;border:1px solid rgba(101,223,255,.7);border-radius:10px;background:rgba(8,12,29,.98);color:#fff;font-size:10px;font-weight:600;box-shadow:0 8px 24px rgba(0,0,0,.45);pointer-events:auto;touch-action:manipulation}
+#selectionOverlay .selection-handle.rotate{position:fixed!important;width:30px!important;height:30px!important;margin:-15px 0 0 -15px!important;background:rgba(127,101,255,.98)!important;color:#fff;border:2px solid #fff;display:grid;place-items:center;font-size:16px;font-weight:600;line-height:1;z-index:20!important;cursor:grab!important;pointer-events:auto!important;padding:0}
+#selectionOverlay .selection-exit{position:absolute;right:12px;top:88px;z-index:30;width:auto;min-width:58px;height:34px;padding:0 12px;border:1px solid rgba(101,223,255,.7);border-radius:10px;background:rgba(8,12,29,.98);color:#fff;font-size:10px;font-weight:600;box-shadow:0 8px 24px rgba(0,0,0,.45);pointer-events:auto;touch-action:manipulation}
 #selectionOverlay .selection-handle.move{pointer-events:auto;width:28px;height:28px;margin:-14px 0 0 -14px;border:0;background:transparent;box-shadow:none;cursor:move}
-#selectionOverlay .selection-rotate-line{position:fixed;height:28px;width:2px;background:rgba(101,223,255,.75);transform-origin:top center;pointer-events:none}
+#selectionOverlay .selection-rotate-line{position:absolute;height:28px;width:2px;background:rgba(101,223,255,.75);transform-origin:top center;pointer-events:none}
 
 /* V25.1: Biblioteca como tela própria */
 .library-screen-wrap{max-width:1050px;margin:0 auto}
@@ -380,6 +383,72 @@ header{height:68px;padding:0 12px}
 .library-structure-note{margin-top:10px;padding:13px;border:1px dashed var(--border);border-radius:13px;color:var(--muted);font-size:9px;line-height:1.5}
 @media(max-width:560px){.library-structure-grid{grid-template-columns:1fr}}
 
+</style>
+
+<style>
+/* v27.16: barra dedicada para Copiar/Colar, sempre acessível no celular */
+
+#selectionMirrorBar{position:fixed!important;left:50%!important;bottom:calc(170px + env(safe-area-inset-bottom))!important;transform:translateX(-50%)!important;z-index:2147483647!important;display:none;gap:7px;align-items:center;justify-content:center;padding:7px 9px;border:1px solid rgba(101,223,255,.45);border-radius:14px;background:rgba(8,12,29,.98);box-shadow:0 12px 35px rgba(0,0,0,.5);pointer-events:auto!important;white-space:nowrap}
+#selectionMirrorBar.show{display:flex!important}
+#selectionMirrorBar button{height:36px;padding:0 13px;border:1px solid rgba(125,160,255,.45);border-radius:9px;background:rgba(18,23,48,.96);color:#fff;font-size:11px;font-weight:600;touch-action:manipulation}
+#selectionMirrorBar button:active{background:rgba(101,223,255,.16)}
+#multiSelectBar{position:fixed!important;left:50%!important;bottom:calc(126px + env(safe-area-inset-bottom))!important;transform:translateX(-50%)!important;z-index:2147483647!important;display:none;gap:7px;align-items:center;justify-content:center;padding:7px 9px;border:1px solid rgba(101,223,255,.45);border-radius:14px;background:rgba(8,12,29,.98);box-shadow:0 12px 35px rgba(0,0,0,.5);pointer-events:auto!important;white-space:nowrap}
+#multiSelectBar.show{display:flex!important}
+#multiSelectBar button{height:34px;padding:0 11px;border:1px solid rgba(125,160,255,.45);border-radius:9px;background:rgba(18,23,48,.96);color:#fff;font-size:11px;font-weight:600;touch-action:manipulation}
+#multiSelectBar button.active{border-color:rgba(101,223,255,.8);background:rgba(101,223,255,.16)}
+#selectionCopyPasteBar{position:fixed!important;left:50%!important;bottom:calc(82px + env(safe-area-inset-bottom))!important;transform:translateX(-50%)!important;z-index:2147483647!important;display:none;gap:8px;align-items:center;justify-content:center;padding:7px 9px;border:1px solid rgba(101,223,255,.55);border-radius:14px;background:rgba(8,12,29,.98);box-shadow:0 12px 35px rgba(0,0,0,.5);pointer-events:auto!important}
+#selectionCopyPasteBar.show{display:flex!important}
+#selectionCopyPasteBar button{min-width:82px;height:36px;padding:0 12px;border:1px solid rgba(125,160,255,.45);border-radius:9px;background:rgba(18,23,48,.96);color:#fff;font-size:12px;font-weight:600;touch-action:manipulation}
+#selectionCopyPasteBar button:active{background:rgba(101,223,255,.16)}
+</style>
+
+<style id="v27-22-2-ui-fix">
+/* v27.22.2: controles de seleção ficam fora da área do Canvas no celular. */
+#selectionTransformPanel.selection-transform-panel{
+  position:absolute !important;
+  left:50% !important;
+  bottom:168px !important;
+  transform:translateX(-50%) !important;
+  z-index:45 !important;
+  max-width:calc(100% - 16px);
+  max-height:44px;
+  overflow-x:auto;
+  overflow-y:hidden;
+  flex-wrap:nowrap;
+  white-space:nowrap;
+}
+#selectionCopyPasteBar{
+  position:absolute !important;
+  left:50% !important;
+  bottom:62px !important;
+  transform:translateX(-100%) !important;
+  z-index:45 !important;
+}
+#multiSelectBar{
+  position:absolute !important;
+  left:50% !important;
+  bottom:62px !important;
+  transform:translateX(4px) !important;
+  z-index:45 !important;
+}
+#selectionMirrorBar{
+  position:absolute !important;
+  left:50% !important;
+  bottom:112px !important;
+  transform:translateX(-50%) !important;
+  z-index:45 !important;
+}
+#selectionOverlay .selection-handle.rotate{position:absolute !important;}
+@media(max-width:650px){
+  /* Reserva uma faixa inferior própria para os controles, sem sobrepor o Canvas. */
+  .canvas-zone{padding-bottom:210px !important;}
+  .canvas-shell{height:calc(100dvh - 320px - env(safe-area-inset-top) - env(safe-area-inset-bottom)) !important;max-height:none !important;}
+  #selectionTransformPanel.selection-transform-panel{bottom:164px !important;}
+  #selectionMirrorBar{bottom:112px !important;}
+  #selectionCopyPasteBar,#multiSelectBar{bottom:62px !important;}
+  #selectionCopyPasteBar{transform:translateX(-100%) !important;}
+  #multiSelectBar{transform:translateX(4px) !important;}
+}
 </style>
 </head>
 <body>
@@ -555,13 +624,29 @@ header{height:68px;padding:0 12px}
         <button type="button" data-transform="1" onclick="adjustSelectedLayerTransform(10,0,0,0)">→</button>
         <button type="button" data-transform="1" onclick="adjustSelectedLayerTransform(0,-10,0,0)">↑</button>
         <button type="button" data-transform="1" onclick="adjustSelectedLayerTransform(0,10,0,0)">↓</button>
-        <button type="button" data-transform="1" onclick="adjustSelectedLayerTransform(0,0,.1,0)">＋</button>
-        <button type="button" data-transform="1" onclick="adjustSelectedLayerTransform(0,0,-.1,0)">−</button>
+        <span id="selectionScaleValue" class="selection-scale-value">100%</span>
+        <button type="button" data-transform="1" class="selection-scale-button" onclick="adjustSelectedLayerTransform(0,0,.1,0)" aria-label="Aumentar componente em 10%" title="Aumentar componente em 10%">＋ Aumentar</button>
+        <button type="button" data-transform="1" class="selection-scale-button" onclick="adjustSelectedLayerTransform(0,0,-.1,0)" aria-label="Diminuir componente em 10%" title="Diminuir componente em 10%">− Diminuir</button>
         <button type="button" data-transform="1" onclick="adjustSelectedLayerTransform(0,0,0,-15)">↶</button>
         <button type="button" data-transform="1" onclick="adjustSelectedLayerTransform(0,0,0,15)">↷</button>
         <button type="button" data-transform="1" onclick="resetSelectedLayerTransform()">1:1</button>
+        <button type="button" data-transform="1" onclick="copySelectedLayer()" aria-label="Copiar componente selecionado" title="Copiar componente selecionado">Copiar</button>
+        <button type="button" data-transform="1" onclick="pasteSelectedLayer()" aria-label="Colar componente copiado" title="Colar componente copiado">Colar</button>
+        <button type="button" data-transform="1" onclick="deleteSelectedComponentInstance()" aria-label="Excluir componente selecionado" title="Excluir componente selecionado">Excluir</button>
         <button type="button" data-transform="1" onclick="clearCharacterSelection()" aria-label="Sair da seleção" title="Sair da seleção">Sair</button>
       </div>
+      </div>
+      <div id="selectionCopyPasteBar" aria-label="Copiar e colar componente">
+        <button type="button" onclick="copySelectedLayer()">📋 Copiar</button>
+        <button type="button" onclick="pasteSelectedLayer()">📌 Colar</button>
+      </div>
+
+      <div id="selectionMirrorBar" aria-label="Espelhamento">
+        <button type="button" onclick="toggleSelectedLayerMirror('x')">↔ Espelhar horizontal</button>
+        <button type="button" onclick="toggleSelectedLayerMirror('y')">↕ Espelhar vertical</button>
+      </div>
+      <div id="multiSelectBar" aria-label="Seleção múltipla">
+        <button type="button" id="multiSelectToggle" onclick="toggleMultiSelectMode()">☑ Vários</button>
       </div>
 
 
@@ -841,6 +926,9 @@ let strokeType='continuous';
 let shapeStart=null;
 let selectedBaseId=null;
 let selectedLayerId=null;
+let selectedLayerIds=[];
+let multiSelectMode=false;
+let characterLayerClipboard=null;
 let activeStroke=null;
 let activeShape=null;
 let selectedVectorId=null;
@@ -2238,13 +2326,29 @@ function createCharacter(){
     }
   };
 
-  /* Camadas não carregam vetores. Guardam somente estado visual e ordem dos IDs. */
-  if(baseId){
-    character.componentes={cabelo:'cabelo_001',olhos:'olhos_001',roupa:'roupa_001'};
-  }else{
-    character.componentes={};
-  }
+  /* P1: uma base escolhida não adiciona componentes padrão/mockups.
+     O personagem começa somente com a base selecionada. */
+  character.componentes={};
   character.camadas=buildInitialLayers(character);
+
+  /* P1 — Criar nova base: inicia o personagem já dentro de uma camada-base
+     editável. A base ainda não é um recurso da Biblioteca; ela só ganha um
+     ID de recurso quando o usuário escolher "Salvar como base" no editor. */
+  if(baseMode==='new'){
+    const draftBase={
+      id:'base_draft_'+Date.now().toString(36),
+      resourceId:null,
+      kind:'base',
+      category:'base',
+      label:'Nova base',
+      visible:true,
+      locked:false,
+      transformacao:{x:0,y:0,escala:1,rotacao:0},
+      elementos:[]
+    };
+    character.camadas.unshift(draftBase);
+    selectedLayerId=draftBase.id;
+  }
 
   DreamStudioStore.setPersonagem(character);
   persistCharacter();
@@ -2259,6 +2363,7 @@ function createCharacter(){
   renderLayers();
   renderCharacter();
   renderCode();
+  if(baseMode==='new')showToast('Nova base iniciada. Desenhe e salve como base quando terminar.');
 }
 
 function buildInitialLayers(personagem){
@@ -2274,7 +2379,7 @@ function buildInitialLayers(personagem){
       visible:true,
       locked:false,
       transformacao:{x:0,y:0,escala:1,rotacao:0},
-      elementos:[]
+      elementos:resourceLayerElement(findLibraryResource(personagem.baseId))
     });
   }
 
@@ -2298,7 +2403,7 @@ function buildInitialLayers(personagem){
         visible:true,
         locked:false,
         transformacao:{x:0,y:0,escala:1,rotacao:0},
-        elementos:[]
+        elementos:resourceLayerElement(resource)
       });
     });
   });
@@ -2529,15 +2634,53 @@ function updateGesture(){
 function getResourceLocalBounds(resource){
   const W=Number(character?.canvas?.largura)||500,H=Number(character?.canvas?.altura)||500;
   const cx=W/2,cy=H/2;
+
+  /* Primeiro usamos os elementos reais do recurso. Isso faz a caixa de seleção
+     acompanhar o conteúdo que realmente foi salvo no componente, em vez de
+     depender apenas de um tamanho aproximado por categoria. */
+  const elements=Array.isArray(resource?.elementos)?resource.elementos:[];
+  const boxes=[];
+  const points=[];
+  elements.forEach(el=>{
+    if(!el)return;
+    if(el.tipo==='text'){
+      const b=getTextElementBounds(el);
+      if(b)boxes.push(b);
+      return;
+    }
+    if(el.tipo==='image'){
+      const x=Number(el.x)||0,y=Number(el.y)||0;
+      const w=Math.max(0,Number(el.width)||0),h=Math.max(0,Number(el.height)||0);
+      boxes.push({minX:x,maxX:x+w,minY:y,maxY:y+h});
+      return;
+    }
+    const pts=el._pontos||parseSvgPathPoints(el.dados);
+    if(Array.isArray(pts)&&pts.length)points.push(...pts);
+  });
+  if(points.length){
+    boxes.push({
+      minX:Math.min(...points.map(p=>p.x)),maxX:Math.max(...points.map(p=>p.x)),
+      minY:Math.min(...points.map(p=>p.y)),maxY:Math.max(...points.map(p=>p.y))
+    });
+  }
+  if(boxes.length){
+    return {
+      minX:Math.min(...boxes.map(b=>b.minX)),maxX:Math.max(...boxes.map(b=>b.maxX)),
+      minY:Math.min(...boxes.map(b=>b.minY)),maxY:Math.max(...boxes.map(b=>b.maxY))
+    };
+  }
+
+  /* Fallback para recursos vetoriais antigos que não possuem elementos
+     suficientes para calcular seus limites diretamente. */
   const kind=resource?.vector?.kind;
-  const boxes={
+  const fallback={
     face:{minX:cx-105,maxX:cx+105,minY:cy-100,maxY:cy+150},
     hair:{minX:cx-125,maxX:cx+125,minY:cy-175,maxY:cy-65},
     eyes:{minX:cx-56,maxX:cx+56,minY:cy-8,maxY:cy+18},
     clothes:{minX:cx-128,maxX:cx+128,minY:cy+135,maxY:cy+255},
     glasses:{minX:cx-92,maxX:cx+92,minY:cy-33,maxY:cy+43}
   };
-  return boxes[kind]||{minX:cx-80,maxX:cx+80,minY:cy-80,maxY:cy+80};
+  return fallback[kind]||{minX:cx-80,maxX:cx+80,minY:cy-80,maxY:cy+80};
 }
 function inverseLayerPoint(point,layer){
   const W=Number(character?.canvas?.largura)||500,H=Number(character?.canvas?.altura)||500;
@@ -2554,81 +2697,236 @@ function inverseLayerPoint(point,layer){
 function pointInBounds(point,b,padding=0){
   return point.x>=b.minX-padding&&point.x<=b.maxX+padding&&point.y>=b.minY-padding&&point.y<=b.maxY+padding;
 }
-function getSelectedVisualBounds(){
-  const layer=selectedCharacterLayer();
+function getSingleLayerVisualBounds(layer){
   if(!layer||!character)return null;
   const resource=getLayerResource(layer);
   const W=Number(character.canvas.largura)||500,H=Number(character.canvas.altura)||500;
   let local=resource?getResourceLocalBounds(resource):null;
   const els=Array.isArray(layer.elementos)?layer.elementos:[];
-  const pts=[];
-  const boxes=[];
+  const pts=[]; const boxes=[];
   els.forEach(el=>{
     if(el?.tipo==='text'){
-      const b=getTextElementBounds(el);
-      if(b)boxes.push(b);
-      return;
+      const b=getTextElementBounds(el); if(b)boxes.push(b); return;
     }
     const p=el?._pontos||parseSvgPathPoints(el?.dados);
     if(Array.isArray(p))pts.push(...p);
   });
-  if(pts.length){
-    boxes.push({minX:Math.min(...pts.map(p=>p.x)),maxX:Math.max(...pts.map(p=>p.x)),minY:Math.min(...pts.map(p=>p.y)),maxY:Math.max(...pts.map(p=>p.y))});
-  }
+  if(pts.length)boxes.push({minX:Math.min(...pts.map(p=>p.x)),maxX:Math.max(...pts.map(p=>p.x)),minY:Math.min(...pts.map(p=>p.y)),maxY:Math.max(...pts.map(p=>p.y))});
   if(boxes.length){
-    local={minX:Math.min(...boxes.map(b=>b.minX)),maxX:Math.max(...boxes.map(b=>b.maxX)),minY:Math.min(...boxes.map(b=>b.minY)),maxY:Math.max(...boxes.map(b=>b.maxY))};
+    const eb={minX:Math.min(...boxes.map(b=>b.minX)),maxX:Math.max(...boxes.map(b=>b.maxX)),minY:Math.min(...boxes.map(b=>b.minY)),maxY:Math.max(...boxes.map(b=>b.maxY))};
+    local=local?{minX:Math.min(local.minX,eb.minX),maxX:Math.max(local.maxX,eb.maxX),minY:Math.min(local.minY,eb.minY),maxY:Math.max(local.maxY,eb.maxY)}:eb;
   }
   if(!local)local={minX:W/2-80,maxX:W/2+80,minY:H/2-80,maxY:H/2+80};
-  const t=layer.transformacao||{};const scale=Math.max(.05,Number(t.escala)||1);const x=Number(t.x)||0,y=Number(t.y)||0;const rot=(Number(t.rotacao)||0)*Math.PI/180;
+  const t=layer.transformacao||{},scale=Math.max(.05,Number(t.escala)||1),x=Number(t.x)||0,y=Number(t.y)||0,rot=(Number(t.rotacao)||0)*Math.PI/180;
   const cx=W/2,cy=H/2;
   const corners=[[local.minX,local.minY],[local.maxX,local.minY],[local.maxX,local.maxY],[local.minX,local.maxY]].map(([px,py])=>{
-    const qx=cx+(px-cx)*scale,qy=cy+(py-cy)*scale;
-    const dx=qx-cx,dy=qy-cy;
+    const qx=cx+(px-cx)*scale,qy=cy+(py-cy)*scale,dx=qx-cx,dy=qy-cy;
     return {x:cx+dx*Math.cos(rot)-dy*Math.sin(rot)+x,y:cy+dx*Math.sin(rot)+dy*Math.cos(rot)+y};
   });
   return {corners,minX:Math.min(...corners.map(p=>p.x)),maxX:Math.max(...corners.map(p=>p.x)),minY:Math.min(...corners.map(p=>p.y)),maxY:Math.max(...corners.map(p=>p.y))};
 }
+function getSelectedVisualBounds(){
+  const ids=Array.isArray(selectedLayerIds)&&selectedLayerIds.length>1?selectedLayerIds:[selectedLayerId];
+  const bounds=ids.map(id=>getSingleLayerVisualBounds(findLayer(id))).filter(Boolean);
+  if(!bounds.length)return null;
+  if(bounds.length===1)return bounds[0];
+  const minX=Math.min(...bounds.map(b=>b.minX)),maxX=Math.max(...bounds.map(b=>b.maxX));
+  const minY=Math.min(...bounds.map(b=>b.minY)),maxY=Math.max(...bounds.map(b=>b.maxY));
+  return {minX,maxX,minY,maxY,corners:[{x:minX,y:minY},{x:maxX,y:minY},{x:maxX,y:maxY},{x:minX,y:maxY}]};
+}
 function updateSelectionOverlay(){
-  const overlay=$('selectionOverlay'); if(!overlay)return;
+  const overlay=$('selectionOverlay');
+  if(!overlay)return;
   const layer=selectedCharacterLayer();
-  if(currentTool!=='select'||!layer){overlay.classList.remove('show');overlay.setAttribute('aria-hidden','true');const ex=$('selectionExit');if(ex)ex.style.display='none';const rh=$('selectionRotate');if(rh)rh.style.display='none';return;}
-  const r=canvas?.getBoundingClientRect(); const b=getSelectedVisualBounds();
-  if(!r||!b){overlay.classList.remove('show');return;}
-  const sx=r.width/(Number(character.canvas.largura)||1), sy=r.height/(Number(character.canvas.altura)||1);
-  const toScreen=p=>({x:r.left+p.x*sx,y:r.top+p.y*sy});
-  const c=b.corners.map(toScreen);
-  const box=$('selectionBox'); if(box){const minX=Math.min(...c.map(p=>p.x)),maxX=Math.max(...c.map(p=>p.x)),minY=Math.min(...c.map(p=>p.y)),maxY=Math.max(...c.map(p=>p.y));box.style.left=minX+'px';box.style.top=minY+'px';box.style.width=Math.max(2,maxX-minX)+'px';box.style.height=Math.max(2,maxY-minY)+'px';}
-  [['selectionNW',c[0]],['selectionNE',c[1]],['selectionSE',c[2]],['selectionSW',c[3]]].forEach(([id,p])=>{const el=$(id);if(el){el.style.left=p.x+'px';el.style.top=p.y+'px';}});
-  const top={x:(c[0].x+c[1].x)/2,y:(c[0].y+c[1].y)/2};
-  const center={x:(c[0].x+c[1].x+c[2].x+c[3].x)/4,y:(c[0].y+c[1].y+c[2].y+c[3].y)/4};
-  const dx=top.x-center.x,dy=top.y-center.y,len=Math.max(32,Math.hypot(dx,dy));
-  const rot={x:top.x+(dx/Math.max(1,Math.hypot(dx,dy)))*len,y:top.y+(dy/Math.max(1,Math.hypot(dx,dy)))*len};
-  const rh=$('selectionRotate');if(rh){rh.style.left=rot.x+'px';rh.style.top=rot.y+'px';rh.style.display='grid';rh.style.visibility='visible';rh.style.zIndex='20';}
-  const ex=$('selectionExit');if(ex){ex.style.display='block';ex.style.visibility='visible';}
-  const line=$('selectionRotateLine');if(line){line.style.left=top.x+'px';line.style.top=top.y+'px';line.style.height=Math.max(20,len)+'px';line.style.transform='rotate('+Math.atan2(dy,dx)*180/Math.PI+'deg)';}
-  const mh=$('selectionMoveHandle');if(mh){mh.style.left=center.x+'px';mh.style.top=center.y+'px';}
-  overlay.classList.add('show');overlay.setAttribute('aria-hidden','false');
+  const exit=$('selectionExit');
+  const rotate=$('selectionRotate');
+
+  if(currentTool!=='select'||!layer){
+    overlay.classList.remove('show');
+    overlay.setAttribute('aria-hidden','true');
+    if(exit)exit.style.display='none';
+    if(rotate)rotate.style.display='none';
+    return;
+  }
+
+  const canvasRect=canvas?.getBoundingClientRect();
+  const zone=overlay.parentElement;
+  const zoneRect=zone?.getBoundingClientRect();
+  const bounds=getSelectedVisualBounds();
+  if(!canvasRect||!zoneRect||!bounds){
+    overlay.classList.remove('show');
+    return;
+  }
+
+  const W=Math.max(1,Number(character.canvas.largura)||1);
+  const H=Math.max(1,Number(character.canvas.altura)||1);
+  const sx=canvasRect.width/W;
+  const sy=canvasRect.height/H;
+
+  /* A seleção é desenhada no mesmo sistema visual da área do Canvas.
+     O overlay é absoluto dentro de .canvas-zone; por isso todas as
+     coordenadas abaixo são relativas à área, não ao viewport inteiro. */
+  const screenToOverlay=p=>({
+    x:(canvasRect.left+p.x*sx)-zoneRect.left,
+    y:(canvasRect.top+p.y*sy)-zoneRect.top
+  });
+  const corners=bounds.corners.map(screenToOverlay);
+
+  const minX=Math.min(...corners.map(p=>p.x));
+  const maxX=Math.max(...corners.map(p=>p.x));
+  const minY=Math.min(...corners.map(p=>p.y));
+  const maxY=Math.max(...corners.map(p=>p.y));
+
+  const box=$('selectionBox');
+  if(box){
+    box.style.left=minX+'px';
+    box.style.top=minY+'px';
+    box.style.width=Math.max(2,maxX-minX)+'px';
+    box.style.height=Math.max(2,maxY-minY)+'px';
+    box.style.display='block';
+    box.style.visibility='visible';
+  }
+
+  [['selectionNW',corners[0]],['selectionNE',corners[1]],['selectionSE',corners[2]],['selectionSW',corners[3]]].forEach(([id,p])=>{
+    const el=$(id);
+    if(el){
+      el.style.left=p.x+'px';
+      el.style.top=p.y+'px';
+      el.style.display='block';
+      el.style.visibility='visible';
+    }
+  });
+
+  const top={x:(corners[0].x+corners[1].x)/2,y:(corners[0].y+corners[1].y)/2};
+  const center={
+    x:(corners[0].x+corners[1].x+corners[2].x+corners[3].x)/4,
+    y:(corners[0].y+corners[1].y+corners[2].y+corners[3].y)/4
+  };
+  const dx=top.x-center.x,dy=top.y-center.y;
+  const norm=Math.max(1,Math.hypot(dx,dy));
+  /* Em seleção individual, uma caixa pequena deixa a alça muito perto do centro e
+     poucos pixels de arrasto geram um ângulo enorme. Mantemos o grupo como está
+     e afastamos apenas a alça individual para dar mais controle ao toque. */
+  const distance=Math.max(multiSelectMode&&selectedLayerIds.length>=2?24:60,Math.hypot(dx,dy));
+  const rotatePoint={x:top.x+(dx/norm)*distance,y:top.y+(dy/norm)*distance};
+
+  if(rotate){
+    /* Na rotação em grupo, o controle precisa ficar próximo da seleção.
+       Mantê-lo fixo no canto da tela fazia o ponto inicial do gesto ficar
+       muito distante do centro e produzia giros exagerados. */
+    const rx=rotatePoint.x + canvasRect.left-zoneRect.left;
+    const ry=rotatePoint.y + canvasRect.top-zoneRect.top;
+    rotate.style.position='absolute';
+    rotate.style.left=rx+'px';
+    rotate.style.top=ry+'px';
+    rotate.style.display='grid';
+    rotate.style.visibility='visible';
+    rotate.style.zIndex='2147483647';
+  }
+
+  if(exit){
+    /* Sair permanece fixo na área visual, mas agora usa o mesmo sistema
+       de coordenadas do overlay. */
+    exit.style.right='12px';
+    exit.style.left='auto';
+    exit.style.top='12px';
+    exit.style.display='block';
+    exit.style.visibility='visible';
+  }
+
+  const line=$('selectionRotateLine');
+  if(line){
+    line.style.left=top.x+'px';
+    line.style.top=top.y+'px';
+    line.style.height=Math.max(20,distance)+'px';
+    line.style.transform='rotate('+Math.atan2(dy,dx)*180/Math.PI+'rad)';
+  }
+
+  const move=$('selectionMoveHandle');
+  if(move){
+    move.style.left=center.x+'px';
+    move.style.top=center.y+'px';
+    move.style.display='block';
+    move.style.visibility='visible';
+  }
+
+  overlay.classList.add('show');
+  overlay.setAttribute('aria-hidden','false');
 }
 function beginSelectionHandle(kind,e){
   e.preventDefault();e.stopPropagation();
   const layer=selectedCharacterLayer();if(!layer||layer.locked)return;
-  const r=canvas.getBoundingClientRect();const p=getPoint(e);const t=layer.transformacao||{};
+  const p=getPoint(e),b=getSelectedVisualBounds();
+  const center=b?{x:(b.minX+b.maxX)/2,y:(b.minY+b.maxY)/2}:{x:character.canvas.largura/2,y:character.canvas.altura/2};
+  if((kind==='scale'||kind==='rotate')&&multiSelectMode&&selectedLayerIds.length>=2){
+    const starts=selectedLayerIds.map(id=>{
+      const item=findLayer(id),t=item?.transformacao||{};
+      return {id,x:Number(t.x)||0,y:Number(t.y)||0,escala:Math.max(.1,Number(t.escala)||1),rotacao:Number(t.rotacao)||0};
+    }).filter(st=>{const item=findLayer(st.id);return item&&!item.locked;});
+    if(starts.length>=2){
+      if(kind==='scale'){
+        const a=Math.hypot(p.x-center.x,p.y-center.y);
+        selectionInteraction={kind:'groupScale',pointerId:e.pointerId,startPoint:p,startScaleDistance:Math.max(2,a),center,starts};
+      }else{
+        const startAngle=Math.atan2(p.y-center.y,p.x-center.x);
+        selectionInteraction={kind:'groupRotate',pointerId:e.pointerId,startPoint:p,startAngle,center,starts};
+      }
+      e.currentTarget.setPointerCapture?.(e.pointerId);return;
+    }
+  }
+  const t=layer.transformacao||{};
   const startScale=Math.max(.05,Number(t.escala)||1),startX=Number(t.x)||0,startY=Number(t.y)||0,startRot=Number(t.rotacao)||0;
-  const b=getSelectedVisualBounds();const center=b?{x:(b.corners[0].x+b.corners[1].x+b.corners[2].x+b.corners[3].x)/4,y:(b.corners[0].y+b.corners[1].y+b.corners[2].y+b.corners[3].y)/4}:{x:character.canvas.largura/2,y:character.canvas.altura/2};
   selectionInteraction={kind,pointerId:e.pointerId,startPoint:p,startScale,startX,startY,startRot,center};
   e.currentTarget.setPointerCapture?.(e.pointerId);
 }
 function moveSelectionHandle(e){
   const q=selectionInteraction;if(!q||q.pointerId!==e.pointerId)return;
-  e.preventDefault();e.stopPropagation();const layer=selectedCharacterLayer();if(!layer)return;const p=getPoint(e);layer.transformacao=layer.transformacao||{x:0,y:0,escala:1,rotacao:0};
-  if(q.kind==='move'){layer.transformacao.x=q.startX+(p.x-q.startPoint.x);layer.transformacao.y=q.startY+(p.y-q.startPoint.y);}
-  else if(q.kind==='scale'){const a=Math.hypot(q.startPoint.x-q.center.x,q.startPoint.y-q.center.y);const b=Math.hypot(p.x-q.center.x,p.y-q.center.y);if(a>2)layer.transformacao.escala=Math.max(.1,Math.min(5,q.startScale*(b/a)));}
-  else if(q.kind==='rotate'){const a=Math.atan2(q.startPoint.y-q.center.y,q.startPoint.x-q.center.x);const b=Math.atan2(p.y-q.center.y,p.x-q.center.x);layer.transformacao.rotacao=q.startRot+(b-a)*180/Math.PI;}
+  e.preventDefault();e.stopPropagation();const p=getPoint(e);
+  if(q.kind==='groupMove'){
+    const dx=p.x-q.startPoint.x,dy=p.y-q.startPoint.y;
+    q.starts.forEach(st=>{const item=findLayer(st.id);if(!item||item.locked)return;item.transformacao=item.transformacao||{x:0,y:0,escala:1,rotacao:0};item.transformacao.x=st.x+dx;item.transformacao.y=st.y+dy;});
+  }else if(q.kind==='groupScale'){
+    const d=Math.hypot(p.x-q.center.x,p.y-q.center.y),factor=Math.max(.1,Math.min(5,d/q.startScaleDistance));
+    q.starts.forEach(st=>{
+      const item=findLayer(st.id);if(!item||item.locked)return;
+      item.transformacao=item.transformacao||{x:0,y:0,escala:1,rotacao:0};
+      item.transformacao.escala=Math.max(.1,Math.min(5,st.escala*factor));
+      item.transformacao.x=q.center.x+(st.x-q.center.x)*factor;
+      item.transformacao.y=q.center.y+(st.y-q.center.y)*factor;
+    });
+  }else if(q.kind==='groupRotate'){
+    const currentAngle=Math.atan2(p.y-q.center.y,p.x-q.center.x);
+    const delta=(currentAngle-q.startAngle)*180/Math.PI;
+    const rad=delta*Math.PI/180;
+    const cos=Math.cos(rad),sin=Math.sin(rad);
+    const canvasCenter={x:character.canvas.largura/2,y:character.canvas.altura/2};
+    q.starts.forEach(st=>{
+      const item=findLayer(st.id);if(!item||item.locked)return;
+      /* x/y da camada são deslocamentos em relação ao centro do Canvas.
+         A seleção, porém, usa coordenadas absolutas do Canvas.
+         Converter para absoluto antes de girar evita o salto enorme para fora da tela. */
+      const absX=canvasCenter.x+st.x,absY=canvasCenter.y+st.y;
+      const relX=absX-q.center.x,relY=absY-q.center.y;
+      const newAbsX=q.center.x+(relX*cos-relY*sin);
+      const newAbsY=q.center.y+(relX*sin+relY*cos);
+      item.transformacao=item.transformacao||{x:0,y:0,escala:1,rotacao:0};
+      item.transformacao.x=newAbsX-canvasCenter.x;
+      item.transformacao.y=newAbsY-canvasCenter.y;
+      item.transformacao.rotacao=st.rotacao+delta;
+    });
+  }else{
+    const layer=selectedCharacterLayer();if(!layer)return;
+    layer.transformacao=layer.transformacao||{x:0,y:0,escala:1,rotacao:0};
+    if(q.kind==='move'){layer.transformacao.x=q.startX+(p.x-q.startPoint.x);layer.transformacao.y=q.startY+(p.y-q.startPoint.y);}
+    else if(q.kind==='scale'){const a=Math.hypot(q.startPoint.x-q.center.x,q.startPoint.y-q.center.y);const b=Math.hypot(p.x-q.center.x,p.y-q.center.y);if(a>2)layer.transformacao.escala=Math.max(.1,Math.min(5,q.startScale*(b/a)));}
+    else if(q.kind==='rotate'){const a=Math.atan2(q.startPoint.y-q.center.y,q.startPoint.x-q.center.x);const b=Math.atan2(p.y-q.center.y,p.x-q.center.x);layer.transformacao.rotacao=q.startRot+(b-a)*180/Math.PI;}
+  }
   renderCharacter();updateSelectionOverlay();
 }
 function endSelectionHandle(e){
   if(!selectionInteraction||selectionInteraction.pointerId!==e.pointerId)return;
-  const layer=selectedCharacterLayer();selectionInteraction=null;if(layer){persistCharacter();saveHistory();renderLayers();renderCharacter();updateTransformPanel();updateSelectionOverlay();}
+  const wasGroup=['groupMove','groupScale','groupRotate'].includes(selectionInteraction.kind);
+  const layer=selectedCharacterLayer();selectionInteraction=null;if(layer||wasGroup){persistCharacter();saveHistory();renderLayers();renderCharacter();updateTransformPanel();updateSelectionOverlay();}
   try{e.currentTarget.releasePointerCapture?.(e.pointerId)}catch(_){}
 }
 function bindSelectionOverlay(){
@@ -2656,13 +2954,41 @@ function pointerDown(e){
     const hitLayer=hitTestCharacterLayer(p);
     selectedVectorId=hitTestVector(p);
     if(hitLayer){
-      selectedLayerId=hitLayer;
       const layer=findLayer(hitLayer);
-      if(layer&&!layer.locked){
-        selectionInteraction={kind:'move',pointerId:e.pointerId,startPoint:p,startScale:Number(layer.transformacao?.escala)||1,startX:Number(layer.transformacao?.x)||0,startY:Number(layer.transformacao?.y)||0,startRot:Number(layer.transformacao?.rotacao)||0,center:{x:character.canvas.largura/2,y:character.canvas.altura/2}};
-        e.currentTarget?.setPointerCapture?.(e.pointerId);
+      if(multiSelectMode){
+        if(layer&&!layer.locked){
+          const alreadySelected=selectedLayerIds.includes(hitLayer);
+          if(alreadySelected){
+            /* Em seleção múltipla, tocar/arrastar um item já selecionado
+               inicia o movimento do grupo. A seleção continua intacta. */
+            selectedLayerId=hitLayer;
+            if(selectedLayerIds.length>=2){
+              const startPoint=p;
+              const starts=selectedLayerIds.map(id=>{
+                const item=findLayer(id);
+                return {id,x:Number(item?.transformacao?.x)||0,y:Number(item?.transformacao?.y)||0};
+              });
+              selectionInteraction={kind:'groupMove',pointerId:e.pointerId,startPoint,starts};
+              e.currentTarget?.setPointerCapture?.(e.pointerId);
+            }else{
+              selectionInteraction=null;
+            }
+          }else{
+            selectedLayerIds=[...selectedLayerIds,hitLayer];
+            selectedLayerId=hitLayer;
+            selectionInteraction=null;
+          }
+        }
+      }else{
+        selectedLayerIds=[hitLayer];
+        selectedLayerId=hitLayer;
+        if(layer&&!layer.locked){
+          selectionInteraction={kind:'move',pointerId:e.pointerId,startPoint:p,startScale:Number(layer.transformacao?.escala)||1,startX:Number(layer.transformacao?.x)||0,startY:Number(layer.transformacao?.y)||0,startRot:Number(layer.transformacao?.rotacao)||0,center:{x:character.canvas.largura/2,y:character.canvas.altura/2}};
+          e.currentTarget?.setPointerCapture?.(e.pointerId);
+        }
       }
-    }else{
+    }else if(!multiSelectMode){
+      selectedLayerIds=[];
       selectedLayerId=null;
     }
     renderLayers();
@@ -2694,7 +3020,12 @@ function pointerDown(e){
     const layer=getActiveDrawingLayer();
     if(!layer||layer.locked){setRenderStatus('SELECIONE UMA CAMADA DESBLOQUEADA');return;}
     selectedLayerId=layer.id;
-    if(tryVectorFill(p,layer)){
+    /* O ponto recebido pelo Canvas está no espaço da composição. A camada
+       pode estar movida, ampliada ou girada; o preenchimento precisa trabalhar
+       no espaço local dela para não nascer deslocado nem pintar a cópia e a
+       original ao mesmo tempo. */
+    const localPoint=getLayerLocalPoint(e,layer);
+    if(tryVectorFill(localPoint,layer)){
       persistCharacter();
       saveHistory();
       renderLayers();
@@ -2702,10 +3033,15 @@ function pointerDown(e){
       showToast('Preenchimento aplicado.');
       return;
     }
-    const fillElement=fillAt(p);
+    const fillElement=fillAt(localPoint,layer);
     if(fillElement){
       layer.elementos=Array.isArray(layer.elementos)?layer.elementos:[];
-      layer.elementos.push(fillElement);
+      /* Se o preenchimento alcançou a borda, ele pode ser um fundo. Colocamos
+         esse preenchimento atrás dos desenhos existentes, preservando linhas
+         e formas. Áreas fechadas continuam sendo adicionadas normalmente. */
+      if(fillAt.lastTouchedCanvasEdge) layer.elementos.unshift(fillElement);
+      else layer.elementos.push(fillElement);
+      fillAt.lastTouchedCanvasEdge=false;
       persistCharacter();
       saveHistory();
       renderLayers();
@@ -2803,6 +3139,13 @@ function applyVectorEraser(layer,eraserPoints){
     }
     return false;
   };
+
+  /* Componentes reutilizados também possuem um vetor-base na Biblioteca.
+     Quando a edição local começa, a borracha precisa atuar na cópia local;
+     caso contrário o vetor original seria redesenhado por baixo. */
+  if((layer.kind==='component' || String(layer.category||'').toLowerCase()==='component') && Array.isArray(layer.elementos) && layer.elementos.length){
+    layer._resourceSuppressedForEditing=true;
+  }
 
   const out=[];
   for(const el of layer.elementos){
@@ -2906,7 +3249,11 @@ function getActiveDrawingLayer(){
   if(!character)return null;
   character.camadas=Array.isArray(character.camadas)?character.camadas:[];
   const selected=findLayer(selectedLayerId);
-  if(selected&&selected.locked!==true&&selected.kind==='drawing')return selected;
+  /* Ferramentas de desenho devem editar a camada que o usuário escolheu.
+     Antes, apenas a camada 'drawing' era aceita; por isso uma cópia de
+     componente podia ser selecionada visualmente, mas borracha/preenchimento
+     voltavam para a camada de desenho do personagem. */
+  if(selected&&selected.locked!==true&&['drawing','component','base'].includes(selected.kind))return selected;
   const preferredId=character.tipo==='capa'?character.capa?.drawingLayerId:null;
   const preferred=preferredId?findLayer(preferredId):null;
   if(preferred&&preferred.kind==='drawing'&&!preferred.locked){selectedLayerId=preferred.id;return preferred;}
@@ -3097,29 +3444,126 @@ function selectedCharacterLayer(){
   return findLayer(selectedLayerId);
 }
 
+function toggleSelectedLayerMirror(axis){
+  const layer=selectedCharacterLayer();
+  if(!layer||layer.locked)return;
+
+  if(multiSelectMode&&selectedLayerIds.length>=2){
+    const groupMirrorState=character._groupMirrorState||{};
+    const state=groupMirrorState[axis];
+    const sameSelection=state&&Array.isArray(state.ids)
+      &&state.ids.length===selectedLayerIds.length
+      &&state.ids.every(id=>selectedLayerIds.includes(id));
+
+    if(sameSelection){
+      // Alterna entre o estado original e o estado espelhado, sem recalcular
+      // o centro a cada toque. Isso evita o deslocamento acumulado.
+      const target=state.mirrored?state.original:state.mirroredLayers;
+      target.forEach(saved=>{
+        const item=findLayer(saved.id);
+        if(!item)return;
+        item.transformacao=JSON.parse(JSON.stringify(saved.transformacao));
+      });
+      state.mirrored=!state.mirrored;
+    }else{
+      const bounds=getSelectedVisualBounds();
+      const groupCenter=bounds?{x:(bounds.minX+bounds.maxX)/2,y:(bounds.minY+bounds.maxY)/2}:{x:character.canvas.largura/2,y:character.canvas.altura/2};
+      const canvasCenter={x:character.canvas.largura/2,y:character.canvas.altura/2};
+      const original=[];
+      const mirroredLayers=[];
+
+      selectedLayerIds.forEach(id=>{
+        const item=findLayer(id);
+        if(!item||item.locked)return;
+        item.transformacao=item.transformacao||{x:0,y:0,escala:1,rotacao:0,espelhoX:false,espelhoY:false};
+        const originalTransform=JSON.parse(JSON.stringify(item.transformacao));
+        original.push({id,transformacao:originalTransform});
+
+        const t=JSON.parse(JSON.stringify(originalTransform));
+        const absX=canvasCenter.x+(Number(t.x)||0);
+        const absY=canvasCenter.y+(Number(t.y)||0);
+        if(axis==='x'){
+          t.x=(groupCenter.x-(absX-groupCenter.x))-canvasCenter.x;
+          t.espelhoX=!t.espelhoX;
+        }else{
+          t.y=(groupCenter.y-(absY-groupCenter.y))-canvasCenter.y;
+          t.espelhoY=!t.espelhoY;
+        }
+        mirroredLayers.push({id,transformacao:t});
+        item.transformacao=t;
+      });
+
+      groupMirrorState[axis]={
+        ids:selectedLayerIds.slice(),
+        original,
+        mirroredLayers,
+        mirrored:true,
+        center:groupCenter
+      };
+      character._groupMirrorState=groupMirrorState;
+    }
+  }else{
+    layer.transformacao=layer.transformacao||{x:0,y:0,escala:1,rotacao:0};
+    if(axis==='x') layer.transformacao.espelhoX=!layer.transformacao.espelhoX;
+    if(axis==='y') layer.transformacao.espelhoY=!layer.transformacao.espelhoY;
+  }
+
+  persistCharacter();saveHistory();renderLayers();renderCharacter();
+  requestAnimationFrame(updateSelectionOverlay);
+}
+function updateSelectionScaleDisplay(){
+  const el=document.getElementById('selectionScaleValue');
+  const layer=selectedCharacterLayer();
+  if(!el)return;
+  const scale=layer?Math.round((Number(layer.transformacao?.escala)||1)*100):100;
+  el.textContent=scale+'%';
+}
+
 function adjustSelectedLayerTransform(dx,dy,scaleDelta,rotationDelta){
   const layer=selectedCharacterLayer();
   if(!layer||layer.locked)return;
   layer.transformacao=layer.transformacao||{x:0,y:0,escala:1,rotacao:0};
   layer.transformacao.x=(Number(layer.transformacao.x)||0)+dx;
   layer.transformacao.y=(Number(layer.transformacao.y)||0)+dy;
-  layer.transformacao.escala=Math.max(.1,Math.min(5,(Number(layer.transformacao.escala)||1)+scaleDelta));
+
+  const currentScale=Math.max(.1,Number(layer.transformacao.escala)||1);
+  /* Os botões +/− usam uma variação proporcional. Isso evita que o
+     redimensionamento fique muito sensível em escalas pequenas e mantém
+     o centro do componente estável. */
+  if(scaleDelta){
+    const factor=scaleDelta>0?1.1:(1/1.1);
+    layer.transformacao.escala=Math.max(.1,Math.min(5,currentScale*factor));
+  }
+
   layer.transformacao.rotacao=((Number(layer.transformacao.rotacao)||0)+rotationDelta)%360;
   persistCharacter();saveHistory();renderLayers();renderCharacter();
+  requestAnimationFrame(updateSelectionOverlay);
+  updateSelectionScaleDisplay();
 }
 
 function resetSelectedLayerTransform(){
   const layer=selectedCharacterLayer();
   if(!layer||layer.locked)return;
-  layer.transformacao={x:0,y:0,escala:1,rotacao:0};
+  layer.transformacao={x:0,y:0,escala:1,rotacao:0,espelhoX:false,espelhoY:false};
   persistCharacter();saveHistory();renderLayers();renderCharacter();
+  updateSelectionScaleDisplay();
 }
 
 function clearCharacterSelection(){
   selectedVectorId=null;
   selectedLayerId=null;
+  selectedLayerIds=[];
+  multiSelectMode=false;
   selectionInteraction=null;
   currentTool='pencil';
+  const copyBar=$('selectionCopyPasteBar');
+  if(copyBar)copyBar.classList.remove('show');
+  const multiBar=$('multiSelectBar');
+  if(multiBar)multiBar.classList.remove('show');
+  const mirrorBar=$('selectionMirrorBar');
+  if(mirrorBar)mirrorBar.classList.remove('show');
+  const multiToggle=$('multiSelectToggle');
+  if(multiToggle)multiToggle.classList.remove('active');
   const panel=$('selectionTransformPanel');
   if(panel){
     panel.classList.remove('show');
@@ -3157,6 +3601,20 @@ function updateTransformPanel() {
   });
 }
 
+function toggleMultiSelectMode(){
+  if(currentTool!=='select')setDrawingTool('select');
+  multiSelectMode=!multiSelectMode;
+  if(multiSelectMode){
+    if(selectedLayerId&&!selectedLayerIds.includes(selectedLayerId))selectedLayerIds=[selectedLayerId];
+    selectionInteraction=null;
+  }else{
+    selectedLayerIds=selectedLayerId?[selectedLayerId]:[];
+  }
+  renderLayers();renderCharacter();renderSelectionControls();
+}
+
+function isLayerSelected(layerId){return selectedLayerIds.includes(layerId);}
+
 function renderSelectionControls(){
   const panel=$('selectionTransformPanel');
   if(!panel)return;
@@ -3167,6 +3625,15 @@ function renderSelectionControls(){
   panel.style.display=active?'flex':'none';
   if(title)title.textContent=layer ? 'SELECIONADO: '+(layer.label||layer.id) : 'TOQUE EM UM COMPONENTE';
   panel.querySelectorAll('button[data-transform]').forEach(btn=>btn.disabled=!layer||layer.locked);
+  const copyBar=$('selectionCopyPasteBar');
+  if(copyBar){ copyBar.classList.toggle('show', active && !!layer); }
+  const multiBar=$('multiSelectBar');
+  if(multiBar)multiBar.classList.toggle('show',active);
+  const multiToggle=$('multiSelectToggle');
+  if(multiToggle)multiToggle.classList.toggle('active',multiSelectMode);
+  const mirrorBar=$('selectionMirrorBar');
+  if(mirrorBar)mirrorBar.classList.toggle('show',active && !!layer);
+  updateSelectionScaleDisplay();
   updateSelectionOverlay();
 }
 
@@ -3409,14 +3876,42 @@ function tryVectorFill(p,layer){
   }
   return false;
 }
-function fillAt(p){
-  if(!canvas||!ctx||!character)return null;
+function fillAt(p,layer){
+  if(!canvas||!ctx||!character||!layer)return null;
   fillAt.lastError='';
+  fillAt.lastTouchedCanvasEdge=false;
   const dpr=canvasDpr||canvas.width/character.canvas.largura;
   const x=Math.floor(p.x*dpr),y=Math.floor(p.y*dpr);
   if(x<0||y<0||x>=canvas.width||y>=canvas.height)return null;
-  const image=ctx.getImageData(0,0,canvas.width,canvas.height);
-  const data=image.data,W=canvas.width,H=canvas.height,start=(y*W+x)*4;
+
+  /* O preenchimento rasterizado deve enxergar SOMENTE a camada selecionada.
+     Renderizar o Canvas inteiro fazia a área da cópia/original entrar no
+     cálculo e, quando havia transformação, o retângulo resultante era
+     transformado uma segunda vez, produzindo o quadrado deslocado observado. */
+  const fillCanvas=document.createElement('canvas');
+  fillCanvas.width=canvas.width;
+  fillCanvas.height=canvas.height;
+  const fillCtx=fillCanvas.getContext('2d',{willReadFrequently:true});
+  if(!fillCtx)return null;
+  fillCtx.setTransform(dpr,0,0,dpr,0,0);
+  fillCtx.clearRect(0,0,character.canvas.largura,character.canvas.altura);
+  const previousCtx=ctx;
+  try{
+    ctx=fillCtx;
+    const resource=getLayerResource(layer);
+    if(resource?.visible!==false && resource?.vector){
+      renderVectorResource(resource,character.canvas.largura,character.canvas.altura);
+    }
+    if(resource?.visible!==false)renderLayerPaths(layer);
+  }catch(err){
+    console.warn('Falha ao preparar preenchimento da camada.',err);
+    return null;
+  }finally{
+    ctx=previousCtx;
+  }
+
+  const image=fillCtx.getImageData(0,0,fillCanvas.width,fillCanvas.height);
+  const data=image.data,W=fillCanvas.width,H=fillCanvas.height,start=(y*W+x)*4;
   const target=[data[start],data[start+1],data[start+2],data[start+3]];
   const c=hexToRgba(fillColor||strokeColor||currentColor),replacement=[c.r,c.g,c.b,Math.round(Math.max(.05,Math.min(1,strokeOpacity))*255)];
   const tolerance=28;
@@ -3441,6 +3936,7 @@ function fillAt(p){
       stack.push([seed,row]);
     }
   };
+  let touchedCanvasEdge=false;
   while(stack.length){
     const [sx,sy]=stack.pop();
     if(sx<0||sx>=W||sy<0||sy>=H||!same((sy*W+sx)*4))continue;
@@ -3451,6 +3947,7 @@ function fillAt(p){
     changed+=runSize;
     if(changed>maxPixels){aborted=true;break;}
     runs.push({y:sy,left,right});
+    if(left===0||right===W-1||sy===0||sy===H-1)touchedCanvasEdge=true;
     if(left<minX)minX=left;if(right>maxX)maxX=right;if(sy<minY)minY=sy;if(sy>maxY)maxY=sy;
     for(let xi=left;xi<=right;xi++){
       const idx=(sy*W+xi)*4;
@@ -3460,11 +3957,16 @@ function fillAt(p){
     scanNeighbor(sy+1,left,right);
   }
   if(aborted){fillAt.lastError='Área grande demais para o preenchimento seguro neste dispositivo. Use uma área menor ou uma forma preenchida.';return null;}
+  /* Tocar a borda não é erro: em ilustrações, capas e desenhos livres,
+     o usuário pode querer preencher rapidamente todo o fundo. O preenchimento
+     continua respeitando exatamente a região encontrada pelo flood fill; não
+     transformamos a região em um retângulo opaco. */
   if(!runs.length)return null;
+  fillAt.lastTouchedCanvasEdge=touchedCanvasEdge;
   const width=maxX-minX+1,height=maxY-minY+1;
-  const fillCanvas=document.createElement('canvas');fillCanvas.width=width;fillCanvas.height=height;
-  const fillCtx=fillCanvas.getContext('2d');
-  const fillImage=fillCtx.createImageData(width,height);
+  const resultCanvas=document.createElement('canvas');resultCanvas.width=width;resultCanvas.height=height;
+  const resultCtx=resultCanvas.getContext('2d');
+  const fillImage=resultCtx.createImageData(width,height);
   for(const run of runs){
     const y2=run.y-minY;
     for(let px=run.left;px<=run.right;px++){
@@ -3472,8 +3974,8 @@ function fillAt(p){
       fillImage.data[di]=replacement[0];fillImage.data[di+1]=replacement[1];fillImage.data[di+2]=replacement[2];fillImage.data[di+3]=replacement[3];
     }
   }
-  fillCtx.putImageData(fillImage,0,0);
-  return {id:'fill_'+Date.now().toString(36)+'_'+Math.random().toString(36).slice(2,7),tipo:'image',dados:fillCanvas.toDataURL('image/png'),x:minX/dpr,y:minY/dpr,width:width/dpr,height:height/dpr,estilo:{opacidade:strokeOpacity},transformacao:{x:0,y:0,escala:1,rotacao:0}};
+  resultCtx.putImageData(fillImage,0,0);
+  return {id:'fill_'+Date.now().toString(36)+'_'+Math.random().toString(36).slice(2,7),tipo:'image',dados:resultCanvas.toDataURL('image/png'),x:minX/dpr,y:minY/dpr,width:width/dpr,height:height/dpr,estilo:{opacidade:strokeOpacity},transformacao:{x:0,y:0,escala:1,rotacao:0}};
 }
 
 /* ---------- Ferramentas / Painéis ---------- */
@@ -3537,7 +4039,7 @@ function renderCharacterAssemblyPanel(){
         <div class="assembly-resources">${available.length?available.map(r=>`<div class="assembly-resource"><span title="${escapeAttr(r.name||r.id)}">${escapeHtml(r.name||r.id)}</span><button onclick="useCharacterResource('${escapeJs(r.id)}','${escapeJs(slot.id)}')">Usar</button></div>`).join(''):'<div class="assembly-empty">Nenhum recurso disponível nessa categoria.</div>'}</div>
       </div>`;
     }).join('')}
-    <div class="tool-grid" style="margin-top:9px"><button onclick="closeToolPanel();openStudioPanel('component')">Criar recurso</button><button onclick="closeToolPanel();renderLayers();renderCharacter()">Atualizar</button></div>`;
+    <p style="font-size:9px;color:var(--muted);line-height:1.45;margin-top:9px">Para salvar uma base ou componente, use <strong>Criar recurso</strong> e escolha o tipo de recurso.</p><div class="tool-grid" style="margin-top:9px"><button onclick="closeToolPanel();openStudioPanel('component')">Criar recurso</button><button onclick="closeToolPanel();renderLayers();renderCharacter()">Atualizar</button></div>`;
 }
 
 function resourceLayerElement(resource){
@@ -3825,10 +4327,24 @@ function saveResource(type){
      compartilhar posição, escala ou rotação. */
   let elementos=[];
   if(selected && Array.isArray(selected.elementos)){
-    elementos=JSON.parse(JSON.stringify(selected.elementos));
+    /* No modo Seleção, quando um vetor específico foi atingido, o recurso
+       deve guardar somente esse elemento. Antes, salvar como componente
+       copiava a camada inteira e, quando havia fallback, até a tela inteira. */
+    if(type==='component' && selectedVectorId){
+      const alvo=selected.elementos.find(el=>el&&el.id===selectedVectorId);
+      if(alvo)elementos=[JSON.parse(JSON.stringify(alvo))];
+      else elementos=JSON.parse(JSON.stringify(selected.elementos));
+    }else{
+      elementos=JSON.parse(JSON.stringify(selected.elementos));
+    }
   }
   if(activeStroke && selected?.id===selectedLayerId){
-    elementos.push(JSON.parse(JSON.stringify(activeStroke)));
+    if(type==='component' && selectedVectorId && activeStroke.id!==selectedVectorId){
+      /* Mantém a seleção explícita: um traço temporário não entra no recurso
+         quando outro vetor foi selecionado. */
+    }else{
+      elementos.push(JSON.parse(JSON.stringify(activeStroke)));
+    }
   }
 
   const resource={
@@ -3843,7 +4359,12 @@ function saveResource(type){
     elementos,
     /* dataUrl permanece como fallback/preview para recursos antigos e
        bibliotecas que ainda dependam de imagem. */
-    dataUrl:canvas?.toDataURL ? canvas.toDataURL('image/png') : null,
+    /* Para componentes criados a partir de um vetor selecionado, não usamos
+       a imagem da tela como conteúdo principal: ela incluiria outros
+       elementos. O vetor salvo em `elementos` passa a ser a fonte visual. */
+    dataUrl:(type==='component' && selectedVectorId && elementos.length)
+      ? null
+      : (canvas?.toDataURL ? canvas.toDataURL('image/png') : null),
     visible:true,
     origem:'usuario',
     proprietario:'usuario',
@@ -3855,7 +4376,13 @@ function saveResource(type){
   };
 
   resources.push(resource);
-  writeJSON(RESOURCE_KEY,resources);
+  const saved=writeJSON(RESOURCE_KEY,resources);
+  if(!saved)return null;
+
+  /* Confirma que o recurso realmente chegou ao armazenamento antes de
+     permitir que a montagem passe a apontar para ele. */
+  const verify=readJSON(RESOURCE_KEY,[]).find(r=>r&&r.id===id);
+  if(!verify)return null;
   return id;
 }
 function getPaletteSnapshot(){
@@ -3979,6 +4506,20 @@ function loadSavedAnimation(id){
   return true;
 }
 
+function prepareSaveBase(){
+  if(!character)return;
+  const baseLayer=character.camadas?.find(layer=>layer.kind==='base'||layer.category==='base');
+  if(!baseLayer){
+    showToast('Crie ou selecione uma base antes de salvar.');
+    return;
+  }
+  closeToolPanel();
+  openStudioPanel('component');
+  const input=$('componentName');
+  if(input && !input.value.trim()) input.value=baseLayer.label&&baseLayer.label!=='Nova base'?baseLayer.label:'Minha base';
+  showToast('Defina o nome e toque em “Salvar como base”.');
+}
+
 function saveBase(){
   if(!character)return;
 
@@ -3986,6 +4527,10 @@ function saveBase(){
   if($('componentName'))$('componentName').value=n;
 
   const id=saveResource('base');
+  if(!id){
+    showToast('A base não foi salva na Biblioteca.');
+    return;
+  }
   character.baseId=id;
   character.estrutura=character.estrutura||{};
   character.estrutura.baseId=id;
@@ -3993,6 +4538,7 @@ function saveBase(){
   const oldBase=character.camadas?.find(layer=>layer.kind==='base');
   if(oldBase){
     oldBase.id=id;
+    oldBase.resourceId=id;
     oldBase.label=n;
     oldBase.elementos=oldBase.elementos||[];
     selectedLayerId=oldBase.id;
@@ -4015,6 +4561,9 @@ function saveBase(){
   renderCharacter();
   renderCode();
   closeToolPanel();
+  /* Confirmação visível também no status do editor, além do toast. */
+  setRenderStatus('BASE SALVA NA BIBLIOTECA: '+n);
+  requestAnimationFrame(()=>showToast('Base salva na Biblioteca: '+n));
 }
 
 function saveComponent(){
@@ -4036,6 +4585,10 @@ function saveComponent(){
   }
 
   const id=saveResource('component');
+  if(!id){
+    showToast('O componente não foi salvo na Biblioteca.');
+    return;
+  }
 
   character.componentes=character.componentes||{};
   if(slot.multiple){
@@ -4047,6 +4600,7 @@ function saveComponent(){
 
   character.camadas=character.camadas||[];
   if(!slot.multiple)character.camadas=character.camadas.filter(layer=>layer.category!==category);
+  const savedResource=findLibraryResource(id);
   character.camadas.push({
     id,
     resourceId:id,
@@ -4056,7 +4610,10 @@ function saveComponent(){
     visible:true,
     locked:false,
     transformacao:{x:0,y:0,escala:1,rotacao:0},
-    elementos:[]
+    /* A instância recebe uma cópia dos elementos do recurso.
+       O recurso continua independente na Biblioteca, mas a composição
+       passa a ter conteúdo visual real para o Canvas renderizar. */
+    elementos:resourceLayerElement(savedResource)
   });
   selectedLayerId=id;
 
@@ -4065,6 +4622,8 @@ function saveComponent(){
   renderCharacter();
   renderCode();
   closeToolPanel();
+  setRenderStatus('COMPONENTE SALVO NA BIBLIOTECA: '+name);
+  requestAnimationFrame(()=>showToast('Componente salvo na Biblioteca: '+name));
 }
 
 /* ---------- Salvar o personagem ---------- */
@@ -4175,7 +4734,7 @@ let toastTimer=null;
 function showToast(message){
   const toast=$('toast');if(!toast)return;
   toast.textContent=message;toast.classList.add('show');
-  clearTimeout(toastTimer);toastTimer=setTimeout(()=>toast.classList.remove('show'),3200);
+  clearTimeout(toastTimer);toastTimer=setTimeout(()=>toast.classList.remove('show'),4500);
 }
 
 function openExportMenu(){
@@ -4407,7 +4966,9 @@ function renderBasePicker(query=''){
   if(!box)return;
 
   const q=String(query||'').trim().toLowerCase();
-  const bases=getLibraryResources().filter(r=>r.type==='base');
+  const bases=getLibraryResources()
+    .filter(r=>String(r.type||'').toLowerCase()==='base')
+    .sort((a,b)=>String(b.criadoEm||'').localeCompare(String(a.criadoEm||'')));
   const filtered=bases.filter(r=>
     !q||String(r.id).toLowerCase().includes(q)||String(r.name||'').toLowerCase().includes(q)
   );
@@ -4606,6 +5167,22 @@ function createLayer(){
   persistCharacter();saveHistory();renderLayers();renderCharacter();
 }
 
+function deleteSelectedComponentInstance(){
+  const layer=findLayer(selectedLayerId);
+  if(!layer){showToast('Selecione um componente primeiro.');return;}
+  if(layer.locked){showToast('Desbloqueie o componente antes de excluí-lo.');return;}
+  if(!confirm('Excluir o componente “'+(layer.label||layer.id)+'” deste personagem?'))return;
+  const index=character.camadas.findIndex(l=>l.id===layer.id);
+  if(index<0)return;
+  /* Remove somente a instância da composição. O recurso original da Biblioteca permanece intacto. */
+  character.camadas.splice(index,1);
+  selectedLayerId=character.camadas[Math.max(0,index-1)]?.id||character.camadas[0]?.id||null;
+  selectedVectorId=null;
+  selectionInteraction=null;
+  persistCharacter();saveHistory();renderLayers();renderCharacter();renderSelectionControls();updateTransformPanel();updateSelectionOverlay();
+  showToast('Componente excluído do personagem.');
+}
+
 function deleteSelectedLayer(){
   const layer=findLayer(selectedLayerId);if(!layer)return;
   if(layer.locked){showToast('Desbloqueie a camada antes de excluí-la.');return;}
@@ -4768,7 +5345,7 @@ function renderCharacter(options={}){
     ctx.save();
     try{
       applyLayerTransform(layer);
-      if(resource?.visible!==false && resource?.vector)renderVectorResource(resource,character.canvas.largura,character.canvas.altura);
+      if(resource?.visible!==false && resource?.vector && !layer._resourceSuppressedForEditing)renderVectorResource(resource,character.canvas.largura,character.canvas.altura);
       if(resource?.visible!==false)renderLayerPaths(layer);
     }catch(err){console.warn('Falha ao renderizar camada',layer?.id,err)}
     finally{ctx.restore();}
@@ -5262,6 +5839,7 @@ function selectLayer(id){
   const layer=findLayer(id);
   if(!layer)return;
   selectedLayerId=id;
+  selectedLayerIds=[id];
   selectedVectorId=null;
   renderLayers();
   renderCharacter();
@@ -5291,26 +5869,90 @@ function toggleLayerVisibility(id){
 
 function moveSelectedLayer(direction){
   if(!character||!Array.isArray(character.camadas))return;
-  const index=character.camadas.findIndex(l=>l.id===selectedLayerId);
+  const layers=character.camadas;
+  const index=layers.findIndex(l=>l.id===selectedLayerId);
   if(index<0)return;
-  const target=index+(direction>0?1:-1);
-  if(target<0||target>=character.camadas.length){
+  const layer=layers[index];
+  if(layer.locked){showToast('Desbloqueie a camada antes de reordenar.');return;}
+
+  // A ordem interna é do fundo para a frente. A base permanece sempre no fundo.
+  // Para evitar travamentos por índices/recursos filtrados, procuramos diretamente
+  // a camada vizinha válida e fazemos uma troca simples de posições.
+  const isBase=l=>l && (l.kind==='base' || String(l.category||'').toLowerCase()==='base');
+  const step=direction>0?1:-1;
+  let target=index+step;
+
+  while(target>=0 && target<layers.length && isBase(layers[target])){
+    target+=step;
+  }
+
+  if(target<0 || target>=layers.length){
     showToast(direction>0?'A camada já está na frente.':'A camada já está atrás.');
     return;
   }
-  const layer=character.camadas[index];
-  if(layer.locked){showToast('Desbloqueie a camada antes de reordenar.');return;}
-  const other=character.camadas[target];
-  if(other?.locked){showToast('A camada de destino está bloqueada.');return;}
-  character.camadas.splice(index,1);
-  character.camadas.splice(target,0,layer);
+
+  // Nunca colocamos um componente atrás da base.
+  if(step<0 && isBase(layers[target])){
+    showToast('A camada já está atrás.');
+    return;
+  }
+
+  const other=layers[target];
+  if(!other){return;}
+
+  // Troca direta: cada clique representa exatamente um passo visual.
+  layers[index]=other;
+  layers[target]=layer;
   selectedLayerId=layer.id;
   selectedVectorId=null;
+
   persistCharacter();
   saveHistory();
   renderLayers();
   renderCharacter();
+  updateTransformPanel();
+  updateSelectionOverlay();
   showToast(direction>0?'Camada trazida para frente.':'Camada enviada para trás.');
+}
+
+function copySelectedLayer(){
+  const layer=findLayer(selectedLayerId);
+  if(!layer){showToast('Selecione um componente primeiro.');return;}
+  characterLayerClipboard=JSON.parse(JSON.stringify(layer));
+  showToast('Componente copiado.');
+}
+
+function pasteSelectedLayer(){
+  if(!characterLayerClipboard){showToast('Nenhum componente copiado.');return;}
+  if(!character||!Array.isArray(character.camadas))return;
+  const source=JSON.parse(JSON.stringify(characterLayerClipboard));
+  const copy=source;
+  copy.id='layer_'+Date.now().toString(36)+'_'+Math.random().toString(36).slice(2,7);
+  copy.label=(source.label||'Camada')+' cópia';
+  copy.locked=false;
+  copy.visible=true;
+  copy.transformacao=copy.transformacao||{x:0,y:0,escala:1,rotacao:0};
+  copy.transformacao={
+    x:Number(copy.transformacao.x||0)+20,
+    y:Number(copy.transformacao.y||0)+20,
+    escala:Number(copy.transformacao.escala??1)||1,
+    rotacao:Number(copy.transformacao.rotacao??0)||0
+  };
+  copy.elementos=Array.isArray(source.elementos)?JSON.parse(JSON.stringify(source.elementos)):[];
+  const index=character.camadas.findIndex(l=>l.id===selectedLayerId);
+  const insertAt=index>=0?index+1:character.camadas.length;
+  character.camadas.splice(insertAt,0,copy);
+  selectedLayerId=copy.id;
+  selectedVectorId=null;
+  selectionInteraction=null;
+  saveHistory();
+  persistCharacter();
+  renderLayers();
+  renderCharacter();
+  renderSelectionControls();
+  updateTransformPanel();
+  updateSelectionOverlay();
+  showToast('Componente colado.');
 }
 
 function duplicateSelectedLayer(){
@@ -5346,10 +5988,11 @@ function duplicateSelectedLayer(){
 function applyLayerTransform(layer){
   const t=layer?.transformacao||layer?.transform||{};
   const x=Number(t.x)||0, y=Number(t.y)||0, scale=Number(t.escala??t.scale)||1, rotation=Number(t.rotacao??t.rotation)||0;
+  const sx=t.espelhoX?-1:1, sy=t.espelhoY?-1:1;
   if(x||y)ctx.translate(x,y);
-  if(scale!==1||rotation){
+  if(scale!==1||rotation||sx!==1||sy!==1){
     const cx=character.canvas.largura/2,cy=character.canvas.altura/2;
-    ctx.translate(cx,cy);ctx.rotate(rotation*Math.PI/180);ctx.scale(scale,scale);ctx.translate(-cx,-cy);
+    ctx.translate(cx,cy);ctx.rotate(rotation*Math.PI/180);ctx.scale(scale*sx,scale*sy);ctx.translate(-cx,-cy);
   }
 }
 
