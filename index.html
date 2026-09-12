@@ -590,6 +590,8 @@ header{height:68px;padding:0 12px}
           <button class="layers-assembly-button" onclick="openStudioPanel('character')" aria-label="Montar personagem">Montar</button>
         </div>
         <div class="layer-actions">
+          <button id="illustrationCharacterBtn" onclick="addIllustrationCharacterElement()" style="display:none">+ Personagem</button>
+          <button id="illustrationObjectBtn" onclick="addIllustrationObjectElement()" style="display:none">+ Objeto</button>
           <button onclick="createLayer()">+ Nova</button>
           <button onclick="renameSelectedLayer()">Renomear</button>
           <button onclick="duplicateSelectedLayer()">Duplicar</button>
@@ -1201,6 +1203,10 @@ function showScreen(id){
     if(title)title.textContent=isIllustration?'Estrutura da ilustração':isCover?'Estrutura da capa':'Estrutura do personagem';
     const desc=document.querySelector('.code-card p');
     if(desc)desc.textContent=isIllustration?'A ilustração mantém uma composição livre formada por referências, recursos e elementos desenhados.':isCover?'A capa mantém uma composição editorial formada por textos, referências, imagens e elementos desenhados.':'O personagem mantém somente referências. O motor consulta a Biblioteca Global para montar a composição.';
+    const illustrationCharacterBtn=document.getElementById('illustrationCharacterBtn');
+    if(illustrationCharacterBtn)illustrationCharacterBtn.style.display=isIllustration?'':'none';
+    const illustrationObjectBtn=document.getElementById('illustrationObjectBtn');
+    if(illustrationObjectBtn)illustrationObjectBtn.style.display=isIllustration?'':'none';
     const layersLabel=document.querySelector('.layers-head strong');
     if(layersLabel)layersLabel.textContent=(isIllustration||isCover)?'ELEMENTOS':'CAMADAS';
   }
@@ -1239,7 +1245,7 @@ let libraryLibraryFilter='';
 let librarySort='recentes';
 let libraryView='grid';
 let libraryResourceFilter='all';
-function libraryResourceTypeLabel(type){return ({color:'Cor',base:'Base',component:'Componente',image:'Imagem',drawing:'Desenho',animation:'Animação'})[type]||type||'Recurso';}
+function libraryResourceTypeLabel(type){return ({color:'Cor',base:'Base',component:'Componente',object:'Objeto',image:'Imagem',drawing:'Desenho',animation:'Animação'})[type]||type||'Recurso';}
 function libraryRenderResources(filter='all'){
   libraryResourceFilter=filter||'all';
   const box=$('libraryResourceList');
@@ -2209,6 +2215,11 @@ function animationStop(){
     }
   }
 }
+function generateResourceId(type='resource'){
+  const prefix=String(type||'resource').toLowerCase().replace(/[^a-z0-9_-]/g,'_');
+  return 'res_'+prefix+'_'+Date.now().toString(36)+'_'+Math.random().toString(36).slice(2,8);
+}
+
 function createIllustration(){
   const name=$('illustrationName')?.value.trim();
   if(!name){$('illustrationName')?.focus();if($('illustrationNameError'))$('illustrationNameError').textContent='Informe o nome da ilustração.';return;}
@@ -2216,14 +2227,19 @@ function createIllustration(){
   let width=800,height=600;
   if(preset==='custom'){width=parseInt($('illustrationWidth')?.value,10)||0;height=parseInt($('illustrationHeight')?.value,10)||0;if(width<1||height<1){alert('Informe uma largura e uma altura válidas.');return;}}
   else {const parts=preset.split('x');width=parseInt(parts[0],10)||800;height=parseInt(parts[1],10)||600;}
-  character={id:'ilus_'+Date.now(),nome:name,projeto:$('illustrationProject')?.value||'projeto_demo',biblioteca:$('illustrationLibrary')?.value||'biblioteca_ilustracoes',canvas:{largura:width,altura:height,fundo:'#FFFFFF'},tipo:'ilustracao',criacao:DreamStudioCreationEngine.createContext('ilustracao'),estrutura:{composicao:'livre',recursosIndependentes:true,elementos:['personagem','objeto','cenario','desenho','imagem','referencia']},componentes:{},camadas:[]};
+  character={id:'ilus_'+Date.now(),resourceId:generateResourceId('ilustracao'),nome:name,projeto:$('illustrationProject')?.value||'projeto_demo',biblioteca:$('illustrationLibrary')?.value||'biblioteca_ilustracoes',canvas:{largura:width,altura:height,fundo:'#FFFFFF'},tipo:'ilustracao',criacao:DreamStudioCreationEngine.createContext('ilustracao'),estrutura:{composicao:'livre',recursosIndependentes:true,elementos:['personagem','objeto','cenario','desenho','imagem','referencia']},componentes:{},camadas:[]};
   DreamStudioStore.setPersonagem(character);persistCharacter();selectedLayerId=null;selectedVectorId=null;undoStack=[];redoStack=[];
   $('characterNameTitle').textContent=character.nome;$('characterLibraryTitle').textContent='BIBLIOTECA: '+character.biblioteca;
   closeIllustrationSetup();telaAtiva='editor';showScreen('characterScreen');initCanvas();renderLayers();renderCharacter();renderCode();
   showToast('Ilustração criada.');
 }
 function normalizeIllustrationModel(item){
-  if(!item)return item;item.tipo='ilustracao';item.criacao=item.criacao||DreamStudioCreationEngine.createContext('ilustracao');item.criacao.modo='ilustracao';item.estrutura=item.estrutura||{composicao:'livre',recursosIndependentes:true,elementos:['personagem','objeto','cenario','desenho','imagem','referencia']};item.estrutura.composicao='livre';item.estrutura.recursosIndependentes=true;if(!Array.isArray(item.camadas))item.camadas=[];item.camadas.forEach(layer=>{if(!layer.resourceId)layer.resourceId=layer.recursoId||layer.id;if(!layer.transformacao)layer.transformacao={x:0,y:0,escala:1,rotacao:0};if(!Array.isArray(layer.elementos))layer.elementos=[];if(layer.visible===undefined)layer.visible=true;if(layer.locked===undefined)layer.locked=false;});return item;}
+  if(!item)return item;
+  /* Ilustrações são recursos independentes: o id interno identifica a entidade
+     local, enquanto resourceId é sua identidade canônica para reutilização.
+     Recursos antigos recebem uma identidade estável derivada do id existente. */
+  if(!item.resourceId)item.resourceId='res_ilustracao_'+String(item.id||Date.now());
+  item.tipo='ilustracao';item.criacao=item.criacao||DreamStudioCreationEngine.createContext('ilustracao');item.criacao.modo='ilustracao';item.estrutura=item.estrutura||{composicao:'livre',recursosIndependentes:true,elementos:['personagem','objeto','cenario','desenho','imagem','referencia']};item.estrutura.composicao='livre';item.estrutura.recursosIndependentes=true;if(!Array.isArray(item.camadas))item.camadas=[];item.camadas.forEach(layer=>{if(!layer.resourceId)layer.resourceId=layer.recursoId||layer.id;if(!layer.transformacao)layer.transformacao={x:0,y:0,escala:1,rotacao:0};if(!Array.isArray(layer.elementos))layer.elementos=[];if(layer.visible===undefined)layer.visible=true;if(layer.locked===undefined)layer.locked=false;});return item;}
 function getCurrentStorageKey(){
   if(character?.tipo==='ilustracao')return ILLUSTRATION_KEY;
   if(character?.tipo==='capa')return COVER_KEY;
@@ -2484,7 +2500,7 @@ function closeLayers(){$('layersPanel')?.classList.remove('open')}
 
 /* ---------- Histórico do Canvas ---------- */
 function captureEditorState(){
-  return JSON.stringify({camadas:character?.camadas||[],selectedLayerId,selectedVectorId});
+  return JSON.stringify({camadas:character?.camadas||[],selectedLayerId,selectedLayerIds:Array.isArray(selectedLayerIds)?selectedLayerIds:[],multiSelectMode:!!multiSelectMode,selectedVectorId});
 }
 
 function saveHistory(){
@@ -2510,11 +2526,26 @@ function restoreEditorState(snapshot){
     const data=JSON.parse(snapshot);
     character.camadas=data.camadas||[];
     selectedLayerId=data.selectedLayerId||null;
+    selectedLayerIds=Array.isArray(data.selectedLayerIds)
+      ? data.selectedLayerIds.filter(Boolean) : (selectedLayerId?[selectedLayerId]:[]);
+    multiSelectMode=!!data.multiSelectMode;
     selectedVectorId=data.selectedVectorId||null;
+
+    if(selectedLayerId && !character.camadas.some(layer=>layer?.id===selectedLayerId)){
+      selectedLayerId=selectedLayerIds.find(id=>character.camadas.some(layer=>layer?.id===id))
+        ||character.camadas[0]?.id||null;
+    }
+    if(selectedLayerId && !selectedLayerIds.includes(selectedLayerId) && !multiSelectMode){
+      selectedLayerIds=[selectedLayerId];
+    }
+
     ensureDrawingLayer();
     persistCharacter();
     renderLayers();
     renderCharacter();
+    renderSelectionControls();
+    updateTransformPanel();
+    updateSelectionOverlay();
   }catch(error){console.warn('Estado inválido no histórico',error)}
 }
 
@@ -3426,9 +3457,93 @@ function getTextElementBounds(element){
 
 function hitTestCharacterLayer(point){
   const layers=[...(character?.camadas||[])].reverse();
+
   for(const layer of layers){
-    if(!layer.visible||layer.locked)continue;
+    if(!layer||layer.visible===false||layer.locked)continue;
+
     const localPoint=inverseLayerPoint(point,layer);
+
+    /* Ilustração: um Personagem é uma instância composta.
+       A camada não guarda os vetores do personagem; ela aponta para
+       characterId. Por isso a seleção precisa reconhecer a área da
+       própria instância, sem transformar o personagem em uma cópia
+       de seus vetores. */
+    if(character?.tipo==='ilustracao' && layer.kind==='character' && layer.characterId){
+      const savedCharacters=readJSON(CHARACTER_KEY,[]);
+      const savedCharacter=savedCharacters.find(c=>c && c.id===layer.characterId);
+
+      if(savedCharacter){
+        /* A composição do personagem ocupa o mesmo sistema de coordenadas
+           do canvas usado para renderizá-la. Calculamos seus limites a
+           partir das camadas reais; se uma versão antiga não tiver camadas
+           materializadas, buildInitialLayers reconstrói as referências. */
+        const storedLayers=Array.isArray(savedCharacter.camadas)
+          ? savedCharacter.camadas.filter(Boolean) : [];
+        const hasUsefulLayers=storedLayers.some(l=>l && l.visible!==false &&
+          ((l.resourceId||l.recursoId) ||
+           (Array.isArray(l.elementos)&&l.elementos.length)));
+        const characterLayers=hasUsefulLayers
+          ? storedLayers
+          : buildInitialLayers(savedCharacter);
+
+        const W=Number(character?.canvas?.largura)||500;
+        const H=Number(character?.canvas?.altura)||500;
+        let minX=W/2-80,maxX=W/2+80,minY=H/2-80,maxY=H/2+80;
+        let found=false;
+
+        characterLayers.forEach(cl=>{
+          if(!cl||cl.visible===false)return;
+          const resource=getLayerResource(cl);
+          const els=Array.isArray(cl.elementos)?cl.elementos:[];
+          let b=resource?.vector ? getResourceLocalBounds(resource) : null;
+
+          els.forEach(el=>{
+            if(el?.tipo==='text'){
+              const eb=getTextElementBounds(el);
+              if(eb)b=b?{
+                minX:Math.min(b.minX,eb.minX),maxX:Math.max(b.maxX,eb.maxX),
+                minY:Math.min(b.minY,eb.minY),maxY:Math.max(b.maxY,eb.maxY)
+              }:eb;
+            }else{
+              const pts=el?._pontos||parseSvgPathPoints(el?.dados);
+              if(Array.isArray(pts)&&pts.length){
+                const eb={
+                  minX:Math.min(...pts.map(p=>p.x)),maxX:Math.max(...pts.map(p=>p.x)),
+                  minY:Math.min(...pts.map(p=>p.y)),maxY:Math.max(...pts.map(p=>p.y))
+                };
+                b=b?{
+                  minX:Math.min(b.minX,eb.minX),maxX:Math.max(b.maxX,eb.maxX),
+                  minY:Math.min(b.minY,eb.minY),maxY:Math.max(b.maxY,eb.maxY)
+                }:eb;
+              }
+            }
+          });
+
+          if(b){
+            if(!found){
+              minX=b.minX;maxX=b.maxX;minY=b.minY;maxY=b.maxY;found=true;
+            }else{
+              minX=Math.min(minX,b.minX);maxX=Math.max(maxX,b.maxX);
+              minY=Math.min(minY,b.minY);maxY=Math.max(maxY,b.maxY);
+            }
+          }
+        });
+
+        if(pointInBounds(localPoint,{minX,maxX,minY,maxY},10))return layer.id;
+      }else{
+        /* Personagem removido da biblioteca: não selecionamos uma instância
+           órfã como se fosse uma camada de desenho. */
+        continue;
+      }
+    }
+
+    if(character?.tipo==='ilustracao' && layer.kind==='object' && layer.resourceId){
+      const resource=findLibraryResource(layer.resourceId);
+      const bounds=resource?getResourceLocalBounds(resource):null;
+      if(bounds&&pointInBounds(localPoint,bounds,10))return layer.id;
+      continue;
+    }
+
     const elements=Array.isArray(layer.elementos)?layer.elementos:[];
     for(let i=elements.length-1;i>=0;i--){
       const element=elements[i];
@@ -3439,6 +3554,7 @@ function hitTestCharacterLayer(point){
         return layer.id;
       }
     }
+
     const resource=getLayerResource(layer);
     if(resource?.vector&&pointInBounds(localPoint,getResourceLocalBounds(resource),8))return layer.id;
   }
@@ -4199,7 +4315,8 @@ function renderToolPanel(name){
         <button onclick="setDrawingTool('ellipse')">Elipse</button>
         <button onclick="activateSelectionMode()">Seleção</button>
       </div>
-      <div style="font-size:9px;color:var(--muted);line-height:1.45;margin-top:8px">Para escolher tipo, tamanho e opacidade do traço, use o painel <strong>Traços</strong>.</div>`;
+      <div style="font-size:9px;color:var(--muted);line-height:1.45;margin-top:8px">Para escolher tipo, tamanho e opacidade do traço, use o painel <strong>Traços</strong>.</div>
+      ${character?.tipo==='ilustracao'?`<div style="margin-top:10px;border-top:1px solid var(--line);padding-top:10px"><button onclick="openStudioPanel('component')" style="width:100%">💾 Salvar como objeto</button><div style="font-size:9px;color:var(--muted);line-height:1.4;margin-top:6px">Salva a camada selecionada como um objeto independente na Biblioteca.</div></div>`:''}`;
   }else if(name==='style'){
     p.innerHTML=`
       <div class="panel-title">TRAÇOS <button class="close-panel" onclick="closeToolPanel()">×</button></div>
@@ -4251,7 +4368,13 @@ function renderToolPanel(name){
         <button onclick="clearCanvas()">Limpar</button>
       </div>`;
   }else if(name==='component'){
-    p.innerHTML=`
+    const isIllustration=character?.tipo==='ilustracao';
+    p.innerHTML=isIllustration?`
+      <div class="panel-title">SALVAR OBJETO <button class="close-panel" onclick="closeToolPanel()">×</button></div>
+      <div class="form-group"><label>Nome</label><input id="componentName" class="name-input" placeholder="Ex.: espada antiga"></div>
+      <div class="form-group"><label>Categoria <small>(opcional)</small></label><input id="componentCategory" class="name-input" placeholder="Ex.: arma, móvel, natureza"></div>
+      <p style="font-size:9px;color:var(--muted);line-height:1.45;margin:8px 0">O objeto será salvo como um recurso independente na Biblioteca. Sua posição, escala e rotação pertencem apenas à instância usada na ilustração.</p>
+      <div class="tool-grid"><button onclick="saveObject()">Salvar objeto</button></div>`:`
       <div class="panel-title">SALVAR RECURSO <button class="close-panel" onclick="closeToolPanel()">×</button></div>
       <div class="form-group"><label>Nome</label><input id="componentName" class="name-input" placeholder="Ex.: cabelo longo"></div>
       <div class="form-group"><label>Categoria</label><input id="componentCategory" class="name-input" list="characterComponentCategories" placeholder="Ex.: cabelo"><datalist id="characterComponentCategories">${getCharacterSlotDefinitions().filter(slot=>slot.id!=='base').map(slot=>`<option value="${slot.id}">${slot.label}</option>`).join('')}</datalist></div>
@@ -4392,11 +4515,13 @@ function saveResource(type){
 
   const resource={
     id,
+    resourceId:id,
     type,
+    tipo:type==='object'?'objeto':type,
     name:$('componentName')?.value.trim()||type,
     category:character?.tipo==='personagem' && type==='component'
       ? normalizeCharacterCategory($('componentCategory')?.value.trim())
-      : ($('componentCategory')?.value.trim()||type),
+      : ($('componentCategory')?.value.trim()||(type==='object'?'objeto':type)),
     project:character?.projeto||'',
     library:character?.biblioteca||'',
     elementos,
@@ -4607,6 +4732,49 @@ function saveBase(){
   /* Confirmação visível também no status do editor, além do toast. */
   setRenderStatus('BASE SALVA NA BIBLIOTECA: '+n);
   requestAnimationFrame(()=>showToast('Base salva na Biblioteca: '+n));
+}
+
+function saveObject(){
+  if(character?.tipo!=='ilustracao'){
+    showToast('Objetos podem ser criados a partir de uma Ilustração.');
+    return null;
+  }
+
+  const name=$('componentName')?.value.trim();
+  const selected=findLayer(selectedLayerId);
+  if(!name){
+    showToast('Informe o nome do objeto.');
+    $('componentName')?.focus();
+    return null;
+  }
+  if(!selected){
+    showToast('Selecione a camada que contém o objeto antes de salvar.');
+    return null;
+  }
+  if(isIllustrationCharacterInstance(selected)){
+    showToast('Um personagem não pode ser salvo como objeto.');
+    return null;
+  }
+
+  const elementos=Array.isArray(selected.elementos)?selected.elementos.filter(Boolean):[];
+  if(!elementos.length && !(activeStroke&&selected.id===selectedLayerId)){
+    showToast('A camada selecionada não contém elementos para salvar como objeto.');
+    return null;
+  }
+
+  const id=saveResource('object');
+  if(!id){
+    showToast('O objeto não foi salvo na Biblioteca.');
+    return null;
+  }
+
+  closeToolPanel();
+  renderLayers();
+  renderCharacter();
+  renderCode();
+  setRenderStatus('OBJETO SALVO NA BIBLIOTECA: '+name);
+  requestAnimationFrame(()=>showToast('Objeto salvo na Biblioteca: '+name));
+  return id;
 }
 
 function saveComponent(){
@@ -5171,6 +5339,137 @@ function getCharacter(){
   return DreamStudioStore.getPersonagem();
 }
 
+
+function addIllustrationCharacterElement(){
+  if(!character || character.tipo!=='ilustracao'){
+    showToast('Abra uma ilustração para adicionar um personagem.');
+    return;
+  }
+
+  const characters=readJSON(CHARACTER_KEY,[]).filter(c=>c && c.tipo!=='ilustracao' && c.tipo!=='capa' && c.tipo!=='animacao');
+  if(!characters.length){
+    showToast('Nenhum personagem salvo disponível.');
+    return;
+  }
+
+  const options=characters.map((c,i)=>{
+    const nome=c.nome||c.name||('Personagem '+(i+1));
+    return `${i+1}. ${nome}`;
+  }).join('\n');
+
+  const answer=prompt('Escolha o personagem pelo número:\n\n'+options);
+  if(answer===null)return;
+
+  const index=Number(answer)-1;
+  if(!Number.isInteger(index)||!characters[index]){
+    showToast('Personagem inválido.');
+    return;
+  }
+
+  const selected=characters[index];
+  const characterId=selected.id;
+  if(!characterId){
+    showToast('Este personagem não possui identificador.');
+    return;
+  }
+
+  character.camadas=Array.isArray(character.camadas)?character.camadas:[];
+  const element={
+    id:'el_'+Date.now().toString(36)+'_'+Math.random().toString(36).slice(2,7),
+    usageId:'usage_'+Date.now().toString(36)+'_'+Math.random().toString(36).slice(2,6),
+    characterId,
+    tipo:'personagem',
+    kind:'character',
+    category:'elemento',
+    label:selected.nome||selected.name||'Personagem',
+    visible:true,
+    locked:false,
+    transformacao:{x:0,y:0,escala:1,rotacao:0},
+    elementos:[]
+  };
+
+  character.camadas.push(element);
+  selectedLayerId=element.id;
+  selectedLayerIds=[element.id];
+  selectedVectorId=null;
+  persistCharacter();
+  saveHistory();
+  renderLayers();
+  renderCharacter();
+  renderCode();
+  updateTransformPanel();
+  updateSelectionOverlay();
+  showToast('Personagem adicionado à ilustração.');
+}
+
+
+function isIllustrationObjectInstance(layer){
+  return !!(character?.tipo==='ilustracao' && layer && layer.kind==='object' && layer.tipo==='objeto' && layer.resourceId);
+}
+
+function addIllustrationObjectElement(){
+  if(!character || character.tipo!=='ilustracao'){
+    showToast('Abra uma ilustração para adicionar um objeto.');
+    return;
+  }
+
+  const objects=getLibraryResources().filter(r=>r && (r.type==='object'||r.tipo==='objeto'));
+  if(!objects.length){
+    showToast('Nenhum objeto salvo disponível na Biblioteca.');
+    return;
+  }
+
+  const options=objects.map((r,i)=>{
+    const nome=r.name||r.nome||('Objeto '+(i+1));
+    const categoria=r.category?` · ${r.category}`:'';
+    return `${i+1}. ${nome}${categoria}`;
+  }).join('\n');
+
+  const answer=prompt('Escolha o objeto pelo número:\n\n'+options);
+  if(answer===null)return;
+
+  const index=Number(answer)-1;
+  if(!Number.isInteger(index)||!objects[index]){
+    showToast('Objeto inválido.');
+    return;
+  }
+
+  const selected=objects[index];
+  const resourceId=selected.resourceId||selected.id;
+  if(!resourceId){
+    showToast('Este objeto não possui identificador.');
+    return;
+  }
+
+  character.camadas=Array.isArray(character.camadas)?character.camadas:[];
+  const element={
+    id:'el_'+Date.now().toString(36)+'_'+Math.random().toString(36).slice(2,7),
+    usageId:'usage_'+Date.now().toString(36)+'_'+Math.random().toString(36).slice(2,7),
+    resourceId,
+    tipo:'objeto',
+    kind:'object',
+    category:'elemento',
+    label:selected.name||selected.nome||'Objeto',
+    visible:true,
+    locked:false,
+    transformacao:{x:0,y:0,escala:1,rotacao:0},
+    elementos:[]
+  };
+
+  character.camadas.push(element);
+  selectedLayerId=element.id;
+  selectedLayerIds=[element.id];
+  selectedVectorId=null;
+  persistCharacter();
+  saveHistory();
+  renderLayers();
+  renderCharacter();
+  renderCode();
+  updateTransformPanel();
+  updateSelectionOverlay();
+  showToast('Objeto adicionado à ilustração.');
+}
+
 function createLayer(){
   if(!character)return;
   if(character.tipo==='ilustracao'||character.tipo==='capa'){
@@ -5187,30 +5486,57 @@ function createLayer(){
   persistCharacter();saveHistory();renderLayers();renderCharacter();
 }
 
+function isIllustrationCharacterInstance(layer){
+  return !!(character?.tipo==='ilustracao' && layer && layer.kind==='character' && layer.characterId);
+}
+
+function makeCharacterInstanceCopy(source,offset=20){
+  const copy=JSON.parse(JSON.stringify(source||{}));
+  copy.id='el_'+Date.now().toString(36)+'_'+Math.random().toString(36).slice(2,7);
+  copy.usageId='usage_'+Date.now().toString(36)+'_'+Math.random().toString(36).slice(2,7);
+  delete copy.resourceId;
+  delete copy.recursoId;
+  copy.kind='character';
+  copy.tipo='personagem';
+  copy.category='elemento';
+  copy.label=(source?.label||'Personagem')+' cópia';
+  copy.locked=false;
+  copy.visible=true;
+  copy.transformacao=copy.transformacao||{x:0,y:0,escala:1,rotacao:0};
+  copy.transformacao={
+    x:Number(copy.transformacao.x||0)+offset,
+    y:Number(copy.transformacao.y||0)+offset,
+    escala:Number(copy.transformacao.escala??1)||1,
+    rotacao:Number(copy.transformacao.rotacao??0)||0
+  };
+  copy.elementos=[];
+  return copy;
+}
+
 function deleteSelectedComponentInstance(){
   const ids=(multiSelectMode&&Array.isArray(selectedLayerIds)&&selectedLayerIds.length>=2)
     ? selectedLayerIds.filter(Boolean)
     : [selectedLayerId];
   const layers=ids.map(id=>findLayer(id)).filter(Boolean);
-  if(!layers.length){showToast('Selecione um componente primeiro.');return;}
+  if(!layers.length){showToast('Selecione um elemento primeiro.');return;}
   if(layers.some(layer=>layer.locked)){
-    showToast('Desbloqueie os componentes selecionados antes de excluí-los.');return;
+    showToast('Desbloqueie os elementos selecionados antes de excluí-los.');return;
   }
+  const isIllustration=character?.tipo==='ilustracao';
   const isGroup=multiSelectMode&&layers.length>=2;
-  const question=isGroup
-    ? 'Excluir os '+layers.length+' componentes selecionados deste personagem?'
-    : 'Excluir o componente “'+(layers[0].label||layers[0].id)+'” deste personagem?';
+  const question=isIllustration
+    ? (isGroup ? 'Excluir os '+layers.length+' elementos selecionados da ilustração?' : 'Excluir o elemento “'+(layers[0].label||layers[0].id)+'” da ilustração?')
+    : (isGroup ? 'Excluir os '+layers.length+' componentes selecionados deste personagem?' : 'Excluir o componente “'+(layers[0].label||layers[0].id)+'” deste personagem?');
   if(!confirm(question))return;
   const removeIds=new Set(layers.map(layer=>layer.id));
   character.camadas=character.camadas.filter(layer=>!removeIds.has(layer.id));
-  selectedLayerId=character.camadas.find(layer=>layer.id===selectedLayerId)?.id
-    ||character.camadas[0]?.id||null;
-  selectedLayerIds=selectedLayerId?[selectedLayerId]:[];
+  selectedLayerId=null;
+  selectedLayerIds=[];
   multiSelectMode=false;
   selectedVectorId=null;
   selectionInteraction=null;
   persistCharacter();saveHistory();renderLayers();renderCharacter();renderSelectionControls();updateTransformPanel();updateSelectionOverlay();
-  showToast(isGroup ? layers.length+' componentes excluídos do personagem.' : 'Componente excluído do personagem.');
+  showToast(isIllustration ? (isGroup ? layers.length+' elementos excluídos da ilustração.' : 'Elemento excluído da ilustração.') : (isGroup ? layers.length+' componentes excluídos do personagem.' : 'Componente excluído do personagem.'));
 }
 function deleteSelectedLayer(){
   const layer=findLayer(selectedLayerId);if(!layer)return;
@@ -5362,6 +5688,102 @@ function renameSelectedLayer(){
   layer.label=clean;persistCharacter();saveHistory();renderLayers();renderCharacter();
 }
 
+
+function renderSavedCharacterComposition(savedCharacter){
+  if(!savedCharacter||!ctx)return null;
+
+  const w=Math.max(1,Number(savedCharacter.canvas?.largura)||500);
+  const h=Math.max(1,Number(savedCharacter.canvas?.altura)||500);
+  const dpr=Math.max(1,Math.min(2,Number(window.devicePixelRatio)||1));
+  const offscreen=document.createElement('canvas');
+  offscreen.width=Math.max(1,Math.round(w*dpr));
+  offscreen.height=Math.max(1,Math.round(h*dpr));
+
+  const localCtx=offscreen.getContext('2d');
+  if(!localCtx)return null;
+
+  const previousCharacter=character;
+  const previousCtx=ctx;
+  const previousCanvas=canvas;
+
+  try{
+    character=savedCharacter;
+    ctx=localCtx;
+    canvas=offscreen;
+
+    localCtx.setTransform(dpr,0,0,dpr,0,0);
+    localCtx.clearRect(0,0,w,h);
+    localCtx.fillStyle='#FFFFFF';
+    localCtx.fillRect(0,0,w,h);
+
+    const storedLayers=Array.isArray(savedCharacter.camadas)?savedCharacter.camadas.filter(Boolean):[];
+    const hasUsefulLayers=storedLayers.some(layer=>layer && layer.visible!==false &&
+      ((layer.resourceId||layer.recursoId) || (Array.isArray(layer.elementos)&&layer.elementos.length)));
+    const layers=hasUsefulLayers?storedLayers:buildInitialLayers(savedCharacter);
+
+    layers.forEach(layer=>{
+      if(!layer||layer.visible===false)return;
+      const resource=getLayerResource(layer);
+
+      localCtx.save();
+      try{
+        applyLayerTransform(layer);
+
+        if(resource?.visible!==false &&
+           resource?.vector &&
+           !layer._resourceSuppressedForEditing){
+          renderVectorResource(resource,w,h);
+        }
+
+        if(resource?.visible!==false || (layer.elementos||[]).length){
+          renderLayerPaths(layer);
+        }
+      }catch(err){
+        console.warn('Falha ao renderizar camada do personagem.',layer?.id,err);
+      }finally{
+        localCtx.restore();
+      }
+    });
+
+    return {canvas:offscreen,width:w,height:h};
+  }catch(err){
+    console.warn('Falha ao montar composição do personagem.',err);
+    return null;
+  }finally{
+    ctx=previousCtx;
+    canvas=previousCanvas;
+    character=previousCharacter;
+  }
+}
+
+function renderSavedCharacterResource(savedCharacter,instanceLayer){
+  if(!savedCharacter||!ctx)return;
+
+  const composition=renderSavedCharacterComposition(savedCharacter);
+  if(!composition)return;
+
+  const t=instanceLayer?.transformacao||instanceLayer?.transform||{};
+  const x=Number(t.x)||0;
+  const y=Number(t.y)||0;
+  const scale=Number(t.escala??t.scale)||1;
+  const rotation=Number(t.rotacao??t.rotation)||0;
+  const sx=t.espelhoX?-1:1;
+  const sy=t.espelhoY?-1:1;
+
+  ctx.save();
+  ctx.translate(character.canvas.largura/2+x,character.canvas.altura/2+y);
+  ctx.rotate(rotation*Math.PI/180);
+  ctx.scale(scale*sx,scale*sy);
+  ctx.drawImage(
+    composition.canvas,
+    -composition.width/2,
+    -composition.height/2,
+    composition.width,
+    composition.height
+  );
+  ctx.restore();
+}
+
 function renderCharacter(options={}){
   if(!character||!ctx)return;
   const interactive=options.interactive===true;
@@ -5373,9 +5795,19 @@ function renderCharacter(options={}){
     const resource=getLayerResource(layer);
     ctx.save();
     try{
-      applyLayerTransform(layer);
-      if(resource?.visible!==false && resource?.vector && !layer._resourceSuppressedForEditing)renderVectorResource(resource,character.canvas.largura,character.canvas.altura);
-      if(resource?.visible!==false)renderLayerPaths(layer);
+      if(layer.kind==='character' && character.tipo==='ilustracao'){
+        const savedCharacters=readJSON(CHARACTER_KEY,[]);
+        const savedCharacter=savedCharacters.find(c=>c && c.id===(layer.characterId||layer.resourceId));
+        if(savedCharacter)renderSavedCharacterResource(savedCharacter,layer);
+      }else if(layer.kind==='object' && character.tipo==='ilustracao'){
+        applyLayerTransform(layer);
+        if(resource?.visible!==false && resource?.elementos?.length)renderLayerPaths({id:layer.id,elementos:resource.elementos});
+        else if(resource?.visible!==false && resource?.vector)renderVectorResource(resource,character.canvas.largura,character.canvas.altura);
+      }else{
+        applyLayerTransform(layer);
+        if(resource?.visible!==false && resource?.vector && !layer._resourceSuppressedForEditing)renderVectorResource(resource,character.canvas.largura,character.canvas.altura);
+        if(resource?.visible!==false)renderLayerPaths(layer);
+      }
     }catch(err){console.warn('Falha ao renderizar camada',layer?.id,err)}
     finally{ctx.restore();}
   });
@@ -6034,9 +6466,23 @@ function pasteSelectedLayer(){
     const pasted=[];
     const stamp=Date.now().toString(36);
     sources.forEach((source,n)=>{
-      const copy=source;
-      copy.id='layer_'+stamp+'_'+n+'_'+Math.random().toString(36).slice(2,7);
-      copy.label=(source.label||'Camada')+' cópia';
+      const copy=isIllustrationCharacterInstance(source) ? makeCharacterInstanceCopy(source,20) : source;
+      if(isIllustrationObjectInstance(source)){
+        copy.id='el_'+Date.now().toString(36)+'_'+Math.random().toString(36).slice(2,7);
+        copy.usageId='usage_'+Date.now().toString(36)+'_'+Math.random().toString(36).slice(2,7);
+        copy.resourceId=source.resourceId;
+        copy.kind='object';
+        copy.tipo='objeto';
+        copy.label=(source.label||'Objeto')+' cópia';
+        copy.locked=false;
+        copy.visible=true;
+        copy.transformacao=copy.transformacao||{x:0,y:0,escala:1,rotacao:0};
+        copy.transformacao={...copy.transformacao,x:Number(copy.transformacao.x||0)+20,y:Number(copy.transformacao.y||0)+20};
+        copy.elementos=[];
+      }else if(!isIllustrationCharacterInstance(source)){
+        copy.id='layer_'+stamp+'_'+n+'_'+Math.random().toString(36).slice(2,7);
+        copy.label=(source.label||'Camada')+' cópia';
+      }
       copy.locked=false;
       copy.visible=true;
       copy.transformacao=copy.transformacao||{x:0,y:0,escala:1,rotacao:0};
@@ -6071,23 +6517,36 @@ function pasteSelectedLayer(){
   }
 
   const source=JSON.parse(JSON.stringify(characterLayerClipboard));
-  const copy=source;
-  copy.id='layer_'+Date.now().toString(36)+'_'+Math.random().toString(36).slice(2,7);
-  copy.label=(source.label||'Camada')+' cópia';
-  copy.locked=false;
-  copy.visible=true;
-  copy.transformacao=copy.transformacao||{x:0,y:0,escala:1,rotacao:0};
-  copy.transformacao={
-    x:Number(copy.transformacao.x||0)+20,
-    y:Number(copy.transformacao.y||0)+20,
-    escala:Number(copy.transformacao.escala??1)||1,
-    rotacao:Number(copy.transformacao.rotacao??0)||0
-  };
-  copy.elementos=Array.isArray(source.elementos)?JSON.parse(JSON.stringify(source.elementos)):[];
+  const copy=isIllustrationCharacterInstance(source) ? makeCharacterInstanceCopy(source,20) : source;
+  if(isIllustrationObjectInstance(source)){
+    copy.usageId='usage_'+Date.now().toString(36)+'_'+Math.random().toString(36).slice(2,7);
+    copy.resourceId=source.resourceId;
+    copy.kind='object';
+    copy.tipo='objeto';
+    copy.locked=false;
+    copy.visible=true;
+    copy.transformacao=copy.transformacao||{x:0,y:0,escala:1,rotacao:0};
+    copy.transformacao={...copy.transformacao,x:Number(copy.transformacao.x||0)+20,y:Number(copy.transformacao.y||0)+20};
+  }else if(!isIllustrationCharacterInstance(source)){
+    copy.id='layer_'+Date.now().toString(36)+'_'+Math.random().toString(36).slice(2,7);
+    copy.label=(source.label||'Camada')+' cópia';
+    copy.locked=false;
+    copy.visible=true;
+    copy.transformacao=copy.transformacao||{x:0,y:0,escala:1,rotacao:0};
+    copy.transformacao={
+      x:Number(copy.transformacao.x||0)+20,
+      y:Number(copy.transformacao.y||0)+20,
+      escala:Number(copy.transformacao.escala??1)||1,
+      rotacao:Number(copy.transformacao.rotacao??0)||0
+    };
+    copy.elementos=Array.isArray(source.elementos)?JSON.parse(JSON.stringify(source.elementos)):[];
+  }
   const index=character.camadas.findIndex(l=>l.id===selectedLayerId);
   const insertAt=index>=0?index+1:character.camadas.length;
   character.camadas.splice(insertAt,0,copy);
   selectedLayerId=copy.id;
+  selectedLayerIds=[copy.id];
+  multiSelectMode=false;
   selectedVectorId=null;
   selectionInteraction=null;
   saveHistory();
@@ -6111,8 +6570,20 @@ function duplicateSelectedLayer(){
     const copies=layers.map(layer=>{
       const copy=JSON.parse(JSON.stringify(layer));
       copy.id='layer_'+Date.now().toString(36)+'_'+Math.random().toString(36).slice(2,8);
-      copy.resourceId=layer.resourceId||layer.recursoId||layer.id;
-      delete copy.recursoId;
+      if(isIllustrationCharacterInstance(layer)){
+        copy.usageId='usage_'+Date.now().toString(36)+'_'+Math.random().toString(36).slice(2,7);
+        delete copy.resourceId;
+        delete copy.recursoId;
+      }else if(isIllustrationObjectInstance(layer)){
+        copy.usageId='usage_'+Date.now().toString(36)+'_'+Math.random().toString(36).slice(2,7);
+        copy.resourceId=layer.resourceId||layer.recursoId;
+        delete copy.recursoId;
+        copy.kind='object';
+        copy.tipo='objeto';
+      }else{
+        copy.resourceId=layer.resourceId||layer.recursoId||layer.id;
+        delete copy.recursoId;
+      }
       copy.label=(layer.label||'Camada')+' cópia';
       copy.locked=false;
       copy.visible=true;
@@ -6151,8 +6622,20 @@ function duplicateSelectedLayer(){
 
   const copy=JSON.parse(JSON.stringify(layer));
   copy.id='layer_'+Date.now().toString(36)+'_'+Math.random().toString(36).slice(2,6);
-  copy.resourceId=layer.resourceId||layer.recursoId||layer.id;
-  delete copy.recursoId;
+  if(isIllustrationCharacterInstance(layer)){
+    copy.usageId='usage_'+Date.now().toString(36)+'_'+Math.random().toString(36).slice(2,7);
+    delete copy.resourceId;
+    delete copy.recursoId;
+  }else if(isIllustrationObjectInstance(layer)){
+    copy.usageId='usage_'+Date.now().toString(36)+'_'+Math.random().toString(36).slice(2,7);
+    copy.resourceId=layer.resourceId||layer.recursoId;
+    delete copy.recursoId;
+    copy.kind='object';
+    copy.tipo='objeto';
+  }else{
+    copy.resourceId=layer.resourceId||layer.recursoId||layer.id;
+    delete copy.recursoId;
+  }
   copy.label=(layer.label||'Camada')+' cópia';
   copy.locked=false;
   copy.visible=true;
@@ -6163,6 +6646,8 @@ function duplicateSelectedLayer(){
   if(index<0)return;
   character.camadas.splice(index+1,0,copy);
   selectedLayerId=copy.id;
+  selectedLayerIds=[copy.id];
+  multiSelectMode=false;
   selectedVectorId=null;
   selectionInteraction=null;
 
@@ -6202,7 +6687,7 @@ function clearRenderCanvas(){
 function getRenderableLayers(){
   if(!character)return [];
   if(!Array.isArray(character.camadas)){character.camadas=buildInitialLayers(character);}
-  return character.camadas.filter(layer=>getLayerResource(layer)||((layer.elementos||[]).length>0)||layer.kind==='drawing');
+  return character.camadas.filter(layer=>getLayerResource(layer)||((layer.elementos||[]).length>0)||layer.kind==='drawing'||(character.tipo==='ilustracao'&&layer.kind==='character'));
 }
 </script>
 </body>
