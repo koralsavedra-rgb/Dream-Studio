@@ -743,29 +743,7 @@ header{height:68px;padding:0 12px}
 
       </div>
 
-      <aside class="layers-panel" id="layersPanel" aria-label="Camadas do personagem">
-        <div class="layers-head">
-          <div>
-            <strong>CAMADAS</strong>
-            <small id="layerCount">0 recursos</small>
-          </div>
-          <button class="layers-assembly-button" onclick="openStudioPanel('character')" aria-label="Montar personagem">Montar</button>
-        </div>
-        <div class="layer-actions">
-          <button id="illustrationCharacterBtn" onclick="addIllustrationCharacterElement()" style="display:none">+ Personagem</button>
-          <button id="illustrationObjectBtn" onclick="addIllustrationObjectElement()" style="display:none">+ Objeto</button>
-          <button id="illustrationScenarioBtn" onclick="addIllustrationScenarioElement()" style="display:none">+ Cenário</button>
-          <button id="capaResourceBtn" onclick="addCapaResourceElement()" style="display:none">+ Recurso</button>
-          <button onclick="createLayer()">+ Nova</button>
-          <button onclick="renameSelectedLayer()">Renomear</button>
-          <button onclick="duplicateSelectedLayer()">Duplicar</button>
-          <button onclick="moveSelectedLayer(1)">↑ Frente</button>
-          <button onclick="moveSelectedLayer(-1)">↓ Trás</button>
-          <button onclick="saveSelectedLayer()">Salvar camada</button>
-          <button onclick="deleteSelectedComponentInstance()">Excluir</button>
-        </div>
-        <div id="layersList" class="layers-list"></div>
-      </aside>
+
 
       <div id="toolPanel" class="tool-panel"></div>
 
@@ -837,7 +815,7 @@ header{height:68px;padding:0 12px}
         <button class="studio-control-button" onclick="openStudioPanel('style')" aria-label="Traço e estilo">
           <svg viewBox="0 0 24 24"><path d="M4 17c3.5-6 6-8 9-8 2.5 0 3.5 1.5 7-2"/><path d="M5 20h14"/><path d="M7 4v4M17 4v4"/></svg><span>Traço</span>
         </button>
-        <button class="studio-control-button" onclick="toggleLayers();closeToolPanel()" aria-label="Camadas e componentes">
+        <button class="studio-control-button" onclick="openStudioPanel('layers')" aria-label="Camadas e componentes">
           <svg viewBox="0 0 24 24"><path d="M12 4 3 9l9 5 9-5-9-5Z"/><path d="m3 14 9 5 9-5"/><path d="m3 11 9 5 9-5"/></svg><span>Camadas</span>
         </button>
       </div>
@@ -1106,6 +1084,28 @@ const ILLUSTRATION_KEY='dreamStudioIllustrations';
 const COVER_KEY='dreamStudioCovers';
 const ANIMATION_KEY='dreamStudioAnimations';
 const FONT_KEY='dreamStudioFonts';
+const GOOGLE_FONTS=['Roboto','Open Sans','Lato','Montserrat','Poppins','Playfair Display','Merriweather','Oswald','Raleway','Nunito','Lora','PT Serif','Bebas Neue','Dancing Script','Caveat','Pacifico','Abril Fatface','Crimson Text'];
+const loadedGoogleFonts=new Set();
+
+function loadGoogleFont(family){
+  if(loadedGoogleFonts.has(family))return;
+  loadedGoogleFonts.add(family);
+  const link=document.createElement('link');
+  link.rel='stylesheet';
+  link.href='https://fonts.googleapis.com/css2?family='+encodeURIComponent(family).replace(/%20/g,'+')+':wght@300;400;500;600;700;800;900&display=swap';
+  document.head.appendChild(link);
+  document.fonts.load(`16px "${family}"`).then(()=>{
+    if(currentPanel==='draw')renderToolPanel('draw');
+    renderCharacter();
+  }).catch(err=>console.warn('Falha ao carregar fonte do Google Fonts',family,err));
+}
+
+function handleFontSelect(value){
+  const nome=value.replace(/^"|"$/g,'');
+  if(GOOGLE_FONTS.includes(nome))loadGoogleFont(nome);
+  updateSelectedCapaText({font:{family:value}});
+}
+
 
 let currentColor='#1E1E1E';
 let currentTool='pencil';
@@ -3083,7 +3083,10 @@ function toggleLayers(){
   renderLayers();
   panel.classList.toggle('open');
 }
-function closeLayers(){$('layersPanel')?.classList.remove('open')}
+function closeLayers(){
+  $('layersPanel')?.classList.remove('open');
+  if(currentPanel==='layers')closeToolPanel();
+}
 
 /* ---------- Histórico do Canvas ---------- */
 function captureEditorState(){
@@ -5083,7 +5086,7 @@ function renderToolPanel(name){
         return `<div style="margin-top:10px;border-top:1px solid var(--line);padding-top:10px">
           <div class="panel-title" style="font-size:11px">EDITAR TEXTO</div>
           <div class="control-row"><label>Texto</label><input type="text" value="${escapeAttr(texto)}" oninput="updateSelectedCapaText({texto:this.value})"></div>
-          <div class="control-row"><label>Fonte</label><select onchange="updateSelectedCapaText({font:{family:this.value}})">${['sans-serif','serif','monospace','cursive','Georgia','"Times New Roman"','"Courier New"'].map(fam=>`<option value='${fam}' ${f.family===fam?'selected':''}>${fam.replace(/"/g,'')}</option>`).join('')}${getCustomFonts().map(fnt=>{const val='"'+fnt.name+'"';return `<option value='${val}' ${f.family===val?'selected':''}>${escapeHtml(fnt.name)}</option>`;}).join('')}</select></div>
+          <div class="control-row"><label>Fonte</label><select onchange="handleFontSelect(this.value)">${['sans-serif','serif','monospace','cursive','Georgia','"Times New Roman"','"Courier New"'].map(fam=>`<option value='${fam}' ${f.family===fam?'selected':''}>${fam.replace(/"/g,'')}</option>`).join('')}${getCustomFonts().map(fnt=>{const val='"'+fnt.name+'"';return `<option value='${val}' ${f.family===val?'selected':''}>${escapeHtml(fnt.name)}</option>`;}).join('')}${GOOGLE_FONTS.map(fam=>{const val='"'+fam+'"';return `<option value='${val}' ${f.family===val?'selected':''}>${escapeHtml(fam)} (online)</option>`;}).join('')}</select></div>
           <div class="control-row" style="align-items:center">
             <label>Importar fonte</label>
             <input type="file" accept=".ttf,.otf,.woff,.woff2" onchange="importCustomFont(this)">
@@ -5102,6 +5105,28 @@ function renderToolPanel(name){
           <div style="font-size:9px;color:var(--muted);line-height:1.4;margin-top:6px">Posição, tamanho geral e rotação continuam pela ferramenta Seleção (arrastar e usar as alças).</div>
         </div>`;
       })():''}`;
+  }else if(name==='layers'){
+    p.innerHTML=`
+      <div class="layers-head">
+        <div><strong>CAMADAS</strong><small id="layerCount">0 recursos</small></div>
+        <button class="close-panel" onclick="closeToolPanel()">×</button>
+      </div>
+      <div class="layer-actions">
+        ${character?.tipo==='ilustracao'?'<button id="illustrationCharacterBtn" onclick="addIllustrationCharacterElement()">+ Personagem</button>':''}
+        ${character?.tipo==='ilustracao'?'<button id="illustrationObjectBtn" onclick="addIllustrationObjectElement()">+ Objeto</button>':''}
+        ${character?.tipo==='ilustracao'?'<button id="illustrationScenarioBtn" onclick="addIllustrationScenarioElement()">+ Cenário</button>':''}
+        ${character?.tipo==='capa'?'<button id="capaResourceBtn" onclick="addCapaResourceElement()">+ Recurso</button>':''}
+        ${character?.tipo!=='ilustracao'?'<button class="layers-assembly-button" onclick="openStudioPanel(\'character\')">Montar</button>':''}
+        <button onclick="createLayer()">+ Nova</button>
+        <button onclick="renameSelectedLayer()">Renomear</button>
+        <button onclick="duplicateSelectedLayer()">Duplicar</button>
+        <button onclick="moveSelectedLayer(1)">↑ Frente</button>
+        <button onclick="moveSelectedLayer(-1)">↓ Trás</button>
+        <button onclick="saveSelectedLayer()">Salvar camada</button>
+        <button onclick="deleteSelectedComponentInstance()">Excluir</button>
+      </div>
+      <div id="layersList" class="layers-list"></div>`;
+    renderLayers();
   }else if(name==='style'){
     p.innerHTML=`
       <div class="panel-title">TRAÇOS <button class="close-panel" onclick="closeToolPanel()">×</button></div>
