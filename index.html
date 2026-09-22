@@ -480,11 +480,11 @@ header{height:68px;padding:0 12px}
 #selectionOverlay .selection-handle.rotate{position:absolute !important;}
 @media(max-width:650px){
   /* Reserva uma faixa inferior própria para os controles, sem sobrepor o Canvas. */
-  .canvas-zone{padding-bottom:210px !important;}
-  .canvas-shell{height:calc(100dvh - 320px - env(safe-area-inset-top) - env(safe-area-inset-bottom)) !important;max-height:none !important;}
-  #selectionTransformPanel.selection-transform-panel{bottom:164px !important;}
-  #selectionMirrorBar{bottom:112px !important;}
-  #selectionCopyPasteBar,#multiSelectBar{bottom:62px !important;}
+  .canvas-zone{padding-bottom:310px !important;}
+  .canvas-shell{height:calc(100dvh - 420px - env(safe-area-inset-top) - env(safe-area-inset-bottom)) !important;max-height:none !important;}
+  #selectionTransformPanel.selection-transform-panel{bottom:calc(264px + env(safe-area-inset-bottom)) !important;}
+  #selectionMirrorBar{bottom:calc(212px + env(safe-area-inset-bottom)) !important;}
+  #selectionCopyPasteBar,#multiSelectBar{bottom:calc(162px + env(safe-area-inset-bottom)) !important;}
   #selectionCopyPasteBar{transform:translateX(-100%) !important;}
   #multiSelectBar{transform:translateX(4px) !important;}
 }
