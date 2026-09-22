@@ -1086,18 +1086,43 @@ const ANIMATION_KEY='dreamStudioAnimations';
 const FONT_KEY='dreamStudioFonts';
 const GOOGLE_FONTS=['Roboto','Open Sans','Lato','Montserrat','Poppins','Playfair Display','Merriweather','Oswald','Raleway','Nunito','Lora','PT Serif','Bebas Neue','Dancing Script','Caveat','Pacifico','Abril Fatface','Crimson Text'];
 const loadedGoogleFonts=new Set();
+const loadingGoogleFonts=new Map();
 
 function loadGoogleFont(family){
-  if(loadedGoogleFonts.has(family))return;
-  loadedGoogleFonts.add(family);
-  const link=document.createElement('link');
-  link.rel='stylesheet';
-  link.href='https://fonts.googleapis.com/css2?family='+encodeURIComponent(family).replace(/%20/g,'+')+':wght@300;400;500;600;700;800;900&display=swap';
-  document.head.appendChild(link);
-  document.fonts.load(`16px "${family}"`).then(()=>{
-    if(currentPanel==='draw')renderToolPanel('draw');
-    renderCharacter();
-  }).catch(err=>console.warn('Falha ao carregar fonte do Google Fonts',family,err));
+  if(!family)return Promise.resolve(false);
+  if(loadedGoogleFonts.has(family))return Promise.resolve(true);
+  if(loadingGoogleFonts.has(family))return loadingGoogleFonts.get(family);
+
+  const promise=new Promise(resolve=>{
+    const link=document.createElement('link');
+    link.rel='stylesheet';
+    link.type='text/css';
+    link.href='https://fonts.googleapis.com/css2?family='+encodeURIComponent(family).replace(/%20/g,'+')+'&display=swap';
+    let settled=false;
+    const finish=(ok)=>{
+      if(settled)return;
+      settled=true;
+      if(ok){
+        loadedGoogleFonts.add(family);
+        if(currentPanel==='draw')renderToolPanel('draw');
+        renderCharacter();
+      }else{
+        console.warn('Falha ao carregar fonte do Google Fonts',family);
+      }
+      loadingGoogleFonts.delete(family);
+      resolve(ok);
+    };
+    link.onload=()=>{
+      const weights=[300,400,500,600,700,800,900];
+      Promise.all(weights.map(weight=>document.fonts.load(`${weight} 32px \"${family}\"`)))
+        .then(()=>finish(document.fonts.check(`400 32px \"${family}\"`)))
+        .catch(err=>{console.warn('Falha ao registrar fonte do Google Fonts',family,err);finish(false);});
+    };
+    link.onerror=()=>finish(false);
+    document.head.appendChild(link);
+  });
+  loadingGoogleFonts.set(family,promise);
+  return promise;
 }
 
 function handleFontSelect(value){
