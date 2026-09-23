@@ -200,7 +200,7 @@ header{height:68px;padding:0 12px}
 .close-panel{width:30px;height:30px;border-radius:9px;background:rgba(18,23,48,.8);border:1px solid var(--border);font-size:17px;line-height:1}
 .tool-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(105px,1fr));gap:7px}
 .tool-grid button{min-height:42px;border:1px solid rgba(157,143,255,.14);border-radius:10px;background:rgba(18,23,48,.75);font-size:9px;color:#ddd8ed}
-.tool-grid button:hover,.tool-grid button.active{border-color:rgba(101,223,255,.45);background:rgba(101,223,255,.10)}
+.tool-grid button:hover,.tool-grid button.active{border-color:rgba(101,223,255,.45);background:rgba(101,223,255,.10)}.google-font-action{min-width:72px;min-height:40px;padding:0 10px;border:1px solid rgba(157,143,255,.22);border-radius:10px;background:rgba(18,23,48,.92);color:#eee8ff;font-size:9px;white-space:nowrap;touch-action:manipulation}.google-font-action:hover{border-color:rgba(101,223,255,.45);background:rgba(101,223,255,.10)}.google-font-action.primary{border-color:rgba(101,223,255,.38);background:rgba(101,223,255,.12);color:#fff}
 .control-row{display:grid;grid-template-columns:70px 1fr 40px;align-items:center;gap:8px;padding:9px 0;border-top:1px solid rgba(157,143,255,.10)}
 .control-row label{font-size:8px;color:var(--muted)}
 .control-row input[type=range]{width:100%;accent-color:#9b72ff}
@@ -5176,10 +5176,10 @@ function renderToolPanel(name){
           <div style="margin:6px 0 8px;padding:8px;border:1px solid var(--line);border-radius:8px">
             <div style="font-size:10px;font-weight:700;margin-bottom:3px">OUTRAS FONTES — GOOGLE FONTS</div>
             <div style="font-size:9px;color:var(--muted);line-height:1.4;margin-bottom:7px">Pesquise no Google Fonts. Depois copie o <strong>nome exato da família</strong> para cá e toque em <strong>Usar</strong>. A fonte só entra na capa depois de carregar.</div>
-            <div style="display:flex;gap:5px;align-items:center">
-              <input id="googleFontSearchInput" type="text" value="${escapeAttr(googleFontSearchValue)}" placeholder="Ex.: Bodoni Moda" style="flex:1;min-width:0" oninput="googleFontSearchValue=this.value" onkeydown="if(event.key==='Enter')loadGoogleFontByName()">
-              <button type="button" onclick="searchGoogleFont()">Pesquisar</button>
-              <button type="button" onclick="loadGoogleFontByName()">Usar</button>
+            <div style="display:grid;grid-template-columns:minmax(0,1fr) auto auto;gap:5px;align-items:center">
+              <input id="googleFontSearchInput" type="text" value="${escapeAttr(googleFontSearchValue)}" placeholder="Ex.: Bodoni Moda" style="width:100%;min-width:0;box-sizing:border-box" oninput="googleFontSearchValue=this.value" onkeydown="if(event.key==='Enter')loadGoogleFontByName()">
+              <button type="button" class="google-font-action" onclick="searchGoogleFont()">Pesquisar</button>
+              <button type="button" class="google-font-action primary" onclick="loadGoogleFontByName()">Usar</button>
             </div>
             ${googleFontStatus?`<div style="font-size:9px;line-height:1.35;margin-top:6px;color:var(--muted)">${escapeHtml(googleFontStatus)}</div>`:''}
             ${getRecentGoogleFonts().length?`<div style="font-size:9px;color:var(--muted);margin-top:7px">Fontes adicionadas recentemente</div><div class="tool-grid" style="margin-top:4px">${getRecentGoogleFonts().map(fam=>`<button type="button" onclick="useRecentGoogleFont('${escapeJs(fam)}')">${escapeHtml(fam)}</button>`).join('')}</div>`:''}
