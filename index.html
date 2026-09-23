@@ -4259,6 +4259,8 @@ function updateSelectedCapaText(changes){
   if(changes.cor!==undefined)element.estilo.cor=changes.cor;
   if(changes.alinhamento!==undefined)element.estilo.alinhamento=changes.alinhamento;
   if(changes.espacamento!==undefined)element.estilo.espacamento=changes.espacamento;
+  if(changes.sublinhado!==undefined)element.estilo.sublinhado=!!changes.sublinhado;
+  if(changes.tachado!==undefined)element.estilo.tachado=!!changes.tachado;
   persistCharacter();saveHistory();renderCharacter();renderCode();
   if(currentPanel==='draw')renderToolPanel('draw');
 }
@@ -5189,10 +5191,13 @@ function renderToolPanel(name){
             <input type="file" accept=".ttf,.otf,.woff,.woff2" onchange="importCustomFont(this)">
           </div>
           ${getCustomFonts().length?`<div class="tool-grid">${getCustomFonts().map(fnt=>`<button onclick="deleteCustomFont('${escapeJs(fnt.id)}')">🗑 ${escapeHtml(fnt.name)}</button>`).join('')}</div>`:''}
-          <div class="control-row"><label>Tamanho</label><input type="range" min="10" max="140" value="${f.size}" oninput="updateSelectedCapaText({font:{size:Number(this.value)}})"><output>${f.size}px</output></div>
+          <div class="control-row"><label>Tamanho</label><input type="range" min="10" max="180" value="${f.size}" oninput="updateSelectedCapaText({font:{size:Number(this.value)}})"><output>${f.size}px</output></div>
           <div class="control-row"><label>Peso</label><select onchange="updateSelectedCapaText({font:{weight:Number(this.value)}})">${[300,400,500,600,700,800,900].map(w=>`<option value="${w}" ${f.weight===w?'selected':''}>${w}</option>`).join('')}</select></div>
           <div class="tool-grid">
-            <button class="${f.italic?'active':''}" onclick="updateSelectedCapaText({font:{italic:${!f.italic}}})">Itálico</button>
+            <button class="${f.weight>=700?'active':''}" onclick="updateSelectedCapaText({font:{weight:${f.weight>=700?400:700}}})"><strong>Negrito</strong></button>
+            <button class="${f.italic?'active':''}" onclick="updateSelectedCapaText({font:{italic:${!f.italic}}})"><em>Itálico</em></button>
+            <button class="${el.estilo?.sublinhado?'active':''}" onclick="updateSelectedCapaText({sublinhado:${!el.estilo?.sublinhado}})"><u>Sublinhado</u></button>
+            <button class="${el.estilo?.tachado?'active':''}" onclick="updateSelectedCapaText({tachado:${!el.estilo?.tachado}})"><s>Tachado</s></button>
             <button class="${align==='left'?'active':''}" onclick="updateSelectedCapaText({alinhamento:'left'})">Esquerda</button>
             <button class="${align==='center'?'active':''}" onclick="updateSelectedCapaText({alinhamento:'center'})">Centro</button>
             <button class="${align==='right'?'active':''}" onclick="updateSelectedCapaText({alinhamento:'right'})">Direita</button>
@@ -7290,7 +7295,29 @@ function renderVectorPathElement(element){
     ctx.textAlign=estilo.alinhamento||'center';
     if('letterSpacing' in ctx)ctx.letterSpacing=(Number(estilo.espacamento)||0)+'px';
     ctx.textBaseline='middle';
-    ctx.fillText(texto,Number(element.x)||0,Number(element.y)||0);
+    const textX=Number(element.x)||0,textY=Number(element.y)||0;
+    ctx.fillText(texto,textX,textY);
+    if(estilo.sublinhado||estilo.tachado){
+      const metrics=ctx.measureText(texto);
+      const lineWidth=Math.max(1,Number((estilo.fonte||'').match(/(\d+(?:\.\d+)?)px/)?.[1])||32)*0.06;
+      const textWidth=metrics.width;
+      let lineStart=textX-textWidth/2;
+      if((estilo.alinhamento||'center')==='left')lineStart=textX;
+      else if((estilo.alinhamento||'center')==='right')lineStart=textX-textWidth;
+      ctx.save();
+      ctx.strokeStyle=estilo.cor||'#1E1E1E';
+      ctx.lineWidth=lineWidth;
+      ctx.lineCap='round';
+      if(estilo.sublinhado){
+        const y=textY+Math.max(8,(Number((estilo.fonte||'').match(/(\d+(?:\.\d+)?)px/)?.[1])||32)*0.38);
+        ctx.beginPath();ctx.moveTo(lineStart,y);ctx.lineTo(lineStart+textWidth,y);ctx.stroke();
+      }
+      if(estilo.tachado){
+        const y=textY;
+        ctx.beginPath();ctx.moveTo(lineStart,y);ctx.lineTo(lineStart+textWidth,y);ctx.stroke();
+      }
+      ctx.restore();
+    }
     if(selectedVectorId===element.id||selectedLayerId===element._layerId){
       const metrics=ctx.measureText(texto);
       ctx.save();ctx.globalAlpha=.9;ctx.strokeStyle='#65DFFF';ctx.lineWidth=1.5;ctx.setLineDash([6,5]);
