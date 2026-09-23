@@ -1088,6 +1088,8 @@ const GOOGLE_FONTS=['Roboto','Open Sans','Lato','Montserrat','Poppins','Playfair
 const GOOGLE_RECENT_KEY='dreamStudioRecentGoogleFonts';
 const loadedGoogleFonts=new Set();
 const loadingGoogleFonts=new Map();
+let googleFontSearchValue='';
+let googleFontStatus='';
 
 function loadGoogleFont(family){
   if(!family)return Promise.resolve(false);
@@ -1142,29 +1144,42 @@ function rememberGoogleFont(family){
   }catch(e){}
 }
 
-function loadGoogleFontByName(){
+async function loadGoogleFontByName(){
   const input=document.getElementById('googleFontSearchInput');
-  const family=(input?.value||'').trim();
+  const family=((input?.value??googleFontSearchValue)||'').trim().replace(/"/g,'');
+  googleFontSearchValue=family;
+  googleFontStatus='';
   if(!family){
+    googleFontStatus='Digite o nome da fonte primeiro.';
     if(input)input.focus();
-    return;
+    if(currentPanel==='draw')renderToolPanel('draw');
+    return false;
   }
-  const value='"'+family.replace(/"/g,'')+'"';
-  rememberGoogleFont(family.replace(/"/g,''));
+  googleFontStatus='Carregando “'+family+'”…';
+  if(currentPanel==='draw')renderToolPanel('draw');
+  const ok=await loadGoogleFont(family);
+  if(!ok){
+    googleFontStatus='Não foi possível carregar essa fonte. Confira o nome e a conexão com a internet.';
+    if(currentPanel==='draw')renderToolPanel('draw');
+    return false;
+  }
+  const value='"'+family+'"';
+  rememberGoogleFont(family);
+  googleFontStatus='Fonte carregada: “'+family+'”.';
   updateSelectedCapaText({font:{family:value}});
-  loadGoogleFont(family.replace(/"/g,''));
+  return true;
 }
 
 function searchGoogleFont(){
   const input=document.getElementById('googleFontSearchInput');
-  const query=(input?.value||'').trim();
+  const query=((input?.value??googleFontSearchValue)||'').trim();
+  googleFontSearchValue=query;
   const url='https://fonts.google.com/?query='+encodeURIComponent(query);
   window.open(url,'_blank','noopener');
 }
 
 function useRecentGoogleFont(family){
-  const input=document.getElementById('googleFontSearchInput');
-  if(input)input.value=family;
+  googleFontSearchValue=family;
   loadGoogleFontByName();
 }
 
@@ -5159,13 +5174,15 @@ function renderToolPanel(name){
           <div class="control-row"><label>Texto</label><input type="text" value="${escapeAttr(texto)}" oninput="updateSelectedCapaText({texto:this.value})"></div>
           <div class="control-row"><label>Fonte</label><select onchange="handleFontSelect(this.value)">${['sans-serif','serif','monospace','cursive','Georgia','"Times New Roman"','"Courier New"'].map(fam=>`<option value='${fam}' ${f.family===fam?'selected':''}>${fam.replace(/"/g,'')}</option>`).join('')}${getCustomFonts().map(fnt=>{const val='"'+fnt.name+'"';return `<option value='${val}' ${f.family===val?'selected':''}>${escapeHtml(fnt.name)}</option>`;}).join('')}${GOOGLE_FONTS.map(fam=>{const val='"'+fam+'"';return `<option value='${val}' ${f.family===val?'selected':''}>${escapeHtml(fam)} (online)</option>`;}).join('')}${getRecentGoogleFonts().filter(fam=>!GOOGLE_FONTS.includes(fam)).map(fam=>{const val='"'+fam+'"';return `<option value='${val}' ${f.family===val?'selected':''}>${escapeHtml(fam)} (Google)</option>`;}).join('')}</select></div>
           <div style="margin:6px 0 8px;padding:8px;border:1px solid var(--line);border-radius:8px">
-            <div style="font-size:9px;color:var(--muted);line-height:1.35;margin-bottom:6px">Não encontrou uma fonte útil? Pesquise no Google Fonts e carregue a fonte pelo nome.</div>
+            <div style="font-size:10px;font-weight:700;margin-bottom:3px">OUTRAS FONTES — GOOGLE FONTS</div>
+            <div style="font-size:9px;color:var(--muted);line-height:1.4;margin-bottom:7px">Pesquise no Google Fonts. Depois copie o <strong>nome exato da família</strong> para cá e toque em <strong>Usar</strong>. A fonte só entra na capa depois de carregar.</div>
             <div style="display:flex;gap:5px;align-items:center">
-              <input id="googleFontSearchInput" type="text" placeholder="Nome da fonte…" style="flex:1;min-width:0" onkeydown="if(event.key==='Enter')loadGoogleFontByName()">
+              <input id="googleFontSearchInput" type="text" value="${escapeAttr(googleFontSearchValue)}" placeholder="Ex.: Bodoni Moda" style="flex:1;min-width:0" oninput="googleFontSearchValue=this.value" onkeydown="if(event.key==='Enter')loadGoogleFontByName()">
               <button type="button" onclick="searchGoogleFont()">Pesquisar</button>
               <button type="button" onclick="loadGoogleFontByName()">Usar</button>
             </div>
-            ${getRecentGoogleFonts().length?`<div style="font-size:9px;color:var(--muted);margin-top:6px">Usadas recentemente</div><div class="tool-grid" style="margin-top:4px">${getRecentGoogleFonts().map(fam=>`<button type="button" onclick="useRecentGoogleFont('${escapeJs(fam)}')">${escapeHtml(fam)}</button>`).join('')}</div>`:''}
+            ${googleFontStatus?`<div style="font-size:9px;line-height:1.35;margin-top:6px;color:var(--muted)">${escapeHtml(googleFontStatus)}</div>`:''}
+            ${getRecentGoogleFonts().length?`<div style="font-size:9px;color:var(--muted);margin-top:7px">Fontes adicionadas recentemente</div><div class="tool-grid" style="margin-top:4px">${getRecentGoogleFonts().map(fam=>`<button type="button" onclick="useRecentGoogleFont('${escapeJs(fam)}')">${escapeHtml(fam)}</button>`).join('')}</div>`:''}
           </div>
           <div class="control-row" style="align-items:center">
             <label>Importar fonte</label>
