@@ -609,7 +609,7 @@ header{height:68px;padding:0 12px}
 .gemeo3d-tool-button{height:42px;min-width:82px;padding:0 10px;display:flex;align-items:center;justify-content:center;gap:6px;border:1px solid rgba(157,143,255,.14);border-radius:11px;background:rgba(18,23,48,.82);color:#d9d4ec;font-size:17px;white-space:nowrap;flex:0 0 auto;touch-action:manipulation}
 .gemeo3d-tool-button span{font-size:8px;letter-spacing:.3px}
 .gemeo3d-tool-button:hover,.gemeo3d-tool-button.active{border-color:rgba(101,223,255,.45);background:rgba(101,223,255,.10);color:#fff}.gemeo3d-family-toolbar{position:absolute;z-index:44;left:50%;bottom:calc(59px + env(safe-area-inset-bottom));transform:translateX(-50%);width:min(620px,calc(100% - 18px));display:none;align-items:center;justify-content:center;gap:5px;padding:5px;border:1px solid var(--border);border-radius:15px;background:rgba(8,12,29,.94);backdrop-filter:blur(20px);box-shadow:0 14px 40px rgba(0,0,0,.38);overflow-x:auto;scrollbar-width:none}.gemeo3d-family-toolbar.open{display:flex}.gemeo3d-family-toolbar::-webkit-scrollbar{display:none}.gemeo3d-family-tool-button{height:38px;min-width:78px;padding:0 9px;display:flex;align-items:center;justify-content:center;gap:5px;border:1px solid rgba(157,143,255,.14);border-radius:10px;background:rgba(18,23,48,.82);color:#d9d4ec;font-size:16px;white-space:nowrap;flex:0 0 auto;touch-action:manipulation}.gemeo3d-family-tool-button span{font-size:8px;letter-spacing:.25px}.gemeo3d-family-tool-button:hover,.gemeo3d-family-tool-button.active{border-color:rgba(101,223,255,.45);background:rgba(101,223,255,.10);color:#fff}
-.gemeo3d-tool-panel{position:absolute;z-index:44;left:50%;bottom:calc(62px + env(safe-area-inset-bottom));transform:translate(-50%,20px);width:min(720px,calc(100% - 20px));max-height:min(52dvh,430px);overflow:auto;padding:13px;border:1px solid var(--border);border-radius:18px;background:rgba(8,12,29,.96);backdrop-filter:blur(22px);box-shadow:0 22px 60px rgba(0,0,0,.52);opacity:0;visibility:hidden;pointer-events:none;transition:.2s ease}
+.gemeo3d-tool-panel{position:absolute;z-index:44;left:50%;bottom:calc(62px + env(safe-area-inset-bottom));transform:translate(-50%,20px);width:min(720px,calc(100% - 20px));max-height:min(52dvh,430px);overflow:auto;padding:13px;border:1px solid var(--border);border-radius:18px;background:rgba(8,12,29,.96);backdrop-filter:blur(22px);box-shadow:0 22px 60px rgba(0,0,0,.52);opacity:0;visibility:hidden;pointer-events:none;transition:.2s ease}.gemeo3d-tool-panel.family-open{bottom:calc(116px + env(safe-area-inset-bottom))}
 .gemeo3d-transform-compact{width:min(430px,calc(100% - 20px));max-height:190px;padding:10px;border-radius:16px;overflow:hidden}
 .gemeo3d-transform-compact .gemeo3d-transform-head{margin-bottom:7px}
 .gemeo3d-transform-compact .gemeo3d-transform-head small{font-size:7px;color:var(--muted);letter-spacing:1px}
@@ -2890,10 +2890,11 @@ function openGemeo3DToolFamily(family){
     personagem:[['aparencia','◐','Aparência'],['roupas','□','Roupa'],['acessorios','◇','Acessórios'],['poses','◈','Poses']]
   };
   if(family==='personagem'&&gemeo3DEditorMode!=='personagem')return;
-  if(bar.dataset.family===family&&bar.classList.contains('open')){bar.classList.remove('open');bar.dataset.family='';document.querySelectorAll('#gemeo3dToolbar .gemeo3d-tool-button[data-gemeo-family]').forEach(b=>b.classList.remove('active'));return;}
+  if(bar.dataset.family===family&&bar.classList.contains('open')){bar.classList.remove('open');bar.dataset.family='';document.querySelectorAll('#gemeo3dToolbar .gemeo3d-tool-button[data-gemeo-family]').forEach(b=>b.classList.remove('active'));$('gemeo3dToolPanel')?.classList.remove('family-open');return;}
   const items=defs[family]||[];
   bar.innerHTML=items.map(([tool,icon,label])=>`<button type="button" class="gemeo3d-family-tool-button" data-gemeo-tool="${tool}" onclick="openGemeo3DTool('${tool}')">${icon}<span>${label}</span></button>`).join('');
   bar.dataset.family=family;bar.classList.add('open');
+  $('gemeo3dToolPanel')?.classList.add('family-open');
   document.querySelectorAll('#gemeo3dToolbar .gemeo3d-tool-button[data-gemeo-family]').forEach(b=>b.classList.toggle('active',b.dataset.gemeoFamily===family));
 }
 
@@ -2909,13 +2910,14 @@ function openGemeo3DTool(name){
   }else{
     panel.dataset.tool=name;
     panel.classList.add('open');
+    panel.classList.toggle('family-open',$('gemeo3dFamilyToolbar')?.classList.contains('open'));
     renderGemeo3DToolPanel(name);
   }
   document.querySelectorAll('#gemeo3dFamilyToolbar .gemeo3d-family-tool-button[data-gemeo-tool]').forEach(btn=>btn.classList.toggle('active',btn.dataset.gemeoTool===name && panel.classList.contains('open')));
 }
 function closeGemeo3DTool(){
   const panel=$('gemeo3dToolPanel');
-  if(panel){panel.classList.remove('open');panel.dataset.tool='';}
+  if(panel){panel.classList.remove('open','family-open');panel.dataset.tool='';}
   document.querySelectorAll('#gemeo3dFamilyToolbar .gemeo3d-family-tool-button[data-gemeo-tool]').forEach(btn=>btn.classList.remove('active'));
 }
 function gemeo3DRenameComponent(id){
