@@ -608,7 +608,7 @@ header{height:68px;padding:0 12px}
 .gemeo3d-toolbar::-webkit-scrollbar{display:none}
 .gemeo3d-tool-button{height:42px;min-width:82px;padding:0 10px;display:flex;align-items:center;justify-content:center;gap:6px;border:1px solid rgba(157,143,255,.14);border-radius:11px;background:rgba(18,23,48,.82);color:#d9d4ec;font-size:17px;white-space:nowrap;flex:0 0 auto;touch-action:manipulation}
 .gemeo3d-tool-button span{font-size:8px;letter-spacing:.3px}
-.gemeo3d-tool-button:hover,.gemeo3d-tool-button.active{border-color:rgba(101,223,255,.45);background:rgba(101,223,255,.10);color:#fff}
+.gemeo3d-tool-button:hover,.gemeo3d-tool-button.active{border-color:rgba(101,223,255,.45);background:rgba(101,223,255,.10);color:#fff}.gemeo3d-family-toolbar{position:absolute;z-index:44;left:50%;bottom:calc(59px + env(safe-area-inset-bottom));transform:translateX(-50%);width:min(620px,calc(100% - 18px));display:none;align-items:center;justify-content:center;gap:5px;padding:5px;border:1px solid var(--border);border-radius:15px;background:rgba(8,12,29,.94);backdrop-filter:blur(20px);box-shadow:0 14px 40px rgba(0,0,0,.38);overflow-x:auto;scrollbar-width:none}.gemeo3d-family-toolbar.open{display:flex}.gemeo3d-family-toolbar::-webkit-scrollbar{display:none}.gemeo3d-family-tool-button{height:38px;min-width:78px;padding:0 9px;display:flex;align-items:center;justify-content:center;gap:5px;border:1px solid rgba(157,143,255,.14);border-radius:10px;background:rgba(18,23,48,.82);color:#d9d4ec;font-size:16px;white-space:nowrap;flex:0 0 auto;touch-action:manipulation}.gemeo3d-family-tool-button span{font-size:8px;letter-spacing:.25px}.gemeo3d-family-tool-button:hover,.gemeo3d-family-tool-button.active{border-color:rgba(101,223,255,.45);background:rgba(101,223,255,.10);color:#fff}
 .gemeo3d-tool-panel{position:absolute;z-index:44;left:50%;bottom:calc(62px + env(safe-area-inset-bottom));transform:translate(-50%,20px);width:min(720px,calc(100% - 20px));max-height:min(52dvh,430px);overflow:auto;padding:13px;border:1px solid var(--border);border-radius:18px;background:rgba(8,12,29,.96);backdrop-filter:blur(22px);box-shadow:0 22px 60px rgba(0,0,0,.52);opacity:0;visibility:hidden;pointer-events:none;transition:.2s ease}
 .gemeo3d-transform-compact{width:min(430px,calc(100% - 20px));max-height:190px;padding:10px;border-radius:16px;overflow:hidden}
 .gemeo3d-transform-compact .gemeo3d-transform-head{margin-bottom:7px}
@@ -676,7 +676,7 @@ header{height:68px;padding:0 12px}
 .gemeo3d-view-actions button{min-height:42px;border:1px solid rgba(157,143,255,.14);border-radius:10px;background:rgba(18,23,48,.75);font-size:9px;color:#ddd8ed}
 .gemeo3d-tool-empty{padding:12px;border:1px dashed rgba(157,143,255,.18);border-radius:10px;color:var(--muted);font-size:8px;line-height:1.5}
 @media(max-width:650px){
-  .gemeo3d-toolbar{width:calc(100% - 12px);bottom:calc(7px + env(safe-area-inset-bottom));padding:5px;border-radius:16px;justify-content:flex-start}
+  .gemeo3d-toolbar{width:calc(100% - 12px);bottom:calc(7px + env(safe-area-inset-bottom));padding:5px;border-radius:16px;justify-content:flex-start}.gemeo3d-family-toolbar{width:calc(100% - 12px);bottom:calc(58px + env(safe-area-inset-bottom));padding:4px;border-radius:14px;justify-content:flex-start}.gemeo3d-family-tool-button{flex:1;min-width:0;height:40px;padding:0 6px;flex-direction:column;gap:2px}.gemeo3d-family-tool-button span{font-size:7px}
   .gemeo3d-tool-button{flex:1;min-width:0;height:42px;padding:0 7px;flex-direction:column;gap:2px}
   .gemeo3d-tool-button span{font-size:7px}
   .gemeo3d-tool-panel{bottom:calc(61px + env(safe-area-inset-bottom));max-height:52dvh;padding:11px}
@@ -702,6 +702,16 @@ header{height:68px;padding:0 12px}
 
 <style id="gemeo3d-etapa5">
 .gemeo3d-object-section{margin-top:18px}.gemeo3d-object-scale-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:8px;margin-top:12px}.gemeo3d-object-scale-grid label{font-size:10px;color:var(--muted)}.gemeo3d-object-scale-grid input{width:100%;margin-top:5px}.gemeo3d-object-variations-head{display:flex;align-items:center;justify-content:space-between;margin-top:14px;font-size:11px}.gemeo3d-object-variations-head button{border:1px solid var(--border);background:rgba(255,255,255,.04);color:var(--text);border-radius:9px;padding:7px 9px}.gemeo3d-object-variations{display:grid;gap:7px;margin-top:8px;max-height:180px;overflow:auto}.gemeo3d-object-variation{display:flex;align-items:center;gap:8px;padding:8px 9px;border:1px solid var(--border);border-radius:10px;background:rgba(255,255,255,.025)}.gemeo3d-object-variation span{flex:1;min-width:0}.gemeo3d-object-variation small{display:block;color:var(--muted);margin-top:2px}.gemeo3d-object-variation button{border:1px solid var(--border);background:transparent;color:var(--text);border-radius:8px;padding:5px 7px}.gemeo3d-object-card{display:grid;grid-template-columns:1fr auto;gap:8px;align-items:center;padding:10px;border:1px solid var(--border);border-radius:12px;background:rgba(255,255,255,.025)}.gemeo3d-object-card-main{border:0;background:transparent;color:var(--text);text-align:left;padding:0;min-width:0}.gemeo3d-object-card-main strong,.gemeo3d-object-card-main small{display:block}.gemeo3d-object-card-main small{color:var(--muted);font-size:9px;margin-top:3px}.gemeo3d-object-actions{display:flex;gap:6px}.gemeo3d-object-actions button{border:1px solid var(--border);background:rgba(255,255,255,.04);color:var(--text);border-radius:8px;padding:7px 8px;font-size:10px}@media(max-width:520px){.gemeo3d-object-scale-grid{grid-template-columns:1fr}}
+</style>
+<style id="gemeo3d-etapa6a">
+.gemeo3d-material-section{margin-top:18px}.gemeo3d-material-add{border:1px solid var(--border);background:rgba(255,255,255,.04);color:var(--text);border-radius:9px;padding:7px 10px;font-size:10px}.gemeo3d-material-card{display:grid;grid-template-columns:1fr auto;gap:8px;align-items:center;padding:10px;border:1px solid var(--border);border-radius:12px;background:rgba(255,255,255,.025)}.gemeo3d-material-card-main{border:0;background:transparent;color:var(--text);text-align:left;padding:0;min-width:0}.gemeo3d-material-card-main strong,.gemeo3d-material-card-main small{display:block}.gemeo3d-material-card-main small{color:var(--muted);font-size:9px;margin-top:3px}.gemeo3d-material-actions{display:flex;gap:6px}.gemeo3d-material-actions button{border:1px solid var(--border);background:rgba(255,255,255,.04);color:var(--text);border-radius:8px;padding:7px 8px;font-size:10px}.gemeo3d-material-color-editor{display:flex;align-items:center;gap:8px;margin:6px 0 12px}.gemeo3d-material-color-editor input[type="color"]{width:46px;height:38px;padding:2px;border:1px solid var(--border);border-radius:9px;background:transparent}.gemeo3d-material-color-editor input[type="text"]{flex:1;min-width:0;border:1px solid var(--border);background:rgba(255,255,255,.04);color:var(--text);border-radius:9px;padding:9px 10px;font-size:12px}.gemeo3d-material-swatch{display:inline-block;width:10px;height:10px;border-radius:50%;border:1px solid rgba(255,255,255,.35);vertical-align:-1px}.gemeo3d-material-opacity{width:100%;accent-color:var(--rosa);margin:5px 0 12px}.gemeo3d-material-file{width:100%;box-sizing:border-box;margin:5px 0 7px;color:var(--text);font-size:10px}.gemeo3d-material-texture-info{padding:8px 9px;border:1px solid var(--border);border-radius:9px;color:var(--muted);font-size:9px;line-height:1.4;margin-bottom:10px}.gemeo3d-material-texture-remove{border:0;background:transparent;color:var(--rosa);font-size:9px;padding:0 0 0 4px;text-decoration:underline}.gemeo3d-component-material-panel{margin-top:12px;padding:11px;border:1px solid var(--border);border-radius:12px;background:rgba(255,255,255,.025)}.gemeo3d-component-material-head{display:flex;align-items:center;justify-content:space-between;gap:8px;margin-bottom:8px}.gemeo3d-component-material-head strong,.gemeo3d-component-material-head small{display:block}.gemeo3d-component-material-head strong{font-size:10px}.gemeo3d-component-material-head small{color:var(--muted);font-size:9px;margin-top:2px}.gemeo3d-component-material-panel select{width:100%;box-sizing:border-box;border:1px solid var(--border);background:var(--panel);color:var(--text);border-radius:9px;padding:9px;font-size:10px}.gemeo3d-component-material-panel>button{margin-top:7px;border:1px solid var(--border);background:rgba(255,255,255,.04);color:var(--text);border-radius:8px;padding:7px 9px;font-size:9px}.gemeo3d-component-material-panel>small{display:block;color:var(--muted);font-size:9px;line-height:1.4;margin-top:7px}.gemeo3d-material-foundation-note{margin-top:12px;padding:10px;border:1px solid var(--border);border-radius:10px;color:var(--muted);font-size:10px;line-height:1.45}@media(max-width:520px){.gemeo3d-material-section .gemeo3d-saved-head{align-items:flex-start;gap:8px;flex-direction:column}.gemeo3d-material-add{width:100%}}
+
+.gemeo3d-material-component-list{display:flex;flex-direction:column;gap:6px;margin:8px 0 10px}
+.gemeo3d-material-component-choice{display:flex;align-items:center;justify-content:space-between;gap:10px;width:100%;text-align:left;border:1px solid var(--border);background:rgba(255,255,255,.04);color:var(--text);border-radius:10px;padding:10px 12px;cursor:pointer}
+.gemeo3d-material-component-choice.selected{outline:2px solid var(--rosa);background:rgba(255,255,255,.08)}
+.gemeo3d-material-component-choice strong,.gemeo3d-material-component-choice small{display:block}
+.gemeo3d-material-component-choice small{margin-top:3px;opacity:.72;font-size:11px}
+.gemeo3d-material-back{width:100%;margin-top:8px}
 </style>
 </head>
 <body>
@@ -757,6 +767,14 @@ header{height:68px;padding:0 12px}
       <div id="gemeo3dSavedObjects" class="gemeo3d-saved-list"></div>
     </div>
 
+    <div class="gemeo3d-material-section">
+      <div class="gemeo3d-saved-head">
+        <div><strong>MATERIAIS</strong><small>Materiais 3D independentes, preparados para reutilização entre componentes.</small></div>
+        <button type="button" class="gemeo3d-material-add" onclick="openGemeo3DMaterialCreate()">＋ Criar Material</button>
+      </div>
+      <div id="gemeo3dSavedMaterials" class="gemeo3d-saved-list"></div>
+    </div>
+
     <div class="gemeo3d-character-section">
       <div class="gemeo3d-saved-head">
         <div><strong>PERSONAGENS CRIADOS</strong><small>Personagens 3D com identidade própria.</small></div>
@@ -797,6 +815,23 @@ header{height:68px;padding:0 12px}
   </div>
 </div>
 
+<div id="gemeo3dMaterialDialog" class="gemeo3d-character-dialog" role="dialog" aria-modal="true" aria-labelledby="gemeo3dMaterialDialogTitle">
+  <div class="gemeo3d-character-dialog-card">
+    <h2 id="gemeo3dMaterialDialogTitle">Criar Material</h2>
+    <p id="gemeo3dMaterialDialogText">Crie um Material independente. A aparência será configurada nas próximas etapas.</p>
+    <label for="gemeo3dMaterialName">Nome</label>
+    <input id="gemeo3dMaterialName" type="text" maxlength="120" autocomplete="off">
+    <label for="gemeo3dMaterialColor">Cor</label><div class="gemeo3d-material-color-editor"><input id="gemeo3dMaterialColor" type="color" value="#5f6673" aria-label="Cor do Material"><input id="gemeo3dMaterialColorHex" type="text" maxlength="7" inputmode="text" value="#5f6673" aria-label="Código hexadecimal da cor"></div>
+    <label for="gemeo3dMaterialOpacity">Opacidade <output id="gemeo3dMaterialOpacityValue">100%</output></label>
+    <input id="gemeo3dMaterialOpacity" class="gemeo3d-material-opacity" type="range" min="0" max="100" step="1" value="100" oninput="gemeo3DUpdateMaterialOpacityLabel(this.value)">
+    <label for="gemeo3dMaterialTextureFile">Textura simples</label>
+    <input id="gemeo3dMaterialTextureFile" class="gemeo3d-material-file" type="file" accept="image/png,image/webp,image/jpeg" onchange="gemeo3DHandleMaterialTextureFile(this)">
+    <div id="gemeo3dMaterialTextureInfo" class="gemeo3d-material-texture-info">Nenhuma textura adicionada. A imagem será ajustada para até 512×512 px.</div>
+    <div class="gemeo3d-material-foundation-note">Material independente: cor, opacidade e uma textura simples. A aplicação ao componente e a reutilização por referência são mantidas separadas da identidade e transformação.</div>
+    <div class="gemeo3d-character-dialog-actions"><button type="button" onclick="closeGemeo3DMaterialDialog()">Cancelar</button><button type="button" class="primary" onclick="saveGemeo3DMaterialDialog()">Criar Material</button></div>
+  </div>
+</div>
+
 <section id="gemeo3dEditorScreen" class="screen gemeo3d-editor-screen">
   <div class="gemeo3d-editor-toolbar">
     <button class="gemeo3d-back" onclick="leaveGemeo3DModel()" aria-label="Voltar para Gêmeo 3D">←</button>
@@ -824,17 +859,13 @@ header{height:68px;padding:0 12px}
       <div class="gemeo3d-viewport-hint">Arraste para girar · dois dedos para deslocar/zoom · roda para aproximar · grade = referência espacial</div>
     </div>
     <div id="gemeo3dToolPanel" class="gemeo3d-tool-panel" aria-live="polite"></div>
-    <div id="gemeo3dToolbar" class="gemeo3d-toolbar" aria-label="Ferramentas do Gêmeo 3D">
-      <button type="button" class="gemeo3d-tool-button" data-gemeo-tool="componentes" onclick="openGemeo3DTool('componentes')">◇<span>Componentes</span></button>
-      <button type="button" class="gemeo3d-tool-button" data-gemeo-tool="grupos" onclick="openGemeo3DTool('grupos')">▦<span>Grupos</span></button>
-      <button type="button" class="gemeo3d-tool-button" data-gemeo-tool="transformar" onclick="openGemeo3DTool('transformar')">✣<span>Transformar</span></button>
-      <button type="button" class="gemeo3d-tool-button" data-gemeo-tool="visualizar" onclick="openGemeo3DTool('visualizar')">◉<span>Visualizar</span></button>
-      <button type="button" class="gemeo3d-tool-button gemeo3d-character-only" data-gemeo-tool="aparencia" onclick="openGemeo3DTool('aparencia')">◐<span>Aparência</span></button>
-      <button type="button" class="gemeo3d-tool-button gemeo3d-character-only" data-gemeo-tool="roupas" onclick="openGemeo3DTool('roupas')">□<span>Roupa</span></button>
-      <button type="button" class="gemeo3d-tool-button gemeo3d-character-only" data-gemeo-tool="acessorios" onclick="openGemeo3DTool('acessorios')">◇<span>Acessórios</span></button>
-      <button type="button" class="gemeo3d-tool-button gemeo3d-character-only" data-gemeo-tool="poses" onclick="openGemeo3DTool('poses')">◈<span>Poses</span></button>
-      <button type="button" class="gemeo3d-tool-button" onclick="openGemeo3DComponentSetup()">＋<span>Adicionar</span></button>
+    <div id="gemeo3dToolbar" class="gemeo3d-toolbar" aria-label="Famílias de ferramentas do Gêmeo 3D">
+      <button type="button" class="gemeo3d-tool-button" data-gemeo-family="estrutura" onclick="openGemeo3DToolFamily('estrutura')">◇<span>Estrutura</span></button>
+      <button type="button" class="gemeo3d-tool-button" data-gemeo-family="visual" onclick="openGemeo3DToolFamily('visual')">◉<span>Visual</span></button>
+      <button type="button" class="gemeo3d-tool-button gemeo3d-character-only" data-gemeo-family="personagem" onclick="openGemeo3DToolFamily('personagem')">◐<span>Personagem</span></button>
+      <button type="button" class="gemeo3d-tool-button" data-gemeo-family="adicionar" onclick="openGemeo3DComponentSetup()">＋<span>Adicionar</span></button>
     </div>
+    <div id="gemeo3dFamilyToolbar" class="gemeo3d-family-toolbar" aria-label="Ferramentas da família selecionada"></div>
   </div>
 </section>
 <section id="libraryScreen" class="screen">
@@ -1310,6 +1341,8 @@ header{height:68px;padding:0 12px}
 
 const COLOR_KEY='dreamStudioColorLibrary';
 const RESOURCE_KEY='dreamStudioResourceLibrary';
+const MATERIAL_KEY='dreamStudioGemeo3DMaterialLibrary';
+const MATERIAL_TEXTURE_KEY='dreamStudioGemeo3DMaterialTextures';
 const CHARACTER_KEY='dreamStudioCharacters';
 const LAYER_KEY='dreamStudioLayerLibrary';
 const ILLUSTRATION_KEY='dreamStudioIllustrations';
@@ -1762,6 +1795,295 @@ let gemeo3DModelState=null;
 let gemeo3DGL=null;
 
 /* ---------- Gêmeo 3D · Parte 3 — salvar, identificar e integrar ---------- */
+let gemeo3DMaterialDraft=null;
+function gemeo3DReadMaterialTextures(){
+  const data=readJSON(MATERIAL_TEXTURE_KEY,{});
+  return data&&typeof data==='object'&&!Array.isArray(data)?data:{};
+}
+function gemeo3DMaterialForStorage(material){
+  const m=JSON.parse(JSON.stringify(gemeo3DEnsureMaterialData(material)));
+  const texture=m.textura&&m.textura.dataUrl?m.textura:null;
+  delete m.textura;
+  if(texture)m.texturaRef=m.id;else delete m.texturaRef;
+  return {material:m,texture};
+}
+function gemeo3DHydrateMaterial(material,textures){
+  const m=gemeo3DEnsureMaterialData(material);
+  if(!m.textura&&m.texturaRef&&textures[m.texturaRef])m.textura=textures[m.texturaRef];
+  return m;
+}
+function getSavedGemeo3DMaterials(){
+  const textures=gemeo3DReadMaterialTextures();
+  const own=readJSON(MATERIAL_KEY,null);
+  const dedicated=Array.isArray(own)?own.filter(r=>r&&r.tipo==='material3d'&&r.familia==='gemeo3d').map(r=>gemeo3DHydrateMaterial(r,textures)):[];
+  const legacy=readJSON(RESOURCE_KEY,[]).filter(r=>r&&r.tipo==='material3d'&&r.familia==='gemeo3d').map(r=>gemeo3DEnsureMaterialData(r));
+  if(!dedicated.length)return legacy;
+  const ids=new Set(dedicated.map(r=>r.id));
+  return dedicated.concat(legacy.filter(r=>!ids.has(r.id)));
+}
+function gemeo3DPersistMaterialLibrary(materials){
+  const clean=Array.isArray(materials)?materials.filter(r=>r&&r.tipo==='material3d'&&r.familia==='gemeo3d').map(r=>gemeo3DEnsureMaterialData(r)):[];
+  const textures=gemeo3DReadMaterialTextures();
+  const stored=[];
+  for(const source of clean){
+    const {material,texture}=gemeo3DMaterialForStorage(source);
+    if(texture)textures[material.id]=texture;
+    else delete textures[material.id];
+    stored.push(material);
+  }
+  // Primeiro grava o conteúdo próprio do Material. A biblioteca geral só é
+  // limpa depois que a cópia dedicada foi confirmada, evitando perda de dados.
+  if(!writeJSON(MATERIAL_KEY,stored)){
+    // Se a biblioteca geral ainda contém cópias antigas, removê-las pode
+    // liberar espaço suficiente para a primeira gravação da biblioteca própria.
+    const resources=readJSON(RESOURCE_KEY,[]);
+    const nonMaterials=resources.filter(r=>!(r&&r.tipo==='material3d'&&r.familia==='gemeo3d'));
+    if(nonMaterials.length===resources.length)return false;
+    if(!writeJSON(RESOURCE_KEY,nonMaterials))return false;
+    if(!writeJSON(MATERIAL_KEY,stored))return false;
+  }
+  if(!writeJSON(MATERIAL_TEXTURE_KEY,textures)){
+    // Material sem textura continua válido; não apaga a biblioteca própria.
+    // Se houver textura nova e ela não couber, removemos apenas as referências
+    // que não puderam ser persistidas e informamos o usuário.
+    let changed=false;
+    for(const m of stored){if(m.texturaRef&&!textures[m.texturaRef]){delete m.texturaRef;changed=true;}}
+    if(changed)writeJSON(MATERIAL_KEY,stored);
+    return false;
+  }
+  const resources=readJSON(RESOURCE_KEY,[]);
+  const nonMaterials=resources.filter(r=>!(r&&r.tipo==='material3d'&&r.familia==='gemeo3d'));
+  if(nonMaterials.length!==resources.length)writeJSON(RESOURCE_KEY,nonMaterials);
+  return true;
+}
+function gemeo3DCreateMaterialId(){
+  return 'material3d_'+Date.now().toString(36)+'_'+Math.random().toString(36).slice(2,8);
+}
+function gemeo3DGetNextMaterialName(){
+  const usados=new Set(getSavedGemeo3DMaterials().map(r=>String(r?.name||'').trim()));
+  let n=1;while(usados.has('Material '+n))n++;
+  return 'Material '+n;
+}
+function gemeo3DEnsureMaterialData(r){
+  const m=r&&typeof r==='object'?r:{};
+  return {
+    ...m,
+    id:m.id||gemeo3DCreateMaterialId(),
+    resourceId:m.resourceId||m.id||null,
+    type:'material3d',
+    tipo:'material3d',
+    familia:'gemeo3d',
+    name:String(m.name||'Material').trim()||'Material',
+    category:'material3d',
+    library:'biblioteca_gemeo3d',
+    propriedades:m.propriedades&&typeof m.propriedades==='object'?{...m.propriedades,cor:gemeo3DNormalizeMaterialColor(m.propriedades.cor),opacidade:Math.max(0,Math.min(1,Number.isFinite(Number(m.propriedades.opacidade))?Number(m.propriedades.opacidade):1))}:{cor:'#5f6673',opacidade:1},
+    textura:Object.prototype.hasOwnProperty.call(m,'textura')&&m.textura&&typeof m.textura==='object'?{...m.textura}:null,
+    iluminacao:Object.prototype.hasOwnProperty.call(m,'iluminacao')?m.iluminacao:null,
+    formato:'material_3d',
+    independente:true
+  };
+}
+function openGemeo3DMaterialCreate(){
+  gemeo3DMaterialDraft={materialId:null,pendingTexture:null,removeTexture:false,applyToComponentIds:null};
+  $('gemeo3dMaterialDialogTitle').textContent='Criar Material';
+  $('gemeo3dMaterialDialogText').textContent='Crie um Material independente. A aparência será configurada nas próximas etapas.';
+  $('gemeo3dMaterialName').value=gemeo3DGetNextMaterialName();$('gemeo3dMaterialColor').value='#5f6673';$('gemeo3dMaterialColorHex').value='#5f6673';$('gemeo3dMaterialOpacity').value='100';gemeo3DUpdateMaterialOpacityLabel(100);$('gemeo3dMaterialTextureFile').value='';$('gemeo3dMaterialTextureInfo').textContent='Nenhuma textura adicionada. A imagem será ajustada para até 512×512 px.';
+  const b=document.querySelector('#gemeo3dMaterialDialog .primary');if(b)b.textContent='Criar Material';
+  $('gemeo3dMaterialDialog').classList.add('open');
+  setTimeout(()=>$('gemeo3dMaterialName')?.focus(),60);
+}
+function openGemeo3DMaterialEdit(id){
+  const source=getSavedGemeo3DMaterials().find(r=>r.id===id);if(!source)return;
+  const m=gemeo3DEnsureMaterialData(JSON.parse(JSON.stringify(source)));
+  gemeo3DMaterialDraft={materialId:id,pendingTexture:null,removeTexture:false};
+  $('gemeo3dMaterialDialogTitle').textContent='Editar Material';
+  $('gemeo3dMaterialDialogText').textContent='A identidade do Material pode ser alterada sem modificar os componentes que o utilizam.';
+  $('gemeo3dMaterialName').value=m.name;const color=gemeo3DNormalizeMaterialColor(m.propriedades?.cor);$('gemeo3dMaterialColor').value=color;$('gemeo3dMaterialColorHex').value=color;const opacity=Math.round(Math.max(0,Math.min(1,Number(m.propriedades?.opacidade??1)))*100);$('gemeo3dMaterialOpacity').value=String(opacity);gemeo3DUpdateMaterialOpacityLabel(opacity);$('gemeo3dMaterialTextureFile').value='';gemeo3DSetMaterialTextureInfo(m.textura);
+  const b=document.querySelector('#gemeo3dMaterialDialog .primary');if(b)b.textContent='Salvar alterações';
+  $('gemeo3dMaterialDialog').classList.add('open');
+}
+function closeGemeo3DMaterialDialog(){
+  gemeo3DMaterialDraft=null;
+  $('gemeo3dMaterialDialog')?.classList.remove('open');
+  const b=document.querySelector('#gemeo3dMaterialDialog .primary');if(b)b.textContent='Criar Material';
+}
+function saveGemeo3DMaterialDialog(){
+  const name=String($('gemeo3dMaterialName')?.value||'').trim()||gemeo3DGetNextMaterialName();const color=gemeo3DNormalizeMaterialColor($('gemeo3dMaterialColorHex')?.value||$('gemeo3dMaterialColor')?.value);const opacity=Math.max(0,Math.min(1,Number($('gemeo3dMaterialOpacity')?.value||100)/100));const pendingTexture=gemeo3DMaterialDraft?.pendingTexture||null;
+  const materials=getSavedGemeo3DMaterials().map(r=>gemeo3DEnsureMaterialData(r)),now=new Date().toISOString();
+  if(gemeo3DMaterialDraft?.materialId){
+    const i=materials.findIndex(r=>r&&r.id===gemeo3DMaterialDraft.materialId);if(i<0)return;
+    const current=materials[i];
+    current.propriedades=current.propriedades&&typeof current.propriedades==='object'?current.propriedades:{};current.propriedades.cor=color;current.propriedades.opacidade=opacity;if(pendingTexture)current.textura=pendingTexture;else if(gemeo3DMaterialDraft?.removeTexture)current.textura=null;materials[i]={...current,name,updatedAt:now};
+    if(gemeo3DPersistMaterialLibrary(materials)){closeGemeo3DMaterialDialog();renderGemeo3DSavedModels();showToast('Material atualizado.');}
+    return;
+  }
+  const id=gemeo3DCreateMaterialId();
+  const material={
+    id,resourceId:id,type:'material3d',tipo:'material3d',familia:'gemeo3d',name,
+    category:'material3d',library:'biblioteca_gemeo3d',project:'',
+    propriedades:{cor:color,opacidade:opacity},textura:pendingTexture,iluminacao:null,
+    origem:'Criado no Gêmeo 3D',proprietario:'usuario',
+    permissao:{editar:true,usar:true,duplicar:true,exportar:true,excluir:true,ocultar:true},
+    criadoEm:now,updatedAt:now,versao:1,formato:'material_3d',independente:true
+  };
+  materials.push(material);
+  if(!gemeo3DPersistMaterialLibrary(materials)){
+    showToast('Não foi possível salvar o Material. O armazenamento do navegador pode estar cheio.');
+    return;
+  }
+  const applyToIds=Array.isArray(gemeo3DMaterialDraft?.applyToComponentIds)?gemeo3DMaterialDraft.applyToComponentIds.filter(Boolean):(gemeo3DMaterialDraft?.applyToComponentId?[gemeo3DMaterialDraft.applyToComponentId]:null);
+  closeGemeo3DMaterialDialog();
+  if(applyToIds&&applyToIds.length&&gemeo3DModelState){
+    // Aplicação direta no estado de edição: não depende da seleção atual do painel.
+    gemeo3DModelState.estrutura=gemeo3DNormalizeStructure(gemeo3DModelState.estrutura,gemeo3DModelState.primitive||'cubo');
+    let applied=0;
+    applyToIds.forEach(cid=>{
+      const target=gemeo3DModelState.estrutura.componentes.find(c=>c.id===cid);
+      if(target){target.materialId=id;applied++;}
+    });
+    if(applied){
+      if(applyToIds.length>1){
+        gemeo3DModelState.selectedComponentId=null;
+        gemeo3DModelState.selectedComponentIds=applyToIds.slice();
+        gemeo3DModelState.gemeo3DMultiSelect=true;
+      }else{
+        gemeo3DModelState.selectedComponentId=applyToIds[0];
+        gemeo3DModelState.selectedComponentIds=[];
+      }
+      gemeo3DModelState.selectedGroupId=null;
+    }
+    renderGemeo3D();
+    if($('gemeo3dToolPanel')?.classList.contains('open')){
+      const tool=$('gemeo3dToolPanel').dataset.tool||'material';
+      renderGemeo3DToolPanel(tool==='material'?'material':tool);
+    }
+    showToast(applied>1?`Material criado e aplicado a ${applied} componentes.`:'Material criado e aplicado ao componente.');
+  }else{
+    renderGemeo3DSavedModels();
+    if($('gemeo3dToolPanel')?.classList.contains('open')&&$('gemeo3dToolPanel').dataset.tool==='material')renderGemeo3DToolPanel('material');
+    showToast('Material criado.');
+  }
+}
+function duplicateGemeo3DMaterial(id){
+  const source=getSavedGemeo3DMaterials().find(r=>r.id===id);if(!source){showToast('Material não encontrado.');return;}
+  const materials=getSavedGemeo3DMaterials().map(r=>gemeo3DEnsureMaterialData(r)),copy=JSON.parse(JSON.stringify(source)),now=new Date().toISOString();
+  copy.id=gemeo3DCreateMaterialId();copy.resourceId=copy.id;copy.name=(source.name||'Material')+' · Cópia';copy.criadoEm=now;copy.updatedAt=now;copy.origem='Duplicado no Gêmeo 3D';copy.origemMaterialId=source.id;copy.independente=true;
+  materials.push(copy);if(!gemeo3DPersistMaterialLibrary(materials))return;renderGemeo3DSavedModels();showToast('Material duplicado. A cópia é independente do original.');
+}
+function gemeo3DUpdateMaterialOpacityLabel(value){
+  const n=Math.max(0,Math.min(100,Number(value)||0));
+  const out=$('gemeo3dMaterialOpacityValue');if(out)out.textContent=Math.round(n)+'%';
+}
+function gemeo3DSetMaterialTextureInfo(texture){
+  const box=$('gemeo3dMaterialTextureInfo');if(!box)return;
+  if(!texture?.dataUrl){box.innerHTML='Nenhuma textura adicionada. A imagem será ajustada para até 512×512 px.';return;}
+  box.innerHTML=`Textura atual · ${texture.width||'?'}×${texture.height||'?'} px · ${escapeHtml(texture.formato||'imagem')}. <button type="button" class="gemeo3d-material-texture-remove" onclick="gemeo3DRemoveMaterialTexture()">Remover</button>`;
+}
+function gemeo3DPrepareTextureFile(file){
+  return new Promise((resolve,reject)=>{
+    if(!file||!String(file.type||'').startsWith('image/')){reject(new Error('Arquivo inválido.'));return;}
+    if(file.size>8*1024*1024){reject(new Error('A imagem excede 8 MB.'));return;}
+    const reader=new FileReader();
+    reader.onerror=()=>reject(new Error('Não foi possível ler a imagem.'));
+    reader.onload=()=>{
+      const img=new Image();
+      img.onload=()=>{
+        const max=512,scale=Math.min(1,max/Math.max(img.naturalWidth||img.width,img.naturalHeight||img.height));
+        const width=Math.max(1,Math.round((img.naturalWidth||img.width)*scale)),height=Math.max(1,Math.round((img.naturalHeight||img.height)*scale));
+        const canvas=document.createElement('canvas');canvas.width=width;canvas.height=height;
+        const ctx=canvas.getContext('2d');if(!ctx){reject(new Error('Canvas indisponível.'));return;}
+        ctx.clearRect(0,0,width,height);ctx.drawImage(img,0,0,width,height);
+        // Mantém proporção e alpha. A textura pode ter dimensões não-potência-de-2;
+        // o renderer usa CLAMP_TO_EDGE/LINEAR para funcionar corretamente no WebGL 1.
+        let dataUrl='';
+        try{dataUrl=canvas.toDataURL('image/webp',.72);}catch(e){}
+        if(!dataUrl||dataUrl==='data:,')dataUrl=canvas.toDataURL('image/png');
+        resolve({dataUrl,width,height,formato:dataUrl.startsWith('data:image/webp')?'WebP':'PNG'});
+      };
+      img.onerror=()=>reject(new Error('Não foi possível abrir a imagem.'));
+      img.src=String(reader.result||'');
+    };
+    reader.readAsDataURL(file);
+  });
+}
+async function gemeo3DHandleMaterialTextureFile(input){
+  const file=input?.files?.[0];if(!file)return;
+  try{
+    const texture=await gemeo3DPrepareTextureFile(file);
+    if(!gemeo3DMaterialDraft)gemeo3DMaterialDraft={materialId:null};
+    gemeo3DMaterialDraft.pendingTexture=texture;
+    gemeo3DSetMaterialTextureInfo(texture);
+  }catch(err){
+    if(input)input.value='';
+    showToast(err?.message||'Não foi possível preparar a textura.');
+  }
+}
+function gemeo3DRemoveMaterialTexture(){
+  if(!gemeo3DMaterialDraft)gemeo3DMaterialDraft={materialId:null};
+  gemeo3DMaterialDraft.pendingTexture=null;
+  gemeo3DMaterialDraft.removeTexture=true;
+  if($('gemeo3dMaterialTextureFile'))$('gemeo3dMaterialTextureFile').value='';
+  gemeo3DSetMaterialTextureInfo(null);
+}
+function gemeo3DGetMaterialUsageCount(id){
+  if(!id)return 0;
+  let count=0;
+  for(const r of readJSON(RESOURCE_KEY,[])){
+    const st=r?.estrutura;
+    for(const c of (Array.isArray(st?.componentes)?st.componentes:[]))if(c?.materialId===id)count++;
+  }
+  return count;
+}
+function gemeo3DNormalizeMaterialColor(value,fallback='#5f6673'){
+  const v=String(value||'').trim();
+  return /^#[0-9a-fA-F]{6}$/.test(v)?v.toLowerCase():fallback;
+}
+function gemeo3DGetMaterialById(id){
+  if(!id)return null;
+  const source=getSavedGemeo3DMaterials().find(r=>r.id===id);
+  return source?gemeo3DEnsureMaterialData(source):null;
+}
+function gemeo3DGetComponentMaterialColor(c){
+  const material=gemeo3DGetMaterialById(c?.materialId);
+  return material?gemeo3DNormalizeMaterialColor(material.propriedades?.cor):null;
+}
+function gemeo3DGetComponentMaterial(c){
+  return gemeo3DGetMaterialById(c?.materialId);
+}
+function gemeo3DGetMaterialOpacity(c){
+  const material=gemeo3DGetComponentMaterial(c);
+  return material?Math.max(0,Math.min(1,Number(material.propriedades?.opacidade??1))):1;
+}
+function gemeo3DSetComponentMaterial(componentId,materialId){
+  const st=gemeo3DModelState;if(!st)return;
+  st.estrutura=gemeo3DNormalizeStructure(st.estrutura,st.primitive||'cubo');
+  const c=st.estrutura.componentes.find(x=>x.id===componentId);if(!c)return;
+  c.materialId=materialId||null;
+  renderGemeo3DToolPanel('componentes');renderGemeo3D();
+}
+function gemeo3DClearComponentMaterial(componentId){gemeo3DSetComponentMaterial(componentId,null);}
+function gemeo3DHexToRgb(hex){
+  const h=gemeo3DNormalizeMaterialColor(hex).slice(1);
+  return [parseInt(h.slice(0,2),16)/255,parseInt(h.slice(2,4),16)/255,parseInt(h.slice(4,6),16)/255];
+}
+document.addEventListener('input',e=>{if(e.target?.id==='gemeo3dMaterialColor'){const c=gemeo3DNormalizeMaterialColor(e.target.value);const h=$('gemeo3dMaterialColorHex');if(h)h.value=c;}else if(e.target?.id==='gemeo3dMaterialColorHex'){const c=String(e.target.value||'').trim();if(/^#[0-9a-fA-F]{6}$/.test(c)){const sw=$('gemeo3dMaterialColor');if(sw)sw.value=c;}}});
+function gemeo3DSetMaterialColor(id,color){
+  const materials=getSavedGemeo3DMaterials().map(r=>gemeo3DEnsureMaterialData(r)),i=materials.findIndex(r=>r&&r.id===id);if(i<0)return;
+  const material=materials[i];
+  material.propriedades=material.propriedades&&typeof material.propriedades==='object'?material.propriedades:{};
+  material.propriedades.cor=gemeo3DNormalizeMaterialColor(color);
+  material.updatedAt=new Date().toISOString();
+  materials[i]=material;
+  if(!gemeo3DPersistMaterialLibrary(materials))return;
+  renderGemeo3DSavedModels();
+  renderGemeo3D();
+}
+function renderGemeo3DSavedMaterials(){
+  const box=$('gemeo3dSavedMaterials');if(!box)return;
+  const materials=getSavedGemeo3DMaterials().slice().sort((a,b)=>String(b.updatedAt||b.criadoEm||'').localeCompare(String(a.updatedAt||a.criadoEm||'')));
+  box.innerHTML=materials.length?materials.map(m=>`<div class="gemeo3d-material-card"><button type="button" class="gemeo3d-material-card-main" onclick="openGemeo3DMaterialEdit('${escapeJs(m.id)}')"><strong>${escapeHtml(m.name||'Material')}</strong><small><span class="gemeo3d-material-swatch" style="background:${gemeo3DNormalizeMaterialColor(m.propriedades?.cor)}"></span> ${escapeHtml(gemeo3DNormalizeMaterialColor(m.propriedades?.cor))} · ${Math.round(Math.max(0,Math.min(1,Number(m.propriedades?.opacidade??1)))*100)}% · ${gemeo3DGetMaterialUsageCount(m.id)} uso(s) · ${escapeHtml(libraryFormatDate(m.updatedAt||m.criadoEm))}</small></button><div class="gemeo3d-material-actions"><button type="button" onclick="openGemeo3DMaterialEdit('${escapeJs(m.id)}')">Editar</button><button type="button" onclick="duplicateGemeo3DMaterial('${escapeJs(m.id)}')">Duplicar</button></div></div>`).join(''):'<div class="gemeo3d-saved-empty">Nenhum Material criado ainda. Crie um Material para preparar a aparência dos componentes.</div>';
+}
+
 function getSavedGemeo3DModels(){
   return readJSON(RESOURCE_KEY,[]).filter(r=>r&&r.tipo==='modelo3d'&&r.familia==='gemeo3d');
 }
@@ -1943,8 +2265,19 @@ function renderGemeo3DSavedModels(){
   const models=getSavedGemeo3DModels().slice().sort((a,b)=>String(b.updatedAt||b.criadoEm||'').localeCompare(String(a.updatedAt||a.criadoEm||'')));
   box.innerHTML=models.length?models.map(model=>`<div class="gemeo3d-saved-card"><button type="button" class="gemeo3d-saved-open" onclick="openSavedGemeo3DModel('${escapeJs(model.id)}')"><span class="gemeo3d-saved-icon">◇</span><span><strong>${escapeHtml(model.name||'Modelo 3D')}</strong><small>${escapeHtml(({cubo:'Cubo',esfera:'Esfera',cilindro:'Cilindro'})[model.primitive]||'Base 3D')} · ${escapeHtml(libraryFormatDate(model.updatedAt||model.criadoEm))}</small></span></button><button type="button" class="gemeo3d-saved-duplicate" onclick="duplicateGemeo3DModel('${escapeJs(model.id)}')" aria-label="Duplicar modelo">⧉</button><button type="button" class="gemeo3d-saved-duplicate" onclick="openGemeo3DCharacterFromModel('${escapeJs(model.id)}')" aria-label="Criar Personagem">♙</button></div>`).join(''):'<div class="gemeo3d-saved-empty">Nenhum Modelo 3D salvo ainda. Crie um modelo e use <strong>Salvar</strong> para registrá-lo aqui.</div>';
   renderGemeo3DSavedObjects();
+  renderGemeo3DSavedMaterials();
   const cbox=$('gemeo3dSavedCharacters'); if(cbox){const chars=getSavedGemeo3DCharacters().slice().sort((a,b)=>String(b.updatedAt||b.criadoEm||'').localeCompare(String(a.updatedAt||a.criadoEm||''))); cbox.innerHTML=chars.length?chars.map(c=>{const m=getSavedGemeo3DModels().find(x=>x.id===c.modeloOrigemId);return `<div class="gemeo3d-character-card"><button type="button" class="gemeo3d-character-main" onclick="openGemeo3DCharacterEdit('${escapeJs(c.id)}')"><strong>${escapeHtml(c.name||'Personagem')}</strong><small>Origem: ${escapeHtml(m?.name||'Modelo não disponível')} · ${escapeHtml(libraryFormatDate(c.updatedAt||c.criadoEm))}</small></button><div class="gemeo3d-character-actions"><button type="button" onclick="openSavedGemeo3DCharacter3DEditor('${escapeJs(c.id)}')">Personalizar</button><button type="button" onclick="openGemeo3DCharacterEdit('${escapeJs(c.id)}')">Editar</button></div></div>`}).join(''):'<div class="gemeo3d-saved-empty">Nenhum Personagem criado ainda. Use ♙ em um Modelo 3D salvo para criar um.</div>'; }
 }
+function gemeo3DGetUsedMaterialIds(state){
+  const comps=Array.isArray(state?.estrutura?.componentes)?state.estrutura.componentes:[];
+  return [...new Set(comps.map(c=>c?.materialId).filter(Boolean))];
+}
+function gemeo3DValidateMaterialPersistence(resource){
+  const ids=Array.isArray(resource?.materiaisUsadosIds)?resource.materiaisUsadosIds:[];
+  const materials=new Set(getSavedGemeo3DMaterials().map(m=>m.id));
+  return ids.every(id=>materials.has(id));
+}
+
 function saveGemeo3DModel(){
   if(!gemeo3DModelState)return;
   if(gemeo3DEditorMode==='personagem'){saveGemeo3DCharacter3D();return;}
@@ -1964,6 +2297,7 @@ function saveGemeo3DModel(){
     project:'',
     primitive:(gemeo3DModelState.estrutura?.componentes?.[0]?.tipo||gemeo3DModelState.primitive||'cubo'),
     estrutura:JSON.parse(JSON.stringify(gemeo3DNormalizeStructure(gemeo3DModelState.estrutura,gemeo3DModelState.primitive||'cubo'))),
+    materiaisUsadosIds:gemeo3DGetUsedMaterialIds(gemeo3DModelState),
     origem:'Criado no Gêmeo 3D',
     proprietario:'usuario',
     permissao:{editar:true,usar:true,duplicar:true,exportar:true,excluir:true,ocultar:true},
@@ -1977,8 +2311,16 @@ function saveGemeo3DModel(){
   if(!writeJSON(RESOURCE_KEY,resources))return;
   const verify=readJSON(RESOURCE_KEY,[]).find(r=>r&&r.id===resource.id);
   if(!verify){showToast('Não foi possível confirmar o salvamento do Modelo 3D.');return;}
+  const estruturaVerificada=gemeo3DNormalizeStructure(verify.estrutura,verify.primitive||'cubo');
+  const idsVerificados=gemeo3DGetUsedMaterialIds({estrutura:estruturaVerificada});
+  const idsPersistidos=Array.isArray(verify.materiaisUsadosIds)?verify.materiaisUsadosIds:[];
+  const mesmaRelacao=idsPersistidos.length===idsVerificados.length&&idsPersistidos.every(id=>idsVerificados.includes(id));
+  if(!mesmaRelacao||!gemeo3DValidateMaterialPersistence(verify)){
+    showToast('Modelo salvo, mas a relação com os Materiais precisa ser verificada.');
+    return;
+  }
   gemeo3DModelState={...gemeo3DModelState,resourceId:resource.id,salvoEm:now,atualizadoEm:now};
-  showToast(index>=0?'Modelo 3D atualizado na Biblioteca.':'Modelo 3D salvo e registrado na Biblioteca.');
+  showToast(index>=0?'Modelo 3D atualizado na Biblioteca. Materiais preservados.':'Modelo 3D salvo e registrado na Biblioteca. Materiais preservados.');
 }
 let gemeo3DEditorMode='modelo';
 let gemeo3DEditorResourceId=null;
@@ -2203,6 +2545,7 @@ function gemeo3DCreateComponent(tipo,index=0){
     id:'componente3d_'+Date.now().toString(36)+'_'+Math.random().toString(36).slice(2,7),
     nome:gemeo3DGetNextComponentName(tipo,gemeo3DModelState?.estrutura?.componentes||[]),
     tipo:tipo||'cubo',
+    materialId:null,
     transformacao:{posicao:{x,y,z:0},rotacao:{x:0,y:0,z:0},escala:{x:1,y:1,z:1}},
     estado:{visivel:true,bloqueado:false,ativo:true}
   };
@@ -2283,7 +2626,9 @@ function gemeo3DNormalizeStructure(estrutura,primitive='cubo'){
       id:c?.id||'componente3d_'+Date.now().toString(36)+'_'+i,
       nome,
       tipo,
+      materialId:c?.materialId||null,
       parentId:c?.parentId||null,
+      itemTipo:c?.itemTipo||null,
       transformacao:gemeo3DNormalizeTransform(c?.transformacao),
       estado:gemeo3DNormalizeState(c?.estado)
     };
@@ -2419,7 +2764,7 @@ function renderGemeo3DToolPanel(name){
   const panel=$('gemeo3dToolPanel');if(!panel||!gemeo3DModelState)return;
   if(name==='componentes'){
     const comps=gemeo3DNormalizeStructure(gemeo3DModelState.estrutura,gemeo3DModelState.primitive||'cubo').componentes;
-    panel.innerHTML=`<div class="gemeo3d-tool-panel-title"><span>COMPONENTES · ${comps.length}</span><button type="button" class="gemeo3d-tool-panel-close" onclick="closeGemeo3DTool()">×</button></div><button type="button" class="gemeo3d-tool-clear-selection ${gemeo3DModelState.selectedComponentId==null&&!gemeo3DModelState.selectedGroupId?'active':''}" onclick="gemeo3DClearComponentSelection()">○ Nenhum selecionado</button><button type="button" class="gemeo3d-multi-select-toggle ${gemeo3DModelState.gemeo3DMultiSelect?'active':''}" onclick="gemeo3DToggleMultiSelect()">☑ ${gemeo3DModelState.gemeo3DMultiSelect?'Seleção múltipla ativa':'Selecionar vários'}</button>${gemeo3DModelState.gemeo3DMultiSelect&&gemeo3DModelState.selectedComponentIds?.length>=2?`<button type="button" class="gemeo3d-group-action" onclick="gemeo3DCreateGroupFromSelection()">▦ Criar grupo com ${gemeo3DModelState.selectedComponentIds.length} componentes</button>`:''}${gemeo3DRenderComponentList()}`;
+    panel.innerHTML=`<div class="gemeo3d-tool-panel-title"><span>COMPONENTES · ${comps.length}</span><button type="button" class="gemeo3d-tool-panel-close" onclick="closeGemeo3DTool()">×</button></div><button type="button" class="gemeo3d-tool-clear-selection ${gemeo3DModelState.selectedComponentId==null&&!gemeo3DModelState.selectedGroupId?'active':''}" onclick="gemeo3DClearComponentSelection()">○ Nenhum selecionado</button><button type="button" class="gemeo3d-multi-select-toggle ${gemeo3DModelState.gemeo3DMultiSelect?'active':''}" onclick="gemeo3DToggleMultiSelect()">☑ ${gemeo3DModelState.gemeo3DMultiSelect?'Seleção múltipla ativa':'Selecionar vários'}</button>${gemeo3DModelState.gemeo3DMultiSelect&&gemeo3DModelState.selectedComponentIds?.length>=2?`<button type="button" class="gemeo3d-group-action" onclick="gemeo3DCreateGroupFromSelection()">▦ Criar grupo com ${gemeo3DModelState.selectedComponentIds.length} componentes</button>`:''}${gemeo3DRenderComponentList()}${gemeo3DRenderComponentMaterialPanel()}`;
   }else if(name==='grupos'){
     panel.innerHTML=gemeo3DRenderGroupsPanel();
   }else if(name==='transformar'){
@@ -2437,6 +2782,21 @@ function renderGemeo3DToolPanel(name){
   }else if(name==='poses'&&gemeo3DEditorMode==='personagem'){
     const st=gemeo3DModelState;gemeo3DEnsurePoseData(st);const poses=st.poses.disponiveis||[];const atual=st.poses.atualId;
     panel.innerHTML=`<div class="gemeo3d-tool-panel-title"><span>POSES</span><button type="button" class="gemeo3d-tool-panel-close" onclick="closeGemeo3DTool()">×</button></div><div class="gemeo3d-tool-empty">As poses desta etapa são estados estáticos baseados nas transformações da hierarquia. Sem rigging, somente poses explicitamente preparadas pelo Modelo podem ser aplicadas.</div>${poses.map(p=>`<div class="gemeo3d-character-item"><strong>${escapeHtml(p.nome||'Pose')}</strong><small>${p.id===atual?'Aplicada':'Disponível'} · estática</small><div class="gemeo3d-character-item-actions"><button type="button" onclick="gemeo3DApplyPose(\''+escapeJs(p.id)+'\')">${p.id===atual?'Aplicar novamente':'Aplicar'}</button></div></div>`).join('')}<div class="gemeo3d-character-panel-section"><strong>Limitação atual</strong><small>O Modelo 3D ainda não possui rigging ou partes corporais semânticas; poses anatômicas como sentar ou correr serão preparadas nas etapas futuras.</small></div>`;
+  }else if(name==='material'){
+    const st=gemeo3DModelState;
+    const selected=st?.selectedComponentId?st.estrutura.componentes.find(c=>c.id===st.selectedComponentId):null;
+    if(!selected){
+      const comps=Array.isArray(st?.estrutura?.componentes)?st.estrutura.componentes:[];
+      const display=gemeo3DGetHierarchyDisplayOrder(comps);
+      const rows=display.map(({component:c,depth})=>{
+        const material=gemeo3DGetComponentMaterial(c);
+        const applied=material?`<span class="gemeo3d-material-swatch" style="background:${gemeo3DNormalizeMaterialColor(material.propriedades?.cor)}"></span> ${escapeHtml(material.name)}`:'Nenhum Material';
+        return `<button type="button" class="gemeo3d-material-component-choice ${st.selectedComponentId===c.id?'selected':''}" onclick="gemeo3DSelectComponent('${escapeJs(c.id)}')" style="padding-left:${12+depth*18}px"><span><strong>${escapeHtml(c.nome)}</strong><small>${escapeHtml(applied)}</small></span><span>›</span></button>`;
+      }).join('');
+      panel.innerHTML=`<div class="gemeo3d-tool-panel-title"><span>MATERIAL</span><button type="button" class="gemeo3d-tool-panel-close" onclick="closeGemeo3DTool()">×</button></div><div class="gemeo3d-tool-empty">Escolha um componente do próprio modelo para configurar o Material. Para criar um novo Material, use o botão <strong>＋ Criar Material</strong> na área de Materiais.</div><div class="gemeo3d-material-component-list">${rows||'<div class="gemeo3d-tool-empty">Nenhum componente disponível.</div>'}</div>`;
+    }else{
+      panel.innerHTML=`<div class="gemeo3d-tool-panel-title"><span>MATERIAL · ${escapeHtml(selected.nome||'Componente')}</span><button type="button" class="gemeo3d-tool-panel-close" onclick="closeGemeo3DTool()">×</button></div>${gemeo3DRenderComponentMaterialPanel()}<button type="button" class="gemeo3d-material-back" onclick="gemeo3DSelectComponent(null)">← Escolher outro componente</button>`;
+    }
   }else if(name==='visualizar'){
     panel.innerHTML=`<div class="gemeo3d-tool-panel-title"><span>VISUALIZAÇÃO</span><button type="button" class="gemeo3d-tool-panel-close" onclick="closeGemeo3DTool()">×</button></div>
       <div class="gemeo3d-view-section">VISÕES</div>
@@ -2521,6 +2881,22 @@ function gemeo3DSelectComponent(id){
 }
 let gemeo3DTransformMode='mover';
 let gemeo3DTransformAxis='x';
+function openGemeo3DToolFamily(family){
+  const bar=$('gemeo3dFamilyToolbar');
+  if(!bar)return;
+  const defs={
+    estrutura:[['componentes','◇','Componentes'],['grupos','▦','Grupos'],['transformar','✣','Transformar']],
+    visual:[['visualizar','◉','Visualizar'],['material','●','Material']],
+    personagem:[['aparencia','◐','Aparência'],['roupas','□','Roupa'],['acessorios','◇','Acessórios'],['poses','◈','Poses']]
+  };
+  if(family==='personagem'&&gemeo3DEditorMode!=='personagem')return;
+  if(bar.dataset.family===family&&bar.classList.contains('open')){bar.classList.remove('open');bar.dataset.family='';document.querySelectorAll('#gemeo3dToolbar .gemeo3d-tool-button[data-gemeo-family]').forEach(b=>b.classList.remove('active'));return;}
+  const items=defs[family]||[];
+  bar.innerHTML=items.map(([tool,icon,label])=>`<button type="button" class="gemeo3d-family-tool-button" data-gemeo-tool="${tool}" onclick="openGemeo3DTool('${tool}')">${icon}<span>${label}</span></button>`).join('');
+  bar.dataset.family=family;bar.classList.add('open');
+  document.querySelectorAll('#gemeo3dToolbar .gemeo3d-tool-button[data-gemeo-family]').forEach(b=>b.classList.toggle('active',b.dataset.gemeoFamily===family));
+}
+
 function openGemeo3DTool(name){
   const panel=$('gemeo3dToolPanel');
   if(!panel)return;
@@ -2535,12 +2911,12 @@ function openGemeo3DTool(name){
     panel.classList.add('open');
     renderGemeo3DToolPanel(name);
   }
-  document.querySelectorAll('#gemeo3dToolbar .gemeo3d-tool-button[data-gemeo-tool]').forEach(btn=>btn.classList.toggle('active',btn.dataset.gemeoTool===name && panel.classList.contains('open')));
+  document.querySelectorAll('#gemeo3dFamilyToolbar .gemeo3d-family-tool-button[data-gemeo-tool]').forEach(btn=>btn.classList.toggle('active',btn.dataset.gemeoTool===name && panel.classList.contains('open')));
 }
 function closeGemeo3DTool(){
   const panel=$('gemeo3dToolPanel');
   if(panel){panel.classList.remove('open');panel.dataset.tool='';}
-  document.querySelectorAll('#gemeo3dToolbar .gemeo3d-tool-button[data-gemeo-tool]').forEach(btn=>btn.classList.remove('active'));
+  document.querySelectorAll('#gemeo3dFamilyToolbar .gemeo3d-family-tool-button[data-gemeo-tool]').forEach(btn=>btn.classList.remove('active'));
 }
 function gemeo3DRenameComponent(id){
   const st=gemeo3DModelState;if(!st)return;
@@ -2826,6 +3202,52 @@ function gemeo3DGetHierarchyDisplayOrder(comps){
   comps.forEach(c=>{if(!visited.has(c.id)){visited.add(c.id);result.push({component:c,depth:0});}});
   return result;
 }
+function gemeo3DRenderComponentMaterialPanel(){
+  const st=gemeo3DModelState;if(!st)return '';
+  const multiIds=Array.isArray(st.selectedComponentIds)?st.selectedComponentIds:[];
+  if(st.gemeo3DMultiSelect&&multiIds.length>=1)return gemeo3DRenderComponentMaterialPanelMulti(multiIds);
+  if(!st.selectedComponentId||multiIds.length)return '';
+  const c=st.estrutura.componentes.find(x=>x.id===st.selectedComponentId);if(!c)return '';
+  const materials=getSavedGemeo3DMaterials().slice().sort((a,b)=>String(a.name||'').localeCompare(String(b.name||'')));
+  const current=gemeo3DGetComponentMaterial(c);
+  const options='<option value="">Nenhum Material</option>'+materials.map(m=>`<option value="${escapeHtml(m.id)}" ${m.id===c.materialId?'selected':''}>${escapeHtml(m.name||'Material')} · ${Math.round(Math.max(0,Math.min(1,Number(m.propriedades?.opacidade??1)))*100)}%</option>`).join('');
+  return `<div class="gemeo3d-component-material-panel"><div class="gemeo3d-component-material-head"><div><strong>MATERIAL</strong><small>${current?escapeHtml(current.name)+' · compartilhável':'Nenhum Material aplicado'}</small></div>${current?`<span class="gemeo3d-material-swatch" style="background:${gemeo3DNormalizeMaterialColor(current.propriedades?.cor)}"></span>`:''}</div>${materials.length?`<select aria-label="Material do componente" onchange="gemeo3DSetComponentMaterial('${escapeJs(c.id)}',this.value)">${options}</select>`: '<div class="gemeo3d-tool-empty">Nenhum Material criado ainda. Use ＋ Criar Material na área de Materiais.</div>'}${current?`<button type="button" onclick="gemeo3DClearComponentMaterial('${escapeJs(c.id)}')">Remover Material</button>`:'<small>Escolha um Material existente. Aplicar um Material não altera identidade, transformação, hierarquia, grupo ou estado.</small>'}</div>`;
+}
+function gemeo3DRenderComponentMaterialPanelMulti(ids){
+  const st=gemeo3DModelState;if(!st)return '';
+  const comps=ids.map(id=>st.estrutura.componentes.find(c=>c.id===id)).filter(Boolean);
+  if(!comps.length)return '';
+  const materials=getSavedGemeo3DMaterials().slice().sort((a,b)=>String(a.name||'').localeCompare(String(b.name||'')));
+  const materialIds=new Set(comps.map(c=>c.materialId||''));
+  const sameMaterial=materialIds.size===1?[...materialIds][0]:'';
+  const mixed=materialIds.size>1;
+  const options='<option value="">Nenhum Material</option>'+materials.map(m=>`<option value="${escapeHtml(m.id)}" ${m.id===sameMaterial?'selected':''}>${escapeHtml(m.name||'Material')} · ${Math.round(Math.max(0,Math.min(1,Number(m.propriedades?.opacidade??1)))*100)}%</option>`).join('');
+  const idsLiteral='['+ids.map(id=>`'${escapeJs(id)}'`).join(',')+']';
+  return `<div class="gemeo3d-component-material-panel"><div class="gemeo3d-component-material-head"><div><strong>MATERIAL</strong><small>${comps.length} componentes selecionados${mixed?' · materiais diferentes entre eles':''}</small></div></div>${materials.length?`<select aria-label="Material dos componentes selecionados" onchange="gemeo3DSetComponentMaterialMulti(this.value)">${options}</select>`:'<div class="gemeo3d-tool-empty">Nenhum Material criado ainda. Use ＋ Criar Material na área de Materiais.</div>'}<button type="button" onclick="openGemeo3DMaterialCreateFromComponent(${idsLiteral})">＋ Criar Material para os ${comps.length} selecionados</button><button type="button" onclick="gemeo3DClearComponentMaterialMulti()">Remover Material de todos</button><small>Aplicar um Material não altera identidade, transformação, hierarquia, grupo ou estado.</small></div>`;
+}
+function gemeo3DSetComponentMaterialMulti(materialId){
+  const st=gemeo3DModelState;if(!st)return;
+  const ids=Array.isArray(st.selectedComponentIds)?st.selectedComponentIds:[];if(!ids.length)return;
+  st.estrutura=gemeo3DNormalizeStructure(st.estrutura,st.primitive||'cubo');
+  ids.forEach(id=>{const c=st.estrutura.componentes.find(x=>x.id===id);if(c)c.materialId=materialId||null;});
+  renderGemeo3DToolPanel('componentes');renderGemeo3D();
+}
+function gemeo3DClearComponentMaterialMulti(){gemeo3DSetComponentMaterialMulti(null);}
+function openGemeo3DMaterialCreateFromComponent(componentId){
+  if(!gemeo3DModelState)return;
+  const ids=(Array.isArray(componentId)?componentId:[componentId]).filter(Boolean);
+  const exists=ids.length&&ids.every(id=>gemeo3DModelState.estrutura?.componentes?.some(c=>c.id===id));
+  if(!exists)return;
+  gemeo3DMaterialDraft={materialId:null,pendingTexture:null,removeTexture:false,applyToComponentIds:ids};
+  $('gemeo3dMaterialDialogTitle').textContent='Criar Material';
+  $('gemeo3dMaterialDialogText').textContent=ids.length>1?`Crie o Material e ele será aplicado aos ${ids.length} componentes selecionados.`:'Crie o Material e ele será aplicado ao componente selecionado.';
+  $('gemeo3dMaterialName').value=gemeo3DGetNextMaterialName();
+  $('gemeo3dMaterialColor').value='#5f6673';$('gemeo3dMaterialColorHex').value='#5f6673';
+  $('gemeo3dMaterialOpacity').value='100';gemeo3DUpdateMaterialOpacityLabel(100);
+  $('gemeo3dMaterialTextureFile').value='';$('gemeo3dMaterialTextureInfo').textContent='Nenhuma textura adicionada. A imagem será ajustada para até 512×512 px.';
+  const b=document.querySelector('#gemeo3dMaterialDialog .primary');if(b)b.textContent='Criar e aplicar';
+  $('gemeo3dMaterialDialog').classList.add('open');setTimeout(()=>$('gemeo3dMaterialName')?.focus(),60);
+}
 function gemeo3DRenderComponentList(){
   const st=gemeo3DModelState;if(!st)return '';
   st.estrutura=gemeo3DNormalizeStructure(st.estrutura,st.primitive||'cubo');
@@ -2939,8 +3361,8 @@ function initGemeo3DViewport(){
     return;
   }
   gemeo3DGL={gl,canvas,viewport,q:[0,0,0,1],distance:4.8,panX:0,panY:0,drag:false,lastX:0,lastY:0,lastVec:null,pointers:new Map(),pinchDistance:null,lastPanMid:null};
-  const vs=`attribute vec3 aPosition;attribute vec3 aNormal;uniform mat4 uMVP;uniform mat4 uModel;varying float vLight;void main(){vec3 n=normalize(mat3(uModel)*aNormal);vec3 light=normalize(vec3(.5,.8,1.0));vLight=max(.18,dot(n,light)*.72+.28);gl_Position=uMVP*vec4(aPosition,1.0);}`;
-  const fs=`precision mediump float;varying float vLight;uniform vec3 uColor;void main(){gl_FragColor=vec4(uColor*vLight,1.0);}`;
+  const vs=`attribute vec3 aPosition;attribute vec3 aNormal;uniform mat4 uMVP;uniform mat4 uModel;varying float vLight;varying vec2 vUV;void main(){vec3 n=normalize(mat3(uModel)*aNormal);vec3 light=normalize(vec3(.5,.8,1.0));vLight=max(.18,dot(n,light)*.72+.28);vec3 p=normalize(aPosition);vUV=vec2(atan(p.z,p.x)/6.2831853+.5,asin(clamp(p.y,-1.0,1.0))/3.1415926+.5);gl_Position=uMVP*vec4(aPosition,1.0);}`;
+  const fs=`precision mediump float;varying float vLight;varying vec2 vUV;uniform vec3 uColor;uniform float uOpacity;uniform sampler2D uTexture;uniform float uTextureEnabled;void main(){vec4 tex=uTextureEnabled>.5?texture2D(uTexture,vUV):vec4(1.0);gl_FragColor=vec4(uColor*tex.rgb*vLight,tex.a*uOpacity);}`;
   const compile=(type,src)=>{const sh=gl.createShader(type);gl.shaderSource(sh,src);gl.compileShader(sh);return sh};
   const program=gl.createProgram();
   gl.attachShader(program,compile(gl.VERTEX_SHADER,vs));gl.attachShader(program,compile(gl.FRAGMENT_SHADER,fs));gl.linkProgram(program);
@@ -2950,7 +3372,7 @@ function initGemeo3DViewport(){
   gemeo3DGL.aNormal=gl.getAttribLocation(program,'aNormal');
   gemeo3DGL.uMVP=gl.getUniformLocation(program,'uMVP');
   gemeo3DGL.uModel=gl.getUniformLocation(program,'uModel');
-  gemeo3DGL.uColor=gl.getUniformLocation(program,'uColor');
+  gemeo3DGL.uColor=gl.getUniformLocation(program,'uColor');gemeo3DGL.uOpacity=gl.getUniformLocation(program,'uOpacity');gemeo3DGL.uTexture=gl.getUniformLocation(program,'uTexture');gemeo3DGL.uTextureEnabled=gl.getUniformLocation(program,'uTextureEnabled');gemeo3DGL.textureCache=new Map();gl.uniform1i(gemeo3DGL.uTexture,0);
   gemeo3DGL.geometryBuffers={};
   /* C3 — grade espacial e origem: referências visuais, nunca parte do modelo. */
   const gridVertices=[];
@@ -3263,16 +3685,42 @@ function gemeo3DComponentModelMatrix(c){
   m=gemeo3DMat4Multiply(m,gemeo3DScale(t.escala.x,t.escala.y,t.escala.z));
   return m;
 }
+function gemeo3DGetWebGLTexture(material){
+  const st=gemeo3DGL;if(!st||!material?.textura?.dataUrl)return null;
+  const key=String(material.id||'')+'|'+String(material.textura.dataUrl);
+  const cached=st.textureCache?.get(key);
+  if(cached?.texture)return cached.texture;
+  if(cached?.loading)return null;
+  const record={loading:true,texture:null};
+  st.textureCache?.set(key,record);
+  const img=new Image();
+  img.onload=()=>{
+    const tex=st.gl.createTexture();st.gl.activeTexture(st.gl.TEXTURE0);st.gl.bindTexture(st.gl.TEXTURE_2D,tex);
+    // WebGL 1 não permite REPEAT/mipmaps em texturas NPOT. Como as imagens
+    // podem ter qualquer proporção/tamanho, usamos CLAMP_TO_EDGE + LINEAR.
+    st.gl.pixelStorei(st.gl.UNPACK_FLIP_Y_WEBGL,true);
+    st.gl.texParameteri(st.gl.TEXTURE_2D,st.gl.TEXTURE_WRAP_S,st.gl.CLAMP_TO_EDGE);
+    st.gl.texParameteri(st.gl.TEXTURE_2D,st.gl.TEXTURE_WRAP_T,st.gl.CLAMP_TO_EDGE);
+    st.gl.texParameteri(st.gl.TEXTURE_2D,st.gl.TEXTURE_MIN_FILTER,st.gl.LINEAR);
+    st.gl.texParameteri(st.gl.TEXTURE_2D,st.gl.TEXTURE_MAG_FILTER,st.gl.LINEAR);
+    st.gl.texImage2D(st.gl.TEXTURE_2D,0,st.gl.RGBA,st.gl.RGBA,st.gl.UNSIGNED_BYTE,img);
+    record.loading=false;record.texture=tex;st.textureCache?.set(key,record);renderGemeo3D();
+  };
+  img.onerror=()=>{st.textureCache?.delete(key);showToast('Não foi possível carregar a textura no espaço 3D.');};
+  img.src=material.textura.dataUrl;
+  return null;
+}
 function renderGemeo3D(){
   const st=gemeo3DGL;if(!st)return;
   gemeo3DUpdateOrientationGizmo();
   const gl=st.gl,w=st.canvas.width,h=st.canvas.height;
   if(!w||!h)return;
-  gl.viewport(0,0,w,h);gl.enable(gl.DEPTH_TEST);gl.clearColor(.02,.03,.08,1);gl.clear(gl.COLOR_BUFFER_BIT|gl.DEPTH_BUFFER_BIT);
+  gl.viewport(0,0,w,h);gl.enable(gl.DEPTH_TEST);gl.enable(gl.BLEND);gl.blendFunc(gl.SRC_ALPHA,gl.ONE_MINUS_SRC_ALPHA);gl.depthMask(true);gl.clearColor(.02,.03,.08,1);gl.clear(gl.COLOR_BUFFER_BIT|gl.DEPTH_BUFFER_BIT);
   gl.useProgram(st.program);
   const proj=gemeo3DMat4Perspective(Math.PI/3,w/h,.1,100);
   const view=gemeo3DTranslate(st.panX,st.panY,-st.distance);
   const globalModel=gemeo3DQuatToMat4(st.q);
+  gl.uniform1f(st.uOpacity,1);gl.uniform1f(st.uTextureEnabled,0);gl.activeTexture(gl.TEXTURE0);gl.bindTexture(gl.TEXTURE_2D,null);
   /* C3 — referência espacial: grade no plano XZ e eixos na origem. */
   if(st.gridBuffer && gemeo3DGridVisible){
     gl.bindBuffer(gl.ARRAY_BUFFER,st.gridBuffer);
@@ -3297,7 +3745,8 @@ function renderGemeo3D(){
   const selectedDescendants=selectedId?gemeo3DGetDescendantIds(selectedId,comps):new Set();
   const selectedGroup=gemeo3DModelState?.selectedGroupId?gemeo3DGetGroupById(gemeo3DModelState.selectedGroupId):null;
   const multiIds=new Set(gemeo3DModelState?.selectedComponentIds||[]);
-  for(const c of comps){
+  const orderedComps=comps.slice().sort((a,b)=>{const ta=gemeo3DGetMaterialOpacity(a)<.999?1:0,tb=gemeo3DGetMaterialOpacity(b)<.999?1:0;return ta-tb;});
+  for(const c of orderedComps){
     const buffers=gemeo3DGetGeometryBuffer(c.tipo||'cubo');
     if(!buffers)continue;
     const groups=gemeo3DModelState?gemeo3DNormalizeStructure(gemeo3DModelState.estrutura,gemeo3DModelState.primitive||'cubo').grupos:[];
@@ -3311,14 +3760,23 @@ function renderGemeo3D(){
     const isDescendant=selectedDescendants.has(c.id);
     const isGroupMember=!!selectedGroup?.componentes.includes(c.id);
     const isMultiSelected=multiIds.has(c.id);
+    const material=gemeo3DGetComponentMaterial(c);
+    const materialColor=material?gemeo3DNormalizeMaterialColor(material.propriedades?.cor):null;
+    const materialOpacity=material?Math.max(0,Math.min(1,Number(material.propriedades?.opacidade??1))):1;
+    const texture=material?gemeo3DGetWebGLTexture(material):null;
     const customColor=gemeo3DEditorMode==='personagem'?(gemeo3DModelState?.aparencia?.componentes?.[c.id]?.cor||gemeo3DModelState?.aparencia?.propriedades?.corBase||null):null;
-    if(selected){gl.uniform3f(st.uColor,.98,.72,.98);}else if(customColor){const hex=customColor.replace('#','');const rr=parseInt(hex.slice(0,2),16)/255,gg=parseInt(hex.slice(2,4),16)/255,bb=parseInt(hex.slice(4,6),16)/255;gl.uniform3f(st.uColor,rr,gg,bb);}else{gl.uniform3f(st.uColor,isGroupMember?0.82:(isMultiSelected?0.65:(isDescendant?0.42:0.36)),isGroupMember?0.78:(isMultiSelected?0.88:(isDescendant?0.86:0.54)),isGroupMember?0.86:(isMultiSelected?1.0:(isDescendant?1.0:0.95)));}
+    const isTransparent=!selected&&materialOpacity<.999;
+    gl.depthMask(!isTransparent);
+    gl.uniform1f(st.uOpacity,selected?1:materialOpacity);
+    if(texture){gl.activeTexture(gl.TEXTURE0);gl.bindTexture(gl.TEXTURE_2D,texture);gl.uniform1i(st.uTexture,0);gl.uniform1f(st.uTextureEnabled,1);}else{gl.uniform1f(st.uTextureEnabled,0);}
+    if(selected){gl.uniform3f(st.uColor,.98,.72,.98);}else if(materialColor){const [rr,gg,bb]=gemeo3DHexToRgb(materialColor);gl.uniform3f(st.uColor,rr,gg,bb);}else if(customColor){const [rr,gg,bb]=gemeo3DHexToRgb(customColor);gl.uniform3f(st.uColor,rr,gg,bb);}else{gl.uniform3f(st.uColor,isGroupMember?0.82:(isMultiSelected?0.65:(isDescendant?0.42:0.36)),isGroupMember?0.78:(isMultiSelected?0.88:(isDescendant?0.86:0.54)),isGroupMember?0.86:(isMultiSelected?1.0:(isDescendant?1.0:0.95)));}
     const mvp=gemeo3DMat4Multiply(proj,gemeo3DMat4Multiply(view,model));
     gl.uniformMatrix4fv(st.uMVP,false,new Float32Array(mvp));
     gl.uniformMatrix4fv(st.uModel,false,new Float32Array(model));
     gl.bindBuffer(gl.ELEMENT_ARRAY_BUFFER,buffers.indexBuffer);
     gl.drawElements(gl.TRIANGLES,buffers.count,gl.UNSIGNED_SHORT,0);
   }
+  gl.depthMask(true);
 }
 function gemeo3DComingSoon(tipo){
   showToast(tipo+' será desenvolvido em uma evolução posterior do Gêmeo 3D.');
