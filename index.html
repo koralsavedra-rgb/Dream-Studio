@@ -58,6 +58,8 @@ body.editor-route #splash{display:none!important;visibility:hidden!important;poi
 .character-mode>header{display:none!important}
 .setup-mode .bottom-nav{display:none!important}
 
+
+.gemeo3d-scene-picker{display:flex;gap:6px;overflow-x:auto;padding:1px 0 6px;scrollbar-width:thin}.gemeo3d-scene-picker button{flex:0 0 auto;min-width:88px;min-height:34px;padding:7px 10px;border-radius:9px;border:1px solid rgba(157,143,255,.14);background:rgba(18,23,48,.62);color:#d9d4ec;font-size:8px;touch-action:manipulation}.gemeo3d-scene-picker button.active{border-color:rgba(101,223,255,.6);background:rgba(101,223,255,.11);color:#fff}.gemeo3d-direct-edit-note{margin:0 0 8px;padding:8px 9px;border-radius:9px;background:rgba(101,223,255,.045);border:1px solid rgba(101,223,255,.11);color:#cfd8ec;font-size:8px;line-height:1.4}.gemeo3d-fine-details{margin-top:8px;border-top:1px solid rgba(157,143,255,.1);padding-top:7px}.gemeo3d-fine-details summary{cursor:pointer;list-style:none;color:var(--muted);font-size:8px;padding:3px 0}.gemeo3d-fine-details summary::-webkit-details-marker{display:none}.gemeo3d-fine-details summary::before{content:'＋ ';color:#65dfff}.gemeo3d-fine-details[open] summary::before{content:'− ';}.gemeo3d-scene-compact-actions{display:grid;grid-template-columns:1fr 1fr;gap:6px;margin-top:8px}.gemeo3d-scene-compact-actions button{min-height:32px;border:1px solid rgba(157,143,255,.14);border-radius:8px;background:rgba(18,23,48,.72);color:inherit;font-size:8px}.gemeo3d-scene-compact-actions button.danger{border-color:rgba(255,110,130,.28)}
 @media(max-width:650px){
 header{height:68px;padding:0 12px}
 .screen{min-height:calc(100vh - 68px);min-height:calc(100dvh - 68px);padding:25px 12px 92px}
@@ -569,7 +571,7 @@ header{height:68px;padding:0 12px}
 .gemeo3d-model-primitive strong{display:block;font-size:11px;font-weight:500}
 .gemeo3d-model-primitive small{display:block;color:var(--muted);font-size:8px;margin-top:4px}
 .gemeo3d-model-primitive:has(input:checked){border-color:rgba(101,223,255,.6);background:rgba(101,223,255,.09);box-shadow:0 0 18px rgba(101,223,255,.06)}
-.gemeo3d-editor-screen{position:fixed!important;inset:0!important;z-index:9998!important;width:100vw!important;height:100vh!important;height:100dvh!important;min-height:100vh!important;min-height:100dvh!important;padding:0!important;margin:0!important;background:var(--bg);overflow:hidden}
+.gemeo3d-editor-screen{position:fixed!important;inset:0!important;z-index:9998!important;width:100vw!important;height:100vh!important;height:100dvh!important;min-height:100vh!important;min-height:100dvh!important;padding:0!important;margin:0!important;background:#03050a!important;overflow:hidden}
 .gemeo3d-editor-screen.active{display:flex!important;flex-direction:column}
 .gemeo3d-editor-toolbar{height:calc(60px + env(safe-area-inset-top));min-height:60px;padding:env(safe-area-inset-top) 12px 0;display:flex;align-items:center;gap:9px;border-bottom:1px solid var(--border);background:rgba(5,8,20,.9);backdrop-filter:blur(18px);z-index:20}
 .gemeo3d-editor-toolbar .gemeo3d-back{flex:0 0 40px}
@@ -577,9 +579,10 @@ header{height:68px;padding:0 12px}
 .gemeo3d-editor-info strong{display:block;font-size:14px;font-weight:500;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
 .gemeo3d-editor-info small{display:block;font-size:8px;color:var(--muted);letter-spacing:1.4px;margin-top:3px}
 .gemeo3d-editor-badge{padding:6px 9px;border:1px solid rgba(101,223,255,.28);border-radius:999px;color:#bff5ff;font-size:8px;letter-spacing:.8px;white-space:nowrap}
-.gemeo3d-editor-main{position:relative;flex:1;min-height:0;display:flex;overflow:hidden}
-.gemeo3d-viewport{position:relative;flex:1;min-width:0;min-height:0;display:flex;align-items:center;justify-content:center;background:radial-gradient(circle at 50% 45%,rgba(93,140,255,.08),transparent 35%),#050814;touch-action:none;overflow:hidden}
+.gemeo3d-editor-main{position:relative;flex:1;min-height:0;display:flex;overflow:hidden;background:#eef0f4!important}
+.gemeo3d-viewport{position:relative;flex:1;min-width:0;min-height:0;display:flex;align-items:center;justify-content:center;background:#eef0f4!important;touch-action:none;overflow:hidden}
 #gemeo3dCanvas{display:block;width:100%;height:100%;touch-action:none}
+.gemeo3d-scene-direct-gizmo{position:absolute;left:50%;top:50%;transform:translate(-50%,-50%);z-index:5;pointer-events:none;display:none;user-select:none}.gemeo3d-scene-direct-gizmo.open{display:block}.gemeo3d-scene-gizmo-ring{width:112px;height:112px;border:2px solid rgba(101,223,255,.62);border-radius:50%;background:rgba(8,12,29,.18);box-shadow:0 0 0 1px rgba(8,12,29,.18),0 0 28px rgba(101,223,255,.16);position:relative;pointer-events:auto;touch-action:none}.gemeo3d-scene-gizmo-center{position:absolute;left:50%;top:50%;width:38px;height:38px;margin:-19px;border-radius:50%;border:2px solid #fff;background:rgba(8,12,29,.94);color:#fff;display:grid;place-items:center;font-size:18px;box-shadow:0 0 0 2px rgba(101,223,255,.38),0 8px 20px rgba(0,0,0,.3);pointer-events:auto;touch-action:none}.gemeo3d-scene-gizmo-ring::before,.gemeo3d-scene-gizmo-ring::after{content:'';position:absolute;background:rgba(101,223,255,.45);pointer-events:none}.gemeo3d-scene-gizmo-ring::before{left:50%;top:7px;width:2px;height:98px;transform:translateX(-50%)}.gemeo3d-scene-gizmo-ring::after{top:50%;left:7px;width:98px;height:2px;transform:translateY(-50%)}.gemeo3d-scene-gizmo-label{position:absolute;left:50%;top:calc(100% + 9px);transform:translateX(-50%);padding:5px 8px;border-radius:8px;background:rgba(8,12,29,.88);border:1px solid rgba(101,223,255,.28);color:#fff;font-size:9px;white-space:nowrap;pointer-events:none}.gemeo3d-scene-gizmo-zoom{position:absolute;right:-35px;bottom:-22px;width:30px;height:30px;border-radius:50%;border:2px solid #fff;background:rgba(8,12,29,.94);color:#fff;display:grid;place-items:center;font-size:15px;pointer-events:auto;touch-action:none}.gemeo3d-scene-light-gizmo{width:150px;height:90px;position:relative;pointer-events:none}.gemeo3d-scene-light-line{position:absolute;left:25px;top:43px;width:105px;height:3px;background:rgba(255,206,91,.75);transform-origin:left center;box-shadow:0 0 12px rgba(255,206,91,.32)}.gemeo3d-scene-light-handle{position:absolute;left:18px;top:34px;width:20px;height:20px;border-radius:50%;border:2px solid #fff;background:rgba(255,190,64,.96);box-shadow:0 0 0 3px rgba(255,190,64,.22),0 8px 18px rgba(0,0,0,.28);pointer-events:auto;touch-action:none}.gemeo3d-scene-light-label{position:absolute;left:0;top:62px;padding:5px 8px;border-radius:8px;background:rgba(8,12,29,.88);border:1px solid rgba(255,206,91,.3);color:#fff;font-size:9px;white-space:nowrap}.gemeo3d-scene-light-gizmo.point .gemeo3d-scene-light-line{display:none}.gemeo3d-scene-light-gizmo.point .gemeo3d-scene-light-handle{left:65px;top:32px;width:26px;height:26px}.gemeo3d-scene-direct-tip{position:absolute;left:50%;top:calc(50% + 82px);transform:translateX(-50%);z-index:4;padding:6px 9px;border-radius:9px;background:rgba(8,12,29,.78);border:1px solid rgba(157,143,255,.18);color:#dfe7ff;font-size:8px;white-space:nowrap;pointer-events:none;display:none}.gemeo3d-scene-direct-tip.open{display:block}.gemeo3d-scene-freenav-toggle{display:flex!important;align-items:center;justify-content:center;width:100%;min-height:38px;margin:7px 0 8px;padding:8px 11px;border:1px solid rgba(101,223,255,.22)!important;border-radius:10px!important;background:rgba(18,23,48,.88)!important;color:#dfe7ff!important;font-size:9px!important;line-height:1.25;text-align:center;white-space:normal;box-shadow:none;touch-action:manipulation}.gemeo3d-scene-freenav-toggle:hover,.gemeo3d-scene-freenav-toggle.active{border-color:rgba(101,223,255,.5)!important;background:rgba(101,223,255,.11)!important;color:#fff!important}.gemeo3d-scene-direct-nav{position:absolute;left:50%;top:46px;transform:translateX(-50%);z-index:7;display:none;align-items:center;justify-content:center;min-width:142px;min-height:34px;padding:7px 12px;border:1px solid rgba(101,223,255,.24);border-radius:999px;background:rgba(8,12,29,.9);backdrop-filter:blur(14px);box-shadow:0 10px 26px rgba(0,0,0,.24);color:#dfe7ff;font-size:8px;letter-spacing:.2px;white-space:nowrap;touch-action:manipulation}.gemeo3d-scene-direct-nav.open{display:flex}.gemeo3d-scene-direct-nav.active{border-color:rgba(101,223,255,.52);background:rgba(101,223,255,.11);color:#fff}.gemeo3d-editor-main.scene-preview .gemeo3d-scene-direct-gizmo,.gemeo3d-editor-main.scene-preview .gemeo3d-scene-direct-tip,.gemeo3d-editor-main.scene-preview .gemeo3d-orientation-gizmo,.gemeo3d-editor-main.scene-preview .gemeo3d-viewport-hint{display:none!important}.gemeo3d-editor-main.scene-preview .gemeo3d-tool-panel{display:none!important}.gemeo3d-editor-main.scene-preview .gemeo3d-scene-direct-nav{top:14px}.gemeo3d-tool-panel.scene-direct-compact{max-height:220px}.gemeo3d-tool-panel.scene-direct-compact .gemeo3d-fine-details{margin-top:5px}.gemeo3d-tool-panel.scene-direct-compact .gemeo3d-character-item{padding:6px}.gemeo3d-tool-panel.scene-direct-compact .gemeo3d-direct-edit-note{display:none}
 .gemeo3d-orientation-gizmo{position:absolute;right:12px;top:12px;width:72px;height:72px;border:1px solid rgba(157,143,255,.16);border-radius:15px;background:rgba(8,12,29,.68);backdrop-filter:blur(12px);pointer-events:none;z-index:3;box-shadow:0 10px 25px rgba(0,0,0,.2)}
 .gemeo3d-orientation-gizmo svg{position:absolute;inset:0;width:100%;height:100%;overflow:visible}
 .gemeo3d-orientation-gizmo line{stroke-width:2.4;stroke-linecap:round;opacity:.9}
@@ -701,6 +704,7 @@ header{height:68px;padding:0 12px}
 </style>
 
 <style id="gemeo3d-etapa5">
+.gemeo3d-environment-section{margin-top:18px}.gemeo3d-environment-card{display:grid;grid-template-columns:1fr auto;gap:8px;align-items:center;padding:10px;border:1px solid var(--border);border-radius:12px;background:rgba(255,255,255,.025)}.gemeo3d-environment-card-main{border:0;background:transparent;color:var(--text);text-align:left;padding:0;min-width:0}.gemeo3d-environment-card-main strong,.gemeo3d-environment-card-main small{display:block}.gemeo3d-environment-card-main small{color:var(--muted);font-size:9px;margin-top:3px}.gemeo3d-environment-actions{display:flex;gap:6px}.gemeo3d-environment-actions button{border:1px solid var(--border);background:rgba(255,255,255,.04);color:var(--text);border-radius:8px;padding:7px 8px;font-size:10px}.gemeo3d-environment-section + .gemeo3d-environment-section{margin-top:8px}
 .gemeo3d-object-section{margin-top:18px}.gemeo3d-object-scale-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:8px;margin-top:12px}.gemeo3d-object-scale-grid label{font-size:10px;color:var(--muted)}.gemeo3d-object-scale-grid input{width:100%;margin-top:5px}.gemeo3d-object-variations-head{display:flex;align-items:center;justify-content:space-between;margin-top:14px;font-size:11px}.gemeo3d-object-variations-head button{border:1px solid var(--border);background:rgba(255,255,255,.04);color:var(--text);border-radius:9px;padding:7px 9px}.gemeo3d-object-variations{display:grid;gap:7px;margin-top:8px;max-height:180px;overflow:auto}.gemeo3d-object-variation{display:flex;align-items:center;gap:8px;padding:8px 9px;border:1px solid var(--border);border-radius:10px;background:rgba(255,255,255,.025)}.gemeo3d-object-variation span{flex:1;min-width:0}.gemeo3d-object-variation small{display:block;color:var(--muted);margin-top:2px}.gemeo3d-object-variation button{border:1px solid var(--border);background:transparent;color:var(--text);border-radius:8px;padding:5px 7px}.gemeo3d-object-card{display:grid;grid-template-columns:1fr auto;gap:8px;align-items:center;padding:10px;border:1px solid var(--border);border-radius:12px;background:rgba(255,255,255,.025)}.gemeo3d-object-card-main{border:0;background:transparent;color:var(--text);text-align:left;padding:0;min-width:0}.gemeo3d-object-card-main strong,.gemeo3d-object-card-main small{display:block}.gemeo3d-object-card-main small{color:var(--muted);font-size:9px;margin-top:3px}.gemeo3d-object-actions{display:flex;gap:6px}.gemeo3d-object-actions button{border:1px solid var(--border);background:rgba(255,255,255,.04);color:var(--text);border-radius:8px;padding:7px 8px;font-size:10px}@media(max-width:520px){.gemeo3d-object-scale-grid{grid-template-columns:1fr}}
 </style>
 <style id="gemeo3d-etapa6a">
@@ -747,9 +751,19 @@ header{height:68px;padding:0 12px}
         <span><strong>Objeto</strong><small>Objetos e suas configurações.</small></span>
       </button>
 
-      <button class="gemeo3d-option" onclick="gemeo3DComingSoon('Ambiente')" role="listitem">
+      <button class="gemeo3d-option" onclick="openGemeo3DEnvironmentSetup()" role="listitem">
         <span class="gemeo3d-option-icon">⌂</span>
-        <span><strong>Ambiente</strong><small>Cenários e espaços 3D.</small></span>
+        <span><strong>Ambiente</strong><small>Espaço 3D reutilizável para futuros Cenários.</small></span>
+      </button>
+
+      <button class="gemeo3d-option" onclick="openGemeo3DScenarioSetup()" role="listitem">
+        <span class="gemeo3d-option-icon">▣</span>
+        <span><strong>Cenário</strong><small>Configurar um Ambiente para um contexto específico.</small></span>
+      </button>
+
+      <button class="gemeo3d-option" onclick="openGemeo3DSceneSetup()" role="listitem">
+        <span class="gemeo3d-option-icon">◆</span>
+        <span><strong>Cena</strong><small>Compor Personagens e Objetos sobre um Cenário.</small></span>
       </button>
     </div>
 
@@ -780,6 +794,27 @@ header{height:68px;padding:0 12px}
         <div><strong>PERSONAGENS CRIADOS</strong><small>Personagens 3D com identidade própria.</small></div>
       </div>
       <div id="gemeo3dSavedCharacters" class="gemeo3d-saved-list"></div>
+    </div>
+
+    <div class="gemeo3d-environment-section">
+      <div class="gemeo3d-saved-head">
+        <div><strong>AMBIENTES CRIADOS</strong><small>Espaços 3D reutilizáveis, independentes de Cenários.</small></div>
+      </div>
+      <div id="gemeo3dSavedEnvironments" class="gemeo3d-saved-list"></div>
+    </div>
+
+    <div class="gemeo3d-environment-section">
+      <div class="gemeo3d-saved-head">
+        <div><strong>CENÁRIOS CRIADOS</strong><small>Configurações independentes derivadas de Ambientes.</small></div>
+      </div>
+      <div id="gemeo3dSavedScenarios" class="gemeo3d-saved-list"></div>
+    </div>
+
+    <div class="gemeo3d-environment-section">
+      <div class="gemeo3d-saved-head">
+        <div><strong>CENAS CRIADAS</strong><small>Composições independentes sobre Cenários.</small></div>
+      </div>
+      <div id="gemeo3dSavedScenes" class="gemeo3d-saved-list"></div>
     </div>
   </div>
 </section>
@@ -840,12 +875,26 @@ header{height:68px;padding:0 12px}
       <small>MODELO 3D · ESPAÇO DE CRIAÇÃO</small>
     </div>
     <button type="button" class="gemeo3d-editor-save" onclick="saveGemeo3DModel()">Salvar</button>
-    <button type="button" class="gemeo3d-editor-save" onclick="duplicateCurrentGemeo3DModel()">Duplicar</button>
-    <div class="gemeo3d-editor-badge">BASE 3D</div>
+    <button type="button" class="gemeo3d-editor-save" onclick="duplicateCurrentGemeo3DResource()">Duplicar</button>
+    <div id="gemeo3dEditorBadge" class="gemeo3d-editor-badge">BASE 3D</div>
   </div>
   <div class="gemeo3d-editor-main">
     <div id="gemeo3dViewport" class="gemeo3d-viewport" aria-label="Espaço de criação 3D">
       <canvas id="gemeo3dCanvas"></canvas>
+      <div id="gemeo3dSceneDirectGizmo" class="gemeo3d-scene-direct-gizmo" aria-label="Controle visual da câmera">
+        <div id="gemeo3dCameraGizmo" class="gemeo3d-scene-gizmo-ring">
+          <div id="gemeo3dCameraMoveHandle" class="gemeo3d-scene-gizmo-center" title="Mover câmera">◉</div>
+          <div id="gemeo3dCameraZoomHandle" class="gemeo3d-scene-gizmo-zoom" title="Distância da câmera">＋</div>
+          <div class="gemeo3d-scene-gizmo-label">Câmera ativa · arraste</div>
+        </div>
+        <div id="gemeo3dLightGizmo" class="gemeo3d-scene-light-gizmo">
+          <div class="gemeo3d-scene-light-line"></div>
+          <div id="gemeo3dLightHandle" class="gemeo3d-scene-light-handle" title="Mover/direcionar luz"></div>
+          <div class="gemeo3d-scene-light-label">Luz selecionada · arraste</div>
+        </div>
+      </div>
+      <div id="gemeo3dSceneDirectTip" class="gemeo3d-scene-direct-tip">Arraste o controle na tela · painel apenas para ajustes</div>
+      <button id="gemeo3dSceneDirectNav" class="gemeo3d-scene-direct-nav" type="button" onclick="gemeo3DToggleSceneFreeNav()">Edição direta</button>
       <div id="gemeo3dOrientationGizmo" class="gemeo3d-orientation-gizmo" aria-label="Orientação dos eixos 3D">
         <svg viewBox="0 0 72 72" aria-hidden="true">
           <line id="gemeoAxisX" x1="36" y1="36" x2="61" y2="36"></line>
@@ -856,13 +905,15 @@ header{height:68px;padding:0 12px}
         <span id="gemeoAxisLabelY" class="gemeo-axis-label axis-y">Y</span>
         <span id="gemeoAxisLabelZ" class="gemeo-axis-label axis-z">Z</span>
       </div>
-      <div class="gemeo3d-viewport-hint">Arraste para girar · dois dedos para deslocar/zoom · roda para aproximar · grade = referência espacial</div>
+      <div id="gemeo3dViewportHint" class="gemeo3d-viewport-hint">Arraste para girar · dois dedos para deslocar/zoom · roda para aproximar · grade = referência espacial</div>
     </div>
     <div id="gemeo3dToolPanel" class="gemeo3d-tool-panel" aria-live="polite"></div>
     <div id="gemeo3dToolbar" class="gemeo3d-toolbar" aria-label="Famílias de ferramentas do Gêmeo 3D">
       <button type="button" class="gemeo3d-tool-button" data-gemeo-family="estrutura" onclick="openGemeo3DToolFamily('estrutura')">◇<span>Estrutura</span></button>
       <button type="button" class="gemeo3d-tool-button" data-gemeo-family="visual" onclick="openGemeo3DToolFamily('visual')">◉<span>Visual</span></button>
       <button type="button" class="gemeo3d-tool-button gemeo3d-character-only" data-gemeo-family="personagem" onclick="openGemeo3DToolFamily('personagem')">◐<span>Personagem</span></button>
+      <button type="button" class="gemeo3d-tool-button gemeo3d-scenario-only" data-gemeo-family="cenario" onclick="openGemeo3DToolFamily('cenario')">▣<span>Cenário</span></button>
+      <button type="button" class="gemeo3d-tool-button gemeo3d-scene-only" data-gemeo-family="cena" onclick="openGemeo3DToolFamily('cena')">◆<span>Cena</span></button>
       <button type="button" class="gemeo3d-tool-button" data-gemeo-family="adicionar" onclick="openGemeo3DComponentSetup()">＋<span>Adicionar</span></button>
     </div>
     <div id="gemeo3dFamilyToolbar" class="gemeo3d-family-toolbar" aria-label="Ferramentas da família selecionada"></div>
@@ -1131,12 +1182,86 @@ header{height:68px;padding:0 12px}
     </div>
   </div>
 </div>
+<div id="gemeo3dEnvironmentSetupOverlay" class="setup-overlay gemeo3d-model-setup">
+  <div class="setup-card">
+    <h2>Novo Ambiente</h2>
+    <p>Crie um espaço 3D reutilizável. O Ambiente pode começar vazio e receber elementos permanentes depois.</p>
+    <div class="form-group">
+      <label for="gemeo3dEnvironmentName">Nome do Ambiente *</label>
+      <input id="gemeo3dEnvironmentName" class="name-input" placeholder="Ex.: Casa base" autocomplete="off">
+      <small id="gemeo3dEnvironmentNameError" style="display:block;color:#d78cff;font-size:9px;margin-top:5px"></small>
+    </div>
+    <div class="form-group">
+      <label>Dimensões do espaço 3D</label>
+      <div class="gemeo3d-object-scale-grid">
+        <label>X<input id="gemeo3dEnvironmentSizeX" type="number" step="0.5" min="0.1" value="20"></label>
+        <label>Y<input id="gemeo3dEnvironmentSizeY" type="number" step="0.5" min="0.1" value="10"></label>
+        <label>Z<input id="gemeo3dEnvironmentSizeZ" type="number" step="0.5" min="0.1" value="20"></label>
+      </div>
+    </div>
+    <div class="gemeo3d-editor-note" style="margin-top:0">O Ambiente reutiliza a mesma origem e os mesmos eixos X, Y e Z do espaço 3D existente. Nenhum elemento permanente é obrigatório na criação.</div>
+    <div class="setup-actions">
+      <button onclick="closeGemeo3DEnvironmentSetup()">Cancelar</button>
+      <button class="primary" onclick="createGemeo3DEnvironment()">✦ CRIAR AMBIENTE</button>
+    </div>
+  </div>
+</div>
+<div id="gemeo3dScenarioSetupOverlay" class="setup-overlay gemeo3d-model-setup">
+  <div class="setup-card">
+    <h2>Novo Cenário</h2>
+    <p>Escolha um Ambiente existente. O Cenário será uma cópia independente, mantendo a referência ao Ambiente de origem.</p>
+    <div class="form-group">
+      <label for="gemeo3dScenarioName">Nome do Cenário *</label>
+      <input id="gemeo3dScenarioName" class="name-input" placeholder="Ex.: Sala à noite" autocomplete="off">
+      <small id="gemeo3dScenarioNameError" style="display:block;color:#d78cff;font-size:9px;margin-top:5px"></small>
+    </div>
+    <div class="form-group">
+      <label>Ambiente de origem</label>
+      <div id="gemeo3dScenarioEnvironmentList" class="gemeo3d-saved-list"></div>
+    </div>
+    <div class="form-group">
+      <label for="gemeo3dScenarioContext">Contexto (opcional)</label>
+      <textarea id="gemeo3dScenarioContext" maxlength="500" placeholder="Ex.: Sala preparada para uma cena noturna."></textarea>
+    </div>
+    <div class="setup-actions">
+      <button onclick="closeGemeo3DScenarioSetup()">Cancelar</button>
+      <button class="primary" onclick="createGemeo3DScenario()">✦ CRIAR CENÁRIO</button>
+    </div>
+  </div>
+</div>
+<div id="gemeo3dSceneSetupOverlay" class="setup-overlay gemeo3d-model-setup">
+  <div class="setup-card">
+    <h2>Nova Cena</h2>
+    <p>Escolha um Cenário existente. A Cena terá identidade própria e poderá receber Personagens e Objetos sem alterar os recursos de origem.</p>
+    <div class="form-group">
+      <label for="gemeo3dSceneName">Nome da Cena *</label>
+      <input id="gemeo3dSceneName" class="name-input" placeholder="Ex.: Encontro na sala" autocomplete="off">
+      <small id="gemeo3dSceneNameError" style="display:block;color:#d78cff;font-size:9px;margin-top:5px"></small>
+    </div>
+    <div class="form-group">
+      <label>Cenário de origem</label>
+      <div id="gemeo3dSceneScenarioList" class="gemeo3d-saved-list"></div>
+    </div>
+    <div class="gemeo3d-object-scale-grid">
+      <label>Duração (s)<input id="gemeo3dSceneDuration" type="number" step="0.1" min="0.1" value="5"></label>
+      <label>Sequência<input id="gemeo3dSceneSequence" type="number" step="1" min="1" value="1"></label>
+    </div>
+    <div class="setup-actions">
+      <button onclick="closeGemeo3DSceneSetup()">Cancelar</button>
+      <button class="primary" onclick="createGemeo3DScene()">✦ CRIAR CENA</button>
+    </div>
+  </div>
+</div>
 <div id="gemeo3dComponentSetupOverlay" class="setup-overlay gemeo3d-model-setup">
   <div class="setup-card">
     <h2>Adicionar componente</h2>
     <p>Escolha a forma que será incorporada ao Modelo 3D atual.</p>
-    <div class="form-group">
-      <label>Tipo do componente</label>
+    <div id="gemeo3dEnvironmentObjectSection" class="form-group" style="display:none">
+      <label>Objetos 3D salvos</label>
+      <div id="gemeo3dEnvironmentObjectList" class="gemeo3d-saved-list"></div>
+    </div>
+    <div class="form-group" id="gemeo3dComponentPrimitiveSection">
+      <label id="gemeo3dComponentSetupLabel">Tipo do componente</label>
       <div class="gemeo3d-model-primitive-grid">
         <label class="gemeo3d-model-primitive"><input type="radio" name="gemeo3dComponentPrimitive" value="cubo" checked><strong>◇ Cubo</strong><small>Componente geométrico simples</small></label>
         <label class="gemeo3d-model-primitive"><input type="radio" name="gemeo3dComponentPrimitive" value="esfera"><strong>○ Esfera</strong><small>Componente arredondado</small></label>
@@ -1790,6 +1915,8 @@ function openGemeo3D(){
   closeCreateMenu();
   showScreen('gemeo3dScreen');
   renderGemeo3DSavedModels();
+  renderGemeo3DSavedScenarios();
+  renderGemeo3DSavedScenes();
 }
 let gemeo3DModelState=null;
 let gemeo3DGL=null;
@@ -2087,6 +2214,303 @@ function renderGemeo3DSavedMaterials(){
 function getSavedGemeo3DModels(){
   return readJSON(RESOURCE_KEY,[]).filter(r=>r&&r.tipo==='modelo3d'&&r.familia==='gemeo3d');
 }
+function getSavedGemeo3DEnvironments(){
+  return readJSON(RESOURCE_KEY,[]).filter(r=>r&&r.tipo==='ambiente3d'&&r.familia==='gemeo3d');
+}
+function gemeo3DCreateEnvironmentId(){return 'ambiente3d_'+Date.now().toString(36)+'_'+Math.random().toString(36).slice(2,8);}
+function gemeo3DGetNextEnvironmentName(){const usados=new Set(getSavedGemeo3DEnvironments().map(r=>String(r?.name||'').trim()));let n=1;while(usados.has('Ambiente '+n))n++;return 'Ambiente '+n;}
+function openGemeo3DEnvironmentSetup(){
+  closeCreateMenu();closeModal();
+  if($('gemeo3dEnvironmentName'))$('gemeo3dEnvironmentName').value='';
+  if($('gemeo3dEnvironmentNameError'))$('gemeo3dEnvironmentNameError').textContent='';
+  ['X','Y','Z'].forEach(axis=>{const el=$('gemeo3dEnvironmentSize'+axis);if(el)el.value=axis==='Y'?10:20;});
+  $('gemeo3dEnvironmentSetupOverlay')?.classList.add('open');
+  setTimeout(()=>$('gemeo3dEnvironmentName')?.focus(),80);
+}
+function closeGemeo3DEnvironmentSetup(){$('gemeo3dEnvironmentSetupOverlay')?.classList.remove('open');}
+function createGemeo3DEnvironment(){
+  const typed=String($('gemeo3dEnvironmentName')?.value||'').trim();
+  const name=typed||gemeo3DGetNextEnvironmentName();
+  const size={x:Math.max(.1,Number($('gemeo3dEnvironmentSizeX')?.value)||20),y:Math.max(.1,Number($('gemeo3dEnvironmentSizeY')?.value)||10),z:Math.max(.1,Number($('gemeo3dEnvironmentSizeZ')?.value)||20)};
+  const now=new Date().toISOString();
+  gemeo3DEditorMode='ambiente';gemeo3DEditorResourceId=null;
+  gemeo3DModelState={id:gemeo3DCreateEnvironmentId(),nome:name,name,tipo:'ambiente3d',primitive:'cubo',estrutura:{tipo:'ambiente_3d',reutilizavel:true,componentes:[],grupos:[]},espaco3D:{origem:{x:0,y:0,z:0},dimensoes:size},criadoEm:now,selectedComponentId:null,selectedGroupId:null,selectedComponentIds:[]};
+  closeGemeo3DEnvironmentSetup();showScreen('gemeo3dEditorScreen');
+  requestAnimationFrame(()=>{syncGemeo3DCharacterEditorUI();initGemeo3DViewport();});
+}
+function saveGemeo3DEnvironment(){
+  if(!gemeo3DModelState||gemeo3DEditorMode!=='ambiente')return;
+  const resources=readJSON(RESOURCE_KEY,[]),now=new Date().toISOString();
+  const index=resources.findIndex(r=>r&&r.id===gemeo3DModelState.id),previous=index>=0?resources[index]:null;
+  const estrutura=JSON.parse(JSON.stringify(gemeo3DNormalizeStructure(gemeo3DModelState.estrutura,'cubo')));
+  const resource={id:gemeo3DModelState.id,resourceId:gemeo3DModelState.id,type:'space',tipo:'ambiente3d',familia:'gemeo3d',name:gemeo3DModelState.nome,category:'ambiente3d',library:'biblioteca_gemeo3d',project:'',estrutura,espaco3D:JSON.parse(JSON.stringify(gemeo3DModelState.espaco3D||{origem:{x:0,y:0,z:0},dimensoes:{x:20,y:10,z:20}})),materiaisUsadosIds:gemeo3DGetUsedMaterialIds({estrutura}),origem:'Criado no Gêmeo 3D',proprietario:'usuario',permissao:{editar:true,usar:true,duplicar:true,exportar:true,excluir:true,ocultar:true},criadoEm:previous?.criadoEm||gemeo3DModelState.criadoEm||now,updatedAt:now,versao:previous?.versao||1,formato:'ambiente_3d',independente:true,reutilizavel:true};
+  if(index>=0)resources[index]=resource;else resources.push(resource);
+  if(!writeJSON(RESOURCE_KEY,resources))return;
+  const verify=readJSON(RESOURCE_KEY,[]).find(r=>r&&r.id===resource.id);
+  if(!verify){showToast('Não foi possível confirmar o salvamento do Ambiente.');return;}
+  gemeo3DModelState={...gemeo3DModelState,resourceId:resource.id,salvoEm:now,atualizadoEm:now};
+  showToast(index>=0?'Ambiente atualizado na Biblioteca.':'Ambiente salvo e registrado na Biblioteca.');
+}
+function openSavedGemeo3DEnvironment(id){
+  const resource=getSavedGemeo3DEnvironments().find(r=>r.id===id);
+  if(!resource){showToast('Ambiente não encontrado.');return;}
+  const clone=JSON.parse(JSON.stringify(resource));
+  gemeo3DEditorMode='ambiente';gemeo3DEditorResourceId=resource.id;
+  gemeo3DModelState={id:clone.id,resourceId:clone.resourceId||clone.id,nome:clone.name||'Ambiente',name:clone.name||'Ambiente',tipo:'ambiente3d',primitive:'cubo',estrutura:gemeo3DNormalizeStructure(clone.estrutura,'cubo'),espaco3D:clone.espaco3D||{origem:{x:0,y:0,z:0},dimensoes:{x:20,y:10,z:20}},criadoEm:clone.criadoEm,salvoEm:clone.updatedAt||clone.criadoEm,selectedComponentId:null,selectedGroupId:null,selectedComponentIds:[]};
+  showScreen('gemeo3dEditorScreen');requestAnimationFrame(()=>{syncGemeo3DCharacterEditorUI();initGemeo3DViewport();});
+}
+function duplicateGemeo3DEnvironment(id){
+  const source=getSavedGemeo3DEnvironments().find(r=>r.id===id);if(!source){showToast('Ambiente não encontrado.');return;}
+  const resources=readJSON(RESOURCE_KEY,[]),copy=JSON.parse(JSON.stringify(source)),now=new Date().toISOString();
+  copy.id=gemeo3DCreateEnvironmentId();copy.resourceId=copy.id;copy.name=(source.name||'Ambiente')+' · Cópia';copy.criadoEm=now;copy.updatedAt=now;copy.origem='Duplicado no Gêmeo 3D';copy.origemAmbienteId=source.id;copy.independente=true;copy.reutilizavel=true;
+  resources.push(copy);if(!writeJSON(RESOURCE_KEY,resources))return;openSavedGemeo3DEnvironment(copy.id);showToast('Ambiente duplicado. A cópia é independente do original.');
+}
+function renderGemeo3DSavedEnvironments(){
+  const box=$('gemeo3dSavedEnvironments');if(!box)return;
+  const envs=getSavedGemeo3DEnvironments().slice().sort((a,b)=>String(b.updatedAt||b.criadoEm||'').localeCompare(String(a.updatedAt||a.criadoEm||'')));
+  box.innerHTML=envs.length?envs.map(e=>{const count=e.estrutura?.componentes?.length||0;const d=e.espaco3D?.dimensoes||{};return `<div class="gemeo3d-environment-card"><button type="button" class="gemeo3d-environment-card-main" onclick="openSavedGemeo3DEnvironment('${escapeJs(e.id)}')"><strong>${escapeHtml(e.name||'Ambiente')}</strong><small>${count} elemento${count===1?'':'s'} permanente${count===1?'':'s'} · ${Number(d.x)||20} × ${Number(d.y)||10} × ${Number(d.z)||20}</small></button><div class="gemeo3d-environment-actions"><button type="button" onclick="openSavedGemeo3DEnvironment('${escapeJs(e.id)}')">Abrir</button><button type="button" onclick="openGemeo3DScenarioSetup('${escapeJs(e.id)}')">Cenário</button><button type="button" onclick="duplicateGemeo3DEnvironment('${escapeJs(e.id)}')">Duplicar</button></div></div>`}).join(''):'<div class="gemeo3d-saved-empty">Nenhum Ambiente criado ainda. Crie um Ambiente para preparar um espaço reutilizável para futuros Cenários.</div>';
+}
+
+function getSavedGemeo3DScenarios(){
+  return readJSON(RESOURCE_KEY,[]).filter(r=>r&&r.tipo==='cenario3d'&&r.familia==='gemeo3d');
+}
+function gemeo3DCreateScenarioId(){return 'cenario3d_'+Date.now().toString(36)+'_'+Math.random().toString(36).slice(2,8);}
+function gemeo3DGetNextScenarioName(){const usados=new Set(getSavedGemeo3DScenarios().map(r=>String(r?.name||'').trim()));let n=1;while(usados.has('Cenário '+n))n++;return 'Cenário '+n;}
+let gemeo3DScenarioDraft=null;
+function openGemeo3DScenarioSetup(environmentId=null){
+  closeCreateMenu();closeModal();
+  const envs=getSavedGemeo3DEnvironments();
+  if(!envs.length){showToast('Salve um Ambiente antes de criar um Cenário.');return;}
+  gemeo3DScenarioDraft={environmentId:environmentId||envs[0].id};
+  if($('gemeo3dScenarioName'))$('gemeo3dScenarioName').value='';
+  if($('gemeo3dScenarioContext'))$('gemeo3dScenarioContext').value='';
+  if($('gemeo3dScenarioNameError'))$('gemeo3dScenarioNameError').textContent='';
+  const list=$('gemeo3dScenarioEnvironmentList');
+  if(list){list.innerHTML=envs.map(e=>`<button type="button" class="gemeo3d-tool-component ${e.id===gemeo3DScenarioDraft.environmentId?'selected':''}" onclick="gemeo3DSelectScenarioEnvironment('${escapeJs(e.id)}')"><span class="gemeo3d-tool-component-icon">⌂</span><span><strong>${escapeHtml(e.name||'Ambiente')}</strong><small>${e.estrutura?.componentes?.length||0} elemento(s) permanente(s)</small></span></button>`).join('');}
+  $('gemeo3dScenarioSetupOverlay')?.classList.add('open');
+  setTimeout(()=>$('gemeo3dScenarioName')?.focus(),80);
+}
+function gemeo3DSelectScenarioEnvironment(id){
+  if(!gemeo3DScenarioDraft)return;
+  if(!getSavedGemeo3DEnvironments().some(e=>e.id===id))return;
+  gemeo3DScenarioDraft.environmentId=id;
+  const envs=getSavedGemeo3DEnvironments();
+  const list=$('gemeo3dScenarioEnvironmentList');
+  if(list)list.innerHTML=envs.map(e=>`<button type="button" class="gemeo3d-tool-component ${e.id===id?'selected':''}" onclick="gemeo3DSelectScenarioEnvironment('${escapeJs(e.id)}')"><span class="gemeo3d-tool-component-icon">⌂</span><span><strong>${escapeHtml(e.name||'Ambiente')}</strong><small>${e.estrutura?.componentes?.length||0} elemento(s) permanente(s)</small></span></button>`).join('');
+}
+function closeGemeo3DScenarioSetup(){gemeo3DScenarioDraft=null;$('gemeo3dScenarioSetupOverlay')?.classList.remove('open');}
+function createGemeo3DScenario(){
+  if(!gemeo3DScenarioDraft?.environmentId)return;
+  const source=getSavedGemeo3DEnvironments().find(e=>e.id===gemeo3DScenarioDraft.environmentId);
+  if(!source){showToast('Ambiente de origem não encontrado.');return;}
+  const typed=String($('gemeo3dScenarioName')?.value||'').trim();
+  const name=typed||gemeo3DGetNextScenarioName();
+  const context=String($('gemeo3dScenarioContext')?.value||'').trim();
+  const now=new Date().toISOString();
+  const sourceStructure=JSON.parse(JSON.stringify(source.estrutura||{componentes:[],grupos:[]}));
+  const structure=gemeo3DNormalizeStructure(sourceStructure,'cubo');
+  structure.tipo='cenario_3d';structure.reutilizavel=true;
+  structure.componentes=structure.componentes.map(c=>({...c,herdadoAmbiente:true,origemAmbienteId:source.id,origemAmbienteComponenteId:c.id,permanente:c.permanente===true,itemTipo:'elemento_ambiente_herdado'}));
+  const scenario={
+    id:gemeo3DCreateScenarioId(),resourceId:null,type:'scenario',tipo:'cenario3d',familia:'gemeo3d',
+    name,category:'cenario3d',library:'biblioteca_gemeo3d',project:'',descricao:context,
+    ambienteOrigemId:source.id,ambienteOrigemSnapshot:JSON.parse(JSON.stringify(source.estrutura||{})),
+    estrutura:structure,espaco3D:JSON.parse(JSON.stringify(source.espaco3D||{origem:{x:0,y:0,z:0},dimensoes:{x:20,y:10,z:20}})),
+    configuracao:{contexto:context,iluminacaoPreparacao:null,propriedades:{}},
+    materiaisUsadosIds:gemeo3DGetUsedMaterialIds({estrutura:structure}),
+    origem:'Criado a partir de Ambiente',proprietario:'usuario',
+    permissao:{editar:true,usar:true,duplicar:true,exportar:true,excluir:true,ocultar:true},
+    criadoEm:now,updatedAt:now,versao:1,formato:'cenario_3d',independente:true,derivacao:{tipo:'ambiente',origemId:source.id,modo:'copia_independente'}
+  };
+  scenario.resourceId=scenario.id;
+  const resources=readJSON(RESOURCE_KEY,[]);resources.push(scenario);
+  if(!writeJSON(RESOURCE_KEY,resources))return;
+  closeGemeo3DScenarioSetup();openSavedGemeo3DScenario(scenario.id);
+  showToast('Cenário criado a partir de '+(source.name||'Ambiente')+'. O Ambiente original permanece intacto.');
+}
+function saveGemeo3DScenario(){
+  if(!gemeo3DModelState||gemeo3DEditorMode!=='cenario')return;
+  const resources=readJSON(RESOURCE_KEY,[]),now=new Date().toISOString();
+  const index=resources.findIndex(r=>r&&r.id===gemeo3DModelState.id),previous=index>=0?resources[index]:null;
+  const sourceId=gemeo3DModelState.ambienteOrigemId||previous?.ambienteOrigemId||null;
+  const estrutura=JSON.parse(JSON.stringify(gemeo3DNormalizeStructure(gemeo3DModelState.estrutura,'cubo')));
+  const configuracao=JSON.parse(JSON.stringify(gemeo3DModelState.configuracao||{contexto:'',iluminacaoPreparacao:null,propriedades:{}}));
+  const resource={id:gemeo3DModelState.id,resourceId:gemeo3DModelState.id,type:'scenario',tipo:'cenario3d',familia:'gemeo3d',name:gemeo3DModelState.nome,category:'cenario3d',library:'biblioteca_gemeo3d',project:'',descricao:String(configuracao.contexto||''),ambienteOrigemId:sourceId,ambienteOrigemSnapshot:JSON.parse(JSON.stringify(gemeo3DModelState.ambienteOrigemSnapshot||previous?.ambienteOrigemSnapshot||{})),estrutura,espaco3D:JSON.parse(JSON.stringify(gemeo3DModelState.espaco3D||{origem:{x:0,y:0,z:0},dimensoes:{x:20,y:10,z:20}})),configuracao,materiaisUsadosIds:gemeo3DGetUsedMaterialIds({estrutura}),origem:'Criado a partir de Ambiente',proprietario:'usuario',permissao:{editar:true,usar:true,duplicar:true,exportar:true,excluir:true,ocultar:true},criadoEm:previous?.criadoEm||gemeo3DModelState.criadoEm||now,updatedAt:now,versao:previous?.versao||1,formato:'cenario_3d',independente:true,derivacao:{tipo:'ambiente',origemId:sourceId,modo:'copia_independente'}};
+  if(index>=0)resources[index]=resource;else resources.push(resource);
+  if(!writeJSON(RESOURCE_KEY,resources))return;
+  const verify=readJSON(RESOURCE_KEY,[]).find(r=>r&&r.id===resource.id);
+  if(!verify){showToast('Não foi possível confirmar o salvamento do Cenário.');return;}
+  gemeo3DModelState={...gemeo3DModelState,resourceId:resource.id,salvoEm:now,atualizadoEm:now};
+  showToast(index>=0?'Cenário atualizado na Biblioteca.':'Cenário salvo e registrado na Biblioteca.');
+}
+function openSavedGemeo3DScenario(id){
+  const resource=getSavedGemeo3DScenarios().find(r=>r.id===id);
+  if(!resource){showToast('Cenário não encontrado.');return;}
+  const clone=JSON.parse(JSON.stringify(resource));
+  gemeo3DEditorMode='cenario';gemeo3DEditorResourceId=resource.id;
+  gemeo3DModelState={id:clone.id,resourceId:clone.resourceId||clone.id,nome:clone.name||'Cenário',name:clone.name||'Cenário',tipo:'cenario3d',primitive:'cubo',estrutura:gemeo3DNormalizeStructure(clone.estrutura,'cubo'),espaco3D:clone.espaco3D||{origem:{x:0,y:0,z:0},dimensoes:{x:20,y:10,z:20}},ambienteOrigemId:clone.ambienteOrigemId||null,ambienteOrigemSnapshot:clone.ambienteOrigemSnapshot||{},configuracao:clone.configuracao||{contexto:clone.descricao||'',iluminacaoPreparacao:null,propriedades:{}},criadoEm:clone.criadoEm,salvoEm:clone.updatedAt||clone.criadoEm,selectedComponentId:null,selectedGroupId:null,selectedComponentIds:[]};
+  showScreen('gemeo3dEditorScreen');requestAnimationFrame(()=>{syncGemeo3DCharacterEditorUI();initGemeo3DViewport();});
+}
+function duplicateGemeo3DScenario(id){
+  const source=getSavedGemeo3DScenarios().find(r=>r.id===id);if(!source){showToast('Cenário não encontrado.');return;}
+  const resources=readJSON(RESOURCE_KEY,[]),copy=JSON.parse(JSON.stringify(source)),now=new Date().toISOString();
+  copy.id=gemeo3DCreateScenarioId();copy.resourceId=copy.id;copy.name=(source.name||'Cenário')+' · Cópia';copy.criadoEm=now;copy.updatedAt=now;copy.origem='Duplicado no Gêmeo 3D';copy.origemCenarioId=source.id;copy.independente=true;
+  resources.push(copy);if(!writeJSON(RESOURCE_KEY,resources))return;openSavedGemeo3DScenario(copy.id);showToast('Cenário duplicado. A cópia é independente do original.');
+}
+function renderGemeo3DSavedScenarios(){
+  const box=$('gemeo3dSavedScenarios');if(!box)return;
+  const scenarios=getSavedGemeo3DScenarios().slice().sort((a,b)=>String(b.updatedAt||b.criadoEm||'').localeCompare(String(a.updatedAt||a.criadoEm||'')));
+  box.innerHTML=scenarios.length?scenarios.map(c=>{const env=getSavedGemeo3DEnvironments().find(e=>e.id===c.ambienteOrigemId);const count=c.estrutura?.componentes?.length||0;return `<div class="gemeo3d-environment-card"><button type="button" class="gemeo3d-environment-card-main" onclick="openSavedGemeo3DScenario('${escapeJs(c.id)}')"><strong>${escapeHtml(c.name||'Cenário')}</strong><small>Origem: ${escapeHtml(env?.name||'Ambiente não disponível')} · ${count} elemento${count===1?'':'s'}</small></button><div class="gemeo3d-environment-actions"><button type="button" onclick="openSavedGemeo3DScenario('${escapeJs(c.id)}')">Abrir</button><button type="button" onclick="duplicateGemeo3DScenario('${escapeJs(c.id)}')">Duplicar</button></div></div>`}).join(''):'<div class="gemeo3d-saved-empty">Nenhum Cenário criado ainda. Use um Ambiente salvo para criar uma configuração independente.</div>';
+}
+
+function getSavedGemeo3DScenes(){
+  return readJSON(RESOURCE_KEY,[]).filter(r=>r&&r.tipo==='cena3d'&&r.familia==='gemeo3d');
+}
+function gemeo3DCreateSceneId(){return 'cena3d_'+Date.now().toString(36)+'_'+Math.random().toString(36).slice(2,8);}
+function gemeo3DGetNextSceneName(){const usados=new Set(getSavedGemeo3DScenes().map(r=>String(r?.name||'').trim()));let n=1;while(usados.has('Cena '+n))n++;return 'Cena '+n;}
+function gemeo3DDefaultCamera(){return {id:'camera3d_'+Date.now().toString(36)+'_'+Math.random().toString(36).slice(2,7),nome:'Câmera 1',tipo:'perspectiva',transformacao:{posicao:{x:0,y:2,z:8},rotacao:{x:0,y:0,z:0}},campoVisao:60,ativa:true};}
+function gemeo3DDefaultLight(){return {id:'luz3d_'+Date.now().toString(36)+'_'+Math.random().toString(36).slice(2,7),nome:'Luz 1',tipo:'direcional',posicao:{x:2,y:4,z:4},direcao:{x:.5,y:.8,z:1},intensidade:1,ativa:true};}
+function gemeo3DEnsureSceneConfiguration(st){
+  if(!st)return;
+  if(!st.configuracao||typeof st.configuracao!=='object')st.configuracao={};
+  if(!Array.isArray(st.configuracao.cameras))st.configuracao.cameras=[];
+  if(!Array.isArray(st.configuracao.luzes))st.configuracao.luzes=[];
+  if(!st.configuracao.cameras.length){const c=gemeo3DDefaultCamera();st.configuracao.cameras.push(c);st.configuracao.cameraAtivaId=c.id;}
+  if(!st.configuracao.cameraAtivaId||!st.configuracao.cameras.some(c=>c.id===st.configuracao.cameraAtivaId)){st.configuracao.cameraAtivaId=st.configuracao.cameras.find(c=>c.ativa!==false)?.id||st.configuracao.cameras[0].id;}
+  st.configuracao.cameras.forEach((c,i)=>{c.nome=c.nome||`Câmera ${i+1}`;c.tipo=c.tipo||'perspectiva';c.campoVisao=Math.max(20,Math.min(120,Number(c.campoVisao)||60));c.transformacao=gemeo3DNormalizeTransform(c.transformacao||{posicao:{x:0,y:2,z:8},rotacao:{x:0,y:0,z:0},escala:{x:1,y:1,z:1}});c.ativa=c.id===st.configuracao.cameraAtivaId;});
+  if(!st.configuracao.luzes.length){const l=gemeo3DDefaultLight();st.configuracao.luzes.push(l);st.configuracao.luzPadraoId=l.id;}
+  st.configuracao.luzes=st.configuracao.luzes.slice(0,4);
+  st.configuracao.luzes.forEach((l,i)=>{l.nome=l.nome||`Luz ${i+1}`;l.tipo=l.tipo==='pontual'?'pontual':'direcional';l.intensidade=Math.max(0,Math.min(3,Number(l.intensidade)||1));l.posicao=l.posicao||{x:2,y:4,z:4};l.direcao=l.direcao||{x:.5,y:.8,z:1};});
+  st.configuracao.movimentos=Array.isArray(st.configuracao.movimentos)?st.configuracao.movimentos:[];st.configuracao.audio=st.configuracao.audio??null;
+  if(typeof st.configuracao.navegacaoLivre!=='boolean')st.configuracao.navegacaoLivre=false;
+}
+function gemeo3DUpdateSceneDirectNavControl(){
+  const btn=$('gemeo3dSceneDirectNav');
+  const main=document.querySelector('.gemeo3d-editor-main');
+  if(!btn)return;
+  const active=gemeo3DEditorMode==='cena'&&!!gemeo3DModelState&&(gemeo3DSceneDirectTool==='cameras'||gemeo3DSceneDirectTool==='iluminacao');
+  const preview=!!gemeo3DModelState?.configuracao?.navegacaoLivre;
+  btn.classList.toggle('open',active);
+  btn.classList.toggle('active',preview);
+  btn.textContent=preview?'Voltar à edição':'Visualizar cena';
+  btn.setAttribute('aria-label',preview?'Voltar à edição da câmera/iluminação':'Visualizar a Cena pela câmera ativa, sem ferramentas');
+  if(main)main.classList.toggle('scene-preview',active&&preview);
+}
+function gemeo3DToggleSceneFreeNav(){
+  const st=gemeo3DModelState;if(!st||gemeo3DEditorMode!=='cena')return;
+  gemeo3DEnsureSceneConfiguration(st);
+  st.configuracao.navegacaoLivre=!st.configuracao.navegacaoLivre;
+  const preview=st.configuracao.navegacaoLivre;
+  const panel=$('gemeo3dToolPanel');
+  if(preview&&panel){panel.classList.remove('open','family-open');}
+  if(!preview&&gemeo3DSceneDirectTool){
+    const tool=gemeo3DSceneDirectTool;
+    if(panel?.dataset.tool===tool)renderGemeo3DToolPanel(tool);
+  }
+  gemeo3DRenderSceneDirectGizmo();
+  renderGemeo3D();
+}
+function gemeo3DGetActiveCamera(){const st=gemeo3DModelState;if(!st?.configuracao?.cameras?.length)return null;gemeo3DEnsureSceneConfiguration(st);return st.configuracao.cameras.find(c=>c.id===st.configuracao.cameraAtivaId)||st.configuracao.cameras[0];}
+function gemeo3DSetActiveCamera(id){const st=gemeo3DModelState;if(!st||gemeo3DEditorMode!=='cena')return;gemeo3DEnsureSceneConfiguration(st);if(!st.configuracao.cameras.some(c=>c.id===id))return;st.configuracao.cameraAtivaId=id;st.configuracao.cameras.forEach(c=>c.ativa=c.id===id);renderGemeo3DToolPanel('cameras');renderGemeo3D();}
+function gemeo3DAddCamera(){const st=gemeo3DModelState;if(!st||gemeo3DEditorMode!=='cena')return;gemeo3DEnsureSceneConfiguration(st);const n=st.configuracao.cameras.length+1;const c=gemeo3DDefaultCamera();c.id='camera3d_'+Date.now().toString(36)+'_'+Math.random().toString(36).slice(2,7);c.nome='Câmera '+n;c.transformacao.posicao.z=8+n;st.configuracao.cameras.push(c);gemeo3DSetActiveCamera(c.id);showToast('Nova câmera adicionada.');}
+function gemeo3DUpdateCamera(id,field,value){const st=gemeo3DModelState;if(!st||gemeo3DEditorMode!=='cena')return;gemeo3DEnsureSceneConfiguration(st);const c=st.configuracao.cameras.find(x=>x.id===id);if(!c)return;const n=Number(value);if(field==='fov')c.campoVisao=Math.max(20,Math.min(120,Number.isFinite(n)?n:60));else{const [group,axis]=field.split('.');if(!c.transformacao[group])c.transformacao[group]={x:0,y:0,z:0};c.transformacao[group][axis]=group==='rotacao'?(Number.isFinite(n)?n*Math.PI/180:0):(Number.isFinite(n)?n:0);}renderGemeo3D();}
+function gemeo3DDeleteCamera(id){const st=gemeo3DModelState;if(!st||gemeo3DEditorMode!=='cena')return;gemeo3DEnsureSceneConfiguration(st);if(st.configuracao.cameras.length<=1){showToast('A Cena precisa manter pelo menos uma câmera.');return;}const was=st.configuracao.cameraAtivaId===id;st.configuracao.cameras=st.configuracao.cameras.filter(c=>c.id!==id);if(was)st.configuracao.cameraAtivaId=st.configuracao.cameras[0].id;st.configuracao.cameras.forEach(c=>c.ativa=c.id===st.configuracao.cameraAtivaId);renderGemeo3DToolPanel('cameras');renderGemeo3D();}
+function gemeo3DAddLight(){const st=gemeo3DModelState;if(!st||gemeo3DEditorMode!=='cena')return;gemeo3DEnsureSceneConfiguration(st);if(st.configuracao.luzes.length>=4){showToast('A Cena suporta até 4 fontes de luz nesta etapa.');return;}const n=st.configuracao.luzes.length+1,l=gemeo3DDefaultLight();l.id='luz3d_'+Date.now().toString(36)+'_'+Math.random().toString(36).slice(2,7);l.nome='Luz '+n;l.tipo=n%2===0?'pontual':'direcional';l.posicao={x:n*1.5,y:3,z:4};st.configuracao.luzes.push(l);renderGemeo3DToolPanel('iluminacao');renderGemeo3D();showToast('Fonte de luz adicionada.');}
+function gemeo3DUpdateLight(id,field,value){const st=gemeo3DModelState;if(!st||gemeo3DEditorMode!=='cena')return;gemeo3DEnsureSceneConfiguration(st);const l=st.configuracao.luzes.find(x=>x.id===id);if(!l)return;if(field==='tipo')l.tipo=value==='pontual'?'pontual':'direcional';else{const [group,axis]=field.split('.');if(group==='intensidade')l.intensidade=Math.max(0,Math.min(3,Number(value)||0));else{if(!l[group])l[group]={x:0,y:0,z:0};l[group][axis]=Number(value)||0;}}renderGemeo3D();}
+function gemeo3DDeleteLight(id){const st=gemeo3DModelState;if(!st||gemeo3DEditorMode!=='cena')return;gemeo3DEnsureSceneConfiguration(st);if(st.configuracao.luzes.length<=1){showToast('A Cena precisa manter pelo menos uma luz.');return;}st.configuracao.luzes=st.configuracao.luzes.filter(l=>l.id!==id);renderGemeo3DToolPanel('iluminacao');renderGemeo3D();}
+
+let gemeo3DSceneDraft=null;
+function openGemeo3DSceneSetup(scenarioId=null){
+  closeCreateMenu();closeModal();
+  const scenarios=getSavedGemeo3DScenarios();
+  if(!scenarios.length){showToast('Salve um Cenário antes de criar uma Cena.');return;}
+  gemeo3DSceneDraft={scenarioId:scenarioId||scenarios[0].id};
+  if($('gemeo3dSceneName'))$('gemeo3dSceneName').value='';
+  if($('gemeo3dSceneNameError'))$('gemeo3dSceneNameError').textContent='';
+  if($('gemeo3dSceneDuration'))$('gemeo3dSceneDuration').value='5';
+  const next=(getSavedGemeo3DScenes().reduce((m,x)=>Math.max(m,Number(x.sequencia)||0),0))+1;
+  if($('gemeo3dSceneSequence'))$('gemeo3dSceneSequence').value=String(next>1?next:1);
+  renderGemeo3DSceneScenarioChoices();
+  $('gemeo3dSceneSetupOverlay')?.classList.add('open');
+  setTimeout(()=>$('gemeo3dSceneName')?.focus(),80);
+}
+function renderGemeo3DSceneScenarioChoices(){
+  const list=$('gemeo3dSceneScenarioList');if(!list||!gemeo3DSceneDraft)return;
+  const scenarios=getSavedGemeo3DScenarios();
+  list.innerHTML=scenarios.map(s=>`<button type="button" class="gemeo3d-tool-component ${s.id===gemeo3DSceneDraft.scenarioId?'selected':''}" onclick="gemeo3DSelectSceneScenario('${escapeJs(s.id)}')"><span class="gemeo3d-tool-component-icon">▣</span><span><strong>${escapeHtml(s.name||'Cenário')}</strong><small>${s.estrutura?.componentes?.length||0} elemento(s) · sequência ${(Number(s.sequencia)||1)}</small></span></button>`).join('');
+}
+function gemeo3DSelectSceneScenario(id){if(!gemeo3DSceneDraft)return;if(getSavedGemeo3DScenarios().some(s=>s.id===id)){gemeo3DSceneDraft.scenarioId=id;renderGemeo3DSceneScenarioChoices();}}
+function closeGemeo3DSceneSetup(){gemeo3DSceneDraft=null;$('gemeo3dSceneSetupOverlay')?.classList.remove('open');}
+function gemeo3DCloneSceneResourceComponents(source,type,sceneElementId){
+  const snapshot=JSON.parse(JSON.stringify(source?.estrutura||{componentes:[],grupos:[]}));
+  const comps=Array.isArray(snapshot.componentes)?snapshot.componentes:[];
+  const idMap=new Map();
+  comps.forEach((c,i)=>idMap.set(c.id,'componente3d_'+Date.now().toString(36)+'_'+Math.random().toString(36).slice(2,7)+'_'+i));
+  const appearance=type==='personagem3d'?source.aparencia?.propriedades?.corBase:null;
+  const byId=type==='personagem3d'?(source.aparencia?.componentes||{}):{};
+  const cloned=comps.map((src,i)=>{
+    const c=JSON.parse(JSON.stringify(src));c.id=idMap.get(src.id);c.parentId=src.parentId&&idMap.has(src.parentId)?idMap.get(src.parentId):null;
+    c.permanente=false;c.herdadoAmbiente=false;c.especificoCenario=false;c.itemTipo='recurso_cena';c.recursoCenaId=sceneElementId;c.recursoOrigemId=source.id;c.recursoOrigemTipo=type;c.transformacao=gemeo3DNormalizeTransform(c.transformacao);
+    const visual=byId[src.id]?.cor||appearance;if(visual)c.corVisual=visual;
+    return c;
+  });
+  const ids=cloned.map(c=>c.id);
+  return {componentes:cloned,ids};
+}
+function gemeo3DAddResourceToScene(resourceId,type){
+  const st=gemeo3DModelState;if(!st||gemeo3DEditorMode!=='cena')return;
+  const list=type==='personagem3d'?getSavedGemeo3DCharacters():getSavedGemeo3DObjects();
+  const source=list.find(r=>r.id===resourceId);if(!source){showToast('Recurso não encontrado.');return;}
+  const sceneElementId='elemento_cena_'+Date.now().toString(36)+'_'+Math.random().toString(36).slice(2,7);
+  st.elementosCena=Array.isArray(st.elementosCena)?st.elementosCena:[];
+  const ordem=st.elementosCena.length;
+  const cloned=gemeo3DCloneSceneResourceComponents(source,type,sceneElementId);
+  if(!cloned.componentes.length){showToast('Este recurso não possui componentes 3D para inserir.');return;}
+  st.estrutura=gemeo3DNormalizeStructure(st.estrutura,'cubo');
+  st.estrutura.componentes.push(...cloned.componentes);
+  const groupId='grupo_cena_'+Date.now().toString(36)+'_'+Math.random().toString(36).slice(2,7);
+  st.estrutura.grupos=Array.isArray(st.estrutura.grupos)?st.estrutura.grupos:[];
+  st.estrutura.grupos.push({id:groupId,nome:(source.name|| (type==='personagem3d'?'Personagem':'Objeto')),componentes:cloned.ids,transformacao:{posicao:{x:ordem*2.2,y:0,z:0},rotacao:{x:0,y:0,z:0},escala:{x:1,y:1,z:1}},pivot:{x:0,y:0,z:0},tipo:'grupo_recurso_cena',recursoCenaId:sceneElementId});
+  st.elementosCena.push({id:sceneElementId,recursoId:source.id,recursoTipo:type,nome:source.name||type,recursoResourceId:source.resourceId||source.id,grupoId,ordem,visivel:true,bloqueado:false,transformacao:{posicao:{x:ordem*2.2,y:0,z:0},rotacao:{x:0,y:0,z:0},escala:{x:1,y:1,z:1}}});
+  st.selectedGroupId=groupId;st.selectedComponentId=null;st.selectedComponentIds=[];
+  gemeo3DRefreshComponentUI();renderGemeo3D();renderGemeo3DToolPanel('recursos');
+  showToast((type==='personagem3d'?'Personagem':'Objeto')+' adicionado à Cena. O recurso original permanece intacto.');
+}
+function gemeo3DAddCharacterToScene(id){gemeo3DAddResourceToScene(id,'personagem3d');}
+function gemeo3DAddObjectToScene(id){gemeo3DAddResourceToScene(id,'objeto3d');}
+function gemeo3DSelectSceneElement(id){const st=gemeo3DModelState;if(!st)return;const e=(st.elementosCena||[]).find(x=>x.id===id);if(!e)return;st.selectedGroupId=e.grupoId;st.selectedComponentId=null;st.selectedComponentIds=[];gemeo3DRefreshComponentUI();renderGemeo3D();renderGemeo3DToolPanel('recursos');}
+function gemeo3DSetSceneElementTransform(id,axis,value){const st=gemeo3DModelState;if(!st||gemeo3DEditorMode!=='cena')return;const e=(st.elementosCena||[]).find(x=>x.id===id);if(!e)return;const n=Number(value);if(!Number.isFinite(n))return;e.transformacao=e.transformacao||{posicao:{x:0,y:0,z:0},rotacao:{x:0,y:0,z:0},escala:{x:1,y:1,z:1}};if(!e.transformacao.posicao)e.transformacao.posicao={x:0,y:0,z:0};e.transformacao.posicao[axis]=n;const g=st.estrutura?.grupos?.find(x=>x.id===e.grupoId);if(g){g.transformacao=g.transformacao||{posicao:{x:0,y:0,z:0},rotacao:{x:0,y:0,z:0},escala:{x:1,y:1,z:1}};g.transformacao.posicao[axis]=n;}renderGemeo3D();}
+function gemeo3DRemoveSceneElement(id){const st=gemeo3DModelState;if(!st||gemeo3DEditorMode!=='cena')return;const e=(st.elementosCena||[]).find(x=>x.id===id);if(!e)return;const ids=new Set(st.estrutura.componentes.filter(c=>c.recursoCenaId===id).map(c=>c.id));st.estrutura.componentes=st.estrutura.componentes.filter(c=>!ids.has(c.id));st.estrutura.grupos=(st.estrutura.grupos||[]).filter(g=>g.id!==e.grupoId);st.elementosCena=st.elementosCena.filter(x=>x.id!==id).map((x,i)=>({...x,ordem:i}));st.selectedGroupId=null;st.selectedComponentId=null;gemeo3DRefreshComponentUI();renderGemeo3D();renderGemeo3DToolPanel('recursos');}
+function gemeo3DSetSceneDuration(value){if(gemeo3DEditorMode!=='cena'||!gemeo3DModelState)return;const n=Math.max(.1,Number(value)||.1);gemeo3DModelState.duracao=n;}
+function gemeo3DSetSceneSequence(value){if(gemeo3DEditorMode!=='cena'||!gemeo3DModelState)return;gemeo3DModelState.sequencia=Math.max(1,Math.floor(Number(value)||1));}
+function createGemeo3DScene(){
+  if(!gemeo3DSceneDraft?.scenarioId)return;
+  const source=getSavedGemeo3DScenarios().find(s=>s.id===gemeo3DSceneDraft.scenarioId);if(!source){showToast('Cenário de origem não encontrado.');return;}
+  const typed=String($('gemeo3dSceneName')?.value||'').trim(),name=typed||gemeo3DGetNextSceneName();
+  const now=new Date().toISOString(),duration=Math.max(.1,Number($('gemeo3dSceneDuration')?.value)||5),sequence=Math.max(1,Math.floor(Number($('gemeo3dSceneSequence')?.value)||1));
+  const structure=gemeo3DNormalizeStructure(JSON.parse(JSON.stringify(source.estrutura||{componentes:[],grupos:[]})),'cubo');
+  structure.componentes=structure.componentes.map(c=>({...c,herdadoCenario:true,origemCenarioId:source.id,itemTipo:'elemento_cenario_herdado'}));
+  const scene={id:gemeo3DCreateSceneId(),resourceId:null,type:'scene',tipo:'cena3d',familia:'gemeo3d',name,category:'cena3d',library:'biblioteca_gemeo3d',project:'',cenarioOrigemId:source.id,cenarioOrigemSnapshot:JSON.parse(JSON.stringify(source.estrutura||{})),estrutura:structure,espaco3D:JSON.parse(JSON.stringify(source.espaco3D||{origem:{x:0,y:0,z:0},dimensoes:{x:20,y:10,z:20}})),elementosCena:[],duracao:duration,sequencia:sequence,configuracao:{movimentos:[],cameras:[],cameraAtivaId:null,luzes:[],luzPadraoId:null,audio:null},origem:'Criado a partir de Cenário',proprietario:'usuario',permissao:{editar:true,usar:true,duplicar:true,exportar:true,excluir:true,ocultar:true},criadoEm:now,updatedAt:now,versao:1,formato:'cena_3d',independente:true,derivacao:{tipo:'cenario',origemId:source.id,modo:'copia_independente'}};
+  scene.resourceId=scene.id;const resources=readJSON(RESOURCE_KEY,[]);resources.push(scene);if(!writeJSON(RESOURCE_KEY,resources))return;closeGemeo3DSceneSetup();openSavedGemeo3DScene(scene.id);showToast('Cena criada a partir de '+(source.name||'Cenário')+'.');
+}
+function saveGemeo3DScene(){
+  if(!gemeo3DModelState||gemeo3DEditorMode!=='cena')return;
+  const resources=readJSON(RESOURCE_KEY,[]),now=new Date().toISOString(),index=resources.findIndex(r=>r&&r.id===gemeo3DModelState.id),previous=index>=0?resources[index]:null;
+  gemeo3DEnsureSceneConfiguration(gemeo3DModelState);
+  const normalized=gemeo3DNormalizeStructure(gemeo3DModelState.estrutura,'cubo');
+  const resource={id:gemeo3DModelState.id,resourceId:gemeo3DModelState.id,type:'scene',tipo:'cena3d',familia:'gemeo3d',name:gemeo3DModelState.nome,category:'cena3d',library:'biblioteca_gemeo3d',project:'',cenarioOrigemId:gemeo3DModelState.cenarioOrigemId||previous?.cenarioOrigemId||null,cenarioOrigemSnapshot:JSON.parse(JSON.stringify(gemeo3DModelState.cenarioOrigemSnapshot||previous?.cenarioOrigemSnapshot||{})),estrutura:JSON.parse(JSON.stringify(normalized)),espaco3D:JSON.parse(JSON.stringify(gemeo3DModelState.espaco3D||{origem:{x:0,y:0,z:0},dimensoes:{x:20,y:10,z:20}})),elementosCena:JSON.parse(JSON.stringify(gemeo3DModelState.elementosCena||[])),duracao:Math.max(.1,Number(gemeo3DModelState.duracao)||5),sequencia:Math.max(1,Math.floor(Number(gemeo3DModelState.sequencia)||1)),configuracao:JSON.parse(JSON.stringify(gemeo3DModelState.configuracao||{movimentos:[],camera:null,iluminacao:null,audio:null})),origem:'Criado a partir de Cenário',proprietario:'usuario',permissao:{editar:true,usar:true,duplicar:true,exportar:true,excluir:true,ocultar:true},criadoEm:previous?.criadoEm||gemeo3DModelState.criadoEm||now,updatedAt:now,versao:previous?.versao||1,formato:'cena_3d',independente:true,derivacao:{tipo:'cenario',origemId:gemeo3DModelState.cenarioOrigemId||previous?.cenarioOrigemId||null,modo:'copia_independente'}};
+  if(index>=0)resources[index]=resource;else resources.push(resource);if(!writeJSON(RESOURCE_KEY,resources))return;gemeo3DModelState.salvoEm=now;showToast(index>=0?'Cena atualizada na Biblioteca.':'Cena salva e registrada na Biblioteca.');
+}
+function openSavedGemeo3DScene(id){
+  const resource=getSavedGemeo3DScenes().find(r=>r.id===id);if(!resource){showToast('Cena não encontrada.');return;}const clone=JSON.parse(JSON.stringify(resource));
+  gemeo3DEditorMode='cena';gemeo3DSceneDirectTool=null;gemeo3DEditorResourceId=resource.id;
+  gemeo3DModelState={id:clone.id,resourceId:clone.resourceId||clone.id,nome:clone.name||'Cena',name:clone.name||'Cena',tipo:'cena3d',primitive:'cubo',estrutura:gemeo3DNormalizeStructure(clone.estrutura,'cubo'),espaco3D:clone.espaco3D||{origem:{x:0,y:0,z:0},dimensoes:{x:20,y:10,z:20}},cenarioOrigemId:clone.cenarioOrigemId||null,cenarioOrigemSnapshot:clone.cenarioOrigemSnapshot||{},elementosCena:Array.isArray(clone.elementosCena)?clone.elementosCena:[],duracao:Math.max(.1,Number(clone.duracao)||5),sequencia:Math.max(1,Math.floor(Number(clone.sequencia)||1)),configuracao:clone.configuracao||{movimentos:[],cameras:[],cameraAtivaId:null,luzes:[],luzPadraoId:null,audio:null},criadoEm:clone.criadoEm,salvoEm:clone.updatedAt||clone.criadoEm,selectedComponentId:null,selectedGroupId:null,selectedComponentIds:[]};
+  gemeo3DEnsureSceneConfiguration(gemeo3DModelState);
+  showScreen('gemeo3dEditorScreen');requestAnimationFrame(()=>{syncGemeo3DCharacterEditorUI();initGemeo3DViewport();});
+}
+function duplicateGemeo3DScene(id){const source=getSavedGemeo3DScenes().find(r=>r.id===id);if(!source){showToast('Cena não encontrada.');return;}const resources=readJSON(RESOURCE_KEY,[]),copy=JSON.parse(JSON.stringify(source)),now=new Date().toISOString();copy.id=gemeo3DCreateSceneId();copy.resourceId=copy.id;copy.name=(source.name||'Cena')+' · Cópia';copy.criadoEm=now;copy.updatedAt=now;copy.origem='Duplicado no Gêmeo 3D';copy.origemCenaId=source.id;copy.independente=true;resources.push(copy);if(!writeJSON(RESOURCE_KEY,resources))return;openSavedGemeo3DScene(copy.id);showToast('Cena duplicada. A cópia é independente da original.');}
+function renderGemeo3DSavedScenes(){const box=$('gemeo3dSavedScenes');if(!box)return;const scenes=getSavedGemeo3DScenes().slice().sort((a,b)=>(Number(a.sequencia)||1)-(Number(b.sequencia)||1));box.innerHTML=scenes.length?scenes.map(c=>{const s=getSavedGemeo3DScenarios().find(x=>x.id===c.cenarioOrigemId);const count=c.elementosCena?.length||0;return `<div class="gemeo3d-environment-card"><button type="button" class="gemeo3d-environment-card-main" onclick="openSavedGemeo3DScene('${escapeJs(c.id)}')"><strong>${escapeHtml(c.name||'Cena')}</strong><small>Origem: ${escapeHtml(s?.name||'Cenário não disponível')} · sequência ${Number(c.sequencia)||1} · ${count} recurso${count===1?'':'s'}</small></button><div class="gemeo3d-environment-actions"><button type="button" onclick="openSavedGemeo3DScene('${escapeJs(c.id)}')">Abrir</button><button type="button" onclick="duplicateGemeo3DScene('${escapeJs(c.id)}')">Duplicar</button></div></div>`}).join(''):'<div class="gemeo3d-saved-empty">Nenhuma Cena criada ainda. Use um Cenário salvo para criar uma composição.</div>';}
+
 function getSavedGemeo3DCharacters(){
   return readJSON(RESOURCE_KEY,[]).filter(r=>r&&r.tipo==='personagem3d'&&r.familia==='gemeo3d');
 }
@@ -2266,6 +2690,9 @@ function renderGemeo3DSavedModels(){
   box.innerHTML=models.length?models.map(model=>`<div class="gemeo3d-saved-card"><button type="button" class="gemeo3d-saved-open" onclick="openSavedGemeo3DModel('${escapeJs(model.id)}')"><span class="gemeo3d-saved-icon">◇</span><span><strong>${escapeHtml(model.name||'Modelo 3D')}</strong><small>${escapeHtml(({cubo:'Cubo',esfera:'Esfera',cilindro:'Cilindro'})[model.primitive]||'Base 3D')} · ${escapeHtml(libraryFormatDate(model.updatedAt||model.criadoEm))}</small></span></button><button type="button" class="gemeo3d-saved-duplicate" onclick="duplicateGemeo3DModel('${escapeJs(model.id)}')" aria-label="Duplicar modelo">⧉</button><button type="button" class="gemeo3d-saved-duplicate" onclick="openGemeo3DCharacterFromModel('${escapeJs(model.id)}')" aria-label="Criar Personagem">♙</button></div>`).join(''):'<div class="gemeo3d-saved-empty">Nenhum Modelo 3D salvo ainda. Crie um modelo e use <strong>Salvar</strong> para registrá-lo aqui.</div>';
   renderGemeo3DSavedObjects();
   renderGemeo3DSavedMaterials();
+  renderGemeo3DSavedEnvironments();
+  renderGemeo3DSavedScenarios();
+  renderGemeo3DSavedScenes();
   const cbox=$('gemeo3dSavedCharacters'); if(cbox){const chars=getSavedGemeo3DCharacters().slice().sort((a,b)=>String(b.updatedAt||b.criadoEm||'').localeCompare(String(a.updatedAt||a.criadoEm||''))); cbox.innerHTML=chars.length?chars.map(c=>{const m=getSavedGemeo3DModels().find(x=>x.id===c.modeloOrigemId);return `<div class="gemeo3d-character-card"><button type="button" class="gemeo3d-character-main" onclick="openGemeo3DCharacterEdit('${escapeJs(c.id)}')"><strong>${escapeHtml(c.name||'Personagem')}</strong><small>Origem: ${escapeHtml(m?.name||'Modelo não disponível')} · ${escapeHtml(libraryFormatDate(c.updatedAt||c.criadoEm))}</small></button><div class="gemeo3d-character-actions"><button type="button" onclick="openSavedGemeo3DCharacter3DEditor('${escapeJs(c.id)}')">Personalizar</button><button type="button" onclick="openGemeo3DCharacterEdit('${escapeJs(c.id)}')">Editar</button></div></div>`}).join(''):'<div class="gemeo3d-saved-empty">Nenhum Personagem criado ainda. Use ♙ em um Modelo 3D salvo para criar um.</div>'; }
 }
 function gemeo3DGetUsedMaterialIds(state){
@@ -2281,6 +2708,9 @@ function gemeo3DValidateMaterialPersistence(resource){
 function saveGemeo3DModel(){
   if(!gemeo3DModelState)return;
   if(gemeo3DEditorMode==='personagem'){saveGemeo3DCharacter3D();return;}
+  if(gemeo3DEditorMode==='ambiente'){saveGemeo3DEnvironment();return;}
+  if(gemeo3DEditorMode==='cenario'){saveGemeo3DScenario();return;}
+  if(gemeo3DEditorMode==='cena'){saveGemeo3DScene();return;}
   const resources=readJSON(RESOURCE_KEY,[]);
   const now=new Date().toISOString();
   const index=resources.findIndex(r=>r&&r.id===gemeo3DModelState.id);
@@ -2374,8 +2804,15 @@ function syncGemeo3DCharacterEditorUI(){
   if(name)name.textContent=gemeo3DModelState?.nome||'Modelo 3D';
   if(screen)screen.classList.toggle('character-edit-mode',gemeo3DEditorMode==='personagem');
   document.querySelectorAll('#gemeo3dToolbar .gemeo3d-character-only').forEach(b=>b.style.display=gemeo3DEditorMode==='personagem'?'flex':'none');
+  document.querySelectorAll('#gemeo3dToolbar .gemeo3d-scenario-only').forEach(b=>b.style.display=gemeo3DEditorMode==='cenario'?'flex':'none');
+  document.querySelectorAll('#gemeo3dToolbar .gemeo3d-scene-only').forEach(b=>b.style.display=gemeo3DEditorMode==='cena'?'flex':'none');
   const sub=document.querySelector('#gemeo3dEditorInfo small');
-  if(sub)sub.textContent=gemeo3DEditorMode==='personagem'?'PERSONAGEM 3D · PERSONALIZAÇÃO':'MODELO 3D · ESPAÇO DE CRIAÇÃO';
+  const badge=$('gemeo3dEditorBadge');
+  if(gemeo3DEditorMode==='personagem'){if(sub)sub.textContent='PERSONAGEM 3D · PERSONALIZAÇÃO';if(badge)badge.textContent='PERSONAGEM';}
+  else if(gemeo3DEditorMode==='ambiente'){if(sub)sub.textContent='AMBIENTE 3D · ESPAÇO REUTILIZÁVEL';if(badge)badge.textContent='AMBIENTE';}
+  else if(gemeo3DEditorMode==='cenario'){if(sub)sub.textContent='CENÁRIO 3D · CONFIGURAÇÃO CONTEXTUAL';if(badge)badge.textContent='CENÁRIO';}
+  else if(gemeo3DEditorMode==='cena'){if(sub)sub.textContent='CENA 3D · COMPOSIÇÃO';if(badge)badge.textContent='CENA';}
+  else{if(sub)sub.textContent='MODELO 3D · ESPAÇO DE CRIAÇÃO';if(badge)badge.textContent='BASE 3D';}
 }
 function saveGemeo3DCharacter3D(){
   if(gemeo3DEditorMode!=='personagem'||!gemeo3DModelState||!gemeo3DEditorResourceId)return;
@@ -2392,15 +2829,28 @@ function saveGemeo3DCharacter3D(){
   showToast('Personagem 3D personalizado salvo. O Modelo de origem permanece intacto.');
 }
 
-function duplicateCurrentGemeo3DModel(){
+function duplicateCurrentGemeo3DResource(){
   if(!gemeo3DModelState)return;
-  const source=getSavedGemeo3DModels().find(r=>r.id===gemeo3DModelState.id);
-  if(!source){
-    showToast('Salve o Modelo 3D antes de duplicá-lo.');
-    return;
+  if(gemeo3DEditorMode==='ambiente'){
+    const source=getSavedGemeo3DEnvironments().find(r=>r.id===gemeo3DModelState.id);
+    if(!source){showToast('Salve o Ambiente antes de duplicá-lo.');return;}
+    duplicateGemeo3DEnvironment(source.id);return;
   }
+  if(gemeo3DEditorMode==='cenario'){
+    const source=getSavedGemeo3DScenarios().find(r=>r.id===gemeo3DModelState.id);
+    if(!source){showToast('Salve o Cenário antes de duplicá-lo.');return;}
+    duplicateGemeo3DScenario(source.id);return;
+  }
+  if(gemeo3DEditorMode==='cena'){
+    const source=getSavedGemeo3DScenes().find(r=>r.id===gemeo3DModelState.id);
+    if(!source){showToast('Salve a Cena antes de duplicá-la.');return;}
+    duplicateGemeo3DScene(source.id);return;
+  }
+  const source=getSavedGemeo3DModels().find(r=>r.id===gemeo3DModelState.id);
+  if(!source){showToast('Salve o Modelo 3D antes de duplicá-lo.');return;}
   duplicateGemeo3DModel(source.id);
 }
+function duplicateCurrentGemeo3DModel(){duplicateCurrentGemeo3DResource();}
 function openSavedGemeo3DModel(id){
   gemeo3DEditorMode='modelo';gemeo3DEditorResourceId=null;
   $('gemeo3dEditorScreen')?.classList.remove('character-edit-mode');
@@ -2607,9 +3057,11 @@ function gemeo3DToggleGroupState(id,key){
 }
 function gemeo3DNormalizeStructure(estrutura,primitive='cubo'){
   const base=estrutura&&typeof estrutura==='object'?JSON.parse(JSON.stringify(estrutura)):{tipo:'base_3d',reutilizavel:true};
-  if(!Array.isArray(base.componentes)||!base.componentes.length){
+  const allowEmpty=(typeof gemeo3DEditorMode!=='undefined'&&(gemeo3DEditorMode==='ambiente'||gemeo3DEditorMode==='cenario'));
+  if(!Array.isArray(base.componentes)||(!base.componentes.length&&!allowEmpty)){
     base.componentes=[gemeo3DCreateComponent(base.primitive||primitive||'cubo',0)];
   }
+  if(!Array.isArray(base.componentes))base.componentes=[];
   const nomesExistentes=new Set();
   base.componentes=base.componentes.map((c,i)=>{
     const tipo=c?.tipo||primitive||'cubo';
@@ -2629,6 +3081,8 @@ function gemeo3DNormalizeStructure(estrutura,primitive='cubo'){
       materialId:c?.materialId||null,
       parentId:c?.parentId||null,
       itemTipo:c?.itemTipo||null,
+      permanente:c?.permanente===true,
+      origemObjetoId:c?.origemObjetoId||null,
       transformacao:gemeo3DNormalizeTransform(c?.transformacao),
       estado:gemeo3DNormalizeState(c?.estado)
     };
@@ -2760,8 +3214,72 @@ function gemeo3DResetAppearanceColor(){
   if(st.selectedComponentId){if(st.aparencia?.componentes)delete st.aparencia.componentes[st.selectedComponentId];}else if(st.aparencia?.propriedades)st.aparencia.propriedades.corBase='#5f6673';
   renderGemeo3DToolPanel('aparencia');renderGemeo3D();
 }
+function gemeo3DSetViewportHint(text){const el=$('gemeo3dViewportHint');if(el)el.textContent=text;}
+function gemeo3DSelectLight(id){const st=gemeo3DModelState;if(!st||gemeo3DEditorMode!=='cena')return;gemeo3DEnsureSceneConfiguration(st);if(st.configuracao.luzes.some(l=>l.id===id)){gemeo3DSceneLightSelectionId=id;renderGemeo3DToolPanel('iluminacao');renderGemeo3D();}}
+function gemeo3DGetSelectedLight(){const st=gemeo3DModelState;if(!st?.configuracao?.luzes?.length)return null;gemeo3DEnsureSceneConfiguration(st);const found=st.configuracao.luzes.find(l=>l.id===gemeo3DSceneLightSelectionId);if(found)return found;gemeo3DSceneLightSelectionId=st.configuracao.luzes[0].id;return st.configuracao.luzes[0];}
+function gemeo3DBeginDirectSceneEdit(e,modeOverride=null){
+  if(!gemeo3DGL||gemeo3DEditorMode!=='cena')return false;
+  const tool=gemeo3DSceneDirectTool;
+  if(tool!=='cameras'&&tool!=='iluminacao')return false;
+  const st=gemeo3DModelState;if(!st)return false;gemeo3DEnsureSceneConfiguration(st);
+  if(st.configuracao.navegacaoLivre)return false;
+  const cam=tool==='cameras'?gemeo3DGetActiveCamera():null;
+  const light=tool==='iluminacao'?gemeo3DGetSelectedLight():null;
+  gemeo3DSceneDirectInteraction={tool,pointerId:e.pointerId,lastX:e.clientX,lastY:e.clientY,pinchDistance:null,lastPanMid:null,camId:cam?.id||null,lightId:light?.id||null,mode:modeOverride||(tool==='cameras'?'rotateCamera':(light?.tipo==='pontual'?'pointLight':'directionLight'))};
+  return true;
+}
+function gemeo3DUpdateDirectSceneEdit(){
+  const q=gemeo3DSceneDirectInteraction;if(!q||!gemeo3DModelState)return;
+  const st=gemeo3DModelState;gemeo3DEnsureSceneConfiguration(st);
+  const cam=q.tool==='cameras'?st.configuracao.cameras.find(c=>c.id===q.camId):null;
+  const light=q.tool==='iluminacao'?st.configuracao.luzes.find(l=>l.id===q.lightId):null;
+  if(q.mode==='rotateCamera'&&cam){const dx=q.dx||0,dy=q.dy||0;cam.transformacao.rotacao.y+=dx*.008;cam.transformacao.rotacao.x+=dy*.008;const lim=Math.PI*.48;cam.transformacao.rotacao.x=Math.max(-lim,Math.min(lim,cam.transformacao.rotacao.x));}
+  else if(q.mode==='panCamera'&&cam){const dx=q.dx||0,dy=q.dy||0;const scale=Math.max(.004,Math.min(.035,(Number(cam.transformacao.posicao.z)||8)*.0025));cam.transformacao.posicao.x+=dx*scale;cam.transformacao.posicao.y-=dy*scale;}
+  else if(q.mode==='zoomCamera'&&cam){cam.transformacao.posicao.z=Math.max(.8,Math.min(40,(Number(cam.transformacao.posicao.z)||8)-((q.delta||0)*.018)));}
+  else if(q.mode==='directionLight'&&light){const dx=q.dx||0,dy=q.dy||0;light.direcao.x+=dx*.012;light.direcao.y-=dy*.012;const len=Math.hypot(light.direcao.x,light.direcao.y,light.direcao.z)||1;light.direcao.x/=len;light.direcao.y/=len;light.direcao.z/=len;}
+  else if(q.mode==='pointLight'&&light){const dx=q.dx||0,dy=q.dy||0;light.posicao.x+=dx*.012;light.posicao.y-=dy*.012;}
+  renderGemeo3D();
+}
+function gemeo3DEndDirectSceneEdit(){const tool=gemeo3DSceneDirectTool;gemeo3DSceneDirectInteraction=null;if(tool&&$('gemeo3dToolPanel')?.classList.contains('open'))renderGemeo3DToolPanel(tool);gemeo3DRenderSceneDirectGizmo();}
+function gemeo3DHandleSceneDirectPointerMove(e){
+  const q=gemeo3DSceneDirectInteraction;if(!q||q.pointerId!==e.pointerId)return false;
+  const dx=e.clientX-q.lastX,dy=e.clientY-q.lastY;q.dx=dx;q.dy=dy;
+  if(q.tool==='cameras'&&q.mode==='rotateCamera')gemeo3DUpdateDirectSceneEdit();
+  else if(q.tool==='iluminacao')gemeo3DUpdateDirectSceneEdit();
+  q.lastX=e.clientX;q.lastY=e.clientY;return true;
+}
+function gemeo3DBindDirectGizmoHandle(id,mode){
+  const el=$(id);if(!el||el.dataset.directBound)return;el.dataset.directBound='1';
+  el.addEventListener('pointerdown',e=>{e.preventDefault();e.stopPropagation();try{el.setPointerCapture?.(e.pointerId)}catch(_){};gemeo3DBeginDirectSceneEdit(e,mode);gemeo3DRenderSceneDirectGizmo();});
+  el.addEventListener('pointermove',e=>{if(gemeo3DSceneDirectInteraction?.pointerId===e.pointerId)gemeo3DHandleSceneDirectPointerMove(e);});
+  const end=e=>{if(gemeo3DSceneDirectInteraction?.pointerId===e.pointerId){try{el.releasePointerCapture?.(e.pointerId)}catch(_){};gemeo3DEndDirectSceneEdit();}};
+  el.addEventListener('pointerup',end);el.addEventListener('pointercancel',end);
+}
+function gemeo3DRenderSceneDirectGizmo(){
+  const wrap=$('gemeo3dSceneDirectGizmo'),camG=$('gemeo3dCameraGizmo'),lightG=$('gemeo3dLightGizmo'),tip=$('gemeo3dSceneDirectTip');
+  if(!wrap||!camG||!lightG)return;
+  const tool=gemeo3DSceneDirectTool;
+  const freeNav=!!gemeo3DModelState?.configuracao?.navegacaoLivre;
+  const active=gemeo3DEditorMode==='cena'&&gemeo3DModelState&&tool==='cameras'&&!freeNav;
+  const lightMode=gemeo3DEditorMode==='cena'&&gemeo3DModelState&&tool==='iluminacao'&&!freeNav;
+  wrap.classList.toggle('open',!!(active||lightMode));
+  camG.style.display=active?'block':'none';
+  lightG.style.display=lightMode?'block':'none';
+  if(tip)tip.classList.toggle('open',!!(active||lightMode));
+  gemeo3DUpdateSceneDirectNavControl();
+  if(active){const cam=gemeo3DGetActiveCamera();const rotY=Number(cam?.transformacao?.rotacao?.y)||0;camG.style.transform=`rotate(${rotY*57.2958}deg)`;}
+  if(lightMode){const l=gemeo3DGetSelectedLight();lightG.classList.toggle('point',l?.tipo==='pontual');if(l&&l.tipo==='direcional'){const dx=Number(l.direcao?.x)||0,dy=Number(l.direcao?.y)||0;const angle=Math.atan2(-dy,dx)*180/Math.PI;const line=lightG.querySelector('.gemeo3d-scene-light-line');if(line)line.style.transform=`rotate(${angle}deg)`;}}
+}
+function gemeo3DInitSceneDirectGizmo(){
+  [['gemeo3dCameraGizmo','rotateCamera'],['gemeo3dCameraMoveHandle','panCamera'],['gemeo3dCameraZoomHandle','zoomCamera'],['gemeo3dLightHandle',null]].forEach(([id,mode])=>gemeo3DBindDirectGizmoHandle(id,mode));
+}
+
 function renderGemeo3DToolPanel(name){
+  if(name==='cameras'||name==='iluminacao')gemeo3DSceneDirectTool=name;
+  else gemeo3DSceneDirectTool=null;
   const panel=$('gemeo3dToolPanel');if(!panel||!gemeo3DModelState)return;
+  panel.classList.toggle('scene-direct-compact',name==='cameras'||name==='iluminacao');
+  if(gemeo3DEditorMode==='cena')gemeo3DEnsureSceneConfiguration(gemeo3DModelState);
   if(name==='componentes'){
     const comps=gemeo3DNormalizeStructure(gemeo3DModelState.estrutura,gemeo3DModelState.primitive||'cubo').componentes;
     panel.innerHTML=`<div class="gemeo3d-tool-panel-title"><span>COMPONENTES · ${comps.length}</span><button type="button" class="gemeo3d-tool-panel-close" onclick="closeGemeo3DTool()">×</button></div><button type="button" class="gemeo3d-tool-clear-selection ${gemeo3DModelState.selectedComponentId==null&&!gemeo3DModelState.selectedGroupId?'active':''}" onclick="gemeo3DClearComponentSelection()">○ Nenhum selecionado</button><button type="button" class="gemeo3d-multi-select-toggle ${gemeo3DModelState.gemeo3DMultiSelect?'active':''}" onclick="gemeo3DToggleMultiSelect()">☑ ${gemeo3DModelState.gemeo3DMultiSelect?'Seleção múltipla ativa':'Selecionar vários'}</button>${gemeo3DModelState.gemeo3DMultiSelect&&gemeo3DModelState.selectedComponentIds?.length>=2?`<button type="button" class="gemeo3d-group-action" onclick="gemeo3DCreateGroupFromSelection()">▦ Criar grupo com ${gemeo3DModelState.selectedComponentIds.length} componentes</button>`:''}${gemeo3DRenderComponentList()}${gemeo3DRenderComponentMaterialPanel()}`;
@@ -2782,6 +3300,29 @@ function renderGemeo3DToolPanel(name){
   }else if(name==='poses'&&gemeo3DEditorMode==='personagem'){
     const st=gemeo3DModelState;gemeo3DEnsurePoseData(st);const poses=st.poses.disponiveis||[];const atual=st.poses.atualId;
     panel.innerHTML=`<div class="gemeo3d-tool-panel-title"><span>POSES</span><button type="button" class="gemeo3d-tool-panel-close" onclick="closeGemeo3DTool()">×</button></div><div class="gemeo3d-tool-empty">As poses desta etapa são estados estáticos baseados nas transformações da hierarquia. Sem rigging, somente poses explicitamente preparadas pelo Modelo podem ser aplicadas.</div>${poses.map(p=>`<div class="gemeo3d-character-item"><strong>${escapeHtml(p.nome||'Pose')}</strong><small>${p.id===atual?'Aplicada':'Disponível'} · estática</small><div class="gemeo3d-character-item-actions"><button type="button" onclick="gemeo3DApplyPose(\''+escapeJs(p.id)+'\')">${p.id===atual?'Aplicar novamente':'Aplicar'}</button></div></div>`).join('')}<div class="gemeo3d-character-panel-section"><strong>Limitação atual</strong><small>O Modelo 3D ainda não possui rigging ou partes corporais semânticas; poses anatômicas como sentar ou correr serão preparadas nas etapas futuras.</small></div>`;
+  }else if(name==='recursos'&&gemeo3DEditorMode==='cena'){
+    const st=gemeo3DModelState,items=Array.isArray(st.elementosCena)?st.elementosCena.slice().sort((a,b)=>(a.ordem||0)-(b.ordem||0)):[];
+    const chars=getSavedGemeo3DCharacters(),objs=getSavedGemeo3DObjects();
+    const buttons=[...chars.map(c=>`<button type="button" class="gemeo3d-character-create" onclick="gemeo3DAddCharacterToScene('${escapeJs(c.id)}')">＋ Personagem · ${escapeHtml(c.name||'Personagem')}</button>`),...objs.map(o=>`<button type="button" class="gemeo3d-character-create" onclick="gemeo3DAddObjectToScene('${escapeJs(o.id)}')">＋ Objeto · ${escapeHtml(o.name||'Objeto')}</button>`)].join('');
+    const selected=st.selectedGroupId?items.find(i=>i.grupoId===st.selectedGroupId):null;
+    panel.innerHTML=`<div class="gemeo3d-tool-panel-title"><span>RECURSOS · ${items.length}</span><button type="button" class="gemeo3d-tool-panel-close" onclick="closeGemeo3DTool()">×</button></div><div class="gemeo3d-tool-empty">Personagens e Objetos são referenciados pelos seus recursos originais, mas recebem posição própria dentro desta Cena.</div><div class="gemeo3d-character-panel-section"><strong>ADICIONAR</strong>${buttons||'<div class="gemeo3d-tool-empty">Nenhum Personagem ou Objeto salvo disponível.</div>'}</div><div class="gemeo3d-tool-list">${items.map(i=>{const t=i.recursoTipo==='personagem3d'?'Personagem':'Objeto';const x=i.transformacao?.posicao||{x:0,y:0,z:0};return `<div class="gemeo3d-character-item ${selected?.id===i.id?'selected':''}"><button type="button" class="gemeo3d-scene-resource-select" onclick="gemeo3DSelectSceneElement('${escapeJs(i.id)}')"><strong>${escapeHtml(i.nome||t)}</strong><small>${t} · ordem ${Number(i.ordem||0)+1}</small></button><div class="gemeo3d-object-scale-grid"><label>X<input type="number" step="0.1" value="${Number(x.x)||0}" onchange="gemeo3DSetSceneElementTransform('${escapeJs(i.id)}','x',this.value)"></label><label>Y<input type="number" step="0.1" value="${Number(x.y)||0}" onchange="gemeo3DSetSceneElementTransform('${escapeJs(i.id)}','y',this.value)"></label><label>Z<input type="number" step="0.1" value="${Number(x.z)||0}" onchange="gemeo3DSetSceneElementTransform('${escapeJs(i.id)}','z',this.value)"></label></div><div class="gemeo3d-character-item-actions"><button type="button" onclick="gemeo3DRemoveSceneElement('${escapeJs(i.id)}')">Remover da Cena</button></div></div>`}).join('')}</div>`;
+  }else if(name==='cameras'&&gemeo3DEditorMode==='cena'){
+    const st=gemeo3DModelState,cams=st.configuracao.cameras||[],active=gemeo3DGetActiveCamera();
+    const t=active?.transformacao||gemeo3DNormalizeTransform();
+    const free=!!st.configuracao.navegacaoLivre;
+    panel.classList.add('scene-direct-compact');panel.innerHTML=`<div class="gemeo3d-tool-panel-title"><span>CÂMERAS · ${cams.length}</span><button type="button" class="gemeo3d-tool-panel-close" onclick="closeGemeo3DTool()">×</button></div><button type="button" class="gemeo3d-scene-freenav-toggle ${free?'active':''}" onclick="gemeo3DToggleSceneFreeNav()">${free?'🔓 Navegação livre · toque para travar na câmera':'🔒 Travado na câmera · toque para navegar livremente'}</button><div class="gemeo3d-direct-edit-note">${free?'Navegação livre: arraste para olhar a cena de qualquer ângulo. A câmera não se move até você travar de novo.':'A tela é o principal controle: <strong>arraste para girar a câmera</strong>. Use dois dedos para deslocar e aproximar/afastar. O painel fica para seleção e ajustes finos.'}</div><div class="gemeo3d-scene-picker">${cams.map(c=>`<button type="button" class="${c.id===st.configuracao.cameraAtivaId?'active':''}" onclick="gemeo3DSetActiveCamera('${escapeJs(c.id)}')">${escapeHtml(c.nome)}${c.id===st.configuracao.cameraAtivaId?' · ativa':''}</button>`).join('')}</div><label class="gemeo3d-character-panel-label">CAMPO DE VISÃO · ${Math.round(active?.campoVisao||60)}°</label><input type="range" min="20" max="120" step="1" value="${active?.campoVisao||60}" oninput="gemeo3DUpdateCamera('${escapeJs(active?.id||'')}','fov',this.value)"><details class="gemeo3d-fine-details"><summary>Ajustes finos da câmera</summary><div class="gemeo3d-transform-axis"><span>POSIÇÃO</span></div><div class="gemeo3d-transform-axis"><label>X <input type="number" step="0.1" value="${t.posicao.x}" oninput="gemeo3DUpdateCamera('${escapeJs(active?.id||'')}','posicao.x',this.value)"></label><label>Y <input type="number" step="0.1" value="${t.posicao.y}" oninput="gemeo3DUpdateCamera('${escapeJs(active?.id||'')}','posicao.y',this.value)"></label><label>Z <input type="number" step="0.1" value="${t.posicao.z}" oninput="gemeo3DUpdateCamera('${escapeJs(active?.id||'')}','posicao.z',this.value)"></label></div><div class="gemeo3d-transform-axis"><span>ROTAÇÃO · °</span></div><div class="gemeo3d-transform-axis"><label>X <input type="number" step="1" value="${Math.round(t.rotacao.x*180/Math.PI)}" oninput="gemeo3DUpdateCamera('${escapeJs(active?.id||'')}','rotacao.x',this.value)"></label><label>Y <input type="number" step="1" value="${Math.round(t.rotacao.y*180/Math.PI)}" oninput="gemeo3DUpdateCamera('${escapeJs(active?.id||'')}','rotacao.y',this.value)"></label><label>Z <input type="number" step="1" value="${Math.round(t.rotacao.z*180/Math.PI)}" oninput="gemeo3DUpdateCamera('${escapeJs(active?.id||'')}','rotacao.z',this.value)"></label></div></details><div class="gemeo3d-scene-compact-actions"><button type="button" onclick="gemeo3DAddCamera()">＋ Adicionar câmera</button><button type="button" class="danger" onclick="gemeo3DDeleteCamera('${escapeJs(active?.id||'')}')">Excluir câmera</button></div>`;
+  }else if(name==='iluminacao'&&gemeo3DEditorMode==='cena'){
+    const st=gemeo3DModelState,lights=st.configuracao.luzes||[],active=gemeo3DGetSelectedLight();
+    const typeLabel=active?.tipo==='pontual'?'pontual':'direcional';
+    const vec=active?.tipo==='pontual'?(active?.posicao||{x:0,y:0,z:0}):(active?.direcao||{x:0,y:0,z:1});
+    const free=!!st.configuracao.navegacaoLivre;
+    panel.classList.add('scene-direct-compact');panel.innerHTML=`<div class="gemeo3d-tool-panel-title"><span>ILUMINAÇÃO · ${lights.length}/4</span><button type="button" class="gemeo3d-tool-panel-close" onclick="closeGemeo3DTool()">×</button></div><button type="button" class="gemeo3d-scene-freenav-toggle ${free?'active':''}" onclick="gemeo3DToggleSceneFreeNav()">${free?'🔓 Navegação livre · toque para travar na luz':'🔒 Edição direta · toque para navegar livremente'}</button><div class="gemeo3d-direct-edit-note">${free?'Navegação livre: arraste para olhar a cena de qualquer ângulo. A luz não se move até você travar de novo.':'A tela é o principal controle: <strong>arraste a luz</strong> para mudar sua direção ou posição. A intensidade e o tipo ficam no painel.'}</div><div class="gemeo3d-scene-picker">${lights.map(l=>`<button type="button" class="${l.id===active?.id?'active':''}" onclick="gemeo3DSelectLight('${escapeJs(l.id)}')">${escapeHtml(l.nome)}</button>`).join('')}</div><label class="gemeo3d-character-panel-label">TIPO</label><select onchange="gemeo3DUpdateLight('${escapeJs(active?.id||'')}','tipo',this.value)"><option value="direcional" ${typeLabel==='direcional'?'selected':''}>Direcional</option><option value="pontual" ${typeLabel==='pontual'?'selected':''}>Pontual</option></select><label class="gemeo3d-character-panel-label">INTENSIDADE · ${Number(active?.intensidade??1).toFixed(2)}</label><input type="range" min="0" max="3" step="0.05" value="${active?.intensidade??1}" oninput="gemeo3DUpdateLight('${escapeJs(active?.id||'')}','intensidade',this.value)"><details class="gemeo3d-fine-details"><summary>Ajustes finos da luz</summary><div class="gemeo3d-transform-axis"><span>${typeLabel==='pontual'?'POSIÇÃO':'DIREÇÃO'}</span></div><div class="gemeo3d-transform-axis"><label>X <input type="number" step="0.1" value="${vec.x}" oninput="gemeo3DUpdateLight('${escapeJs(active?.id||'')}','${typeLabel==='pontual'?'posicao.x':'direcao.x'}',this.value)"></label><label>Y <input type="number" step="0.1" value="${vec.y}" oninput="gemeo3DUpdateLight('${escapeJs(active?.id||'')}','${typeLabel==='pontual'?'posicao.y':'direcao.y'}',this.value)"></label><label>Z <input type="number" step="0.1" value="${vec.z}" oninput="gemeo3DUpdateLight('${escapeJs(active?.id||'')}','${typeLabel==='pontual'?'posicao.z':'direcao.z'}',this.value)"></label></div></details><div class="gemeo3d-scene-compact-actions"><button type="button" onclick="gemeo3DAddLight()" ${lights.length>=4?'disabled':''}>＋ Adicionar luz</button><button type="button" class="danger" onclick="gemeo3DDeleteLight('${escapeJs(active?.id||'')}')">Excluir luz</button></div>`;
+  }else if(name==='configuracaoCena'&&gemeo3DEditorMode==='cena'){
+    const st=gemeo3DModelState;
+    panel.innerHTML=`<div class="gemeo3d-tool-panel-title"><span>CONFIGURAÇÃO · CENA</span><button type="button" class="gemeo3d-tool-panel-close" onclick="closeGemeo3DTool()">×</button></div><label class="gemeo3d-character-panel-label" for="gemeo3dSceneDurationEditor">DURAÇÃO · SEGUNDOS</label><input id="gemeo3dSceneDurationEditor" type="number" min="0.1" step="0.1" value="${Number(st.duracao)||5}" onchange="gemeo3DSetSceneDuration(this.value)"><label class="gemeo3d-character-panel-label" for="gemeo3dSceneSequenceEditor" style="margin-top:10px">SEQUÊNCIA</label><input id="gemeo3dSceneSequenceEditor" type="number" min="1" step="1" value="${Number(st.sequencia)||1}" onchange="gemeo3DSetSceneSequence(this.value)"><div class="gemeo3d-character-panel-section"><strong>PONTOS DE EXTENSÃO</strong><small>Movimentos e áudio continuam reservados para etapas futuras. Câmeras e iluminação já são configuráveis nesta Cena.</small><div class="gemeo3d-tool-empty">Movimentos: ${Array.isArray(st.configuracao?.movimentos)?st.configuracao.movimentos.length:0} · Câmeras: ${st.configuracao?.cameras?.length||0} · Luzes: ${st.configuracao?.luzes?.length||0} · Áudio: ${st.configuracao?.audio?'preparado':'vazio'}</div></div>`;
+  }else if(name==='configuracao'&&gemeo3DEditorMode==='cenario'){
+    const cfg=gemeo3DModelState.configuracao||{contexto:'',iluminacaoPreparacao:null,propriedades:{}};
+    panel.innerHTML=`<div class="gemeo3d-tool-panel-title"><span>CONFIGURAÇÃO · CENÁRIO</span><button type="button" class="gemeo3d-tool-panel-close" onclick="closeGemeo3DTool()">×</button></div><label class="gemeo3d-character-panel-label" for="gemeo3DScenarioContextEditor">CONTEXTO</label><textarea id="gemeo3DScenarioContextEditor" maxlength="500" style="width:100%;min-height:72px" oninput="gemeo3DSetScenarioContext(this.value)">${escapeHtml(cfg.contexto||'')}</textarea><div class="gemeo3d-character-panel-section"><strong>Preparação de iluminação</strong><small>Este campo registra uma preparação para etapas futuras. Não ativa iluminação funcional.</small><textarea id="gemeo3DScenarioLightPreparation" maxlength="500" style="width:100%;min-height:60px;margin-top:6px" oninput="gemeo3DSetScenarioLightPreparation(this.value)">${escapeHtml(cfg.iluminacaoPreparacao||'')}</textarea></div><div class="gemeo3d-tool-empty">Os Materiais aplicados aos elementos já pertencem ao Cenário de forma independente. Alterações aqui não retornam ao Ambiente de origem.</div>`;
   }else if(name==='material'){
     const st=gemeo3DModelState;
     const selected=st?.selectedComponentId?st.estrutura.componentes.find(c=>c.id===st.selectedComponentId):null;
@@ -2822,6 +3363,8 @@ function renderGemeo3DToolPanel(name){
       <div class="gemeo3d-tool-empty" style="margin-top:8px">Arraste com um dedo para girar. Use dois dedos para aproximar/afastar ou deslocar a visão. A grade e os eixos são apenas referências do espaço e não alteram os componentes.</div>`;
   }
 }
+function gemeo3DSetScenarioContext(value){if(gemeo3DEditorMode!=='cenario'||!gemeo3DModelState)return;gemeo3DModelState.configuracao=gemeo3DModelState.configuracao||{contexto:'',iluminacaoPreparacao:null,propriedades:{}};gemeo3DModelState.configuracao.contexto=String(value||'');gemeo3DModelState.descricao=gemeo3DModelState.configuracao.contexto;}
+function gemeo3DSetScenarioLightPreparation(value){if(gemeo3DEditorMode!=='cenario'||!gemeo3DModelState)return;gemeo3DModelState.configuracao=gemeo3DModelState.configuracao||{contexto:'',iluminacaoPreparacao:null,propriedades:{}};gemeo3DModelState.configuracao.iluminacaoPreparacao=String(value||'');}
 function gemeo3DRefreshComponentUI(){
   const st=gemeo3DModelState;if(!st)return;
   st.estrutura=gemeo3DNormalizeStructure(st.estrutura,st.primitive||'cubo');
@@ -2836,7 +3379,71 @@ function openGemeo3DComponentSetup(){
   if(!gemeo3DModelState)return;
   const cubo=document.querySelector('input[name="gemeo3dComponentPrimitive"][value="cubo"]');
   if(cubo)cubo.checked=true;
+  const isEnv=gemeo3DEditorMode==='ambiente';
+  const isScenario=gemeo3DEditorMode==='cenario';
+  const title=document.querySelector('#gemeo3dComponentSetupOverlay h2');
+  const desc=document.querySelector('#gemeo3dComponentSetupOverlay p');
+  const objectSection=$('gemeo3dEnvironmentObjectSection');
+  const objectList=$('gemeo3dEnvironmentObjectList');
+  const primitiveSection=$('gemeo3dComponentPrimitiveSection');
+  if(title)title.textContent=isEnv?'Adicionar elemento ao Ambiente':(isScenario?'Adicionar elemento ao Cenário':'Adicionar componente');
+  if(desc)desc.textContent=isEnv?'Adicione um componente permanente ou incorpore um Objeto 3D salvo como elemento fixo.':(isScenario?'Adicione um elemento específico deste Cenário ou incorpore um Objeto 3D salvo.':'Escolha a forma que será incorporada ao Modelo 3D atual.');
+  if(objectSection)objectSection.style.display=(isEnv||isScenario)?'block':'none';
+  if(primitiveSection)primitiveSection.style.display='block';
+  if((isEnv||isScenario)&&objectList){
+    const objects=getSavedGemeo3DObjects();
+    objectList.innerHTML=objects.length?objects.map(o=>`<button type="button" class="gemeo3d-tool-component" style="margin-bottom:6px" onclick="${isEnv?'addGemeo3DObjectToEnvironment':'addGemeo3DObjectToScenario'}('${escapeJs(o.id)}')"><span class="gemeo3d-tool-component-icon">□</span><span><strong>${escapeHtml(o.name||'Objeto')}</strong><small>${isEnv?'Adicionar como elemento permanente':'Adicionar somente a este Cenário'}</small></span></button>`).join(''):'<div class="gemeo3d-tool-empty">Nenhum Objeto 3D salvo. Você ainda pode adicionar um componente geométrico abaixo.</div>';
+  }
   $('gemeo3dComponentSetupOverlay')?.classList.add('open');
+}
+function addGemeo3DObjectToEnvironment(objectId){
+  const st=gemeo3DModelState;if(!st||gemeo3DEditorMode!=='ambiente')return;
+  const source=getSavedGemeo3DObjects().find(o=>o.id===objectId);if(!source){showToast('Objeto 3D não encontrado.');return;}
+  st.estrutura=gemeo3DNormalizeStructure(st.estrutura,st.primitive||'cubo');
+  const snapshot=Array.isArray(source.modeloOrigemSnapshot?.componentes)&&source.modeloOrigemSnapshot.componentes.length?source.modeloOrigemSnapshot.componentes:[{tipo:source.primitive||'cubo',nome:source.name||'Objeto'}];
+  const scale=source.configuracao?.escala||{x:1,y:1,z:1};
+  const baseIndex=st.estrutura.componentes.length;
+  const idMap=new Map();
+  snapshot.forEach((src,i)=>{
+    const oldId=src?.id||('snapshot_'+i);
+    const newId='componente3d_'+Date.now().toString(36)+'_'+Math.random().toString(36).slice(2,7)+'_'+i;
+    idMap.set(oldId,newId);
+    const c=JSON.parse(JSON.stringify(src));
+    c.id=newId;
+    c.nome=(source.name||src.nome||'Objeto')+(snapshot.length>1?' · '+(i+1):'');
+    c.permanente=true;c.itemTipo='objeto_ambiente';c.origemObjetoId=source.id;
+    c.parentId=src.parentId&&idMap.has(src.parentId)?idMap.get(src.parentId):null;
+    c.transformacao=gemeo3DNormalizeTransform(c.transformacao);
+    c.transformacao.escala.x*=Math.max(.01,Number(scale.x)||1);c.transformacao.escala.y*=Math.max(.01,Number(scale.y)||1);c.transformacao.escala.z*=Math.max(.01,Number(scale.z)||1);
+    const offset=baseIndex*2.6;c.transformacao.posicao.x+=offset;
+    st.estrutura.componentes.push(c);
+  });
+  /* Reaplica relações pai/filho agora que todos os IDs do snapshot foram remapeados. */
+  snapshot.forEach((src,i)=>{
+    const c=st.estrutura.componentes[baseIndex+i];
+    c.parentId=src.parentId&&idMap.has(src.parentId)?idMap.get(src.parentId):null;
+  });
+  closeGemeo3DComponentSetup();
+  st.selectedComponentId=st.estrutura.componentes[baseIndex]?.id||null;
+  gemeo3DRefreshComponentUI();renderGemeo3D();
+  showToast('Objeto adicionado ao Ambiente como elemento permanente.');
+}
+function addGemeo3DObjectToScenario(objectId){
+  const st=gemeo3DModelState;if(!st||gemeo3DEditorMode!=='cenario')return;
+  const source=getSavedGemeo3DObjects().find(o=>o.id===objectId);if(!source){showToast('Objeto 3D não encontrado.');return;}
+  st.estrutura=gemeo3DNormalizeStructure(st.estrutura,'cubo');
+  const snapshot=Array.isArray(source.modeloOrigemSnapshot?.componentes)&&source.modeloOrigemSnapshot.componentes.length?source.modeloOrigemSnapshot.componentes:[{tipo:source.primitive||'cubo',nome:source.name||'Objeto'}];
+  const scale=source.configuracao?.escala||{x:1,y:1,z:1};
+  const baseIndex=st.estrutura.componentes.length;
+  const idMap=new Map();
+  snapshot.forEach((src,i)=>{
+    const oldId=src?.id||('snapshot_'+i);
+    const newId='componente3d_'+Date.now().toString(36)+'_'+Math.random().toString(36).slice(2,7)+'_'+i;
+    idMap.set(oldId,newId);
+    const c=JSON.parse(JSON.stringify(src));c.id=newId;c.nome=(source.name||src.nome||'Objeto')+(snapshot.length>1?' · '+(i+1):'');c.permanente=false;c.herdadoAmbiente=false;c.itemTipo='elemento_cenario';c.especificoCenario=true;c.origemObjetoId=source.id;c.origemCenarioId=st.id;c.parentId=src.parentId&&idMap.has(src.parentId)?idMap.get(src.parentId):null;c.transformacao=gemeo3DNormalizeTransform(c.transformacao);c.transformacao.escala.x*=Math.max(.01,Number(scale.x)||1);c.transformacao.escala.y*=Math.max(.01,Number(scale.y)||1);c.transformacao.escala.z*=Math.max(.01,Number(scale.z)||1);const offset=baseIndex*2.6;c.transformacao.posicao.x+=offset;st.estrutura.componentes.push(c);
+  });
+  snapshot.forEach((src,i)=>{const c=st.estrutura.componentes[baseIndex+i];c.parentId=src.parentId&&idMap.has(src.parentId)?idMap.get(src.parentId):null;});
+  closeGemeo3DComponentSetup();st.selectedComponentId=st.estrutura.componentes[baseIndex]?.id||null;gemeo3DRefreshComponentUI();renderGemeo3D();showToast('Objeto adicionado somente a este Cenário.');
 }
 function closeGemeo3DComponentSetup(){
   $('gemeo3dComponentSetupOverlay')?.classList.remove('open');
@@ -2846,6 +3453,15 @@ function addGemeo3DComponent(){
   const tipo=document.querySelector('input[name="gemeo3dComponentPrimitive"]:checked')?.value||'cubo';
   gemeo3DModelState.estrutura=gemeo3DNormalizeStructure(gemeo3DModelState.estrutura,gemeo3DModelState.primitive||'cubo');
   const component=gemeo3DCreateComponent(tipo,gemeo3DModelState.estrutura.componentes.length);
+  if(gemeo3DEditorMode==='ambiente'){
+    component.permanente=true;
+    component.itemTipo='elemento_ambiente';
+  }else if(gemeo3DEditorMode==='cenario'){
+    component.permanente=false;
+    component.itemTipo='elemento_cenario';
+    component.especificoCenario=true;
+    component.origemCenarioId=gemeo3DModelState.id;
+  }
   gemeo3DModelState.estrutura.componentes.push(component);
   gemeo3DModelState.selectedComponentId=component.id;
   closeGemeo3DComponentSetup();
@@ -2853,7 +3469,7 @@ function addGemeo3DComponent(){
   renderGemeo3D();
   const panel=$('gemeo3dToolPanel');
   if(panel?.classList.contains('open')&&panel.dataset.tool==='componentes')renderGemeo3DToolPanel('componentes');
-  showToast('Componente adicionado ao Modelo 3D.');
+  showToast(gemeo3DEditorMode==='ambiente'?'Elemento permanente adicionado ao Ambiente.':(gemeo3DEditorMode==='cenario'?'Elemento específico adicionado ao Cenário.':'Componente adicionado ao Modelo 3D.'));
 }
 function gemeo3DGetSelectedComponent(){
   const st=gemeo3DModelState;if(!st)return null;
@@ -2881,15 +3497,22 @@ function gemeo3DSelectComponent(id){
 }
 let gemeo3DTransformMode='mover';
 let gemeo3DTransformAxis='x';
+let gemeo3DSceneLightSelectionId=null;
+let gemeo3DSceneDirectInteraction=null;
+let gemeo3DSceneDirectTool=null;
 function openGemeo3DToolFamily(family){
   const bar=$('gemeo3dFamilyToolbar');
   if(!bar)return;
   const defs={
     estrutura:[['componentes','◇','Componentes'],['grupos','▦','Grupos'],['transformar','✣','Transformar']],
     visual:[['visualizar','◉','Visualizar'],['material','●','Material']],
-    personagem:[['aparencia','◐','Aparência'],['roupas','□','Roupa'],['acessorios','◇','Acessórios'],['poses','◈','Poses']]
+    personagem:[['aparencia','◐','Aparência'],['roupas','□','Roupa'],['acessorios','◇','Acessórios'],['poses','◈','Poses']],
+    cenario:[['configuracao','▣','Configuração']],
+    cena:[['recursos','◆','Recursos'],['cameras','◉','Câmeras'],['iluminacao','☼','Iluminação'],['configuracaoCena','▣','Configuração']]
   };
   if(family==='personagem'&&gemeo3DEditorMode!=='personagem')return;
+  if(family==='cenario'&&gemeo3DEditorMode!=='cenario')return;
+  if(family==='cena'&&gemeo3DEditorMode!=='cena')return;
   if(bar.dataset.family===family&&bar.classList.contains('open')){bar.classList.remove('open');bar.dataset.family='';document.querySelectorAll('#gemeo3dToolbar .gemeo3d-tool-button[data-gemeo-family]').forEach(b=>b.classList.remove('active'));$('gemeo3dToolPanel')?.classList.remove('family-open');return;}
   const items=defs[family]||[];
   bar.innerHTML=items.map(([tool,icon,label])=>`<button type="button" class="gemeo3d-family-tool-button" data-gemeo-tool="${tool}" onclick="openGemeo3DTool('${tool}')">${icon}<span>${label}</span></button>`).join('');
@@ -2909,16 +3532,31 @@ function openGemeo3DTool(name){
     panel.dataset.tool='';
   }else{
     panel.dataset.tool=name;
+    gemeo3DSceneDirectTool=(name==='cameras'||name==='iluminacao')?name:null;
     panel.classList.add('open');
     panel.classList.toggle('family-open',$('gemeo3dFamilyToolbar')?.classList.contains('open'));
+    if(name==='cameras')gemeo3DSetViewportHint('Câmera: arraste para girar · dois dedos para deslocar e aproximar/afastar · painel = ajustes finos');
+    else if(name==='iluminacao')gemeo3DSetViewportHint('Iluminação: arraste para direcionar/posicionar · dois dedos para profundidade · painel = intensidade e ajustes finos');
+    else gemeo3DSetViewportHint('Arraste para girar · dois dedos para deslocar/zoom · roda para aproximar · grade = referência espacial');
     renderGemeo3DToolPanel(name);
+    gemeo3DRenderSceneDirectGizmo();
   }
   document.querySelectorAll('#gemeo3dFamilyToolbar .gemeo3d-family-tool-button[data-gemeo-tool]').forEach(btn=>btn.classList.toggle('active',btn.dataset.gemeoTool===name && panel.classList.contains('open')));
 }
 function closeGemeo3DTool(){
   const panel=$('gemeo3dToolPanel');
-  if(panel){panel.classList.remove('open','family-open');panel.dataset.tool='';}
+  gemeo3DSceneDirectInteraction=null;
+  const currentTool=panel?.dataset.tool||'';
+  if(panel){
+    panel.classList.remove('open','family-open');
+    panel.dataset.tool='';
+  }
+  if(currentTool!=='cameras'&&currentTool!=='iluminacao')gemeo3DSceneDirectTool=null;
+  if(currentTool==='cameras')gemeo3DSetViewportHint('Câmera ativa: use o controle na tela · toque em “Edição direta” para editar ou “Navegação livre” para explorar');
+  else if(currentTool==='iluminacao')gemeo3DSetViewportHint('Luz selecionada: use o controle na tela · toque em “Edição direta” para editar ou “Navegação livre” para explorar');
+  else gemeo3DSetViewportHint('Arraste para girar · dois dedos para deslocar/zoom · roda para aproximar · grade = referência espacial');
   document.querySelectorAll('#gemeo3dFamilyToolbar .gemeo3d-family-tool-button[data-gemeo-tool]').forEach(btn=>btn.classList.remove('active'));
+  gemeo3DRenderSceneDirectGizmo();
 }
 function gemeo3DRenameComponent(id){
   const st=gemeo3DModelState;if(!st)return;
@@ -2956,7 +3594,7 @@ function gemeo3DRemoveComponent(id){
   const st=gemeo3DModelState;if(!st)return;
   st.estrutura=gemeo3DNormalizeStructure(st.estrutura,st.primitive||'cubo');
   const comps=st.estrutura.componentes;
-  if(comps.length<=1){showToast('O Modelo 3D precisa manter pelo menos um componente.');return;}
+  if(comps.length<=1&&gemeo3DEditorMode!=='ambiente'){showToast('O Modelo 3D precisa manter pelo menos um componente.');return;}
   const index=comps.findIndex(x=>x.id===id);if(index<0)return;
   const alvo=comps[index];
   const efetivo=gemeo3DGetEffectiveComponentState(alvo,st.estrutura.grupos);
@@ -2965,7 +3603,6 @@ function gemeo3DRemoveComponent(id){
   comps.splice(index,1);
   const parentDoAlvo=alvo.parentId||null;
   comps.forEach(c=>{if(c.parentId===id)c.parentId=parentDoAlvo;});
-  comps.splice(index,1);
   if(st.selectedComponentId===id){
     const novo=comps[Math.min(index,comps.length-1)];
     st.selectedComponentId=novo?.id||null;
@@ -3272,10 +3909,11 @@ function gemeo3DRenderComponentList(){
     const activeLabel=state.ativo?'Ativo':'Inativo';
     const lockLabel=state.bloqueado?'Bloqueado':(groupState?.bloqueado?'Grupo bloqueado':'Desbloqueado');
     const groupLabel=group?`Grupo: ${escapeHtml(group.nome)}`:'Sem grupo';
+    const permanenceLabel=c.permanente?(c.origemObjetoId?'Elemento permanente · Objeto':'Elemento permanente'):(c.itemTipo==='elemento_cenario'?'Específico deste Cenário':(c.herdadoAmbiente?'Herdado do Ambiente':''));
     const idx=originalIndex.get(c.id);
-    return `<div class="gemeo3d-tool-component-row gemeo3d-hierarchy-row" data-hierarchy-depth="${depth}" style="--gemeo3d-depth:${depth}"><div class="gemeo3d-tool-component-main"><button type="button" class="gemeo3d-tool-component ${(c.id===st.selectedComponentId||st.selectedComponentIds?.includes(c.id))?'selected':''}" onclick="gemeo3DSelectComponent('${escapeJs(c.id)}')"><span class="gemeo3d-tool-component-icon">${mark} ${icons[c.tipo]||'◇'}</span><span><strong>${escapeHtml(c.nome)}</strong><small>${escapeHtml(types[c.tipo]||'Forma')} · ${relation}${depth>1?' · nível '+depth:''}</small><small class="gemeo3d-component-group-indicator">${groupLabel}</small></span></button><label class="gemeo3d-parent-field"><span>Pai</span><select aria-label="Definir pai de ${escapeHtml(c.nome)}" onchange="gemeo3DSetComponentParent('${escapeJs(c.id)}',this.value)">${options.join('')}</select></label></div><div class="gemeo3d-state-actions" aria-label="Estados de ${escapeHtml(c.nome)}"><button type="button" class="gemeo3d-state-button ${state.visivel?'on':'off'}" title="${visibilityLabel}" aria-label="${visibilityLabel}" onclick="gemeo3DToggleComponentState('${escapeJs(c.id)}','visivel')">${state.visivel?'◉':'○'} ${visibilityLabel}</button><button type="button" class="gemeo3d-state-button ${effective.bloqueado?'off':'on'}" title="${lockLabel}" aria-label="${lockLabel}" onclick="gemeo3DToggleComponentState('${escapeJs(c.id)}','bloqueado')">${state.bloqueado?'▣':(groupState?.bloqueado?'▣':'□')} ${lockLabel}</button><button type="button" class="gemeo3d-state-button ${state.ativo?'on':'off'}" title="${activeLabel}" aria-label="${activeLabel}" onclick="gemeo3DToggleComponentState('${escapeJs(c.id)}','ativo')">${state.ativo?'●':'○'} ${activeLabel}</button></div><span class="gemeo3d-tool-component-actions"><button type="button" class="gemeo3d-tool-component-action" title="Subir" aria-label="Subir componente" onclick="gemeo3DMoveComponent('${escapeJs(c.id)}','up')" ${idx===0?'disabled':''}>↑</button><button type="button" class="gemeo3d-tool-component-action" title="Descer" aria-label="Descer componente" onclick="gemeo3DMoveComponent('${escapeJs(c.id)}','down')" ${idx===comps.length-1?'disabled':''}>↓</button><button type="button" class="gemeo3d-tool-component-action" title="Renomear" aria-label="Renomear componente" onclick="gemeo3DRenameComponent('${escapeJs(c.id)}')">✎</button><button type="button" class="gemeo3d-tool-component-action" title="Duplicar" aria-label="Duplicar componente" onclick="gemeo3DDuplicateComponent('${escapeJs(c.id)}')">＋</button><button type="button" class="gemeo3d-tool-component-action danger" title="Remover" aria-label="Remover componente" onclick="gemeo3DRemoveComponent('${escapeJs(c.id)}')">×</button></span></div>`;
+    return `<div class="gemeo3d-tool-component-row gemeo3d-hierarchy-row" data-hierarchy-depth="${depth}" style="--gemeo3d-depth:${depth}"><div class="gemeo3d-tool-component-main"><button type="button" class="gemeo3d-tool-component ${(c.id===st.selectedComponentId||st.selectedComponentIds?.includes(c.id))?'selected':''}" onclick="gemeo3DSelectComponent('${escapeJs(c.id)}')"><span class="gemeo3d-tool-component-icon">${mark} ${icons[c.tipo]||'◇'}</span><span><strong>${escapeHtml(c.nome)}</strong><small>${escapeHtml(types[c.tipo]||'Forma')} · ${relation}${depth>1?' · nível '+depth:''}</small>${permanenceLabel?`<small class="gemeo3d-component-group-indicator">${escapeHtml(permanenceLabel)}</small>`:''}<small class="gemeo3d-component-group-indicator">${groupLabel}</small></span></button><label class="gemeo3d-parent-field"><span>Pai</span><select aria-label="Definir pai de ${escapeHtml(c.nome)}" onchange="gemeo3DSetComponentParent('${escapeJs(c.id)}',this.value)">${options.join('')}</select></label></div><div class="gemeo3d-state-actions" aria-label="Estados de ${escapeHtml(c.nome)}"><button type="button" class="gemeo3d-state-button ${state.visivel?'on':'off'}" title="${visibilityLabel}" aria-label="${visibilityLabel}" onclick="gemeo3DToggleComponentState('${escapeJs(c.id)}','visivel')">${state.visivel?'◉':'○'} ${visibilityLabel}</button><button type="button" class="gemeo3d-state-button ${effective.bloqueado?'off':'on'}" title="${lockLabel}" aria-label="${lockLabel}" onclick="gemeo3DToggleComponentState('${escapeJs(c.id)}','bloqueado')">${state.bloqueado?'▣':(groupState?.bloqueado?'▣':'□')} ${lockLabel}</button><button type="button" class="gemeo3d-state-button ${state.ativo?'on':'off'}" title="${activeLabel}" aria-label="${activeLabel}" onclick="gemeo3DToggleComponentState('${escapeJs(c.id)}','ativo')">${state.ativo?'●':'○'} ${activeLabel}</button></div><span class="gemeo3d-tool-component-actions"><button type="button" class="gemeo3d-tool-component-action" title="Subir" aria-label="Subir componente" onclick="gemeo3DMoveComponent('${escapeJs(c.id)}','up')" ${idx===0?'disabled':''}>↑</button><button type="button" class="gemeo3d-tool-component-action" title="Descer" aria-label="Descer componente" onclick="gemeo3DMoveComponent('${escapeJs(c.id)}','down')" ${idx===comps.length-1?'disabled':''}>↓</button><button type="button" class="gemeo3d-tool-component-action" title="Renomear" aria-label="Renomear componente" onclick="gemeo3DRenameComponent('${escapeJs(c.id)}')">✎</button><button type="button" class="gemeo3d-tool-component-action" title="Duplicar" aria-label="Duplicar componente" onclick="gemeo3DDuplicateComponent('${escapeJs(c.id)}')">＋</button><button type="button" class="gemeo3d-tool-component-action danger" title="Remover" aria-label="Remover componente" onclick="gemeo3DRemoveComponent('${escapeJs(c.id)}')">×</button></span></div>`;
   });
-  return `<div class="gemeo3d-hierarchy-note">A ordem do painel segue a hierarquia: cada pai aparece antes de seus filhos, recursivamente. Grupo e estados continuam visíveis no mesmo item. A ordem de armazenamento não é alterada.</div><div class="gemeo3d-tool-list">${rows.join('')}</div>`;
+  return `<div class="gemeo3d-hierarchy-note">A ordem do painel segue a hierarquia: cada pai aparece antes de seus filhos, recursivamente. Grupo e estados continuam visíveis no mesmo item. A ordem de armazenamento não é alterada.${gemeo3DEditorMode==='ambiente'?' Elementos marcados como permanentes pertencem ao Ambiente; o Ambiente pode permanecer vazio.':(gemeo3DEditorMode==='cenario'?' Elementos herdados mantêm a origem do Ambiente; elementos específicos pertencem somente a este Cenário.':'')}</div><div class="gemeo3d-tool-list">${rows.join('')||`<div class="gemeo3d-tool-empty">Nenhum elemento ainda. Use <strong>＋ Adicionar</strong> para começar.</div>`}</div>`;
 }
 
 function gemeo3DGetSelectedTransformTarget(){
@@ -3363,8 +4001,8 @@ function initGemeo3DViewport(){
     return;
   }
   gemeo3DGL={gl,canvas,viewport,q:[0,0,0,1],distance:4.8,panX:0,panY:0,drag:false,lastX:0,lastY:0,lastVec:null,pointers:new Map(),pinchDistance:null,lastPanMid:null};
-  const vs=`attribute vec3 aPosition;attribute vec3 aNormal;uniform mat4 uMVP;uniform mat4 uModel;varying float vLight;varying vec2 vUV;void main(){vec3 n=normalize(mat3(uModel)*aNormal);vec3 light=normalize(vec3(.5,.8,1.0));vLight=max(.18,dot(n,light)*.72+.28);vec3 p=normalize(aPosition);vUV=vec2(atan(p.z,p.x)/6.2831853+.5,asin(clamp(p.y,-1.0,1.0))/3.1415926+.5);gl_Position=uMVP*vec4(aPosition,1.0);}`;
-  const fs=`precision mediump float;varying float vLight;varying vec2 vUV;uniform vec3 uColor;uniform float uOpacity;uniform sampler2D uTexture;uniform float uTextureEnabled;void main(){vec4 tex=uTextureEnabled>.5?texture2D(uTexture,vUV):vec4(1.0);gl_FragColor=vec4(uColor*tex.rgb*vLight,tex.a*uOpacity);}`;
+  const vs=`attribute vec3 aPosition;attribute vec3 aNormal;uniform mat4 uMVP;uniform mat4 uModel;varying vec3 vNormal;varying vec3 vWorldPos;varying vec2 vUV;void main(){vNormal=normalize(mat3(uModel)*aNormal);vec4 world=uModel*vec4(aPosition,1.0);vWorldPos=world.xyz;vec3 p=normalize(aPosition);vUV=vec2(atan(p.z,p.x)/6.2831853+.5,asin(clamp(p.y,-1.0,1.0))/3.1415926+.5);gl_Position=uMVP*vec4(aPosition,1.0);}`;
+  const fs=`precision mediump float;varying vec3 vNormal;varying vec3 vWorldPos;varying vec2 vUV;uniform vec3 uColor;uniform float uOpacity;uniform sampler2D uTexture;uniform float uTextureEnabled;uniform int uLightCount;uniform vec3 uLightPositions[4];uniform vec3 uLightDirections[4];uniform float uLightIntensities[4];uniform int uLightTypes[4];void main(){vec3 n=normalize(vNormal);float light=0.18;for(int i=0;i<4;i++){if(i>=uLightCount)break;vec3 L=uLightTypes[i]==1?normalize(uLightPositions[i]-vWorldPos):normalize(uLightDirections[i]);float d=max(0.0,dot(n,L));float attenuation=uLightTypes[i]==1?(1.0/(1.0+0.08*length(uLightPositions[i]-vWorldPos))):1.0;light+=d*uLightIntensities[i]*attenuation*.72;}light=min(1.35,light);vec4 tex=uTextureEnabled>.5?texture2D(uTexture,vUV):vec4(1.0);gl_FragColor=vec4(uColor*tex.rgb*light,tex.a*uOpacity);}`;
   const compile=(type,src)=>{const sh=gl.createShader(type);gl.shaderSource(sh,src);gl.compileShader(sh);return sh};
   const program=gl.createProgram();
   gl.attachShader(program,compile(gl.VERTEX_SHADER,vs));gl.attachShader(program,compile(gl.FRAGMENT_SHADER,fs));gl.linkProgram(program);
@@ -3374,7 +4012,7 @@ function initGemeo3DViewport(){
   gemeo3DGL.aNormal=gl.getAttribLocation(program,'aNormal');
   gemeo3DGL.uMVP=gl.getUniformLocation(program,'uMVP');
   gemeo3DGL.uModel=gl.getUniformLocation(program,'uModel');
-  gemeo3DGL.uColor=gl.getUniformLocation(program,'uColor');gemeo3DGL.uOpacity=gl.getUniformLocation(program,'uOpacity');gemeo3DGL.uTexture=gl.getUniformLocation(program,'uTexture');gemeo3DGL.uTextureEnabled=gl.getUniformLocation(program,'uTextureEnabled');gemeo3DGL.textureCache=new Map();gl.uniform1i(gemeo3DGL.uTexture,0);
+  gemeo3DGL.uColor=gl.getUniformLocation(program,'uColor');gemeo3DGL.uOpacity=gl.getUniformLocation(program,'uOpacity');gemeo3DGL.uTexture=gl.getUniformLocation(program,'uTexture');gemeo3DGL.uTextureEnabled=gl.getUniformLocation(program,'uTextureEnabled');gemeo3DGL.uLightCount=gl.getUniformLocation(program,'uLightCount');gemeo3DGL.uLightPositions=[0,1,2,3].map(i=>gl.getUniformLocation(program,`uLightPositions[${i}]`));gemeo3DGL.uLightDirections=[0,1,2,3].map(i=>gl.getUniformLocation(program,`uLightDirections[${i}]`));gemeo3DGL.uLightIntensities=[0,1,2,3].map(i=>gl.getUniformLocation(program,`uLightIntensities[${i}]`));gemeo3DGL.uLightTypes=[0,1,2,3].map(i=>gl.getUniformLocation(program,`uLightTypes[${i}]`));gemeo3DGL.textureCache=new Map();gl.uniform1i(gemeo3DGL.uTexture,0);
   gemeo3DGL.geometryBuffers={};
   /* C3 — grade espacial e origem: referências visuais, nunca parte do modelo. */
   const gridVertices=[];
@@ -3401,8 +4039,16 @@ function initGemeo3DViewport(){
     canvas.addEventListener('pointerdown',e=>{
       e.preventDefault();
       gemeo3DGL.pointers.set(e.pointerId,{x:e.clientX,y:e.clientY});
-      canvas.setPointerCapture?.(e.pointerId);
+      try{canvas.setPointerCapture?.(e.pointerId);}catch(_){}
       const pts=getPointers();
+      if(gemeo3DEditorMode==='cena'&&gemeo3DModelState?.configuracao?.navegacaoLivre){
+        gemeo3DGL.drag=false;gemeo3DGL.pinchDistance=null;gemeo3DGL.lastPanMid=null;return;
+      }
+      const directTool=gemeo3DSceneDirectTool;
+      if(pts.length===1&&(directTool==='cameras'||directTool==='iluminacao')&&gemeo3DModelState&&gemeo3DEditorMode==='cena'){
+        const direct=gemeo3DBeginDirectSceneEdit(e);
+        if(direct){gemeo3DSceneDirectInteraction.mode=directTool==='cameras'?'rotateCamera':(gemeo3DGetSelectedLight()?.tipo==='pontual'?'pointLight':'directionLight');gemeo3DGL.drag=false;gemeo3DGL.lastVec=null;gemeo3DGL.pinchDistance=null;return;}
+      }
       if(pts.length===1){
         gemeo3DGL.drag=true;
         gemeo3DGL.lastX=e.clientX;
@@ -3418,8 +4064,28 @@ function initGemeo3DViewport(){
     canvas.addEventListener('pointermove',e=>{
       if(!gemeo3DGL?.pointers.has(e.pointerId))return;
       gemeo3DGL.pointers.set(e.pointerId,{x:e.clientX,y:e.clientY});
+      if(gemeo3DSceneDirectInteraction?.pointerId===e.pointerId&&gemeo3DHandleSceneDirectPointerMove(e))return;
       const pts=getPointers();
       if(pts.length>=2){
+        const direct=gemeo3DSceneDirectInteraction;
+        if(direct){
+          const nextDistance=getPinchDistance();
+          const mid={x:(pts[0].x+pts[1].x)/2,y:(pts[0].y+pts[1].y)/2};
+          if(direct.tool==='cameras'){
+            const cam=gemeo3DGetActiveCamera();
+            if(cam){
+              if(direct.pinchDistance&&nextDistance){direct.mode='zoomCamera';direct.delta=nextDistance-direct.pinchDistance;gemeo3DUpdateDirectSceneEdit();direct.pinchDistance=nextDistance;}
+              if(direct.lastPanMid){direct.mode='panCamera';direct.dx=mid.x-direct.lastPanMid.x;direct.dy=mid.y-direct.lastPanMid.y;gemeo3DUpdateDirectSceneEdit();}
+            }
+          }else if(direct.tool==='iluminacao'){
+            const light=gemeo3DGetSelectedLight();
+            if(light&&light.tipo==='pontual'&&direct.lastPanMid){light.posicao.x+=(mid.x-direct.lastPanMid.x)*.012;light.posicao.y-=(mid.y-direct.lastPanMid.y)*.012;renderGemeo3D();}
+            if(light&&light.tipo==='pontual'&&direct.pinchDistance&&nextDistance){light.posicao.z=Math.max(-20,Math.min(20,(Number(light.posicao.z)||0)-(nextDistance-direct.pinchDistance)*.018));renderGemeo3D();direct.pinchDistance=nextDistance;}
+          }
+          direct.lastPanMid=mid;
+          if(!direct.pinchDistance)direct.pinchDistance=nextDistance;
+          return;
+        }
         const nextDistance=getPinchDistance();
         const mid={x:(pts[0].x+pts[1].x)/2,y:(pts[0].y+pts[1].y)/2};
         let changed=false;
@@ -3461,8 +4127,9 @@ function initGemeo3DViewport(){
     });
     const endPointer=e=>{
       if(!gemeo3DGL?.pointers)return;
+      if(gemeo3DSceneDirectInteraction?.pointerId===e.pointerId){gemeo3DGL.pointers.delete(e.pointerId);try{canvas.releasePointerCapture?.(e.pointerId);}catch(_){}gemeo3DEndDirectSceneEdit();return;}
       gemeo3DGL.pointers.delete(e.pointerId);
-      canvas.releasePointerCapture?.(e.pointerId);
+      try{canvas.releasePointerCapture?.(e.pointerId);}catch(_){}
       const pts=getPointers();
       if(pts.length===0){
         gemeo3DGL.drag=false;
@@ -3480,11 +4147,21 @@ function initGemeo3DViewport(){
     canvas.addEventListener('pointerup',endPointer);
     canvas.addEventListener('pointercancel',endPointer);
     canvas.addEventListener('lostpointercapture',e=>{gemeo3DGL?.pointers?.delete(e.pointerId);});
-    canvas.addEventListener('wheel',e=>{e.preventDefault();gemeo3DGL.distance=Math.max(2.4,Math.min(9,gemeo3DGL.distance+e.deltaY*.006));renderGemeo3D();},{passive:false});
+    canvas.addEventListener('wheel',e=>{
+      e.preventDefault();
+      const tool=gemeo3DSceneDirectTool;
+      const freeNav=!!gemeo3DModelState?.configuracao?.navegacaoLivre;
+      if(gemeo3DEditorMode==='cena'&&freeNav)return;
+      if(tool==='cameras'&&gemeo3DEditorMode==='cena'&&!freeNav){const cam=gemeo3DGetActiveCamera();if(cam){cam.transformacao.posicao.z=Math.max(.8,Math.min(40,(Number(cam.transformacao.posicao.z)||8)+e.deltaY*.018));renderGemeo3D();return;}}
+      if(tool==='iluminacao'&&gemeo3DEditorMode==='cena'&&!freeNav){const light=gemeo3DGetSelectedLight();if(light&&light.tipo==='pontual'){light.posicao.z=Math.max(-20,Math.min(20,(Number(light.posicao.z)||0)+e.deltaY*.018));renderGemeo3D();return;}}
+      gemeo3DGL.distance=Math.max(2.4,Math.min(9,gemeo3DGL.distance+e.deltaY*.006));renderGemeo3D();
+    },{passive:false});
     canvas.addEventListener('contextmenu',e=>e.preventDefault());
     window.addEventListener('resize',()=>gemeo3DGL?.resize?.());
     gemeo3DGL.bound=true;
   }
+  gemeo3DInitSceneDirectGizmo();
+  gemeo3DRenderSceneDirectGizmo();
   renderGemeo3D();
 }
 function gemeo3DPrimitiveGeometry(type){
@@ -3715,16 +4392,22 @@ function gemeo3DGetWebGLTexture(material){
 function renderGemeo3D(){
   const st=gemeo3DGL;if(!st)return;
   gemeo3DUpdateOrientationGizmo();
+  gemeo3DRenderSceneDirectGizmo();
   const gl=st.gl,w=st.canvas.width,h=st.canvas.height;
   if(!w||!h)return;
-  gl.viewport(0,0,w,h);gl.enable(gl.DEPTH_TEST);gl.enable(gl.BLEND);gl.blendFunc(gl.SRC_ALPHA,gl.ONE_MINUS_SRC_ALPHA);gl.depthMask(true);gl.clearColor(.02,.03,.08,1);gl.clear(gl.COLOR_BUFFER_BIT|gl.DEPTH_BUFFER_BIT);
+  gl.viewport(0,0,w,h);gl.enable(gl.DEPTH_TEST);gl.enable(gl.BLEND);gl.blendFunc(gl.SRC_ALPHA,gl.ONE_MINUS_SRC_ALPHA);gl.depthMask(true);gl.clearColor(.933,.941,.957,1);gl.clear(gl.COLOR_BUFFER_BIT|gl.DEPTH_BUFFER_BIT);
   gl.useProgram(st.program);
-  const proj=gemeo3DMat4Perspective(Math.PI/3,w/h,.1,100);
-  const view=gemeo3DTranslate(st.panX,st.panY,-st.distance);
-  const globalModel=gemeo3DQuatToMat4(st.q);
+  let proj,view,globalModel;
+  if(gemeo3DEditorMode==='cena'&&gemeo3DModelState){
+    gemeo3DEnsureSceneConfiguration(gemeo3DModelState);
+    const cam=gemeo3DGetActiveCamera();const t=gemeo3DNormalizeTransform(cam?.transformacao);proj=gemeo3DMat4Perspective((Number(cam?.campoVisao)||60)*Math.PI/180,w/h,.1,100);
+    let inv=gemeo3DTranslate(-t.posicao.x,-t.posicao.y,-t.posicao.z);inv=gemeo3DMat4Multiply(gemeo3DRotationZ(-t.rotacao.z),inv);inv=gemeo3DMat4Multiply(gemeo3DRotationY(-t.rotacao.y),inv);inv=gemeo3DMat4Multiply(gemeo3DRotationX(-t.rotacao.x),inv);view=inv;globalModel=gemeo3DScale(1,1,1);
+  }else{proj=gemeo3DMat4Perspective(Math.PI/3,w/h,.1,100);view=gemeo3DTranslate(st.panX,st.panY,-st.distance);globalModel=gemeo3DQuatToMat4(st.q);}
+  if(gemeo3DEditorMode==='cena'){const lights=gemeo3DModelState.configuracao.luzes||[];gl.uniform1i(st.uLightCount,lights.length);lights.slice(0,4).forEach((l,i)=>{gl.uniform3f(st.uLightPositions[i],Number(l.posicao?.x)||0,Number(l.posicao?.y)||0,Number(l.posicao?.z)||0);gl.uniform3f(st.uLightDirections[i],Number(l.direcao?.x)||0,Number(l.direcao?.y)||0,Number(l.direcao?.z)||1);gl.uniform1f(st.uLightIntensities[i],Number(l.intensidade)||0);gl.uniform1i(st.uLightTypes[i],l.tipo==='pontual'?1:0);});}else{gl.uniform1i(st.uLightCount,1);gl.uniform3f(st.uLightDirections[0],.5,.8,1);gl.uniform1f(st.uLightIntensities[0],1);gl.uniform1i(st.uLightTypes[0],0);}
+
   gl.uniform1f(st.uOpacity,1);gl.uniform1f(st.uTextureEnabled,0);gl.activeTexture(gl.TEXTURE0);gl.bindTexture(gl.TEXTURE_2D,null);
   /* C3 — referência espacial: grade no plano XZ e eixos na origem. */
-  if(st.gridBuffer && gemeo3DGridVisible){
+  if(st.gridBuffer && gemeo3DGridVisible && !(gemeo3DEditorMode==='cena'&&gemeo3DModelState?.configuracao?.navegacaoLivre)){
     gl.bindBuffer(gl.ARRAY_BUFFER,st.gridBuffer);
     gl.enableVertexAttribArray(st.aPosition);gl.vertexAttribPointer(st.aPosition,3,gl.FLOAT,false,24,0);
     gl.enableVertexAttribArray(st.aNormal);gl.vertexAttribPointer(st.aNormal,3,gl.FLOAT,false,24,12);
@@ -3732,7 +4415,7 @@ function renderGemeo3D(){
     gl.uniformMatrix4fv(st.uMVP,false,new Float32Array(gridMvp));
     gl.uniformMatrix4fv(st.uModel,false,new Float32Array(globalModel));
     /* A grade é discreta; os últimos 6 vértices são os três eixos. */
-    gl.uniform3f(st.uColor,.14,.17,.25);
+    gl.uniform3f(st.uColor,.68,.71,.77);
     gl.drawArrays(gl.LINES,0,52);
     gl.uniform3f(st.uColor,.98,.48,.70);
     gl.drawArrays(gl.LINES,52,2);
@@ -3766,7 +4449,7 @@ function renderGemeo3D(){
     const materialColor=material?gemeo3DNormalizeMaterialColor(material.propriedades?.cor):null;
     const materialOpacity=material?Math.max(0,Math.min(1,Number(material.propriedades?.opacidade??1))):1;
     const texture=material?gemeo3DGetWebGLTexture(material):null;
-    const customColor=gemeo3DEditorMode==='personagem'?(gemeo3DModelState?.aparencia?.componentes?.[c.id]?.cor||gemeo3DModelState?.aparencia?.propriedades?.corBase||null):null;
+    const customColor=gemeo3DEditorMode==='personagem'?(gemeo3DModelState?.aparencia?.componentes?.[c.id]?.cor||gemeo3DModelState?.aparencia?.propriedades?.corBase||null):(gemeo3DEditorMode==='cena'?(c.corVisual||null):null);
     const isTransparent=!selected&&materialOpacity<.999;
     gl.depthMask(!isTransparent);
     gl.uniform1f(st.uOpacity,selected?1:materialOpacity);
